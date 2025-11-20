@@ -1,0 +1,67 @@
+{
+    "fonts": [
+        {
+            "name": "Inter",
+            "display": true,
+            "family": "Inter",
+            "weights": [400, 500, 600, 700],
+            "googleFontsName": "Inter"
+        },
+        {
+            "name": "Space Grotesk",
+            "display": true,
+            "family": "Space Grotesk",
+            "weights": [500, 600, 700],
+            "googleFontsName": "Space+Grotesk"
+        },
+        {
+            "name": "Roboto",
+            "display": true,
+            "family": "Roboto",
+            "weights": [400, 500, 700],
+            "googleFontsName": "Roboto"
+        },
+        {
+            "name": "Open Sans",
+            "display": true,
+            "family": "Open Sans",
+            "weights": [400, 600, 700],
+            "googleFontsName": "Open+Sans"
+        },
+        {
+            "name": "Lato",
+            "display": true,
+            "family": "Lato",
+            "weights": [400, 700],
+            "googleFontsName": "Lato"
+        },
+        {
+            "name": "Montserrat",
+            "display": true,
+            "family": "Montserrat",
+            "weights": [400, 600, 700],
+            "googleFontsName": "Montserrat"
+        },
+        {
+            "name": "Ubuntu",
+            "display": true,
+            "family": "Ubuntu",
+            "weights": [400, 500, 700],
+            "googleFontsName": "Ubuntu"
+        },
+        {
+            "name": "Poppins",
+            "display": false,
+            "family": "Poppins",
+            "weights": [400, 500, 600, 700],
+            "googleFontsName": "Poppins"
+        },
+        {
+            "name": "Source Sans 3",
+            "display": false,
+            "family": "Source Sans 3",
+            "weights": [400, 600, 700],
+            "googleFontsName": "Source+Sans+3"
+        }
+    ]
+}

@@ -1,0 +1,111 @@
+{
+    "accent": [
+        {
+            "name": "Viridian",
+            "display": true,
+            "accent": "#10b981",
+            "accent_dark": "#059669",
+            "accent_darker": "#047857",
+            "accent_light": "#34d399",
+            "accent_lighter": "#64e6b4",
+            "text_accent": "#ffffff"
+        },
+        {
+            "name": "Emerald",
+            "display": true,
+            "accent": "#16a085",
+            "accent_dark": "#0a7864",
+            "accent_darker": "#076454",
+            "accent_light": "#1db394",
+            "accent_lighter": "#24c9a8",
+            "text_accent": "#ffffff"
+        },
+        {
+            "name": "Amethyst",
+            "display": true,
+            "accent": "#8254f7",
+            "accent_dark": "#6b3df5",
+            "accent_darker": "#5522f3",
+            "accent_light": "#9771f9",
+            "accent_lighter": "#b299fb",
+            "text_accent": "#ffffff"
+        }
+
+    ],
+    "light": [
+        {
+            "name": "Balanced",
+            "display": true,
+            "bg": "#f0ede5",
+            "card":"#dcd9ce",
+            "highlight": "#e5e2d9",
+            "text": "#1c1917",
+            "text_muted": "#57534e"
+        },
+        {
+            "name": "Soft",
+            "display": true,
+            "bg": "#f2f0eb",
+            "card":"#dddad2",
+            "highlight": "#e8e5de",
+            "text": "#1c1917",
+            "text_muted": "#57534e"
+        },
+        {
+            "name": "Matte",
+            "display": true,
+            "bg": "#ebe8e0",
+            "card":"#d6d3c8",
+            "highlight": "#e0ddd5",
+            "text": "#1c1917",
+            "text_muted": "#57534e"
+        },
+        {
+            "name": "Sepia",
+            "display": true,
+            "bg": "#e8e4d8",
+            "card":"#d3cfc0",
+            "highlight": "#ddd9cd",
+            "text": "#1c1917",
+            "text_muted": "#57534e"
+        }
+    ],
+    "dark": [
+        {
+            "name": "Deep",
+            "display": true,
+            "bg": "#252825",
+            "card":"#1a1d1a",
+            "highlight": "#2f342f",
+            "text": "#f5f5f4",
+            "text_muted": "#a8a29e"
+        },
+        {
+            "name": "2",
+            "display": false,
+            "bg": "",
+            "card":"",
+            "highlight": "",
+            "text": "",
+            "text_muted": ""
+        },
+        {
+            "name": "3",
+            "display": false,
+            "bg": "",
+            "card":"",
+            "highlight": "",
+            "text": "",
+            "text_muted": ""
+        },
+        {
+            "name": "4",
+            "display": false,
+            "bg": "",
+            "card":"",
+            "highlight": "",
+            "text": "",
+            "text_muted": ""
+        }
+    ]
+}
