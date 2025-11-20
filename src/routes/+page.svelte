@@ -457,46 +457,6 @@
 </div>
 
 <style>
-    /* Default Palette: Balanced Spinach */
-    :root {
-        /* Accent */
-        --accent: #10b981;
-        --accent-dark: #059669;
-        --accent-darker: #047857;
-        --accent-light: #34d399;
-        --accent-lighter: #64e6b4;
-        --text-accent: #ffffff;
-
-        /* Tone */
-        --bg: #252825;
-        --card: #1a1d1a;
-        --highlight: #2f342f;
-        --text: #f5f5f4;
-        --text-muted: #a8a29e;
-
-        /* Typography */
-        --font-body: 'Inter', sans-serif;
-        --font-heading: 'Space Grotesk', sans-serif;
-
-        /* Overlay */
-        --overlay-pics-dark: rgba(37, 40, 37, 0.45);
-        --overlay--pics-light: rgba(220, 217, 206, 0.75);
-        --overlay-dark: rgba(0, 0, 0, 0.1);
-        --overlay-light: rgba(255,255,255,0.2);
-
-        /*shadows*/
-        --overlay-dark: rgba(220, 217, 206, 0.75);
-        --shadows-light: rgba(37, 40, 37, 0.45);
-    }
-
-    .tester-container {
-        font-family: var(--font-body);
-        background: var(--bg);
-        color: var(--text);
-        transition: background-color 0.3s, color 0.3s;
-        font-size: 14px;
-    }
-
     /* Typography */
     h1, h2, h3, h4, h5, h6 {
         font-family: var(--font-heading);
@@ -595,6 +555,14 @@
         max-width: 1400px;
         margin: 0 auto;
         padding: 200px 40px 40px;
+    }
+
+    .tester-container {
+        font-family: var(--font-body);
+        background: var(--bg);
+        color: var(--text);
+        transition: background-color 0.3s, color 0.3s;
+        font-size: 14px;
     }
 
     /* Demo Sections */
