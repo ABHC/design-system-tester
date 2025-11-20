@@ -5,14 +5,20 @@
     
     import { getFontFamilyValue } from "$lib/utils/fontLoader";
     import { onMount } from 'svelte';
-    import palettes from "$lib/data/palettes.json" assert { type: 'json' };
-    import stored_fonts from "$lib/data/fonts.json" assert { type: 'json' };
+    import palettes from "$lib/data/palettes.json";
+    import stored_fonts from "$lib/data/fonts.json";
+
+    import { 
+        trans,
+        locale
+    } from './store';
 
     let selected_tone = $state<'light' | 'dark'>('dark');
     let accent_index = $state(0);
     let tone_index = $state(0);
     let body_font_index = $state(0);
     let title_font_index = $state(1);
+    let display_panel:boolean = $state(false);
 
     // Derived data filtered according to display status
     let accent_palettes: AccentTheme[] = $derived(palettes.accent.filter(a => a.display));
@@ -24,7 +30,7 @@
     let selected_body_font: FontConfig = $derived(available_fonts[body_font_index]);
     let selected_title_font: FontConfig = $derived(available_fonts[title_font_index]);
 
-    // reactive constrast calculus
+    // reactive contrast calculus
     let contrast_txt_bg = $derived(getContrastRatio(selected_palette.text, selected_palette.bg));
     let contrast_txt_card = $derived(getContrastRatio(selected_palette.text, selected_palette.card));
     let contrast_accent = $derived(getContrastRatio(selected_accent.accent, selected_accent.text_accent));
@@ -43,8 +49,8 @@
         '--accent-light': selected_accent.accent_light,
         '--accent-lighter': selected_accent.accent_lighter,
         '--text-accent': selected_accent.text_accent,
-        '--font-body': selected_body_font.name,
-        '--font-heading': selected_title_font.name
+        '--font-body': `'${selected_body_font.family}', sans-serif`,
+        '--font-heading': `'${selected_title_font.family}', sans-serif`
     });
 
     $effect(() => {
@@ -55,7 +61,6 @@
 
     function setTone(tone: "light" | "dark") {
         selected_tone = tone;
-        tone_palettes = palettes[tone];
         tone_index = 0;
     }
 
@@ -95,16 +100,11 @@
     });
 </script>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<svelte:head>
     <title>Design System Tester - Épinard</title>
-    <!--<link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Roboto:wght@400;500;700&family=Open+Sans:wght@400;600;700&family=Lato:wght@400;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">--> 
-</head>
+</svelte:head>
 
-<body>
+<div class="tester-container">
     <!-- Control Panel -->
     <div class="control-panel">
         <div class="controls-grid">
@@ -113,8 +113,8 @@
             <div class="control-group">
                 <div class="control-label">Thème</div>
                 <div class="btn-group">
-                    <button class="control-btn" onclick={() => setTone("light")}>☀️ Clair</button>
-                    <button class="control-btn active" onclick={() => setTone("dark")}>🌙 Sombre</button>
+                    <button class="control-btn {selected_tone === 'light' ? 'active' : ''}" onclick={() => setTone("light")}>☀️ Clair</button>
+                    <button class="control-btn {selected_tone === 'dark' ? 'active' : ''}" onclick={() => setTone("dark")}>🌙 Sombre</button>
                 </div>
             </div>
             
@@ -125,6 +125,21 @@
                     {#each tone_palettes as palette, index}
                         <button 
                             class="control-btn {selected_palette.name === palette.name ? 'active' : ''}" 
+                            onclick={() => tone_index = index}
+                        >
+                            {palette.name}
+                        </button>
+                    {/each}
+                </div>
+            </div>
+
+            <!-- Palette Controls -->
+            <div class="control-group">
+                <div class="control-label">Accent</div>
+                <div class="btn-group">
+                    {#each accent_palettes as palette, index}
+                        <button 
+                            class="control-btn {selected_accent.name === palette.name ? 'active' : ''}" 
                             onclick={() => accent_index = index}
                         >
                             {palette.name}
@@ -184,47 +199,122 @@
         <div class="demo-section">
             <div class="section-title">🎨 Palette de couleurs</div>
             <div class="swatch-grid">
-                <div class="swatch" id="swatch-bg" style="border: 2px solid var(--highlight);">
+                <div 
+                    class="swatch" 
+                    style="border: 2px solid var(--highlight);"
+                >
                     <div class="swatch-header">
                         <div class="swatch-label">Background</div>
                         <div class="swatch-var">--bg</div>
                     </div>
-                    <div class="swatch-hex" id="hex-bg"></div>
+                    <div 
+                        class="swatch-hex"
+                        style="background: var(--overlay-dark);"
+                    >
+                        {selected_palette.bg}
+                    </div>
                 </div>
-                <div class="swatch" id="swatch-card">
+                <div 
+                    class="swatch" 
+                    style="background: var(--card);"
+                >
                     <div class="swatch-header">
                         <div class="swatch-label">Card</div>
                         <div class="swatch-var">--card</div>
                     </div>
-                    <div class="swatch-hex" id="hex-card"></div>
+                    <div 
+                        class="swatch-hex"
+                        style="background: var(--overlay-dark);"
+                    >
+                        {selected_palette.card}
+                    </div>
                 </div>
-                <div class="swatch" id="swatch-highlight">
+                <div 
+                    class="swatch"
+                    style="background: var(--highlight);"
+                >
                     <div class="swatch-header">
                         <div class="swatch-label">Highlight</div>
                         <div class="swatch-var">--highlight</div>
                     </div>
-                    <div class="swatch-hex" id="hex-highlight"></div>
+                    <div 
+                        class="swatch-hex"
+                        style="background: var(--overlay-dark);"
+                    >
+                        {selected_palette.highlight}
+                    </div>
                 </div>
                 <div class="swatch" style="background: var(--accent); color: var(--text-accent);">
                     <div class="swatch-header">
                         <div class="swatch-label">Accent</div>
                         <div class="swatch-var">--accent</div>
                     </div>
-                    <div class="swatch-hex" style="background: rgba(255,255,255,0.2);">#10b981</div>
+                    <div 
+                        class="swatch-hex" 
+                        style="background: var(--overlay-light);"
+                    >
+                        {selected_accent.accent}
+                    </div>
                 </div>
-                <div class="swatch" style="background: var(--accent-dark); color: var(--text-accent);">
+                <div 
+                    class="swatch" 
+                    style="background: var(--accent-dark); color: var(--text-accent);"
+                >
                     <div class="swatch-header">
                         <div class="swatch-label">Accent Dark</div>
                         <div class="swatch-var">--accent-dark</div>
                     </div>
-                    <div class="swatch-hex" style="background: rgba(255,255,255,0.2);">#059669</div>
+                    <div 
+                        class="swatch-hex" 
+                        style="background: var(--overlay-light);"
+                    >
+                        {selected_accent.accent_dark}
+                    </div>
                 </div>
-                <div class="swatch" style="background: var(--accent-darker); color: var(--text-accent);">
+                <div 
+                    class="swatch" 
+                    style="background: var(--accent-darker); color: var(--text-accent);"
+                >
                     <div class="swatch-header">
                         <div class="swatch-label">Accent Darker</div>
                         <div class="swatch-var">--accent-darker</div>
                     </div>
-                    <div class="swatch-hex" style="background: rgba(255,255,255,0.2);">#047857</div>
+                    <div 
+                        class="swatch-hex" 
+                        style="background: var(--overlay-light);"
+                    >
+                        {selected_accent.accent_darker}
+                    </div>
+                </div>
+                <div 
+                    class="swatch" 
+                    style="background: var(--accent-light); color: var(--text-accent);"
+                >
+                    <div class="swatch-header">
+                        <div class="swatch-label">Accent Light</div>
+                        <div class="swatch-var">--accent-light</div>
+                    </div>
+                    <div 
+                        class="swatch-hex" 
+                        style="background: var(--overlay-light);"
+                    >
+                        {selected_accent.accent_light}
+                    </div>
+                </div>
+                <div 
+                    class="swatch" 
+                    style="background: var(--accent-lighter); color: var(--text-accent);"
+                >
+                    <div class="swatch-header">
+                        <div class="swatch-label">Accent Lighter</div>
+                        <div class="swatch-var">--accent-lighter</div>
+                    </div>
+                    <div 
+                        class="swatch-hex" 
+                        style="background: var(--overlay-light);"
+                    >
+                        {selected_accent.accent_lighter}
+                    </div>
                 </div>
             </div>
         </div>
@@ -306,7 +396,7 @@
         <!-- Forms -->
         <div class="demo-section">
             <div class="section-title">📋 Formulaires</div>
-            <div class="card" style="max-width: 600px;">
+            <div class="card card-form">
                 <div class="form-group">
                     <label class="form-label">Nom</label>
                     <input type="text" class="form-input" placeholder="Votre nom">
@@ -342,27 +432,19 @@
                 <div class="contrast-grid">
                     <div class="contrast-item">
                         <div>Texte / Background</div>
-                        <div class="contrast-value" id="contrast-text-bg">-
-                            {contrast_txt_bg}:1
-                        </div>
+                        <div class="contrast-value">{contrast_txt_bg}:1</div>
                     </div>
                     <div class="contrast-item">
                         <div>Texte / Card</div>
-                        <div class="contrast-value" id="contrast-text-card">
-                            {contrast_txt_card}:1
-                        </div>
+                        <div class="contrast-value">{contrast_txt_card}:1</div>
                     </div>
                     <div class="contrast-item">
                         <div>Accent / Text Accent</div>
-                        <div class="contrast-value" id="contrast-accent">
-                            {contrast_accent}:1
-                        </div>
+                        <div class="contrast-value">{contrast_accent}:1</div>
                     </div>
                     <div class="contrast-item">
                         <div>Card / Background</div>
-                        <div class="contrast-value" id="contrast-card-bg">
-                            {contrast_card_bg}:1
-                        </div>
+                        <div class="contrast-value">{contrast_card_bg}:1</div>
                     </div>
                 </div>
                 <p style="margin-top: 15px; font-size: 13px; color: var(--text-muted);">
@@ -372,7 +454,7 @@
             </div>
         </div>
     </div>
-</body>
+</div>
 
 <style>
     /* Default Palette: Balanced Spinach */
@@ -397,11 +479,17 @@
         --font-heading: 'Space Grotesk', sans-serif;
 
         /* Overlay */
-        --overlay: rgba(37, 40, 37, 0.45);
-        --overlay-light: rgba(220, 217, 206, 0.75);
+        --overlay-pics-dark: rgba(37, 40, 37, 0.45);
+        --overlay--pics-light: rgba(220, 217, 206, 0.75);
+        --overlay-dark: rgba(0, 0, 0, 0.1);
+        --overlay-light: rgba(255,255,255,0.2);
+
+        /*shadows*/
+        --overlay-dark: rgba(220, 217, 206, 0.75);
+        --shadows-light: rgba(37, 40, 37, 0.45);
     }
 
-    body {
+    .tester-container {
         font-family: var(--font-body);
         background: var(--bg);
         color: var(--text);
@@ -552,6 +640,14 @@
         color: var(--text-muted);
     }
 
+    .card-form {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        max-width: 600px;
+    }
+
     /* Buttons */
     .button {
         display: inline-block;
@@ -626,6 +722,9 @@
     /* Forms */
     .form-group {
         margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
     }
 
     .form-label {
@@ -636,7 +735,6 @@
     }
 
     .form-input {
-        width: 100%;
         padding: 12px;
         border: 2px solid var(--highlight);
         background: var(--bg);
@@ -728,7 +826,7 @@
         font-size: 13px;
         font-weight: 700;
         padding: 6px 10px;
-        background: rgba(0,0,0,0.1);
+        background: rgba(0, 0, 0, 0.1);
         border-radius: 4px;
         text-align: center;
     }

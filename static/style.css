@@ -1,0 +1,47 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    background: var(--bg);
+}
+
+body {
+    margin-top: 68px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+:root {
+    /* Accent */
+    --accent: #10b981;
+    --accent-dark: #059669;
+    --accent-darker: #047857;
+    --accent-light: #34d399;
+    --accent-lighter: #64e6b4;
+    --text-accent: #ffffff;
+
+    /* Tone */
+    --bg: #252825;
+    --card: #1a1d1a;
+    --highlight: #2f342f;
+    --text: #f5f5f4;
+    --text-muted: #a8a29e;
+
+    /* Typography */
+    --font-body: 'Inter', sans-serif;
+    --font-heading: 'Space Grotesk', sans-serif;
+
+    /* Overlay */
+    --overlay-pics-dark: rgba(37, 40, 37, 0.45);
+    --overlay--pics-light: rgba(220, 217, 206, 0.75);
+    --overlay-dark: rgba(0, 0, 0, 0.1);
+    --overlay-light: rgba(255,255,255,0.2);
+
+    /*shadows*/
+    --overlay-dark: rgba(220, 217, 206, 0.75);
+    --shadows-light: rgba(37, 40, 37, 0.45);
+}
