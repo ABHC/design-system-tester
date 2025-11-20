@@ -528,14 +528,16 @@
     /* Control Panel */
     .control-panel {
         position: fixed;
-        top: 0;
+        top: 100px; 
         left: 0;
         right: 0;
         background: var(--card);
         padding: 20px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        z-index: 1000;
-        border-bottom: 2px solid var(--highlight);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 99; 
+        border-bottom: 2px solid var(--accent-lighter);
+        overflow-y: auto;
+        max-height: calc(100vh - 100px); 
     }
 
     .controls-grid {
@@ -592,7 +594,7 @@
     .content {
         max-width: 1400px;
         margin: 0 auto;
-        padding: 180px 40px 40px;
+        padding: 200px 40px 40px;
     }
 
     /* Demo Sections */

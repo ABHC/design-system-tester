@@ -134,17 +134,17 @@
         <h1 id="name">{$trans?.header.project.toUpperCase()}</h1>
     </div>
 
-    <select 
-        aria-label="Select language"
-        class="local-select"
-        bind:value={$locale}
-    >
-        {#each locales as lang}
-            <option value={lang}>{getFlagEmoji(lang)} {lang.toUpperCase()}</option>
-        {/each}
-    </select>
-    
     <div id="logo-container">
+        <select 
+            aria-label="Select language"
+            class="local-select"
+            bind:value={$locale}
+        >
+            {#each locales as lang}
+                <option value={lang}>{getFlagEmoji(lang)} {lang.toUpperCase()}</option>
+            {/each}
+        </select>
+
         <img id="logo" src="Logo_Epinard2.svg" alt={$trans?.header.logo_btn}/>
     </div>
 </header>
@@ -199,8 +199,10 @@
     }
 
     header {
-        /*position: absolute;
-        top: 0;*/
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
         width: 100%;
         height: 100px;
         display: flex;
@@ -208,54 +210,88 @@
         align-items: center;
         background-color: var(--card);
         padding: 0px var(--side-margin) 0px var(--side-margin);
+        color: var(--text);
+        font-family: 'Space Grotesk', sans-serif;
+        border-bottom: 4px solid var(--accent-lighter);
+        z-index: 50;
+        padding: 0 100px;
+    }
+
+    .title-container {
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        /*height: 5%;*/
-        color: #ffff;
-        font-family: Space-Grotesk, sans-serif;
-        border-bottom: 4px solid var(--highlight);
+    }
+
+    .tagline {
+        text-align: end;
     }
 
     header #name {
         font-weight: 900;
         text-transform: capitalize;
+        margin-left: 10px;
+    }
+
+    #logo-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 5;
+        height: 100%;
+        gap: 20px;
+    }
+
+    .local-select {
+        cursor: pointer;
+        color: var(--text);
+        font-family: 'Inter', sans-serif;
+        font-weight: bold;
+        border: 2px solid var(--accent);
+        border-radius: 6px;
+        background-color: transparent;
+        height: 40px;
+        padding: 8px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1;
+        transition: all 0.2s;
+    }
+
+    .local-select:hover {
+        background-color: var(--accent);
+    }
+
+    #logo {
+        height: 100%; 
+        width: auto; 
+        object-fit: contain;
+        transform: rotate(30deg);
+        padding: 6px;
+    }
+
+    main {
+        padding-top: 100px; /* Hauteur du header */
+        flex: 1;
     }
 
     footer {
         background-color: var(--accent);
-        position: relative;
-        bottom: 0;
         width: 100%;
         padding: 10px 3% 10px 3%;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        color: #ffff;
-        font-family: Inter, sans-serif;
-    }
-
-    .local-select {
-        cursor: pointer;
-        border: none;
-        border-radius: 6px;
-        background-color: transparent;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 1;
-    }
-
-    .local-select:hover {
-        background-color: #444;
+        color: var(--text-accent);
+        font-family: 'Inter', sans-serif;
+        margin-top: auto;
     }
 
     .social-links {
         display: flex;
         gap: 16px;
         justify-content: center;
-        /*padding: 10px 0;*/
     }
 
     .social-link {
