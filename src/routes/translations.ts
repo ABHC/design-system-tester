@@ -11,7 +11,15 @@ export const translations = {
             logo_btn: "Retour à l'accueil"
         },
         typo: {
-            title: "📝 Typographie"
+            title: "📝 Typographie",
+            h1: "Titre 1",
+            h2: "Titre 2",
+            h3: "Titre 3",
+            h4: "Titre 4",
+            h5: "Titre 5",
+            h6: "Titre 6",
+            lead: "Texte introductif",
+            body: "Corps de texte"
         },
         palette: {
             title: "🎨 Palette de couleurs"
@@ -22,6 +30,9 @@ export const translations = {
             secondary: "Bouton secondaire",
             ghost: "Bouton ghost", 
             badge: "badge",
+        },
+        cards: {
+            title: "🃏 Cartes",
         },
         nav: {
             title: "🧭 Navigation"
@@ -40,7 +51,13 @@ export const translations = {
             title: "📊 Informations de contraste",
             desc: "Ratios de contraste actuels (approximatifs) :",
             required1: "✅ WCAG AA requis: 4.5:1 pour texte normal, 3:1 pour texte large",
-            required2: "✅ WCAG AAA requis: 7:1 pour texte normal, 4.5:1 pour texte large"
+            required2: "✅ WCAG AAA requis: 7:1 pour texte normal, 4.5:1 pour texte large",
+            text: "Texte",
+            accent: "Accent",
+            text_accent: "Texte Accent",
+            background: "Background",
+            highlight: "Highlight",
+            card: "Card"
         },
         footer: {
             license: "Site sous licence GPLv3",
@@ -62,7 +79,15 @@ export const translations = {
             logo_btn: "Back to home"
         },
         typo: {
-            title: "📝 Typography"
+            title: "📝 Typography",
+            h1: "Heading 1",
+            h2: "Heading 2",
+            h3: "Heading 3",
+            h4: "Heading 4",
+            h5: "Heading 5",
+            h6: "Heading 6",
+            lead: "Lead text",
+            body: "Body text"
         },
         palette: {
             title: "🎨 Color palette"
@@ -73,6 +98,9 @@ export const translations = {
             secondary: "Secondary button", 
             ghost: "Ghost button",
             badge: "Badge",
+        },
+        cards: {
+            title: "🃏 Cards"
         },
         nav: {
             title: "🧭 Navigation"
@@ -91,7 +119,13 @@ export const translations = {
             title: "📊 Contrast information",
             desc: "Current contrast ratios (approximate):",
             required1: "✅ WCAG AA required: 4.5:1 for normal text, 3:1 for large text",
-            required2: "✅ WCAG AAA required: 7:1 for normal text, 4.5:1 for large text"
+            required2: "✅ WCAG AAA required: 7:1 for normal text, 4.5:1 for large text",
+            text: "Text",
+            accent: "Accent",
+            text_accent: "Text Accent",
+            background: "Background",
+            highlight: "Highlight",
+            card: "Card"
         },
         footer: {
             license: "Website under GPLv3 license",

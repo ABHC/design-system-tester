@@ -29,8 +29,57 @@
             "accent_light": "#9771f9",
             "accent_lighter": "#b299fb",
             "text_accent": "#ffffff"
+        },
+        {
+            "name": "Cyan Techno",
+            "display": true,
+            "accent": "#00d4ff",
+            "accent_dark": "#00a8cc",
+            "accent_darker": "#007a99",
+            "accent_light": "#4ddfff",
+            "accent_lighter": "#99ebff",
+            "text_accent": "#0a0e27"
+        },
+        {
+            "name": "Azure Pro",
+            "display": true,
+            "accent": "#0ea5e9",
+            "accent_dark": "#0284c7",
+            "accent_darker": "#0369a1",
+            "accent_light": "#38bdf8",
+            "accent_lighter": "#7dd3fc",
+            "text_accent": "#ffffff"
+        },
+        {
+            "name": "Solar Yellow",
+            "display": true,
+            "accent": "#fbbf24",
+            "accent_dark": "#f59e0b",
+            "accent_darker": "#d97706",
+            "accent_light": "#fcd34d",
+            "accent_lighter": "#fde68a",
+            "text_accent": "#1f1f1f"
+        },
+        {
+            "name": "Gold Warm",
+            "display": true,
+            "accent": "#f59e0b",
+            "accent_dark": "#d97706",
+            "accent_darker": "#b45309",
+            "accent_light": "#fbbf24",
+            "accent_lighter": "#fcd34d",
+            "text_accent": "#1f1f1f"
+        },
+        {
+            "name": "Sunset Orange",
+            "display": true,
+            "accent": "#fb923c",
+            "accent_dark": "#ea580c",
+            "accent_darker": "#c2410c",
+            "accent_light": "#fdba74",
+            "accent_lighter": "#fed7aa",
+            "text_accent": "#ffffff"
         }
-
     ],
     "light": [
         {
@@ -81,31 +130,58 @@
             "text_muted": "#a8a29e"
         },
         {
-            "name": "2",
-            "display": false,
-            "bg": "",
-            "card":"",
-            "highlight": "",
-            "text": "",
-            "text_muted": ""
+            "name": "Pure Black",
+            "display": true,
+            "bg": "#0d0d0d",
+            "card":"#1a1a1a",
+            "highlight": "#2a2a2a",
+            "text": "#ffffff",
+            "text_muted": "#b0b0b0"
         },
         {
-            "name": "3",
-            "display": false,
-            "bg": "",
-            "card":"",
-            "highlight": "",
-            "text": "",
-            "text_muted": ""
+            "name": "Void",
+            "display": true,
+            "bg": "#000000",
+            "card":"#0f0f0f",
+            "highlight": "#1f1f1f",
+            "text": "#ffffff",
+            "text_muted": "#a0a0a0"
         },
         {
-            "name": "4",
-            "display": false,
-            "bg": "",
-            "card":"",
-            "highlight": "",
-            "text": "",
-            "text_muted": ""
+            "name": "Midnight Blue",
+            "display": true,
+            "bg": "#0f1419",
+            "card":"#1a1f2e",
+            "highlight": "#252d3d",
+            "text": "#f5f5f7",
+            "text_muted": "#a8adb5"
+        },
+        {
+            "name": "Navy Deep",
+            "display": true,
+            "bg": "#11192b",
+            "card":"#1a2544",
+            "highlight": "#253047",
+            "text": "#f2f4f8",
+            "text_muted": "#a0aabb"
+        },
+        {
+            "name": "Slate Stone",
+            "display": true,
+            "bg": "#1e2a3a",
+            "card":"#2a3a4a",
+            "highlight": "#3a4a5a",
+            "text": "#f0f2f5",
+            "text_muted": "#a8b0b8"
+        },
+        {
+            "name": "Carbon",
+            "display": true,
+            "bg": "#1a1a1a",
+            "card":"#242424",
+            "highlight": "#353535",
+            "text": "#fafafa",
+            "text_muted": "#b0b0b0"
         }
     ]
 }

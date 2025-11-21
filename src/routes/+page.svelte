@@ -35,6 +35,8 @@
     let contrast_txt_card = $derived(getContrastRatio(selected_palette.text, selected_palette.card));
     let contrast_accent = $derived(getContrastRatio(selected_accent.accent, selected_accent.text_accent));
     let contrast_card_bg = $derived(getContrastRatio(selected_palette.card, selected_palette.bg));
+    let contrast_high_bg = $derived(getContrastRatio(selected_palette.highlight, selected_palette.bg));
+    let contrast_high_card = $derived(getContrastRatio(selected_palette.highlight, selected_palette.card));
 
     // reactive CSS variables
     const css_variables = $derived({
@@ -85,6 +87,12 @@
         const rgb1 = hexToRgb(color1);
         const rgb2 = hexToRgb(color2);
         
+        // Valid colors ? 
+        if (!rgb1 || !rgb2) {
+            throw new Error("Invalid color format provided");
+            // return a default value ? 
+        }
+
         const lum1 = getLuminance(rgb1.r, rgb1.g, rgb1.b);
         const lum2 = getLuminance(rgb2.r, rgb2.g, rgb2.b);
         
@@ -184,20 +192,24 @@
     <div class="content">
         <!-- Typography -->
         <div class="demo-section typography-demo">
-            <div class="section-title">📝 Typographie</div>
-            <h1>Heading 1 - Épinard Portfolio</h1>
-            <h2>Heading 2 - Designer & Développeur</h2>
-            <h3>Heading 3 - Projets récents</h3>
-            <h4>Heading 4 - Compétences techniques</h4>
-            <h5>Heading 5 - Technologies utilisées</h5>
-            <h6>Heading 6 - Détails supplémentaires</h6>
-            <p class="lead">Lead text - Introduction à mon travail et mes compétences en conception hardware et développement.</p>
-            <p>Body text - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+            <h2 class="section-title">{$trans?.typo.title}</h2>
+            <h1>{$trans?.typo.h1} - Épinard Portfolio</h1>
+            <h2>{$trans?.typo.h2} - Designer & Développeur</h2>
+            <h3>{$trans?.typo.h3} - Projets récents</h3>
+            <h4>{$trans?.typo.h4} - Compétences techniques</h4>
+            <h5>{$trans?.typo.h5} - Technologies utilisées</h5>
+            <h6>{$trans?.typo.h6}- Détails supplémentaires</h6>
+            <p class="lead">
+                {$trans?.typo.lead} - Introduction à mon travail et mes compétences en conception hardware et développement.
+            </p>
+            <p>
+                {$trans?.typo.body} - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+            </p>
         </div>
 
         <!-- Color Swatches -->
         <div class="demo-section">
-            <div class="section-title">🎨 Palette de couleurs</div>
+            <h2 class="section-title">{$trans?.palette.title}</h2>
             <div class="swatch-grid">
                 <div 
                     class="swatch" 
@@ -321,18 +333,18 @@
 
         <!-- Buttons -->
         <div class="demo-section">
-            <div class="section-title">🔘 Boutons</div>
+            <h2 class="section-title">{$trans?.buttons.title}</h2>
             <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                <button class="button button-primary">Bouton primaire</button>
-                <button class="button button-secondary">Bouton secondaire</button>
-                <button class="button button-ghost">Bouton ghost</button>
-                <span class="badge">Badge</span>
+                <button class="button button-primary">{$trans?.buttons.primary}</button>
+                <button class="button button-secondary">{$trans?.buttons.secondary}</button>
+                <button class="button button-ghost">{$trans?.buttons.ghost}</button>
+                <span class="badge">{$trans?.buttons.badge}</span>
             </div>
         </div>
 
         <!-- Cards -->
         <div class="demo-section">
-            <div class="section-title">🃏 Cartes</div>
+            <h2 class="section-title">{$trans?.cards.title}</h2>
             <div class="demo-grid">
                 <div class="card">
                     <div class="card-title">Projet Hardware - IoT Sensor</div>
@@ -383,7 +395,7 @@
 
         <!-- Navigation -->
         <div class="demo-section">
-            <div class="section-title">🧭 Navigation</div>
+            <h2 class="section-title">{$trans?.nav.title}</h2>
             <div class="nav-demo">
                 <div class="nav-item active">Accueil</div>
                 <div class="nav-item">Projets</div>
@@ -395,27 +407,27 @@
 
         <!-- Forms -->
         <div class="demo-section">
-            <div class="section-title">📋 Formulaires</div>
+            <h2 class="section-title">{$trans?.form.title}</h2>
             <div class="card card-form">
                 <div class="form-group">
-                    <label class="form-label">Nom</label>
-                    <input type="text" class="form-input" placeholder="Votre nom">
+                    <label for="name-input" class="form-label">{$trans?.form.name}</label>
+                    <input id="name-input" type="text" class="form-input" placeholder="Votre nom">
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Email</label>
-                    <input type="email" class="form-input" placeholder="votre.email@exemple.fr">
+                    <label for="email-input" class="form-label">{$trans?.form.email}</label>
+                    <input id="email-input" type="email" class="form-input" placeholder="votre.email@exemple.fr">
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Message</label>
-                    <textarea class="form-input" rows="4" placeholder="Votre message"></textarea>
+                    <label for="message-textarea" class="form-label">{$trans?.form.message}</label>
+                    <textarea id="message-textarea" class="form-input" rows="4" placeholder="Votre message"></textarea>
                 </div>
-                <button class="button button-primary">Envoyer</button>
+                <button class="button button-primary">{$trans?.form.send}</button>
             </div>
         </div>
 
         <!-- Alerts -->
         <div class="demo-section">
-            <div class="section-title">⚠️ Alertes</div>
+            <h2 class="section-title">{$trans?.alerts.title}</h2>
             <div class="alert alert-success">
                 ✅ Votre message a été envoyé avec succès !
             </div>
@@ -426,30 +438,38 @@
 
         <!-- Contrast Info -->
         <div class="demo-section">
-            <div class="section-title">📊 Informations de contraste</div>
+            <h2 class="section-title">{$trans?.contrast.title}</h2>
             <div class="contrast-info">
-                <p><strong>Ratios de contraste actuels (approximatifs) :</strong></p>
+                <p><strong>{$trans?.contrast.desc}</strong></p>
                 <div class="contrast-grid">
                     <div class="contrast-item">
-                        <div>Texte / Background</div>
+                        <div>{$trans?.contrast.text} / {$trans?.contrast.background}</div>
                         <div class="contrast-value">{contrast_txt_bg}:1</div>
                     </div>
                     <div class="contrast-item">
-                        <div>Texte / Card</div>
+                        <div>{$trans?.contrast.text} / {$trans?.contrast.card}</div>
                         <div class="contrast-value">{contrast_txt_card}:1</div>
                     </div>
                     <div class="contrast-item">
-                        <div>Accent / Text Accent</div>
+                        <div>{$trans?.contrast.accent} / {$trans?.contrast.text_accent}</div>
                         <div class="contrast-value">{contrast_accent}:1</div>
                     </div>
                     <div class="contrast-item">
-                        <div>Card / Background</div>
+                        <div>{$trans?.contrast.card} / {$trans?.contrast.background}</div>
                         <div class="contrast-value">{contrast_card_bg}:1</div>
+                    </div>
+                    <div class="contrast-item">
+                        <div>{$trans?.contrast.highlight} / {$trans?.contrast.background}</div>
+                        <div class="contrast-value">{contrast_high_bg}:1</div>
+                    </div>
+                    <div class="contrast-item">
+                        <div>{$trans?.contrast.highlight} / {$trans?.contrast.card}</div>
+                        <div class="contrast-value">{contrast_high_card}:1</div>
                     </div>
                 </div>
                 <p style="margin-top: 15px; font-size: 13px; color: var(--text-muted);">
-                    ✅ WCAG AA requis: 4.5:1 pour texte normal, 3:1 pour texte large<br>
-                    ✅ WCAG AAA requis: 7:1 pour texte normal, 4.5:1 pour texte large
+                    {$trans?.contrast.required1}<br>
+                    {$trans?.contrast.required2}
                 </p>
             </div>
         </div>
@@ -571,8 +591,8 @@
     }
 
     .section-title {
-        font-size: 24px;
-        font-weight: 700;
+        /*font-size: 24px;
+        font-weight: 700;*/
         margin-bottom: 20px;
         color: var(--text);
     }

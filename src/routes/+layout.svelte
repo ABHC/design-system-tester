@@ -261,6 +261,7 @@
 
     .local-select:hover {
         background-color: var(--accent);
+        color: var(--text-accent);
     }
 
     #logo {
