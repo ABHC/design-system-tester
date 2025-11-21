@@ -13,6 +13,9 @@
         locale
     } from './store';
 
+    import { placeholders } from './placeholders';
+    import type { PlaceholderLocale } from './placeholders';
+
     let selected_tone = $state<'light' | 'dark'>('dark');
     let accent_index = $state(0);
     let tone_index = $state(0);
@@ -29,6 +32,9 @@
     let selected_palette: ToneTheme = $derived(tone_palettes[tone_index]);
     let selected_body_font: FontConfig = $derived(available_fonts[body_font_index]);
     let selected_title_font: FontConfig = $derived(available_fonts[title_font_index]);
+
+    // Derived placeholder data based on current locale
+    let lang_placeholders = $derived(placeholders[$locale as PlaceholderLocale] || placeholders.en);
 
     // reactive contrast calculus
     let contrast_txt_bg = $derived(getContrastRatio(selected_palette.text, selected_palette.bg));
@@ -193,17 +199,17 @@
         <!-- Typography -->
         <div class="demo-section typography-demo">
             <h2 class="section-title">{$trans?.typo.title}</h2>
-            <h1>{$trans?.typo.h1} - Épinard Portfolio</h1>
-            <h2>{$trans?.typo.h2} - Designer & Développeur</h2>
-            <h3>{$trans?.typo.h3} - Projets récents</h3>
-            <h4>{$trans?.typo.h4} - Compétences techniques</h4>
-            <h5>{$trans?.typo.h5} - Technologies utilisées</h5>
-            <h6>{$trans?.typo.h6}- Détails supplémentaires</h6>
+            <h1>{$trans?.typo.h1} - {lang_placeholders.typography.h1_context}</h1>
+            <h2>{$trans?.typo.h2} - {lang_placeholders.typography.h2_context}</h2>
+            <h3>{$trans?.typo.h3} - {lang_placeholders.typography.h3_context}</h3>
+            <h4>{$trans?.typo.h4} - {lang_placeholders.typography.h4_context}</h4>
+            <h5>{$trans?.typo.h5} - {lang_placeholders.typography.h5_context}</h5>
+            <h6>{$trans?.typo.h6} - {lang_placeholders.typography.h6_context}</h6>
             <p class="lead">
-                {$trans?.typo.lead} - Introduction à mon travail et mes compétences en conception hardware et développement.
+                {$trans?.typo.lead} - {lang_placeholders.typography.lead}
             </p>
             <p>
-                {$trans?.typo.body} - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+                {$trans?.typo.body} - {lang_placeholders.typography.body}
             </p>
         </div>
 
@@ -346,50 +352,27 @@
         <div class="demo-section">
             <h2 class="section-title">{$trans?.cards.title}</h2>
             <div class="demo-grid">
-                <div class="card">
-                    <div class="card-title">Projet Hardware - IoT Sensor</div>
-                    <div class="card-text">
-                        Conception d'un capteur IoT pour la surveillance environnementale. 
-                        Utilisation de FreeCAD et KiCAD pour la modélisation.
+                {#each lang_placeholders.cards.provinces as province, index}
+                    <div class="card">
+                        <div class="card-title">{province.name}</div>
+                        <div class="card-text">
+                            {province.description}
+                        </div>
+                        <div class="card-meta">
+                            <span class="badge">{province.badge}</span>
+                            <span style="margin-left: 10px;">{province.date}</span>
+                        </div>
+                        <div style="margin-top: 15px;">
+                            {#if index === 2}
+                                <button class="button button-ghost">{province.btn}</button>
+                            {:else if index === 1}
+                                <button class="button button-secondary">{province.btn}</button>
+                            {:else}
+                                <button class="button button-primary">{province.btn}</button>
+                            {/if}
+                        </div>
                     </div>
-                    <div class="card-meta">
-                        <span class="badge">Hardware</span>
-                        <span style="margin-left: 10px;">2024</span>
-                    </div>
-                    <div style="margin-top: 15px;">
-                        <button class="button button-primary">Voir le projet</button>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">Application Web - Dashboard</div>
-                    <div class="card-text">
-                        Développement d'un dashboard de monitoring en SvelteJS et TypeScript. 
-                        Backend FastAPI avec Docker.
-                    </div>
-                    <div class="card-meta">
-                        <span class="badge">Dev</span>
-                        <span style="margin-left: 10px;">2024</span>
-                    </div>
-                    <div style="margin-top: 15px;">
-                        <button class="button button-primary">Voir le projet</button>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">Open Source Contribution</div>
-                    <div class="card-text">
-                        Contributions à des projets libres de conception hardware et software. 
-                        Engagement pour l'Open Source.
-                    </div>
-                    <div class="card-meta">
-                        <span class="badge">OSS</span>
-                        <span style="margin-left: 10px;">En cours</span>
-                    </div>
-                    <div style="margin-top: 15px;">
-                        <button class="button button-secondary">Voir GitHub</button>
-                    </div>
-                </div>
+                {/each}
             </div>
         </div>
 
@@ -397,29 +380,62 @@
         <div class="demo-section">
             <h2 class="section-title">{$trans?.nav.title}</h2>
             <div class="nav-demo">
-                <div class="nav-item active">Accueil</div>
-                <div class="nav-item">Projets</div>
-                <div class="nav-item">Compétences</div>
-                <div class="nav-item">À propos</div>
-                <div class="nav-item">Contact</div>
+                {#each lang_placeholders.navigation.items as item}
+                    <div 
+                        class="nav-item {item === lang_placeholders.navigation.items[0] ? 'active' : ''}"
+                    >
+                        {item}
+                    </div>
+                {/each}
             </div>
         </div>
+
 
         <!-- Forms -->
         <div class="demo-section">
             <h2 class="section-title">{$trans?.form.title}</h2>
             <div class="card card-form">
                 <div class="form-group">
-                    <label for="name-input" class="form-label">{$trans?.form.name}</label>
-                    <input id="name-input" type="text" class="form-input" placeholder="Votre nom">
+                    <label 
+                        for="name-input" 
+                        class="form-label"
+                    >
+                        {$trans?.form.name}
+                    </label>
+                    <input 
+                        id="name-input" 
+                        type="text" 
+                        class="form-input" 
+                        placeholder={lang_placeholders.form.placeholder_name}
+                    >
                 </div>
                 <div class="form-group">
-                    <label for="email-input" class="form-label">{$trans?.form.email}</label>
-                    <input id="email-input" type="email" class="form-input" placeholder="votre.email@exemple.fr">
+                    <label 
+                        for="email-input" 
+                        class="form-label"
+                    >
+                        {$trans?.form.email}
+                    </label>
+                    <input 
+                        id="email-input" 
+                        type="email" 
+                        class="form-input" 
+                        placeholder={lang_placeholders.form.placeholder_email}
+                    >
                 </div>
                 <div class="form-group">
-                    <label for="message-textarea" class="form-label">{$trans?.form.message}</label>
-                    <textarea id="message-textarea" class="form-input" rows="4" placeholder="Votre message"></textarea>
+                    <label 
+                        for="message-textarea" 
+                        class="form-label"
+                    >
+                        {$trans?.form.message}
+                    </label>
+                    <textarea
+                        id="message-textarea" 
+                        class="form-input" 
+                        rows="4" 
+                        placeholder={lang_placeholders.form.placeholder_message}
+                    ></textarea>
                 </div>
                 <button class="button button-primary">{$trans?.form.send}</button>
             </div>
@@ -429,10 +445,10 @@
         <div class="demo-section">
             <h2 class="section-title">{$trans?.alerts.title}</h2>
             <div class="alert alert-success">
-                ✅ Votre message a été envoyé avec succès !
+                {lang_placeholders.alerts.success}
             </div>
             <div class="alert alert-info">
-                ℹ️ Cette fonctionnalité est en développement sous Linux avec Docker.
+                {lang_placeholders.alerts.info}
             </div>
         </div>
 
