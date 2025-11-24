@@ -10,6 +10,15 @@ export const translations = {
             name3: "Combe",
             logo_btn: "Retour à l'accueil"
         },
+        control: {
+            light: "☀️ Clair",
+            dark: "🌙 Sombre",
+            theme: "Thème",
+            palette: "Palette",
+            accent: "Couleur d'accent",
+            font_body: "Police - Corps de texte",
+            font_titles: "Police - Titres"
+        },
         typo: {
             title: "📝 Typographie",
             h1: "Titre 1",
@@ -77,6 +86,15 @@ export const translations = {
             name2: "Spinach",
             name3: "Combe",
             logo_btn: "Back to home"
+        },
+        control: {
+            light: "☀️ Light",
+            dark: "🌙 Dark",
+            theme: "Theme",
+            palette: "Palette",
+            accent: "Accent Color",
+            font_body: "Font - Body",
+            font_titles: "Font - Titles"
         },
         typo: {
             title: "📝 Typography",
