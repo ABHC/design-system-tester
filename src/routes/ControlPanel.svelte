@@ -35,10 +35,8 @@
         on_title_font_change
     }: Props = $props();
 
-    import { 
-        trans,
-        locale
-    } from './store';
+    import { trans } from './store';
+    import ItemsDisplay from "./ItemsDisplay.svelte";
 </script>
 
 <!-- Control Panel -->
@@ -67,61 +65,41 @@
         <!-- Palette Controls -->
         <div class="control-group">
             <div class="control-label">{$trans?.control.palette.toUpperCase()}</div>
-            <div class="btn-group">
-                {#each tone_palettes as palette, index}
-                    <button 
-                        class="control-btn {selected_palette.name === palette.name ? 'active' : ''}" 
-                        onclick={() => on_tone_index_change(index)}
-                    >
-                        {palette.name}
-                    </button>
-                {/each}
-            </div>
+            <ItemsDisplay
+                items = {tone_palettes}
+                selected = {selected_palette}
+                on_item_change = {on_tone_index_change}
+            />
         </div>
 
         <!-- Accent Controls -->
         <div class="control-group">
             <div class="control-label">{$trans?.control.accent.toUpperCase()}</div>
-            <div class="btn-group">
-                {#each accent_palettes as palette, index}
-                    <button 
-                        class="control-btn {selected_accent.name === palette.name ? 'active' : ''}" 
-                        onclick={() => on_accent_index_change(index)}
-                    >
-                        {palette.name}
-                    </button>
-                {/each}
-            </div>
+            <ItemsDisplay
+                items = {accent_palettes}
+                selected = {selected_accent}
+                on_item_change = {on_accent_index_change}
+            />
         </div>
         
         <!-- Body Fonts Controls -->
         <div class="control-group">
             <div class="control-label">{$trans?.control.font_body.toUpperCase()}</div>
-            <div class="btn-group">
-                {#each available_fonts as font, index}
-                    <button 
-                        class="control-btn {selected_body_font.name === font.name ? 'active' : ''}" 
-                        onclick={() => on_body_font_change(index)}
-                    >
-                        {font.name}
-                    </button>
-                {/each}
-            </div>
+            <ItemsDisplay
+                items = {available_fonts}
+                selected = {selected_body_font}
+                on_item_change = {on_body_font_change}
+            />
         </div>
         
         <!-- Titles Fonts Controls -->
         <div class="control-group">
             <div class="control-label">{$trans?.control.font_titles.toUpperCase()}</div>
-            <div class="btn-group">
-                {#each available_fonts as font, index}
-                    <button 
-                        class="control-btn {selected_title_font.name === font.name ? 'active' : ''}" 
-                        onclick={() => on_title_font_change(index)}
-                    >
-                        {font.name}
-                    </button>
-                {/each}
-            </div>
+            <ItemsDisplay
+                items = {available_fonts}
+                selected = {selected_title_font}
+                on_item_change = {on_title_font_change}
+            />
         </div>
     </div>
 </div>
@@ -134,20 +112,25 @@
         left: 0;
         right: 0;
         background: var(--card);
-        padding: 20px;
+        padding: 20px 100px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         z-index: 99; 
         border-bottom: 2px solid var(--accent-lighter);
         overflow-y: auto;
-        max-height: calc(100vh - 100px); 
+        max-height: calc(100vh - 100px);
     }
 
     .controls-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 15px;
+        gap: 20px;
         max-width: 1400px;
         margin: 0 auto;
+        /*display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        gap: 20px;*/
     }
 
     .control-group {

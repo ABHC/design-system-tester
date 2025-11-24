@@ -10,7 +10,6 @@
 		window_width,
 		window_height,
         responsive,
-        languages_aria_label
 	} from './store';
     
     let googleFontsUrl = $state('');

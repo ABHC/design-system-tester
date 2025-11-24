@@ -10,24 +10,6 @@ import type { Locale, Translation } from "$lib/types/translations";
 export const locale: Writable<Locale> = writable('en');
 export const trans: Writable<Translation | null> = writable(null);
 
-export const languages_aria_label = derived(
-    [locale, trans], 
-    ([$locale, $trans]) => {
-        if (!$trans?.menu?.available_languages) {
-            return 'Language selector';
-        }
-        
-        const availableLanguagesText = $trans.menu.available_languages;
-        
-        // Utilise availableLocales importé
-        const allLanguageNames = available_locales
-            .map(locale => translations[locale]?.language_name)
-            .filter((name): name is string => Boolean(name));
-        
-        return `${availableLanguagesText}: ${allLanguageNames.join(', ')}`;
-    }
-);
-
 /* -----------------------------------------
  * Global Stores
  * ----------------------------------------- */

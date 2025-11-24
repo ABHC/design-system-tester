@@ -83,6 +83,15 @@
     ],
     "light": [
         {
+            "name": "Sepia",
+            "display": true,
+            "bg": "#e8e4d8",
+            "card":"#d0c9b8",
+            "highlight": "#d9d2c1",
+            "text": "#1c1917",
+            "text_muted": "#57534e"
+        },
+        {
             "name": "Balanced",
             "display": true,
             "bg": "#f0ede5",
@@ -110,22 +119,40 @@
             "text_muted": "#57534e"
         },
         {
-            "name": "Sepia",
-            "display": true,
+            "name": "Old Sepia",
+            "display": false,
             "bg": "#e8e4d8",
             "card":"#d3cfc0",
             "highlight": "#ddd9cd",
+            "text": "#1c1917",
+            "text_muted": "#57534e"
+        },
+        {
+            "name": "Vanilla Cream",
+            "display": false,
+            "bg": "#f5f3f0",
+            "card":"#e8e5e0",
+            "highlight": "#ede9e4",
             "text": "#1c1917",
             "text_muted": "#57534e"
         }
     ],
     "dark": [
         {
-            "name": "Deep",
-            "display": true,
+            "name": "Old Deep",
+            "display": false,
             "bg": "#252825",
             "card":"#1a1d1a",
             "highlight": "#2f342f",
+            "text": "#f5f5f4",
+            "text_muted": "#a8a29e"
+        },
+        {
+            "name": "Deep",
+            "display": true,
+            "bg": "#1a1917",
+            "card":"#2d2a25",
+            "highlight": "#3a3732",
             "text": "#f5f5f4",
             "text_muted": "#a8a29e"
         },

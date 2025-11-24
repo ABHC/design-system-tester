@@ -17,7 +17,9 @@ export const translations = {
             palette: "Palette",
             accent: "Couleur d'accent",
             font_body: "Police - Corps de texte",
-            font_titles: "Police - Titres"
+            font_titles: "Police - Titres", 
+            more: "Voir plus",
+            less: "Voir moins"
         },
         typo: {
             title: "📝 Typographie",
@@ -94,7 +96,9 @@ export const translations = {
             palette: "Palette",
             accent: "Accent Color",
             font_body: "Font - Body",
-            font_titles: "Font - Titles"
+            font_titles: "Font - Titles",
+            more: "See more",
+            less: "See less"
         },
         typo: {
             title: "📝 Typography",

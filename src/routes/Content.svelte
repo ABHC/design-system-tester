@@ -319,7 +319,7 @@
     .content {
         max-width: 1400px;
         margin: 0 auto;
-        padding: 250px 40px 40px;
+        padding: 200px 40px 40px;
     }
 
     /* Demo Sections */
