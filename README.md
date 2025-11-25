@@ -41,9 +41,9 @@ src/
 │   ├── ControlPanel.svelte       # Panneau de contrôle (état root)
 │   ├── ItemsDisplay.svelte       # Composant réutilisable pour listes d'items
 │   ├── Content.svelte            # Contenu principal (démo système)
-│   ├── store.ts                  # Stores Svelte (locale, responsive)
+│   ├── store.ts                  # Stores Svelte
 │   ├── translations.ts           # Traductions FR/EN
-│   └── placeholders.ts           # Contenu placeholder avec données romaines
+│   └── placeholders.ts           # Contenu placeholder
 ├── lib/
 │   ├── data/
 │   │   ├── fonts.json            # Configuration des polices Google Fonts
@@ -141,7 +141,7 @@ Preconnexion automatique pour performance.
 
 Actuellement supportées : **Français** et **Anglais**
 
-Les textes dynamiques sont gérés via `translations.ts` et les placeholders structurés via `placeholders.ts` (contenu thématique romain amusant).
+Les textes dynamiques sont gérés via `translations.ts` et les placeholders structurés via `placeholders.ts`.
 
 ### Accessibilité
 
@@ -204,9 +204,9 @@ src/
 │   ├── ControlPanel.svelte       # Control panel (root state)
 │   ├── ItemsDisplay.svelte       # Reusable component for item lists
 │   ├── Content.svelte            # Main content (system demo)
-│   ├── store.ts                  # Svelte stores (locale, responsive)
+│   ├── store.ts                  # Svelte stores
 │   ├── translations.ts           # FR/EN translations
-│   └── placeholders.ts           # Placeholder content with Roman data
+│   └── placeholders.ts           # Placeholder content
 ├── lib/
 │   ├── data/
 │   │   ├── fonts.json            # Google Fonts configuration
@@ -304,7 +304,7 @@ Automatic preconnection for performance.
 
 Currently supported: **French** and **English**
 
-Dynamic content managed via `translations.ts` and structured placeholders via `placeholders.ts` (amusing Roman-themed content).
+Dynamic content managed via `translations.ts` and structured placeholders via `placeholders.ts`.
 
 ### Accessibility
 
