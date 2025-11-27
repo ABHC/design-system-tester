@@ -33,12 +33,10 @@ body {
     --font-heading: 'Space Grotesk', sans-serif;
 
     /* Overlay */
-    --overlay-pics-dark: rgba(37, 40, 37, 0.45);
-    --overlay--pics-light: rgba(220, 217, 206, 0.75);
+    --overlay-swatches: rgba(255,255,255,0.35);
     --overlay-dark: rgba(0, 0, 0, 0.1);
     --overlay-light: rgba(255,255,255,0.2);
 
     /*shadows*/
-    --overlay-dark: rgba(220, 217, 206, 0.75);
     --shadows-light: rgba(37, 40, 37, 0.45);
 }

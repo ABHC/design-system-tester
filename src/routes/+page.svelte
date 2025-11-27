@@ -155,6 +155,8 @@
         {contrast_card_bg}
         {contrast_high_bg}
         {contrast_high_card}
+        {selected_palette}
+        {selected_accent}
     />
 </div>
 

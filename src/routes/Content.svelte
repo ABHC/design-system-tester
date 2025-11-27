@@ -1,4 +1,5 @@
 <script lang="ts">
+    import type { AccentTheme, ToneTheme } from "$lib/types/palettes";
     import type { Translation } from "$lib/types/translations";
     import type { PlaceholdersType } from "./placeholders";
 
@@ -12,6 +13,8 @@
         contrast_card_bg: string;
         contrast_high_bg: string;
         contrast_high_card: string;
+        selected_palette: ToneTheme;
+        selected_accent: AccentTheme;
     }
 
     let {
@@ -22,8 +25,15 @@
         contrast_accent,
         contrast_card_bg,
         contrast_high_bg,
-        contrast_high_card
+        contrast_high_card,
+        selected_palette,
+        selected_accent
     }: Props = $props();
+
+    // Get CSS var value
+    function getHex(css_var:string) {
+        return getComputedStyle(document.documentElement).getPropertyValue(css_var).trim();
+    }
 </script>
 
 <!-- Main Content -->
@@ -57,11 +67,8 @@
                     <div class="swatch-label">Background</div>
                     <div class="swatch-var">--bg</div>
                 </div>
-                <div 
-                    class="swatch-hex"
-                    style="background: var(--overlay-dark);"
-                >
-                    var(--bg)
+                <div class="swatch-hex">
+                    {selected_palette.bg}
                 </div>
             </div>
             <div 
@@ -72,11 +79,8 @@
                     <div class="swatch-label">Card</div>
                     <div class="swatch-var">--card</div>
                 </div>
-                <div 
-                    class="swatch-hex"
-                    style="background: var(--overlay-dark);"
-                >
-                    var(--card)
+                <div class="swatch-hex">
+                    {selected_palette.card}
                 </div>
             </div>
             <div 
@@ -87,11 +91,8 @@
                     <div class="swatch-label">Highlight</div>
                     <div class="swatch-var">--highlight</div>
                 </div>
-                <div 
-                    class="swatch-hex"
-                    style="background: var(--overlay-dark);"
-                >
-                    var(--highlight)
+                <div class="swatch-hex">
+                    {selected_palette.highlight}
                 </div>
             </div>
             <div class="swatch" style="background: var(--accent); color: var(--text-accent);">
@@ -99,11 +100,8 @@
                     <div class="swatch-label">Accent</div>
                     <div class="swatch-var">--accent</div>
                 </div>
-                <div 
-                    class="swatch-hex" 
-                    style="background: var(--overlay-light);"
-                >
-                    var(--accent)
+                <div class="swatch-hex">
+                    {selected_accent.accent}
                 </div>
             </div>
             <div 
@@ -114,11 +112,8 @@
                     <div class="swatch-label">Accent Dark</div>
                     <div class="swatch-var">--accent-dark</div>
                 </div>
-                <div 
-                    class="swatch-hex" 
-                    style="background: var(--overlay-light);"
-                >
-                    var(--accent-dark)
+                <div class="swatch-hex">
+                    {selected_accent.accent_dark}
                 </div>
             </div>
             <div 
@@ -129,11 +124,8 @@
                     <div class="swatch-label">Accent Darker</div>
                     <div class="swatch-var">--accent-darker</div>
                 </div>
-                <div 
-                    class="swatch-hex" 
-                    style="background: var(--overlay-light);"
-                >
-                    var(--accent-darker)
+                <div class="swatch-hex">
+                    {selected_accent.accent_darker}
                 </div>
             </div>
             <div 
@@ -144,11 +136,8 @@
                     <div class="swatch-label">Accent Light</div>
                     <div class="swatch-var">--accent-light</div>
                 </div>
-                <div 
-                    class="swatch-hex" 
-                    style="background: var(--overlay-light);"
-                >
-                    var(--accent-light)
+                <div class="swatch-hex">
+                    {selected_accent.accent_light}
                 </div>
             </div>
             <div 
@@ -159,11 +148,8 @@
                     <div class="swatch-label">Accent Lighter</div>
                     <div class="swatch-var">--accent-lighter</div>
                 </div>
-                <div 
-                    class="swatch-hex" 
-                    style="background: var(--overlay-light);"
-                >
-                    var(--accent-lighter)
+                <div class="swatch-hex">
+                    {selected_accent.accent_lighter}
                 </div>
             </div>
         </div>
@@ -551,9 +537,9 @@
         font-size: 13px;
         font-weight: 700;
         padding: 6px 10px;
-        background: rgba(0, 0, 0, 0.1);
         border-radius: 4px;
         text-align: center;
+        background: rgba(255,255,255,0.35);
     }
 
     /* Alert/Badge Components */
