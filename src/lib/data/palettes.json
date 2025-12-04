@@ -148,6 +148,15 @@
             "text_muted": "#a8a29e"
         },
         {
+            "name": "Carbon +",
+            "display": true,
+            "bg": "#1a1a1a",
+            "card": "#282828",
+            "highlight": "#3a3a3a",
+            "text": "#fafafa",
+            "text_muted": "#b0b0b0"
+        },
+        {
             "name": "Deep",
             "display": true,
             "bg": "#1a1917",
@@ -164,15 +173,6 @@
             "highlight": "#2a2a2a",
             "text": "#ffffff",
             "text_muted": "#b0b0b0"
-        },
-        {
-            "name": "Void",
-            "display": true,
-            "bg": "#000000",
-            "card":"#0f0f0f",
-            "highlight": "#1f1f1f",
-            "text": "#ffffff",
-            "text_muted": "#a0a0a0"
         },
         {
             "name": "Midnight Blue",
@@ -209,6 +209,51 @@
             "highlight": "#353535",
             "text": "#fafafa",
             "text_muted": "#b0b0b0"
+        },
+        {
+            "name": "Carbon +",
+            "display": true,
+            "bg": "#1a1a1a",
+            "card": "#282828",
+            "highlight": "#3a3a3a",
+            "text": "#fafafa",
+            "text_muted": "#b0b0b0"
+        },
+        {
+            "name": "Carbon Strong",
+            "display": true,
+            "bg": "#1a1a1a",
+            "card": "#2d2d2d",
+            "highlight": "#404040",
+            "text": "#fafafa",
+            "text_muted": "#b0b0b0"
+        },
+        {
+            "name": "Carbon Bold",
+            "display": false,
+            "bg": "#1a1a1a",
+            "card": "#323232",
+            "highlight": "#454545",
+            "text": "#fafafa",
+            "text_muted": "#b0b0b0"
+        },
+        {
+            "name": "Carbon Alt",
+            "display": false,
+            "bg": "#141414",
+            "card": "#242424",
+            "highlight": "#353535",
+            "text": "#fafafa",
+            "text_muted": "#b0b0b0"
+        },
+        {
+            "name": "Void",
+            "display": true,
+            "bg": "#000000",
+            "card":"#0f0f0f",
+            "highlight": "#1f1f1f",
+            "text": "#ffffff",
+            "text_muted": "#a0a0a0"
         }
     ]
 }

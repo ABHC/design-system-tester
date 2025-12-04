@@ -67,7 +67,6 @@
 
     /* Scrollable container for overflowing items */
     .btn-group.scrollable {
-        /*display: flex;*/
         flex-wrap: wrap;
         gap: 8px;
         max-height: 140px;

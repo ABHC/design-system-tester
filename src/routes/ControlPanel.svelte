@@ -126,11 +126,6 @@
         gap: 20px;
         max-width: 1400px;
         margin: 0 auto;
-        /*display: flex;
-        flex-direction: row;
-        justify-content: space-evenly;
-        align-items: center;
-        gap: 20px;*/
     }
 
     .control-group {
