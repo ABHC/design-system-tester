@@ -21,6 +21,81 @@
             "text_accent": "#ffffff"
         },
         {
+            "name": "Emerald II",
+            "display": true,
+            "accent": "#127d68",
+            "accent_dark": "#0d6154",
+            "accent_darker": "#094740",
+            "accent_light": "#1a9e85",
+            "accent_lighter": "#25c4a5",
+            "text_accent": "#ffffff",
+            "_ratio_vs_white": "4.55:1 ✅ AA"
+        },
+        {
+            "name": "Fern",
+            "display": true,
+            "accent": "#57a35f",
+            "accent_dark": "#3d8a45",
+            "accent_darker": "#2e6e35",
+            "accent_light": "#6fba77",
+            "accent_lighter": "#96ce9c",
+            "text_accent": "#ffffff"
+        },
+        {
+            "name": "Fern I",
+            "display": true,
+            "accent": "#49734e",
+            "accent_dark": "#365740",
+            "accent_darker": "#253d2d",
+            "accent_light": "#5d8f62",
+            "accent_lighter": "#7dab82",
+            "text_accent": "#ffffff",
+            "_ratio_vs_white": "4.98:1 ✅ AA"
+        },
+        {
+            "name": "Fern II",
+            "display": true,
+            "accent": "#4c764c",
+            "accent_dark": "#385938",
+            "accent_darker": "#263e26",
+            "accent_light": "#609260",
+            "accent_lighter": "#80ae80",
+            "text_accent": "#ffffff",
+            "_ratio_vs_white": "4.74:1 ✅ AA"
+        },
+        {
+            "name": "Fern III",
+            "display": true,
+            "accent": "#507c53",
+            "accent_dark": "#3c5f3e",
+            "accent_darker": "#29422b",
+            "accent_light": "#659868",
+            "accent_lighter": "#85b488",
+            "text_accent": "#ffffff",
+            "_ratio_vs_white": "4.53:1 ✅ AA"
+        },
+        {
+            "name": "Fern IV",
+            "display": true,
+            "accent": "#498349",
+            "accent_dark": "#366336",
+            "accent_darker": "#244524",
+            "accent_light": "#5d9f5d",
+            "accent_lighter": "#7dbb7d",
+            "text_accent": "#ffffff",
+            "_ratio_vs_white": "4.96:1 ✅ AA"
+        },
+        {
+            "name": "Sage",
+            "display": false,
+            "accent": "#3aaa72",
+            "accent_dark": "#2a8f5c",
+            "accent_darker": "#1e7347",
+            "accent_light": "#55bf88",
+            "accent_lighter": "#82d4a8",
+            "text_accent": "#ffffff"
+        },
+        {
             "name": "Amethyst",
             "display": true,
             "accent": "#8254f7",
@@ -87,7 +162,7 @@
             "display": true,
             "bg": "#e8e4d8",
             "card":"#d0c9b8",
-            "highlight": "#d9d2c1",
+            "highlight": "#bdb6a4",
             "text": "#1c1917",
             "text_muted": "#57534e"
         },
