@@ -2,6 +2,23 @@
     import type { AccentTheme, ToneTheme } from "$lib/types/palettes";
     import type { Translation } from "$lib/types/translations";
     import { simulateColorblind, type ColorblindType } from "$lib/utils/colorblind";
+    import { getContrastRatio, getWcagLevel } from "$lib/utils/contrast";
+
+    interface PairInfo {
+        accent_name: string;
+        surface_name: string;
+        fg: string;
+        bg: string;
+        ratio: number;
+        level: string;
+    }
+
+    interface ScoreResult {
+        aa: number;
+        aaLarge: number;
+        total: number;
+        pairs: PairInfo[];
+    }
 
     interface Props {
         trans: Translation | null;
@@ -51,13 +68,63 @@
             text_accent: sim(selected_accent.text_accent, t.key),
         },
     })));
+
+    // Score: 5 accents × 4 surfaces (bg, card, highlight, text_accent) = 20 pairs
+    function computeScore(col: typeof columns[number]): ScoreResult {
+        let aa = 0;
+        let aaLarge = 0;
+        const pairs: PairInfo[] = [];
+
+        const surfaceBgs = [
+            { name: 'Background', color: col.preview.bg },
+            { name: 'Card',       color: col.preview.card },
+            { name: 'Highlight',  color: col.preview.high },
+        ];
+
+        // Accent on surfaces (fg=accent, bg=surface)
+        for (const surf of surfaceBgs) {
+            for (const accent of col.accents) {
+                const ratio = parseFloat(getContrastRatio(accent.color, surf.color));
+                const level = getWcagLevel(ratio.toFixed(2), 'normal').level;
+                if (ratio >= 4.5) aa++;
+                if (ratio >= 3.0) aaLarge++;
+                pairs.push({ accent_name: accent.name, surface_name: surf.name, fg: accent.color, bg: surf.color, ratio, level });
+            }
+        }
+
+        // Text accent on accent variant (fg=text_accent, bg=accent)
+        for (const accent of col.accents) {
+            const ratio = parseFloat(getContrastRatio(col.preview.text_accent, accent.color));
+            const level = getWcagLevel(ratio.toFixed(2), 'normal').level;
+            if (ratio >= 4.5) aa++;
+            if (ratio >= 3.0) aaLarge++;
+            pairs.push({ accent_name: accent.name, surface_name: 'Text Accent', fg: col.preview.text_accent, bg: accent.color, ratio, level });
+        }
+
+        return { aa, aaLarge, total: pairs.length, pairs };
+    }
+
+    const scores = $derived(columns.map(col => computeScore(col)));
+    const normalScore = $derived(scores[0]);
+
+    // Per-column detail toggle
+    let showChanges: boolean[] = $state([false, false, false, false]);
+
+    // Pairs that changed WCAG category vs Normal
+    const changedPairs = $derived(scores.map((score, i) => {
+        if (i === 0) return [];
+        const normalPairs = scores[0].pairs;
+        return score.pairs
+            .map((p, j) => ({ ...p, normalLevel: normalPairs[j].level, normalRatio: normalPairs[j].ratio }))
+            .filter(p => p.level !== p.normalLevel);
+    }));
 </script>
 
 <div class="demo-section">
     <div class="section-title">{trans?.colorblind.title}</div>
     <div class="colorblind-info">
         <div class="colorblind-grid">
-            {#each columns as col}
+            {#each columns as col, i}
                 <div class="colorblind-column">
                     <div class="col-header">
                         <div class="col-title">{col.label}</div>
@@ -119,6 +186,69 @@
                             <span style="color: {accent.color}">Aa</span>
                         {/each}
                     </div>
+
+                    <!-- Score summary -->
+                    {#if scores[i]}
+                        {@const score = scores[i]}
+                        {@const deltaAa = score.aa - normalScore.aa}
+                        {@const deltaLarge = score.aaLarge - normalScore.aaLarge}
+                        {@const changes = changedPairs[i]}
+                        {@const hasChanges = col.key !== 'normal' && changes.length > 0}
+                        <button
+                            class="cb-score"
+                            class:cb-score-clickable={hasChanges}
+                            onclick={() => { if (hasChanges) showChanges[i] = !showChanges[i]; }}
+                        >
+                            <div class="cb-score-row">
+                                <span class="cb-score-value">{score.aa}/{score.total}</span>
+                                <span class="cb-score-label">{trans?.colorblind.score_aa}</span>
+                                {#if col.key !== 'normal'}
+                                    <span class="cb-score-delta" class:delta-neg={deltaAa < 0} class:delta-pos={deltaAa > 0} class:delta-zero={deltaAa === 0}>
+                                        {deltaAa > 0 ? '+' : ''}{deltaAa}
+                                    </span>
+                                {/if}
+                            </div>
+                            <div class="cb-score-row">
+                                <span class="cb-score-value">{score.aaLarge}/{score.total}</span>
+                                <span class="cb-score-label">{trans?.colorblind.score_aa_large}</span>
+                                {#if col.key !== 'normal'}
+                                    <span class="cb-score-delta" class:delta-neg={deltaLarge < 0} class:delta-pos={deltaLarge > 0} class:delta-zero={deltaLarge === 0}>
+                                        {deltaLarge > 0 ? '+' : ''}{deltaLarge}
+                                    </span>
+                                {/if}
+                            </div>
+                            {#if hasChanges}
+                                <div class="cb-score-hint">
+                                    {changes.length} {trans?.colorblind.score_changes} {showChanges[i] ? '▲' : '▼'}
+                                </div>
+                            {:else if col.key !== 'normal'}
+                                <div class="cb-score-hint cb-score-hint-muted">{trans?.colorblind.score_no_change}</div>
+                            {/if}
+                        </button>
+
+                        <!-- Changed pairs detail -->
+                        {#if showChanges[i] && hasChanges}
+                            <div class="cb-changes">
+                                {#each changes as pair}
+                                    {@const degraded = ['Fail', 'AA Large', 'AA', 'AAA'].indexOf(pair.level) < ['Fail', 'AA Large', 'AA', 'AAA'].indexOf(pair.normalLevel)}
+                                    <div class="cb-change-row">
+                                        <div
+                                            class="cb-change-swatch"
+                                            style="background: {pair.bg}; color: {pair.fg}; {pair.bg === selected_palette.highlight ? ' border: 1px solid var(--card);' : ''}"
+                                        >Aa</div>
+                                        <div class="cb-change-info">
+                                            <div class="cb-change-pair">{pair.accent_name} {trans?.colorblind.score_on} {pair.surface_name}</div>
+                                            <div class="cb-change-levels">
+                                                <span class="cb-change-level-old">{pair.normalLevel}</span>
+                                                <span class="cb-change-arrow" class:degraded class:improved={!degraded}>→</span>
+                                                <span class="cb-change-level-new" class:degraded class:improved={!degraded}>{pair.level}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {/each}
+                            </div>
+                        {/if}
+                    {/if}
                 </div>
             {/each}
         </div>
@@ -153,7 +283,7 @@
     .colorblind-column {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: flex-start;
         gap: 8px;
     }
 
@@ -220,6 +350,154 @@
         justify-content: space-around;
         font-size: 1.5rem;
         font-weight: 700;
+    }
+
+    .cb-score {
+        height: 75px;
+        margin-top: 10px;
+        padding: 8px 10px;
+        background: var(--highlight);
+        border-radius: 6px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        border: none;
+        width: 100%;
+        text-align: left;
+        font-family: inherit;
+        cursor: default;
+    }
+
+    .cb-score-clickable {
+        cursor: pointer;
+    }
+
+    .cb-score-clickable:hover {
+        opacity: 0.85;
+    }
+
+    .cb-score-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.78rem;
+    }
+
+    .cb-score-value {
+        font-weight: 700;
+        color: var(--text);
+        min-width: 2.5em;
+    }
+
+    .cb-score-label {
+        color: var(--text-muted);
+        flex: 1;
+    }
+
+    .cb-score-delta {
+        font-weight: 700;
+        font-size: 0.75rem;
+        padding: 1px 6px;
+        border-radius: 10px;
+    }
+
+    .delta-neg {
+        background: #ef44441a;
+        color: #ef4444;
+    }
+
+    .delta-pos {
+        background: #10b9811a;
+        color: #10b981;
+    }
+
+    .delta-zero {
+        background: #6b72801a;
+        color: #6b7280;
+    }
+
+    .cb-score-hint {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        margin-top: 2px;
+    }
+
+    .cb-score-hint-muted {
+        font-style: italic;
+        opacity: 0.7;
+    }
+
+    .cb-changes {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-top: 6px;
+    }
+
+    .cb-change-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 8px;
+        background: var(--highlight);
+        border-radius: 5px;
+        font-size: 0.72rem;
+    }
+
+    .cb-change-swatch {
+        width: 2rem;
+        height: 1.4rem;
+        border-radius: 3px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.65rem;
+        flex-shrink: 0;
+    }
+
+    .cb-change-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .cb-change-pair {
+        color: var(--text-muted);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .cb-change-levels {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin-top: 1px;
+    }
+
+    .cb-change-level-old {
+        color: var(--text-muted);
+        text-decoration: line-through;
+        font-size: 0.68rem;
+    }
+
+    .cb-change-arrow {
+        font-size: 0.7rem;
+    }
+
+    .cb-change-arrow.degraded,
+    .cb-change-level-new.degraded {
+        color: #ef4444;
+    }
+
+    .cb-change-arrow.improved,
+    .cb-change-level-new.improved {
+        color: #10b981;
+    }
+
+    .cb-change-level-new {
+        font-weight: 700;
+        font-size: 0.7rem;
     }
 
     @media (max-width: 1024px) {

@@ -107,6 +107,11 @@ export const translations = {
             tritan_desc: "Pas de cônes bleus",
             surfaces: "Surfaces",
             accents: "Accents",
+            score_aa: "paires AA",
+            score_aa_large: "paires AA Large",
+            score_changes: "Changements",
+            score_no_change: "Aucun changement",
+            score_on: "sur",
         },
         footer: {
             license: "Site sous licence GPLv3",
@@ -224,6 +229,11 @@ export const translations = {
             tritan_desc: "No blue cones",
             surfaces: "Surfaces",
             accents: "Accents",
+            score_aa: "AA pairs",
+            score_aa_large: "AA Large pairs",
+            score_changes: "Changes",
+            score_no_change: "No changes",
+            score_on: "on",
         },
         footer: {
             license: "Website under GPLv3 license",
