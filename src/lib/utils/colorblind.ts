@@ -57,9 +57,7 @@ export function simulatePalette(palette: ToneTheme, accent: AccentTheme, type: C
         accent: {
             accent: simulateColorblind(accent.accent, type),
             accent_light: simulateColorblind(accent.accent_light, type),
-            accent_lighter: simulateColorblind(accent.accent_lighter, type),
             accent_dark: simulateColorblind(accent.accent_dark, type),
-            accent_darker: simulateColorblind(accent.accent_darker, type),
             text_accent: simulateColorblind(accent.text_accent, type),
         },
     };

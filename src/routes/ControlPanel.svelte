@@ -115,7 +115,7 @@
         padding: 20px 100px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         z-index: 99; 
-        border-bottom: 2px solid var(--accent-lighter);
+        border-bottom: 2px solid var(--accent-light);
         overflow-y: auto;
         max-height: calc(100vh - 100px);
     }

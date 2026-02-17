@@ -28,35 +28,23 @@
     const contrast_highlight_bg = $derived(getContrastRatio(selected_palette.highlight, selected_palette.bg));
     const contrast_highlight_card  = $derived(getContrastRatio(selected_palette.highlight, selected_palette.card));
 
-    // Accent base
-    const contrast_accent = $derived(getContrastRatio(selected_accent.accent, selected_accent.text_accent));
-    const contrast_accent_bg = $derived(getContrastRatio(selected_accent.accent, selected_palette.bg));
-    const contrast_accent_card = $derived(getContrastRatio(selected_accent.accent, selected_palette.card));
-    const contrast_accent_highlight = $derived(getContrastRatio(selected_accent.accent, selected_palette.highlight));
-
     // Accent Light
     const contrast_accent_light = $derived(getContrastRatio(selected_accent.accent_light, selected_accent.text_accent));
     const contrast_accent_light_bg = $derived(getContrastRatio(selected_accent.accent_light, selected_palette.bg));
     const contrast_accent_light_card = $derived(getContrastRatio(selected_accent.accent_light, selected_palette.card));
     const contrast_accent_light_highlight = $derived(getContrastRatio(selected_accent.accent_light, selected_palette.highlight));
 
-    // Accent Lighter
-    const contrast_accent_lighter = $derived(getContrastRatio(selected_accent.accent_lighter, selected_accent.text_accent));
-    const contrast_accent_lighter_bg = $derived(getContrastRatio(selected_accent.accent_lighter, selected_palette.bg));
-    const contrast_accent_lighter_card = $derived(getContrastRatio(selected_accent.accent_lighter, selected_palette.card));
-    const contrast_accent_lighter_highlight = $derived(getContrastRatio(selected_accent.accent_lighter, selected_palette.highlight));
+    // Accent base
+    const contrast_accent = $derived(getContrastRatio(selected_accent.accent, selected_accent.text_accent));
+    const contrast_accent_bg = $derived(getContrastRatio(selected_accent.accent, selected_palette.bg));
+    const contrast_accent_card = $derived(getContrastRatio(selected_accent.accent, selected_palette.card));
+    const contrast_accent_highlight = $derived(getContrastRatio(selected_accent.accent, selected_palette.highlight));
 
     // Accent Dark
     const contrast_accent_dark = $derived(getContrastRatio(selected_accent.accent_dark, selected_accent.text_accent));
     const contrast_accent_dark_bg = $derived(getContrastRatio(selected_accent.accent_dark, selected_palette.bg));
     const contrast_accent_dark_card = $derived(getContrastRatio(selected_accent.accent_dark, selected_palette.card));
     const contrast_accent_dark_highlight = $derived(getContrastRatio(selected_accent.accent_dark, selected_palette.highlight));
-
-    // Accent Darker
-    const contrast_accent_darker = $derived(getContrastRatio(selected_accent.accent_darker, selected_accent.text_accent));
-    const contrast_accent_darker_bg = $derived(getContrastRatio(selected_accent.accent_darker, selected_palette.bg));
-    const contrast_accent_darker_card = $derived(getContrastRatio(selected_accent.accent_darker, selected_palette.card));
-    const contrast_accent_darker_highlight = $derived(getContrastRatio(selected_accent.accent_darker, selected_palette.highlight));
 
     // ── Derived data structures ──
 
@@ -105,19 +93,9 @@
     ]);
 
     const accent_variants = $derived([
-        { 
-            name: trans?.contrast.accent_lighter, 
-            color: selected_accent.accent_lighter, 
-            ratios: {
-                bg: contrast_accent_lighter_bg,
-                card: contrast_accent_lighter_card,
-                highlight: contrast_accent_lighter_highlight,
-                text: contrast_accent_lighter,
-            }
-        },
-        { 
-            name: trans?.contrast.accent_light, 
-            color: selected_accent.accent_light, 
+        {
+            name: trans?.contrast.accent_light,
+            color: selected_accent.accent_light,
             ratios: {
                 bg: contrast_accent_light_bg,
                 card: contrast_accent_light_card,
@@ -125,9 +103,9 @@
                 text: contrast_accent_light,
             }
         },
-        { 
-            name: trans?.contrast.accent, 
-            color: selected_accent.accent, 
+        {
+            name: trans?.contrast.accent,
+            color: selected_accent.accent,
             ratios: {
                 bg: contrast_accent_bg,
                 card: contrast_accent_card,
@@ -135,24 +113,14 @@
                 text: contrast_accent,
             }
         },
-        { 
-            name: trans?.contrast.accent_dark, 
-            color: selected_accent.accent_dark, 
+        {
+            name: trans?.contrast.accent_dark,
+            color: selected_accent.accent_dark,
             ratios: {
                 bg: contrast_accent_dark_bg,
                 card: contrast_accent_dark_card,
                 highlight: contrast_accent_dark_highlight,
                 text: contrast_accent_dark,
-            }
-        },
-        { 
-            name: trans?.contrast.accent_darker, 
-            color: selected_accent.accent_darker, 
-            ratios: {
-                bg: contrast_accent_darker_bg,
-                card: contrast_accent_darker_card,
-                highlight: contrast_accent_darker_highlight,
-                text: contrast_accent_darker,
             }
         },
     ]);
@@ -188,27 +156,24 @@
     const required_pairs = $derived.by(() => {
         const pairs: (RequiredPair & { priority: string })[] = [];
 
-        if (is_dark) {
-            // Card: accent, light, lighter
-            for (const idx of [2, 1, 0]) pairs.push({ variant_idx: idx, surface_key: 'card', priority: 'non_negotiable' });
-            // Bg & Highlight: light, lighter
-            for (const idx of [1, 0]) {
-                pairs.push({ variant_idx: idx, surface_key: 'bg', priority: 'satisfactory' });
-                pairs.push({ variant_idx: idx, surface_key: 'highlight', priority: 'satisfactory' });
-            }
-        } else {
-            // Card: accent, dark, darker
-            for (const idx of [2, 3, 4]) pairs.push({ variant_idx: idx, surface_key: 'card', priority: 'non_negotiable' });
-            // Bg & Highlight: dark, darker
-            for (const idx of [3, 4]) {
-                pairs.push({ variant_idx: idx, surface_key: 'bg', priority: 'satisfactory' });
-                pairs.push({ variant_idx: idx, surface_key: 'highlight', priority: 'satisfactory' });
-            }
-        }
+        // text_accent sur accent (seul aplat primaire) → 4.5:1
+        pairs.push({ variant_idx: 1, surface_key: 'text', targetRatio: 4.5, priority: 'non_negotiable' });
 
-        // text_accent: only the accent shade itself (idx=2) must contrast with text_accent.
-        // text_accent is button/label text on the accent background — not on lighter/darker variants.
-        pairs.push({ variant_idx: 2, surface_key: 'text', priority: 'non_negotiable' });
+        if (is_dark) {
+            // accent-light (idx=0) comme TEXTE sur surfaces sombres
+            pairs.push({ variant_idx: 0, surface_key: 'bg', targetRatio: 4.5, priority: 'non_negotiable' });
+            pairs.push({ variant_idx: 0, surface_key: 'card', targetRatio: 4.5, priority: 'non_negotiable' });
+            pairs.push({ variant_idx: 0, surface_key: 'highlight', targetRatio: 3.0, priority: 'satisfactory' });
+            // accent (idx=1) comme APLAT sur card → 3:1
+            pairs.push({ variant_idx: 1, surface_key: 'card', targetRatio: 3.0, priority: 'satisfactory' });
+        } else {
+            // accent-dark (idx=2) comme TEXTE sur surfaces claires
+            pairs.push({ variant_idx: 2, surface_key: 'bg', targetRatio: 4.5, priority: 'non_negotiable' });
+            pairs.push({ variant_idx: 2, surface_key: 'card', targetRatio: 4.5, priority: 'non_negotiable' });
+            pairs.push({ variant_idx: 2, surface_key: 'highlight', targetRatio: 3.0, priority: 'satisfactory' });
+            // accent (idx=1) comme APLAT sur card → 3:1
+            pairs.push({ variant_idx: 1, surface_key: 'card', targetRatio: 3.0, priority: 'satisfactory' });
+        }
 
         return pairs;
     });
@@ -234,9 +199,10 @@
             if (!variant || !surface) continue;
 
             const ratio = variant.ratios[surface.ratio_key];
-            if (parseFloat(ratio) >= 4.5) continue;
+            const pairTarget = pair.targetRatio ?? 4.5;
+            if (parseFloat(ratio) >= pairTarget) continue;
 
-            const suggestion = suggestAdjustedColor(variant.color, surfaceBgMap[surface.key], 4.5);
+            const suggestion = suggestAdjustedColor(variant.color, surfaceBgMap[surface.key], pairTarget);
             if (!suggestion) continue;
 
             results.push({
@@ -266,16 +232,15 @@
         if (!accentOklch) return null;
 
         const existingHexes = [
-            selected_accent.accent_lighter,
             selected_accent.accent_light,
             selected_accent.accent,
             selected_accent.accent_dark,
-            selected_accent.accent_darker,
         ];
 
         const rules: RequiredPair[] = required_pairs.map(p => ({
             variant_idx: p.variant_idx,
             surface_key: p.surface_key,
+            targetRatio: p.targetRatio,
         }));
 
         return suggestCorrectedScale(
@@ -378,8 +343,9 @@
             if (isRequired && pair) {
                 entry.priority = pair.priority;
             }
-            if (isRequired && parseFloat(ratio) < 4.5) {
-                const suggestion = suggestAdjustedColor(fgHex, surfaceBgMap[bgKey], 4.5);
+            const pairTarget = pair?.targetRatio ?? 4.5;
+            if (isRequired && parseFloat(ratio) < pairTarget) {
+                const suggestion = suggestAdjustedColor(fgHex, surfaceBgMap[bgKey], pairTarget);
                 if (suggestion) {
                     entry.suggestion = {
                         adjusted_color: suggestion.hex,

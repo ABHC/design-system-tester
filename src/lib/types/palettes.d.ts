@@ -5,9 +5,7 @@ export interface AccentTheme {
     display: boolean;
     accent: string;
     accent_dark: string;
-    accent_darker: string;
     accent_light: string;
-    accent_lighter: string;
     text_accent: string;
 }
 

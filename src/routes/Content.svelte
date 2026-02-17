@@ -109,18 +109,6 @@
             </div>
             <div
                 class="swatch"
-                style="background: var(--accent-darker); color: var(--text-accent);"
-            >
-                <div class="swatch-header">
-                    <div class="swatch-label">Accent Darker</div>
-                    <div class="swatch-var">--accent-darker</div>
-                </div>
-                <div class="swatch-hex">
-                    {selected_accent.accent_darker}
-                </div>
-            </div>
-            <div
-                class="swatch"
                 style="background: var(--accent-light); color: var(--text-accent);"
             >
                 <div class="swatch-header">
@@ -129,18 +117,6 @@
                 </div>
                 <div class="swatch-hex">
                     {selected_accent.accent_light}
-                </div>
-            </div>
-            <div
-                class="swatch"
-                style="background: var(--accent-lighter); color: var(--text-accent);"
-            >
-                <div class="swatch-header">
-                    <div class="swatch-label">Accent Lighter</div>
-                    <div class="swatch-var">--accent-lighter</div>
-                </div>
-                <div class="swatch-hex">
-                    {selected_accent.accent_lighter}
                 </div>
             </div>
         </div>

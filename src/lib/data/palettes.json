@@ -5,9 +5,7 @@
             "display": true,
             "accent": "#10b981",
             "accent_dark": "#059669",
-            "accent_darker": "#047857",
             "accent_light": "#34d399",
-            "accent_lighter": "#64e6b4",
             "text_accent": "#ffffff"
         },
         {
@@ -15,9 +13,7 @@
             "display": true,
             "accent": "#16a085",
             "accent_dark": "#0a7864",
-            "accent_darker": "#076454",
             "accent_light": "#1db394",
-            "accent_lighter": "#24c9a8",
             "text_accent": "#ffffff"
         },
         {
@@ -25,9 +21,7 @@
             "display": true,
             "accent": "#127d68",
             "accent_dark": "#0d6154",
-            "accent_darker": "#094740",
             "accent_light": "#1a9e85",
-            "accent_lighter": "#25c4a5",
             "text_accent": "#ffffff",
             "_ratio_vs_white": "4.55:1 ✅ AA"
         },
@@ -36,9 +30,7 @@
             "display": true,
             "accent": "#57a35f",
             "accent_dark": "#3d8a45",
-            "accent_darker": "#2e6e35",
             "accent_light": "#6fba77",
-            "accent_lighter": "#96ce9c",
             "text_accent": "#ffffff"
         },
         {
@@ -46,9 +38,7 @@
             "display": true,
             "accent": "#49734e",
             "accent_dark": "#365740",
-            "accent_darker": "#253d2d",
             "accent_light": "#5d8f62",
-            "accent_lighter": "#7dab82",
             "text_accent": "#ffffff",
             "_ratio_vs_white": "4.98:1 ✅ AA"
         },
@@ -57,9 +47,7 @@
             "display": true,
             "accent": "#4c764c",
             "accent_dark": "#385938",
-            "accent_darker": "#263e26",
             "accent_light": "#609260",
-            "accent_lighter": "#80ae80",
             "text_accent": "#ffffff",
             "_ratio_vs_white": "4.74:1 ✅ AA"
         },
@@ -68,9 +56,7 @@
             "display": true,
             "accent": "#507c53",
             "accent_dark": "#3c5f3e",
-            "accent_darker": "#29422b",
             "accent_light": "#659868",
-            "accent_lighter": "#85b488",
             "text_accent": "#ffffff",
             "_ratio_vs_white": "4.53:1 ✅ AA"
         },
@@ -79,9 +65,7 @@
             "display": true,
             "accent": "#498349",
             "accent_dark": "#366336",
-            "accent_darker": "#244524",
             "accent_light": "#5d9f5d",
-            "accent_lighter": "#7dbb7d",
             "text_accent": "#ffffff",
             "_ratio_vs_white": "4.96:1 ✅ AA"
         },
@@ -90,9 +74,7 @@
             "display": false,
             "accent": "#3aaa72",
             "accent_dark": "#2a8f5c",
-            "accent_darker": "#1e7347",
             "accent_light": "#55bf88",
-            "accent_lighter": "#82d4a8",
             "text_accent": "#ffffff"
         },
         {
@@ -100,9 +82,7 @@
             "display": true,
             "accent": "#8254f7",
             "accent_dark": "#6b3df5",
-            "accent_darker": "#5522f3",
             "accent_light": "#9771f9",
-            "accent_lighter": "#b299fb",
             "text_accent": "#ffffff"
         },
         {
@@ -110,9 +90,7 @@
             "display": true,
             "accent": "#00d4ff",
             "accent_dark": "#00a8cc",
-            "accent_darker": "#007a99",
             "accent_light": "#4ddfff",
-            "accent_lighter": "#99ebff",
             "text_accent": "#0a0e27"
         },
         {
@@ -120,9 +98,7 @@
             "display": true,
             "accent": "#0ea5e9",
             "accent_dark": "#0284c7",
-            "accent_darker": "#0369a1",
             "accent_light": "#38bdf8",
-            "accent_lighter": "#7dd3fc",
             "text_accent": "#ffffff"
         },
         {
@@ -130,9 +106,7 @@
             "display": true,
             "accent": "#fbbf24",
             "accent_dark": "#f59e0b",
-            "accent_darker": "#d97706",
             "accent_light": "#fcd34d",
-            "accent_lighter": "#fde68a",
             "text_accent": "#1f1f1f"
         },
         {
@@ -140,9 +114,7 @@
             "display": true,
             "accent": "#f59e0b",
             "accent_dark": "#d97706",
-            "accent_darker": "#b45309",
             "accent_light": "#fbbf24",
-            "accent_lighter": "#fcd34d",
             "text_accent": "#1f1f1f"
         },
         {
@@ -150,9 +122,7 @@
             "display": true,
             "accent": "#fb923c",
             "accent_dark": "#ea580c",
-            "accent_darker": "#c2410c",
             "accent_light": "#fdba74",
-            "accent_lighter": "#fed7aa",
             "text_accent": "#ffffff"
         }
     ],

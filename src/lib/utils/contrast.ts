@@ -298,20 +298,22 @@ export interface ScaleShade {
 }
 
 export interface ScaleSuggestion {
-    shades: ScaleShade[];  // 5 shades [lighter, light, accent, dark, darker]
+    shades: ScaleShade[];  // 3 shades [light, accent, dark]
     score: number;         // quality score (higher = better)
 }
 
 export interface RequiredPair {
     variant_idx: number;
     surface_key: string;
+    targetRatio?: number;
 }
 
-const SHADE_NAMES = ['lighter', 'light', 'accent', 'dark', 'darker'];
-const MIN_SEP = 0.06; // Minimum OKLCH L separation between adjacent shades
+const SHADE_NAMES = ['light', 'accent', 'dark'];
+const MIN_SEP = 0.08; // Minimum OKLCH L separation between adjacent shades
 
 /**
  * Check if a given L passes ALL rules for a variant.
+ * Uses per-rule targetRatio if available, otherwise falls back to defaultRatio.
  */
 function passesAllRules(
     l: number,
@@ -319,13 +321,14 @@ function passesAllRules(
     oklchH: number,
     surfaceHexes: Record<string, string>,
     variantRules: RequiredPair[],
-    targetRatio: number
+    defaultRatio: number
 ): boolean {
     const hex = oklchToHex(l, oklchC, oklchH);
     for (const rule of variantRules) {
         const surfaceHex = surfaceHexes[rule.surface_key];
         if (!surfaceHex) continue;
-        if (parseFloat(getContrastRatio(hex, surfaceHex)) < targetRatio) return false;
+        const ratio = rule.targetRatio ?? defaultRatio;
+        if (parseFloat(getContrastRatio(hex, surfaceHex)) < ratio) return false;
     }
     return true;
 }
@@ -341,14 +344,14 @@ function findBestL(
     targetL: number,
     surfaceHexes: Record<string, string>,
     variantRules: RequiredPair[],
-    targetRatio: number,
+    defaultRatio: number,
     boundsLo: number = 0,
     boundsHi: number = 1
 ): number | null {
     const clampedTarget = Math.max(boundsLo, Math.min(boundsHi, targetL));
 
     const passesAll = (l: number) =>
-        passesAllRules(l, oklchC, oklchH, surfaceHexes, variantRules, targetRatio);
+        passesAllRules(l, oklchC, oklchH, surfaceHexes, variantRules, defaultRatio);
 
     if (passesAll(clampedTarget)) return clampedTarget;
 
@@ -393,7 +396,7 @@ function scoreScale(
     shades: ScaleShade[],
     surfaceHexes: Record<string, string>,
     rules: RequiredPair[],
-    targetRatio: number
+    defaultRatio: number
 ): number {
     let score = 0;
     for (const shade of shades) {
@@ -404,7 +407,8 @@ function scoreScale(
             const surfaceHex = surfaceHexes[rule.surface_key];
             if (!surfaceHex) continue;
             const ratio = parseFloat(getContrastRatio(shade.hex, surfaceHex));
-            score += Math.min(ratio - targetRatio, 5); // cap bonus at 5
+            const ruleRatio = rule.targetRatio ?? defaultRatio;
+            score += Math.min(ratio - ruleRatio, 5); // cap bonus at 5
         }
     }
     return score;
@@ -414,29 +418,24 @@ function scoreScale(
 
 /**
  * Corrected scale for mono-theme: starts from the EXISTING palette colors.
- * Accent is fixed. Other variants are adjusted only if they fail their rules.
+ * All 3 variants are adjustable. Accent (idx=1) has a 2x penalty on delta
+ * in the score to prefer keeping it close to the original value.
  * Minimal corrections — keeps existing colors when they already pass.
  */
 export function suggestCorrectedScale(
-    existingHexes: string[],  // 5 hex colors [lighter, light, accent, dark, darker]
+    existingHexes: string[],  // 3 hex colors [light, accent, dark]
     oklchC: number,
     oklchH: number,
     surfaceHexes: Record<string, string>,
     rules: RequiredPair[],
-    targetRatio: number = 4.5
+    defaultRatio: number = 4.5
 ): ScaleSuggestion {
     const shades: ScaleShade[] = [];
 
-    for (let idx = 0; idx < 5; idx++) {
+    for (let idx = 0; idx < 3; idx++) {
         const currentHex = existingHexes[idx];
         const currentOklch = hexToOklch(currentHex);
         const currentL = currentOklch?.l ?? 0.5;
-
-        // Accent (idx=2) is always fixed
-        if (idx === 2) {
-            shades.push({ name: SHADE_NAMES[2], hex: currentHex, l: currentL, ok: true, adjusted: false });
-            continue;
-        }
 
         const variantRules = rules.filter(r => r.variant_idx === idx);
 
@@ -447,14 +446,14 @@ export function suggestCorrectedScale(
         }
 
         // Check if current color already passes
-        const alreadyPasses = passesAllRules(currentL, oklchC, oklchH, surfaceHexes, variantRules, targetRatio);
+        const alreadyPasses = passesAllRules(currentL, oklchC, oklchH, surfaceHexes, variantRules, defaultRatio);
         if (alreadyPasses) {
             shades.push({ name: SHADE_NAMES[idx], hex: currentHex, l: currentL, ok: true, adjusted: false });
             continue;
         }
 
         // Search for minimal adjustment
-        const foundL = findBestL(oklchC, oklchH, currentL, surfaceHexes, variantRules, targetRatio);
+        const foundL = findBestL(oklchC, oklchH, currentL, surfaceHexes, variantRules, defaultRatio);
         if (foundL !== null) {
             shades.push({ name: SHADE_NAMES[idx], hex: oklchToHex(foundL, oklchC, oklchH), l: foundL, ok: true, adjusted: true });
         } else {
@@ -462,14 +461,22 @@ export function suggestCorrectedScale(
         }
     }
 
-    return { shades, score: scoreScale(shades, surfaceHexes, rules, targetRatio) };
+    // Score with 2x penalty for accent (idx=1) displacement
+    let score = scoreScale(shades, surfaceHexes, rules, defaultRatio);
+    const accentOrigOklch = hexToOklch(existingHexes[1]);
+    if (accentOrigOklch && shades[1].adjusted) {
+        const delta = Math.abs(shades[1].l - accentOrigOklch.l);
+        score -= delta * 20; // 2x penalty on accent displacement
+    }
+
+    return { shades, score };
 }
 
 // ── Dual-theme: multiple candidate scales ──
 
 /**
- * Build a full 5-shade scale for a given accent L, with separation constraints.
- * Accent is generated (not fixed). Shades are placed outward from center.
+ * Build a full 3-shade scale for a given accent L, with separation constraints.
+ * Shades: [light, accent, dark]. All are generated/adjusted.
  */
 function buildCandidateScale(
     accentL: number,
@@ -477,26 +484,24 @@ function buildCandidateScale(
     oklchH: number,
     surfaceHexes: Record<string, string>,
     rules: RequiredPair[],
-    targetRatio: number,
+    defaultRatio: number,
     preferredStep: number
 ): ScaleSuggestion {
     const naturalL = [
-        accentL + 2 * preferredStep,
-        accentL + preferredStep,
-        accentL,
-        accentL - preferredStep,
-        accentL - 2 * preferredStep,
+        accentL + preferredStep,  // light (idx=0)
+        accentL,                  // accent (idx=1)
+        accentL - preferredStep,  // dark (idx=2)
     ];
 
-    const shades: ScaleShade[] = new Array(5);
+    const shades: ScaleShade[] = new Array(3);
 
-    // Place accent first
+    // Place accent first (idx=1)
     {
-        const variantRules = rules.filter(r => r.variant_idx === 2);
+        const variantRules = rules.filter(r => r.variant_idx === 1);
         const ok = variantRules.length === 0 ||
-            passesAllRules(accentL, oklchC, oklchH, surfaceHexes, variantRules, targetRatio);
-        shades[2] = {
-            name: SHADE_NAMES[2],
+            passesAllRules(accentL, oklchC, oklchH, surfaceHexes, variantRules, defaultRatio);
+        shades[1] = {
+            name: SHADE_NAMES[1],
             hex: oklchToHex(accentL, oklchC, oklchH),
             l: accentL,
             ok,
@@ -504,25 +509,7 @@ function buildCandidateScale(
         };
     }
 
-    // Place light (idx=1): must be >= accent.L + MIN_SEP
-    {
-        const variantRules = rules.filter(r => r.variant_idx === 1);
-        const lo = shades[2].l + MIN_SEP;
-        if (variantRules.length === 0) {
-            const l = Math.max(lo, Math.min(1, naturalL[1]));
-            shades[1] = { name: SHADE_NAMES[1], hex: oklchToHex(l, oklchC, oklchH), l, ok: true, adjusted: true };
-        } else {
-            const foundL = findBestL(oklchC, oklchH, naturalL[1], surfaceHexes, variantRules, targetRatio, lo, 1);
-            if (foundL !== null) {
-                shades[1] = { name: SHADE_NAMES[1], hex: oklchToHex(foundL, oklchC, oklchH), l: foundL, ok: true, adjusted: true };
-            } else {
-                const l = Math.max(lo, Math.min(1, naturalL[1]));
-                shades[1] = { name: SHADE_NAMES[1], hex: oklchToHex(l, oklchC, oklchH), l, ok: false, adjusted: true };
-            }
-        }
-    }
-
-    // Place lighter (idx=0): must be >= light.L + MIN_SEP
+    // Place light (idx=0): must be >= accent.L + MIN_SEP
     {
         const variantRules = rules.filter(r => r.variant_idx === 0);
         const lo = shades[1].l + MIN_SEP;
@@ -530,7 +517,7 @@ function buildCandidateScale(
             const l = Math.max(lo, Math.min(1, naturalL[0]));
             shades[0] = { name: SHADE_NAMES[0], hex: oklchToHex(l, oklchC, oklchH), l, ok: true, adjusted: true };
         } else {
-            const foundL = findBestL(oklchC, oklchH, naturalL[0], surfaceHexes, variantRules, targetRatio, lo, 1);
+            const foundL = findBestL(oklchC, oklchH, naturalL[0], surfaceHexes, variantRules, defaultRatio, lo, 1);
             if (foundL !== null) {
                 shades[0] = { name: SHADE_NAMES[0], hex: oklchToHex(foundL, oklchC, oklchH), l: foundL, ok: true, adjusted: true };
             } else {
@@ -540,43 +527,25 @@ function buildCandidateScale(
         }
     }
 
-    // Place dark (idx=3): must be <= accent.L - MIN_SEP
+    // Place dark (idx=2): must be <= accent.L - MIN_SEP
     {
-        const variantRules = rules.filter(r => r.variant_idx === 3);
-        const hi = shades[2].l - MIN_SEP;
+        const variantRules = rules.filter(r => r.variant_idx === 2);
+        const hi = shades[1].l - MIN_SEP;
         if (variantRules.length === 0) {
-            const l = Math.max(0, Math.min(hi, naturalL[3]));
-            shades[3] = { name: SHADE_NAMES[3], hex: oklchToHex(l, oklchC, oklchH), l, ok: true, adjusted: true };
+            const l = Math.max(0, Math.min(hi, naturalL[2]));
+            shades[2] = { name: SHADE_NAMES[2], hex: oklchToHex(l, oklchC, oklchH), l, ok: true, adjusted: true };
         } else {
-            const foundL = findBestL(oklchC, oklchH, naturalL[3], surfaceHexes, variantRules, targetRatio, 0, hi);
+            const foundL = findBestL(oklchC, oklchH, naturalL[2], surfaceHexes, variantRules, defaultRatio, 0, hi);
             if (foundL !== null) {
-                shades[3] = { name: SHADE_NAMES[3], hex: oklchToHex(foundL, oklchC, oklchH), l: foundL, ok: true, adjusted: true };
+                shades[2] = { name: SHADE_NAMES[2], hex: oklchToHex(foundL, oklchC, oklchH), l: foundL, ok: true, adjusted: true };
             } else {
-                const l = Math.max(0, Math.min(hi, naturalL[3]));
-                shades[3] = { name: SHADE_NAMES[3], hex: oklchToHex(l, oklchC, oklchH), l, ok: false, adjusted: true };
+                const l = Math.max(0, Math.min(hi, naturalL[2]));
+                shades[2] = { name: SHADE_NAMES[2], hex: oklchToHex(l, oklchC, oklchH), l, ok: false, adjusted: true };
             }
         }
     }
 
-    // Place darker (idx=4): must be <= dark.L - MIN_SEP
-    {
-        const variantRules = rules.filter(r => r.variant_idx === 4);
-        const hi = shades[3].l - MIN_SEP;
-        if (variantRules.length === 0) {
-            const l = Math.max(0, Math.min(hi, naturalL[4]));
-            shades[4] = { name: SHADE_NAMES[4], hex: oklchToHex(l, oklchC, oklchH), l, ok: true, adjusted: true };
-        } else {
-            const foundL = findBestL(oklchC, oklchH, naturalL[4], surfaceHexes, variantRules, targetRatio, 0, hi);
-            if (foundL !== null) {
-                shades[4] = { name: SHADE_NAMES[4], hex: oklchToHex(foundL, oklchC, oklchH), l: foundL, ok: true, adjusted: true };
-            } else {
-                const l = Math.max(0, Math.min(hi, naturalL[4]));
-                shades[4] = { name: SHADE_NAMES[4], hex: oklchToHex(l, oklchC, oklchH), l, ok: false, adjusted: true };
-            }
-        }
-    }
-
-    return { shades, score: scoreScale(shades, surfaceHexes, rules, targetRatio) };
+    return { shades, score: scoreScale(shades, surfaceHexes, rules, defaultRatio) };
 }
 
 /**
@@ -619,8 +588,8 @@ export function suggestDualScales(
     const selected: ScaleSuggestion[] = [];
     for (const c of candidates) {
         if (selected.length >= count) break;
-        const accentL = c.shades[2].l;
-        const tooClose = selected.some(s => Math.abs(s.shades[2].l - accentL) < 0.05);
+        const accentL = c.shades[1].l;
+        const tooClose = selected.some(s => Math.abs(s.shades[1].l - accentL) < 0.05);
         if (!tooClose) selected.push(c);
     }
 

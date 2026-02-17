@@ -213,7 +213,7 @@
         padding: 0px var(--side-margin) 0px var(--side-margin);
         color: var(--text);
         font-family: 'Space Grotesk', sans-serif;
-        border-bottom: 4px solid var(--accent-lighter);
+        border-bottom: 4px solid var(--accent-light);
         z-index: 50;
         padding: 0 100px;
     }

@@ -46,9 +46,7 @@
         '--text-muted': selected_palette.text_muted,
         '--accent': selected_accent.accent,
         '--accent-dark': selected_accent.accent_dark,
-        '--accent-darker': selected_accent.accent_darker,
         '--accent-light': selected_accent.accent_light,
-        '--accent-lighter': selected_accent.accent_lighter,
         '--text-accent': selected_accent.text_accent,
         '--font-body': `'${selected_body_font.family}', sans-serif`,
         '--font-heading': `'${selected_title_font.family}', sans-serif`

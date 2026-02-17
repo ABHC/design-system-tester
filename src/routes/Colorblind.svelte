@@ -54,11 +54,9 @@
             { name: 'Highlight',  color: sim(selected_palette.highlight, t.key) },
         ],
         accents: [
-            { name: 'Lighter', color: sim(selected_accent.accent_lighter, t.key) },
             { name: 'Light',   color: sim(selected_accent.accent_light, t.key) },
             { name: 'Accent',  color: sim(selected_accent.accent, t.key) },
             { name: 'Dark',    color: sim(selected_accent.accent_dark, t.key) },
-            { name: 'Darker',  color: sim(selected_accent.accent_darker, t.key) },
         ],
         preview: {
             bg: sim(selected_palette.bg, t.key),

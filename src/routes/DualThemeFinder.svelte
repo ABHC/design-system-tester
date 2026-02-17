@@ -24,26 +24,28 @@
     const light_theme = $derived(light_palettes[light_index]);
     const dark_theme = $derived(dark_palettes[dark_index]);
 
-    // Build rules for a given theme
+    // Build rules for a given theme (0=light, 1=accent, 2=dark)
     function buildRules(palette: ToneTheme, isDark: boolean): (RequiredPair & { priority: string })[] {
         const pairs: (RequiredPair & { priority: string })[] = [];
 
-        if (isDark) {
-            for (const idx of [2, 1, 0]) pairs.push({ variant_idx: idx, surface_key: 'card', priority: 'non_negotiable' });
-            for (const idx of [1, 0]) {
-                pairs.push({ variant_idx: idx, surface_key: 'bg', priority: 'satisfactory' });
-                pairs.push({ variant_idx: idx, surface_key: 'highlight', priority: 'satisfactory' });
-            }
-        } else {
-            for (const idx of [2, 3, 4]) pairs.push({ variant_idx: idx, surface_key: 'card', priority: 'non_negotiable' });
-            for (const idx of [3, 4]) {
-                pairs.push({ variant_idx: idx, surface_key: 'bg', priority: 'satisfactory' });
-                pairs.push({ variant_idx: idx, surface_key: 'highlight', priority: 'satisfactory' });
-            }
-        }
+        // text_accent sur accent (seul aplat primaire) → 4.5:1
+        pairs.push({ variant_idx: 1, surface_key: 'text', targetRatio: 4.5, priority: 'non_negotiable' });
 
-        // text_accent: only accent (idx=2) must contrast with text_accent
-        pairs.push({ variant_idx: 2, surface_key: 'text', priority: 'non_negotiable' });
+        if (isDark) {
+            // accent-light (idx=0) comme TEXTE sur surfaces sombres
+            pairs.push({ variant_idx: 0, surface_key: 'bg', targetRatio: 4.5, priority: 'non_negotiable' });
+            pairs.push({ variant_idx: 0, surface_key: 'card', targetRatio: 4.5, priority: 'non_negotiable' });
+            pairs.push({ variant_idx: 0, surface_key: 'highlight', targetRatio: 3.0, priority: 'satisfactory' });
+            // accent comme APLAT sur card → 3:1
+            pairs.push({ variant_idx: 1, surface_key: 'card', targetRatio: 3.0, priority: 'satisfactory' });
+        } else {
+            // accent-dark (idx=2) comme TEXTE sur surfaces claires
+            pairs.push({ variant_idx: 2, surface_key: 'bg', targetRatio: 4.5, priority: 'non_negotiable' });
+            pairs.push({ variant_idx: 2, surface_key: 'card', targetRatio: 4.5, priority: 'non_negotiable' });
+            pairs.push({ variant_idx: 2, surface_key: 'highlight', targetRatio: 3.0, priority: 'satisfactory' });
+            // accent comme APLAT sur card → 3:1
+            pairs.push({ variant_idx: 1, surface_key: 'card', targetRatio: 3.0, priority: 'satisfactory' });
+        }
 
         return pairs;
     }
@@ -54,8 +56,8 @@
         const lightRules = buildRules(light_theme, false);
 
         const rules: (RequiredPair & { theme: 'dark' | 'light' })[] = [];
-        for (const r of darkRules) rules.push({ variant_idx: r.variant_idx, surface_key: `dark_${r.surface_key}`, theme: 'dark' });
-        for (const r of lightRules) rules.push({ variant_idx: r.variant_idx, surface_key: `light_${r.surface_key}`, theme: 'light' });
+        for (const r of darkRules) rules.push({ variant_idx: r.variant_idx, surface_key: `dark_${r.surface_key}`, targetRatio: r.targetRatio, theme: 'dark' });
+        for (const r of lightRules) rules.push({ variant_idx: r.variant_idx, surface_key: `light_${r.surface_key}`, targetRatio: r.targetRatio, theme: 'light' });
         return rules;
     });
 
@@ -79,6 +81,7 @@
         const rules: RequiredPair[] = combined_rules.map(r => ({
             variant_idx: r.variant_idx,
             surface_key: r.surface_key,
+            targetRatio: r.targetRatio,
         }));
 
         return suggestDualScales(
@@ -88,7 +91,7 @@
         );
     });
 
-    const SHADE_NAMES = ['lighter', 'light', 'accent', 'dark', 'darker'];
+    const SHADE_NAMES = ['light', 'accent', 'dark'];
 
     // Compute ratios for each shade against each surface in a theme
     function getRatiosForTheme(shades: { hex: string }[], palette: ToneTheme) {
@@ -146,7 +149,7 @@
                     <div class="dual-candidate-header">
                         <span class="dual-candidate-rank">#{candidateIdx + 1}</span>
                         <span class="dual-candidate-score">{trans?.contrast.dual_score}: {candidate.score.toFixed(1)}</span>
-                        <span class="dual-candidate-passing">{countPassing(candidate)}/5 {trans?.contrast.dual_pass}</span>
+                        <span class="dual-candidate-passing">{countPassing(candidate)}/3 {trans?.contrast.dual_pass}</span>
                     </div>
 
                     <div class="scale-swatches">
