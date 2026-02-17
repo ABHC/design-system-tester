@@ -1,7 +1,8 @@
 <script lang="ts">
     import type { AccentTheme, ToneTheme } from "$lib/types/palettes";
     import type { Translation } from "$lib/types/translations";
-    import { getContrastRatio, getWcagLevel, getLuminance } from "$lib/utils/contrast";
+    import { getContrastRatio, getWcagLevel, getLuminance, suggestAdjustedColor, hexToOklch, suggestCorrectedScale } from "$lib/utils/contrast";
+    import type { AdjustmentSuggestion, RequiredPair, ScaleSuggestion } from "$lib/utils/contrast";
 
     interface Props {
         trans: Translation | null;
@@ -173,6 +174,118 @@
         return null;
     }
 
+    // ── Adjustment suggestions (AA ≥ 4.5:1) ──
+
+    const surfaceBgMap = $derived<Record<string, string>>({
+        bg: selected_palette.bg,
+        card: selected_palette.card,
+        highlight: selected_palette.highlight,
+        text: selected_accent.text_accent,
+    });
+
+    // ── Business rules: which variant/surface pairs must pass AA ──
+
+    const required_pairs = $derived.by(() => {
+        const pairs: (RequiredPair & { priority: string })[] = [];
+
+        if (is_dark) {
+            // Card: accent, light, lighter
+            for (const idx of [2, 1, 0]) pairs.push({ variant_idx: idx, surface_key: 'card', priority: 'non_negotiable' });
+            // Bg & Highlight: light, lighter
+            for (const idx of [1, 0]) {
+                pairs.push({ variant_idx: idx, surface_key: 'bg', priority: 'satisfactory' });
+                pairs.push({ variant_idx: idx, surface_key: 'highlight', priority: 'satisfactory' });
+            }
+        } else {
+            // Card: accent, dark, darker
+            for (const idx of [2, 3, 4]) pairs.push({ variant_idx: idx, surface_key: 'card', priority: 'non_negotiable' });
+            // Bg & Highlight: dark, darker
+            for (const idx of [3, 4]) {
+                pairs.push({ variant_idx: idx, surface_key: 'bg', priority: 'satisfactory' });
+                pairs.push({ variant_idx: idx, surface_key: 'highlight', priority: 'satisfactory' });
+            }
+        }
+
+        // text_accent: only the accent shade itself (idx=2) must contrast with text_accent.
+        // text_accent is button/label text on the accent background — not on lighter/darker variants.
+        pairs.push({ variant_idx: 2, surface_key: 'text', priority: 'non_negotiable' });
+
+        return pairs;
+    });
+
+    const adjustment_suggestions = $derived.by(() => {
+        const results: {
+            variant_name: string | undefined;
+            variant_color: string;
+            variant_idx: number;
+            surface_label: string | undefined;
+            surface_color: string;
+            surface_key: string;
+            invert: boolean;
+            ratio: string;
+            wcag: ReturnType<typeof getWcagLevel>;
+            priority: string;
+            suggestion: AdjustmentSuggestion | null;
+        }[] = [];
+
+        for (const pair of required_pairs) {
+            const variant = accent_variants[pair.variant_idx];
+            const surface = surfaces.find(s => s.key === pair.surface_key);
+            if (!variant || !surface) continue;
+
+            const ratio = variant.ratios[surface.ratio_key];
+            if (parseFloat(ratio) >= 4.5) continue;
+
+            const suggestion = suggestAdjustedColor(variant.color, surfaceBgMap[surface.key], 4.5);
+            if (!suggestion) continue;
+
+            results.push({
+                variant_name: variant.name,
+                variant_color: variant.color,
+                variant_idx: pair.variant_idx,
+                surface_label: surface.label,
+                surface_color: surface.color,
+                surface_key: surface.key,
+                invert: surface.invert,
+                ratio,
+                wcag: getWcagLevel(ratio, 'normal'),
+                priority: pair.priority,
+                suggestion,
+            });
+        }
+
+        // Sort by variant index
+        results.sort((a, b) => is_dark ? a.variant_idx - b.variant_idx : a.variant_idx - b.variant_idx);
+        return results;
+    });
+
+    // ── Suggested progressive scale ──
+
+    const scale_suggestion = $derived.by((): ScaleSuggestion | null => {
+        const accentOklch = hexToOklch(selected_accent.accent);
+        if (!accentOklch) return null;
+
+        const existingHexes = [
+            selected_accent.accent_lighter,
+            selected_accent.accent_light,
+            selected_accent.accent,
+            selected_accent.accent_dark,
+            selected_accent.accent_darker,
+        ];
+
+        const rules: RequiredPair[] = required_pairs.map(p => ({
+            variant_idx: p.variant_idx,
+            surface_key: p.surface_key,
+        }));
+
+        return suggestCorrectedScale(
+            existingHexes,
+            accentOklch.c, accentOklch.h,
+            surfaceBgMap,
+            rules,
+        );
+    });
+
     // ── Export functions ──
 
     function generateTextExport(): string {
@@ -213,21 +326,82 @@
             }
         }
 
+        // Suggestions d'ajustement AA (filtered by business rules)
+        lines.push(``);
+        lines.push(`── ${trans?.contrast.suggest_title} ──`);
+
+        if (adjustment_suggestions.length === 0) {
+            lines.push(trans?.contrast.suggest_all_pass ?? '');
+        } else {
+            for (const entry of adjustment_suggestions) {
+                const sign = (entry.suggestion?.deltaL ?? 0) >= 0 ? '+' : '';
+                const priority = entry.priority === 'non_negotiable'
+                    ? trans?.contrast.suggest_non_negotiable
+                    : trans?.contrast.suggest_satisfactory;
+                lines.push(`[${priority}] ${entry.variant_name} / ${entry.surface_label} : ${entry.ratio} ${entry.wcag.level} → ${entry.suggestion?.hex} (L ${sign}${entry.suggestion?.deltaL}%) → ${entry.suggestion?.ratio}:1 AA`);
+            }
+        }
+
+        // Suggested scale
+        lines.push(``);
+        lines.push(`── ${trans?.contrast.suggest_scale_title} ──`);
+        if (scale_suggestion) {
+            for (const shade of scale_suggestion.shades) {
+                const status = shade.ok ? (shade.adjusted ? 'ADJUSTED' : 'OK') : 'FAIL';
+                lines.push(`  ${shade.name}: ${shade.hex} (L ${Math.round(shade.l * 100)}%) [${status}]`);
+            }
+        } else {
+            lines.push(trans?.contrast.suggest_scale_none ?? '');
+        }
+
         return lines.join('\n');
     }
 
     function generateJsonExport(): string {
-        return JSON.stringify({
+        // Build a set of required pairs for quick lookup
+        const requiredSet = new Set(
+            required_pairs.map(p => `${p.variant_idx}:${p.surface_key}`)
+        );
+
+        function entryWithSuggestion(
+            ratio: string,
+            fgHex: string,
+            bgKey: string,
+            variantIdx: number
+        ): { ratio: string; wcag: string; required: boolean; priority?: string; suggestion?: { adjusted_color: string; adjusted_ratio: string; delta_lightness_percent: number } } {
+            const wcag = getWcagLevel(ratio, 'normal').level;
+            const isRequired = requiredSet.has(`${variantIdx}:${bgKey}`);
+            const pair = required_pairs.find(p => p.variant_idx === variantIdx && p.surface_key === bgKey);
+            const entry: { ratio: string; wcag: string; required: boolean; priority?: string; suggestion?: { adjusted_color: string; adjusted_ratio: string; delta_lightness_percent: number } } = {
+                ratio, wcag, required: isRequired
+            };
+            if (isRequired && pair) {
+                entry.priority = pair.priority;
+            }
+            if (isRequired && parseFloat(ratio) < 4.5) {
+                const suggestion = suggestAdjustedColor(fgHex, surfaceBgMap[bgKey], 4.5);
+                if (suggestion) {
+                    entry.suggestion = {
+                        adjusted_color: suggestion.hex,
+                        adjusted_ratio: suggestion.ratio,
+                        delta_lightness_percent: suggestion.deltaL,
+                    };
+                }
+            }
+            return entry;
+        }
+
+        const jsonObj: Record<string, unknown> = {
             theme: theme_name,
             accent: accent_name,
             text_readability: {
-                text_bg: { 
-                    ratio: contrast_txt_bg, 
-                    wcag: getWcagLevel(contrast_txt_bg, 'normal').level 
+                text_bg: {
+                    ratio: contrast_txt_bg,
+                    wcag: getWcagLevel(contrast_txt_bg, 'normal').level
                 },
-                text_card: { 
-                    ratio: contrast_txt_card, 
-                    wcag: getWcagLevel(contrast_txt_card, 'normal').level 
+                text_card: {
+                    ratio: contrast_txt_card,
+                    wcag: getWcagLevel(contrast_txt_card, 'normal').level
                 },
             },
             surfaces: {
@@ -236,27 +410,31 @@
                 highlight_card: { ratio: contrast_highlight_card },
             },
             accent_variants: Object.fromEntries(
-                accent_variants.map(v => [v.name, {
+                accent_variants.map((v, idx) => [v.name, {
                     color: v.color,
-                    text_accent: { 
-                        ratio: v.ratios.text, 
-                        wcag: getWcagLevel(v.ratios.text, 'normal').level 
-                    },
-                    on_bg: { 
-                        ratio: v.ratios.bg, 
-                        wcag: getWcagLevel(v.ratios.bg, 'normal').level 
-                    },
-                    on_card: { 
-                        ratio: v.ratios.card, 
-                        wcag: getWcagLevel(v.ratios.card, 'normal').level 
-                    },
-                    on_highlight:{ 
-                        ratio: v.ratios.highlight, 
-                        wcag: getWcagLevel(v.ratios.highlight, 'normal').level 
-                    },
+                    text_accent: entryWithSuggestion(v.ratios.text, v.color, 'text', idx),
+                    on_bg: entryWithSuggestion(v.ratios.bg, v.color, 'bg', idx),
+                    on_card: entryWithSuggestion(v.ratios.card, v.color, 'card', idx),
+                    on_highlight: entryWithSuggestion(v.ratios.highlight, v.color, 'highlight', idx),
                 }])
             ),
-        }, null, 2);
+        };
+
+        if (scale_suggestion) {
+            jsonObj.suggested_scale = {
+                color_space: 'oklch',
+                score: scale_suggestion.score,
+                shades: scale_suggestion.shades.map(sh => ({
+                    name: sh.name,
+                    hex: sh.hex,
+                    lightness_percent: Math.round(sh.l * 100),
+                    meets_requirements: sh.ok,
+                    adjusted: sh.adjusted,
+                })),
+            };
+        }
+
+        return JSON.stringify(jsonObj, null, 2);
     }
 
     async function copyText() {
@@ -483,6 +661,85 @@
             {/each}
         </div>
 
+        <!-- ── Adjustment suggestions ── -->
+        <div class="reco-subtitle">{trans?.contrast.suggest_title}</div>
+        {#if adjustment_suggestions.length === 0}
+            <div class="suggest-all-pass">{trans?.contrast.suggest_all_pass}</div>
+        {:else}
+            <div class="suggest-grid">
+                {#each adjustment_suggestions as entry}
+                    {@const sign = (entry.suggestion?.deltaL ?? 0) >= 0 ? '+' : ''}
+                    {@const swatch_bg_before = entry.invert ? entry.variant_color : entry.surface_color}
+                    {@const swatch_fg_before = entry.invert ? selected_accent.text_accent : entry.variant_color}
+                    {@const swatch_bg_after = entry.invert ? (entry.suggestion?.hex ?? entry.variant_color) : entry.surface_color}
+                    {@const swatch_fg_after = entry.invert ? selected_accent.text_accent : (entry.suggestion?.hex ?? entry.variant_color)}
+                    {@const priority_label = entry.priority === 'non_negotiable' ? trans?.contrast.suggest_non_negotiable : trans?.contrast.suggest_satisfactory}
+                    {@const priority_color = entry.priority === 'non_negotiable' ? '#ef4444' : '#f59e0b'}
+                    <div class="suggest-item" style="border-left-color: {priority_color};">
+                        <div class="suggest-pair-header">
+                            <span class="suggest-pair-label">{entry.variant_name} / {entry.surface_label}</span>
+                            <span class="suggest-priority-badge" style="background: {priority_color}; color: #ffffff;">{priority_label}</span>
+                        </div>
+                        <div class="suggest-before-after">
+                            <div class="suggest-side">
+                                <div
+                                    class="contrast-swatch-text reco-scale-swatch"
+                                    style="background: {swatch_bg_before}; color: {swatch_fg_before};{
+                                        swatch_bg_before === selected_palette.highlight ? ' border: 1px solid var(--card);' : ''
+                                    }"
+                                >Aa</div>
+                                <span class="suggest-ratio">{entry.ratio}</span>
+                                <span class="wcag-badge" style="background: {entry.wcag.colour}; color: #ffffff;">{entry.wcag.level}</span>
+                            </div>
+                            <span class="suggest-arrow">→</span>
+                            <div class="suggest-side">
+                                <div
+                                    class="contrast-swatch-text reco-scale-swatch"
+                                    style="background: {swatch_bg_after}; color: {swatch_fg_after};{
+                                        swatch_bg_after === selected_palette.highlight ? ' border: 1px solid var(--card);' : ''
+                                    }"
+                                >Aa</div>
+                                <span class="suggest-ratio">{entry.suggestion?.ratio}</span>
+                                <span class="wcag-badge" style="background: #3d8a45; color: #ffffff;">AA</span>
+                            </div>
+                        </div>
+                        <div class="suggest-detail">
+                            <span class="suggest-hex">{entry.suggestion?.hex}</span>
+                            <span class="suggest-delta">L {sign}{entry.suggestion?.deltaL}%</span>
+                        </div>
+                    </div>
+                {/each}
+            </div>
+        {/if}
+
+        <!-- ── Corrected scale ── -->
+        <div class="reco-subtitle">{trans?.contrast.suggest_corrected_title}</div>
+        {#if scale_suggestion}
+            <div class="scale-swatches">
+                {#each scale_suggestion.shades as shade}
+                    <div class="scale-swatch-item" class:scale-swatch-fail={!shade.ok}>
+                        <div class="scale-swatch" style="background: {shade.hex};"></div>
+                        <span class="scale-swatch-label">{shade.name}</span>
+                        <span class="scale-swatch-hex">{shade.hex}</span>
+                        <span class="scale-swatch-l">L {Math.round(shade.l * 100)}%</span>
+                        {#if shade.adjusted}
+                            <span class="scale-swatch-status" style="color: #f59e0b;">{trans?.contrast.suggest_adjusted}</span>
+                        {/if}
+                        {#if !shade.ok}
+                            <span class="scale-swatch-status" style="color: #ef4444;">{trans?.contrast.dual_fail}</span>
+                        {/if}
+                    </div>
+                {/each}
+            </div>
+            <div class="scale-bar">
+                {#each scale_suggestion.shades as shade}
+                    <div class="scale-bar-segment" style="background: {shade.hex};" title="{shade.name}: {shade.hex}"></div>
+                {/each}
+            </div>
+        {:else}
+            <div class="reco-none">{trans?.contrast.suggest_scale_none}</div>
+        {/if}
+
         <!-- ── Export buttons ── -->
         <div class="contrast-export-row">
             <button class="button button-secondary" onclick={copyText}>
@@ -703,6 +960,153 @@
         height: 1px;
         background: var(--highlight);
         margin: 1.25rem 0;
+    }
+
+    /* Adjustment suggestions */
+    .suggest-all-pass {
+        font-size: 0.82rem;
+        color: #10b981;
+        font-style: italic;
+        margin: 0.5rem 0;
+    }
+
+    .suggest-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 0.75rem;
+        margin-top: 0.5rem;
+    }
+
+    .suggest-item {
+        background: var(--highlight);
+        border-radius: 6px;
+        padding: 0.6rem;
+        border-left: 3px solid #f59e0b;
+    }
+
+    .suggest-pair-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .suggest-pair-label {
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: var(--text-muted);
+    }
+
+    .suggest-priority-badge {
+        display: inline-block;
+        padding: 1px 6px;
+        border-radius: 10px;
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        flex-shrink: 0;
+    }
+
+    .suggest-before-after {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .suggest-side {
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+    }
+
+    .suggest-arrow {
+        font-size: 1rem;
+        color: var(--text-muted);
+        flex-shrink: 0;
+    }
+
+    .suggest-ratio {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--text);
+    }
+
+    .suggest-detail {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 0.35rem;
+        font-size: 0.75rem;
+        color: var(--text-muted);
+    }
+
+    .suggest-hex {
+        font-family: monospace;
+    }
+
+    .suggest-delta {
+        font-style: italic;
+    }
+
+    /* Suggested scale */
+    .scale-swatches {
+        display: flex;
+        gap: 0.75rem;
+        margin: 0.5rem 0;
+        flex-wrap: wrap;
+    }
+
+    .scale-swatch-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.2rem;
+    }
+
+    .scale-swatch {
+        width: 3rem;
+        height: 2rem;
+        border-radius: 4px;
+    }
+
+    .scale-swatch-label {
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: var(--text-muted);
+    }
+
+    .scale-swatch-hex {
+        font-size: 0.65rem;
+        font-family: monospace;
+        color: var(--text-muted);
+    }
+
+    .scale-swatch-l {
+        font-size: 0.65rem;
+        font-style: italic;
+        color: var(--text-muted);
+    }
+
+    .scale-swatch-fail {
+        opacity: 0.6;
+    }
+
+    .scale-swatch-status {
+        font-size: 0.6rem;
+        font-weight: 700;
+    }
+
+    .scale-bar {
+        display: flex;
+        height: 0.6rem;
+        border-radius: 3px;
+        overflow: hidden;
+        margin: 0.25rem 0 1rem 0;
+    }
+
+    .scale-bar-segment {
+        flex: 1;
     }
 
     /* Export */

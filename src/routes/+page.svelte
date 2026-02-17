@@ -25,6 +25,10 @@
     let tone_palettes: ToneTheme[] = $derived(palettes[selected_tone].filter(t => t.display));
     let available_fonts: FontConfig[] = $derived(stored_fonts.fonts.filter(f => f.display));
 
+    // All light/dark palettes for dual-theme finder
+    let all_light_palettes: ToneTheme[] = $derived(palettes.light.filter(t => t.display));
+    let all_dark_palettes: ToneTheme[] = $derived(palettes.dark.filter(t => t.display));
+
     let selected_accent: AccentTheme = $derived(accent_palettes[accent_index]);
     let selected_palette: ToneTheme = $derived(tone_palettes[tone_index]);
     let selected_body_font: FontConfig = $derived(available_fonts[body_font_index]);
@@ -98,6 +102,8 @@
         placeholders={lang_placeholders}
         {selected_palette}
         {selected_accent}
+        light_palettes={all_light_palettes}
+        dark_palettes={all_dark_palettes}
     />
 </div>
 

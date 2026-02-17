@@ -126,26 +126,28 @@
 <header>
     <div class="title-container">
         <div class="tagline">
-            <h4>{$trans?.header.name1.toUpperCase()}</h4>
-            <h4>{$trans?.header.name2.toUpperCase()}</h4>
-            <h4>{$trans?.header.name3.toUpperCase()}</h4>
+            <div class="id">
+                <h3>{$trans?.header.name1.toUpperCase()}</h3>
+                <h3>{$trans?.header.name3.toUpperCase()}</h3>
+            </div>
         </div>
-        <h1 id="name">{$trans?.header.project.toUpperCase()}</h1>
+        <h1 id="pipe">&nbsp;|&nbsp;</h1>
+        <div id="logo-container">
+            <img id="logo2" src="radical_fern.svg" alt={$trans?.header.logo_btn}/>
+        </div>
     </div>
 
-    <div id="logo-container">
-        <select 
-            aria-label="Select language"
-            class="local-select"
-            bind:value={$locale}
-        >
-            {#each locales as lang}
-                <option value={lang}>{getFlagEmoji(lang)} {lang.toUpperCase()}</option>
-            {/each}
-        </select>
+    <select 
+        aria-label="Select language"
+        class="local-select"
+        bind:value={$locale}
+    >
+        {#each locales as lang}
+            <option value={lang}>{getFlagEmoji(lang)} {lang.toUpperCase()}</option>
+        {/each}
+    </select>
 
-        <img id="logo" src="Logo_Epinard2.svg" alt={$trans?.header.logo_btn}/>
-    </div>
+    <h1 id="project">{$trans?.header.project.toUpperCase()}</h1>
 </header>
 
 <main>
@@ -218,7 +220,26 @@
 
     .title-container {
         display: flex;
+        flex-direction: row;
         align-items: center;
+    }
+
+    .id {
+        text-align: end;
+    }
+
+    #logo-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 5;
+        height: 100%;
+    }
+
+    #logo2 {
+        height: 64px;
+        margin: 8px;
     }
 
     .tagline {
@@ -270,6 +291,7 @@
         transform: rotate(30deg);
         padding: 6px;
     }
+
 
     main {
         padding-top: 100px; /* Hauteur du header */

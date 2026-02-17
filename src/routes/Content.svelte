@@ -4,6 +4,7 @@
     import type { PlaceholdersType } from "./placeholders";
     import Contrast from './Contrast.svelte';
     import Colorblind from './Colorblind.svelte';
+    import DualThemeFinder from './DualThemeFinder.svelte';
 
     // Props
     interface Props {
@@ -11,6 +12,8 @@
         placeholders: PlaceholdersType[keyof PlaceholdersType];
         selected_palette: ToneTheme;
         selected_accent: AccentTheme;
+        light_palettes: ToneTheme[];
+        dark_palettes: ToneTheme[];
     }
 
     let {
@@ -18,6 +21,8 @@
         placeholders,
         selected_palette,
         selected_accent,
+        light_palettes,
+        dark_palettes,
     }: Props = $props();
 
 </script>
@@ -221,6 +226,9 @@
 
     <!-- Detailed Contrast Info -->
     <Contrast {trans} {selected_palette} {selected_accent} />
+
+    <!-- Dual-theme Finder -->
+    <DualThemeFinder {trans} {light_palettes} {dark_palettes} {selected_accent} />
 
     <!-- Colorblind Simulation -->
     <Colorblind {trans} {selected_palette} {selected_accent} />
