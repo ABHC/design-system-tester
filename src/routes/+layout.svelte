@@ -3,6 +3,7 @@
     import fontsData from '$lib/data/fonts.json';
     import { preconnectGoogleFonts } from '$lib/utils/fontLoader';
     import favicon from '$lib/assets/favicon.svg';
+    import Logo from './Logo.svelte';
     import {
 		locale,
 		trans,
@@ -133,7 +134,7 @@
         </div>
         <h1 id="pipe">&nbsp;|&nbsp;</h1>
         <div id="logo-container">
-            <img id="logo2" src="radical_fern.svg" alt={$trans?.header.logo_btn}/>
+            <Logo />
         </div>
     </div>
 
@@ -199,6 +200,39 @@
         box-sizing: border-box;
     }
 
+    /* Typography */
+    :global(h1), :global(h2), :global(h3), :global(h4), :global(h5), :global(h6) {
+        font-family: var(--font-heading);
+        font-weight: 600;
+        color: var(--text);
+    }
+
+    :global(h1) {
+        font-size: 2.5rem;
+        font-weight: 700;
+    }
+
+    :global(h2) {
+        font-size: 2rem;
+    }
+
+    :global(h3) {
+        font-size: 1.5rem;
+    }
+
+    :global(h4) {
+        font-size: 1.25rem;
+    }
+
+    :global(h5) {
+        font-size: 1.125rem;
+    }
+
+    :global(h6) {
+        font-size: 1rem;
+        font-weight: 500;
+    }
+
     header {
         position: fixed;
         top: 0;
@@ -213,7 +247,7 @@
         padding: 0px var(--side-margin) 0px var(--side-margin);
         color: var(--text);
         font-family: 'Space Grotesk', sans-serif;
-        border-bottom: 4px solid var(--accent-light);
+        border-bottom: 4px solid var(--accent);
         z-index: 50;
         padding: 0 100px;
     }
@@ -228,28 +262,8 @@
         text-align: end;
     }
 
-    #logo-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        z-index: 5;
-        height: 100%;
-    }
-
-    #logo2 {
-        height: 64px;
-        margin: 8px;
-    }
-
     .tagline {
         text-align: end;
-    }
-
-    header #name {
-        font-weight: 900;
-        text-transform: capitalize;
-        margin-left: 10px;
     }
 
     #logo-container {
@@ -260,6 +274,7 @@
         z-index: 5;
         height: 100%;
         gap: 20px;
+        color: var(--accent);
     }
 
     .local-select {
@@ -283,15 +298,6 @@
         background-color: var(--accent);
         color: var(--text-accent);
     }
-
-    #logo {
-        height: 100%; 
-        width: auto; 
-        object-fit: contain;
-        transform: rotate(30deg);
-        padding: 6px;
-    }
-
 
     main {
         padding-top: 100px; /* Hauteur du header */
@@ -338,8 +344,8 @@
     }
 
     .social-link:hover {
-        border-color: var(--accent-light);
-        background-color: var(--accent-light);
+        border-color: var(--accent-more);
+        background-color: var(--accent);
         transform: scale(1.1);
     }
 </style>

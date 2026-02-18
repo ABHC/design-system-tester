@@ -47,11 +47,14 @@
         '--accent-lighter': selected_accent.accent_lighter,
         '--accent-light': selected_accent.accent_light,
         '--accent': selected_tone === 'dark' ? selected_accent.accent_light : selected_accent.accent_dark,
+        '--accent-more': selected_tone === 'dark' ? selected_accent.accent_lighter : selected_accent.accent_darker,
         '--accent-dark': selected_accent.accent_dark,
         '--accent-darker': selected_accent.accent_darker,
         '--text-accent': selected_accent.text_accent,
         '--font-body': `'${selected_body_font.family}', sans-serif`,
-        '--font-heading': `'${selected_title_font.family}', sans-serif`
+        '--font-heading': `'${selected_title_font.family}', sans-serif`,
+        '--accent-error': '#ef4444',
+        '--accent-warning': '#fb923c',
     });
 
     $effect(() => {

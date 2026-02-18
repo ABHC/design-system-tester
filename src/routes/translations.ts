@@ -4,9 +4,8 @@ export const translations = {
     fr: {
         language_name: "Français",
         header: {
-            project: "| Testeur de Système Design",
+            project: "Styleguide",
             name1: "Alexandre",
-            name2: "Épinard",
             name3: "Combe",
             logo_btn: "Retour à l'accueil"
         },
@@ -101,8 +100,9 @@ export const translations = {
             suggest_scale_none: "Aucune échelle trouvée avec ces contraintes",
             suggest_mandatory: "Nécessaire",
             suggest_satisfactory: "Satisfaisant",
-            opposite_title: "Vérification thème opposé",
-            opposite_desc: "Vérifie les règles de contraste de l'accent sur un thème opposé.",
+            current_desc: "Vérification des règles de contraste de l'accent sur le thème sélectionné.",
+            current_label: "Thème sélectionné",
+            opposite_desc: "Vérification des règles de contraste de l'accent sur un thème opposé.",
             opposite_select_label: "Thème opposé",
             opposite_none: "— Aucun —",
             opposite_ratios_on: "Ratios sur",
@@ -140,9 +140,8 @@ export const translations = {
     en: {
         language_name: "English",
         header: {
-            project: "| Design System Tester",
+            project: "Styleguide",
             name1: "Alexandre",
-            name2: "Spinach",
             name3: "Combe",
             logo_btn: "Back to home"
         },
@@ -237,6 +236,8 @@ export const translations = {
             suggest_scale_none: "No scale found with these constraints",
             suggest_mandatory: "Mandatory",
             suggest_satisfactory: "Satisfactory",
+            current_desc: "Check accent contrast rules for the selected theme.",
+            current_label: "Selected Theme",
             opposite_title: "Opposite theme check",
             opposite_desc: "Check accent contrast rules against an opposite theme.",
             opposite_select_label: "Opposite theme",

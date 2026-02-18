@@ -43,6 +43,9 @@
         return type === 'normal' ? hex : simulateColorblind(hex, type);
     }
 
+    // Detect dark/light mode from background luminance
+    const is_dark = $derived((getLuminance(selected_palette.bg) ?? 0) < 0.5);
+
     // Derived simulated colors per vision type
     const columns = $derived(types.map(t => ({
         key: t.key,
@@ -59,6 +62,13 @@
             { name: 'Dark',    color: sim(selected_accent.accent_dark, t.key) },
             { name: 'Darker',  color: sim(selected_accent.accent_darker, t.key) },
         ],
+        display_accents: is_dark ? [
+            { name: 'Light',   color: sim(selected_accent.accent_light, t.key) },
+            { name: 'Lighter', color: sim(selected_accent.accent_lighter, t.key) },
+        ] : [
+            { name: 'Dark',    color: sim(selected_accent.accent_dark, t.key) },
+            { name: 'Darker',  color: sim(selected_accent.accent_darker, t.key) },
+        ],
         preview: {
             bg: sim(selected_palette.bg, t.key),
             card: sim(selected_palette.card, t.key),
@@ -67,9 +77,6 @@
             text_accent: sim(selected_accent.text_accent, t.key),
         },
     })));
-
-    // Detect dark/light mode from background luminance
-    const is_dark = $derived((getLuminance(selected_palette.bg) ?? 0) < 0.5);
 
     // Score: theme-aware pairs following the 4-shade rules
     // Dark: lighter(0) as text on bg/card/highlight, light(1) as aplat on card, text_accent on light(1)
@@ -167,7 +174,7 @@
                     <!-- Accents -->
                     <div class="col-section-label">{trans?.colorblind.accents}</div>
                     <div class="swatch-stack">
-                        {#each col.accents as accent}
+                        {#each col.display_accents as accent}
                             <div
                                 class="cb-swatch"
                                 style="background: {accent.color}; color: {col.preview.text_accent};"
@@ -183,7 +190,7 @@
                         class="cb-preview"
                         style="background: {col.preview.bg};"
                     >
-                        {#each col.accents as accent}
+                        {#each col.display_accents as accent}
                             <span style="color: {accent.color}">Aa</span>
                         {/each}
                     </div>
@@ -191,7 +198,7 @@
                         class="cb-preview"
                         style="background: {col.preview.card}; color: {col.preview.fg}; border: 1px solid var(--highlight);"
                     >
-                        {#each col.accents as accent}
+                        {#each col.display_accents as accent}
                             <span style="color: {accent.color}">Aa</span>
                         {/each}
                     </div>
@@ -199,10 +206,17 @@
                         class="cb-preview"
                         style="background: {col.preview.high}; color: {col.preview.fg};"
                     >
-                        {#each col.accents as accent}
+                        {#each col.display_accents as accent}
                             <span style="color: {accent.color}">Aa</span>
                         {/each}
                     </div>
+                    <div
+                        class="cb-preview"
+                        style="background: {col.display_accents[0].color}; color: {col.preview.fg};"
+                    >
+                        <span style="color: {col.preview.text_accent}">Aa</span>
+                    </div>
+
 
                     <!-- Score summary -->
                     {#if scores[i]}

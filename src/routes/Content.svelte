@@ -139,7 +139,7 @@
     <!-- Buttons -->
     <div class="demo-section">
         <h2 class="section-title">{trans?.buttons.title}</h2>
-        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+        <div class="btn-badge-demo">
             <button class="button button-primary">{trans?.buttons.primary}</button>
             <button class="button button-secondary">{trans?.buttons.secondary}</button>
             <button class="button button-ghost">{trans?.buttons.ghost}</button>
@@ -206,10 +206,16 @@
     <!-- Alerts -->
     <div class="demo-section">
         <h2 class="section-title">{trans?.alerts.title}</h2>
+        <div class="alert alert-info">
+            {placeholders.alerts.info}
+        </div>
         <div class="alert alert-success">
             {placeholders.alerts.success}
         </div>
-        <div class="alert alert-info">
+        <div class="alert alert-warning">
+            {placeholders.alerts.info}
+        </div>
+        <div class="alert alert-error">
             {placeholders.alerts.info}
         </div>
     </div>
@@ -222,39 +228,6 @@
 </div>
 
 <style>
-    /* Typography */
-    h1, h2, h3, h4, h5, h6 {
-        font-family: var(--font-heading);
-        font-weight: 600;
-        color: var(--text);
-    }
-
-    h1 {
-        font-size: 2.5rem;
-        font-weight: 700;
-    }
-
-    h2 {
-        font-size: 2rem;
-    }
-
-    h3 {
-        font-size: 1.5rem;
-    }
-
-    h4 {
-        font-size: 1.25rem;
-    }
-
-    h5 {
-        font-size: 1.125rem;
-    }
-
-    h6 {
-        font-size: 1rem;
-        font-weight: 500;
-    }
-
     /* Main Content */
     .content {
         max-width: 1400px;
@@ -314,6 +287,13 @@
     }
 
     /* Buttons */
+    .btn-badge-demo {
+        display: flex; 
+        align-items: center;
+        gap: 15px; 
+        flex-wrap: wrap;
+    }
+
     .button {
         display: inline-block;
         padding: 12px 24px;
@@ -332,12 +312,12 @@
     }
 
     .button-primary:hover {
-        background: var(--accent-dark);
+        background: var(--accent-more);
     }
 
     .button-secondary {
         background: transparent;
-        color: var(--text);
+        color: var(--accent-more);
         border: 2px solid var(--accent);
     }
 
@@ -354,6 +334,19 @@
     .button-ghost:hover {
         background: var(--accent);
         color: var(--text-accent);
+    }
+
+    .badge {
+        display: inline-block;
+        width: fit-content;
+        padding: .35rem .75rem;
+        background: var(--accent);
+        color: var(--text-accent);
+        border-radius: 12px;
+        font-size: .75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 
     /* Navigation */
@@ -413,42 +406,6 @@
         border-color: var(--accent);
     }
 
-    /* Typography Showcase */
-    .typography-demo h1 {
-        margin-bottom: 15px;
-    }
-
-    .typography-demo h2 {
-        margin-bottom: 12px;
-    }
-
-    .typography-demo h3 {
-        margin-bottom: 10px;
-    }
-
-    .typography-demo h4 {
-        margin-bottom: 10px;
-    }
-
-    .typography-demo h5 {
-        margin-bottom: 10px;
-    }
-
-    .typography-demo h6 {
-        margin-bottom: 10px;
-    }
-
-    .typography-demo p {
-        font-size: 16px;
-        line-height: 1.6;
-        margin-bottom: 15px;
-    }
-
-    .typography-demo .lead {
-        font-size: 20px;
-        color: var(--text-muted);
-    }
-
     /* Color Swatches */
     .swatch-grid {
         display: grid;
@@ -501,29 +458,24 @@
         padding: 15px 20px;
         border-radius: 8px;
         margin-bottom: 15px;
-        border-left: 4px solid var(--accent);
+        background: var(--highlight);
+        color: var(--text);
     }
 
     .alert-success {
-        background: var(--accent);
-        color: var(--text-accent);
-        border-color: var(--accent-dark);
+        border-left: 4px solid var(--accent);
     }
 
     .alert-info {
-        background: var(--highlight);
-        color: var(--text);
-        border-color: var(--accent);
+        border-left: 4px solid var(--accent-more);
     }
 
-    .badge {
-        display: inline-block;
-        padding: 4px 12px;
-        border-radius: 12px;
-        font-size: 12px;
-        font-weight: 600;
-        background: var(--accent);
-        color: var(--text-accent);
+    .alert-error {
+        border-left: 4px solid var(--accent-error);
+    }
+
+    .alert-warning {
+        border-left: 4px solid var(--accent-warning);
     }
 
     @media (max-width: 768px) {

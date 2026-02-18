@@ -1,8 +1,8 @@
 <script lang="ts">
     import type { AccentTheme, ToneTheme } from "$lib/types/palettes";
     import type { Translation } from "$lib/types/translations";
-    import { getContrastRatio, getWcagLevel, getLuminance, suggestAdjustedColor, hexToOklch, suggestCorrectedScale } from "$lib/utils/contrast";
-    import type { AdjustmentSuggestion, RequiredPair, ScaleSuggestion } from "$lib/utils/contrast";
+    import { getContrastRatio, getWcagLevel, getLuminance, suggestAdjustedColor } from "$lib/utils/contrast";
+    import type { AdjustmentSuggestion, RequiredPair } from "$lib/utils/contrast";
     import Rules from './Rules.svelte';
 
     interface Props {
@@ -164,7 +164,7 @@
     // ── Business rules: which variant/surface pairs must pass AA ──
 
     const required_pairs = $derived.by(() => {
-        const pairs: (RequiredPair & { priority: string })[] = [];
+        const pairs: (RequiredPair & { priority: string; isAplat: boolean })[] = [];
 
         if (is_dark) {
             // text_accent on light aplat (idx=1) → 4.5:1
@@ -198,6 +198,7 @@
             surface_color: string;
             surface_key: string;
             invert: boolean;
+            isAplat: boolean;
             ratio: string;
             wcag: ReturnType<typeof getWcagLevel>;
             priority: string;
@@ -224,6 +225,7 @@
                 surface_color: surface.color,
                 surface_key: surface.key,
                 invert: surface.invert,
+                isAplat: pair.isAplat,
                 ratio,
                 wcag: getWcagLevel(ratio, 'normal'),
                 priority: pair.priority,
@@ -238,30 +240,12 @@
 
     // ── Suggested progressive scale ──
 
-    const scale_suggestion = $derived.by((): ScaleSuggestion | null => {
-        const accentOklch = hexToOklch(selected_accent.accent_light);
-        if (!accentOklch) return null;
-
-        const existingHexes = [
-            selected_accent.accent_lighter,
-            selected_accent.accent_light,
-            selected_accent.accent_dark,
-            selected_accent.accent_darker,
-        ];
-
-        const rules: RequiredPair[] = required_pairs.map(p => ({
-            variant_idx: p.variant_idx,
-            surface_key: p.surface_key,
-            targetRatio: p.targetRatio,
-        }));
-
-        return suggestCorrectedScale(
-            existingHexes,
-            accentOklch.c, accentOklch.h,
-            surfaceBgMap,
-            rules,
-        );
-    });
+    const scale_original_hexes = $derived([
+        selected_accent.accent_lighter,
+        selected_accent.accent_light,
+        selected_accent.accent_dark,
+        selected_accent.accent_darker,
+    ]);
 
     // ── Opposite theme recommendations ──
 
@@ -307,6 +291,94 @@
             highlight: { label: trans?.contrast.highlight, color: opposite_theme.highlight },
             text: { label: trans?.contrast.text_accent, color: selected_accent.text_accent },
         } as Record<string, { label: string | undefined; color: string }>;
+    });
+
+    const opposite_surface_bg_map = $derived.by((): Record<string, string> => {
+        if (!opposite_theme) return {};
+        return {
+            bg: opposite_theme.bg,
+            card: opposite_theme.card,
+            highlight: opposite_theme.highlight,
+            text: selected_accent.text_accent,
+        };
+    });
+
+    const opposite_adjustment_suggestions = $derived.by(() => {
+        if (!opposite_theme) return [];
+
+        const results: {
+            variant_name: string | undefined;
+            variant_color: string;
+            variant_idx: number;
+            surface_label: string | undefined;
+            surface_color: string;
+            surface_key: string;
+            invert: boolean;
+            isAplat: boolean;
+            ratio: string;
+            wcag: ReturnType<typeof getWcagLevel>;
+            priority: string;
+            suggestion: AdjustmentSuggestion | null;
+        }[] = [];
+
+        for (const pair of opposite_rules) {
+            const variant = accent_variants[pair.variant_idx];
+            const surface_info = opposite_surface_map[pair.surface_key];
+            if (!variant || !surface_info) continue;
+
+            const surface_bg = opposite_surface_bg_map[pair.surface_key];
+            if (!surface_bg) continue;
+
+            const invert = pair.surface_key === 'text';
+            const ratio = getContrastRatio(variant.color, surface_bg);
+            const pairTarget = pair.targetRatio ?? 4.5;
+            if (parseFloat(ratio) >= pairTarget) continue;
+
+            const suggestion = suggestAdjustedColor(variant.color, surface_bg, pairTarget);
+            if (!suggestion) continue;
+
+            results.push({
+                variant_name: variant.name,
+                variant_color: variant.color,
+                variant_idx: pair.variant_idx,
+                surface_label: surface_info.label,
+                surface_color: surface_info.color,
+                surface_key: pair.surface_key,
+                invert,
+                isAplat: pair.isAplat,
+                ratio,
+                wcag: getWcagLevel(ratio, 'normal'),
+                priority: pair.priority,
+                suggestion,
+            });
+        }
+
+        return results;
+    });
+
+    // ── Scale suggestion from adjustment suggestions ──
+
+    const scale_suggestion = $derived.by(() => {
+        // Collect best suggestion per variant from current + opposite theme
+        // "best" = largest absolute deltaL (most constrained requirement)
+        const by_idx = new Map<number, { hex: string; delta: number }>();
+
+        for (const entry of [...adjustment_suggestions, ...opposite_adjustment_suggestions]) {
+            if (!entry.suggestion) continue;
+            const delta = Math.abs(entry.suggestion.deltaL);
+            const existing = by_idx.get(entry.variant_idx);
+            if (!existing || delta > existing.delta) {
+                by_idx.set(entry.variant_idx, { hex: entry.suggestion.hex, delta });
+            }
+        }
+
+        if (by_idx.size === 0) return null;
+
+        return scale_original_hexes.map((orig, i) => ({
+            name: accent_variants[i]?.name,
+            hex: by_idx.has(i) ? by_idx.get(i)!.hex : orig,
+            adjusted: by_idx.has(i),
+        }));
     });
 
     // ── Export functions ──
@@ -371,9 +443,9 @@
         lines.push(``);
         lines.push(`── ${trans?.contrast.suggest_scale_title} ──`);
         if (scale_suggestion) {
-            for (const shade of scale_suggestion.shades) {
-                const status = shade.ok ? (shade.adjusted ? 'ADJUSTED' : 'OK') : 'FAIL';
-                lines.push(`  ${shade.name}: ${shade.hex} (L ${Math.round(shade.l * 100)}%) [${status}]`);
+            for (const shade of scale_suggestion) {
+                const status = shade.adjusted ? 'ADJUSTED' : 'OK';
+                lines.push(`  ${shade.name}: ${shade.hex} [${status}]`);
             }
         } else {
             lines.push(trans?.contrast.suggest_scale_none ?? '');
@@ -448,13 +520,9 @@
 
         if (scale_suggestion) {
             jsonObj.suggested_scale = {
-                color_space: 'oklch',
-                score: scale_suggestion.score,
-                shades: scale_suggestion.shades.map(sh => ({
+                shades: scale_suggestion.map(sh => ({
                     name: sh.name,
                     hex: sh.hex,
-                    lightness_percent: Math.round(sh.l * 100),
-                    meets_requirements: sh.ok,
                     adjusted: sh.adjusted,
                 })),
             };
@@ -639,16 +707,32 @@
         <div class="contrast-category-title">{trans?.contrast.reco_title}</div>
         <div class="rules-block">
             <div class="rules-col">
-                <p class="contrast-note">{trans?.contrast.opposite_desc}</p>
+                <p class="contrast-note">
+                    {trans?.contrast.current_desc}
+                </p>
+                <div class="selector-like">
+                    <span class="current-theme-label">
+                        {trans?.contrast.current_label}
+                    </span>
+                    <div class="select-like">
+                        {selected_palette.name}
+                    </div>
+                </div>
             </div>
             <div class="rules-col">
                 <p class="contrast-note">{trans?.contrast.opposite_desc}</p>
                 <div class="opposite-selector">
-                    <label class="opposite-selector-label" for="opposite-select">{trans?.contrast.opposite_select_label}</label>
+                    <label class="opposite-selector-label" for="opposite-select">
+                        {trans?.contrast.opposite_select_label}
+                    </label>
                     <select id="opposite-select" class="opposite-select" bind:value={opposite_index}>
-                        <option value={-1}>{trans?.contrast.opposite_none}</option>
+                        <option value={-1}>
+                            {trans?.contrast.opposite_none}
+                        </option>
                         {#each opposite_palettes as palette, i}
-                            <option value={i}>{palette.name}</option>
+                            <option value={i}>
+                                {palette.name}
+                            </option>
                         {/each}
                     </select>
                 </div>
@@ -698,35 +782,62 @@
                             {@const priority_color = entry.priority === 'mandatory' ? '#ef4444' : '#f59e0b'}
                             <div class="suggest-item" style="border-left-color: {priority_color};">
                                 <div class="suggest-pair-header">
-                                    <span class="suggest-pair-label">{entry.variant_name} / {entry.surface_label}</span>
-                                    <span class="suggest-priority-badge" style="background: {priority_color}; color: #ffffff;">{priority_label}</span>
+                                    <span class="suggest-pair-label">
+                                        {entry.variant_name} / {entry.surface_label}
+                                    </span>
+                                    <span 
+                                        class="suggest-priority-badge" 
+                                        style="background: {priority_color}; 
+                                        color: #ffffff;"
+                                    >
+                                        {priority_label}
+                                    </span>
                                 </div>
                                 <div class="suggest-before-after">
                                     <div class="suggest-side">
-                                        <div
-                                            class="contrast-swatch-text reco-scale-swatch"
-                                            style="background: {swatch_bg_before}; color: {swatch_fg_before};{
-                                                swatch_bg_before === selected_palette.highlight ? ' border: 1px solid var(--card);' : ''
-                                            }"
-                                        >Aa</div>
-                                        <span class="suggest-ratio">{entry.ratio}</span>
-                                        <span class="wcag-badge" style="background: {entry.wcag.colour}; color: #ffffff;">{entry.wcag.level}</span>
+                                        {#if entry.isAplat}
+                                            <div class="swatch-surface-outer reco-scale-swatch" style="background: {entry.surface_color};">
+                                                <div class="swatch-surface-inner" style="background: {entry.variant_color};"></div>
+                                            </div>
+                                        {:else}
+                                            <div
+                                                class="contrast-swatch-text reco-scale-swatch"
+                                                style="background: {swatch_bg_before}; color: {swatch_fg_before};{swatch_bg_before === selected_palette.highlight ? ' border: 1px solid var(--card);' : ''}"
+                                            >Aa</div>
+                                        {/if}
+                                        <span class="suggest-ratio">
+                                            {entry.ratio}
+                                        </span>
+                                        <span
+                                            class="wcag-badge"
+                                            style="background: {entry.wcag.colour}; color: #ffffff;"
+                                        >
+                                            {entry.wcag.level}
+                                        </span>
                                     </div>
                                     <span class="suggest-arrow">→</span>
                                     <div class="suggest-side">
-                                        <div
-                                            class="contrast-swatch-text reco-scale-swatch"
-                                            style="background: {swatch_bg_after}; color: {swatch_fg_after};{
-                                                swatch_bg_after === selected_palette.highlight ? ' border: 1px solid var(--card);' : ''
-                                            }"
-                                        >Aa</div>
+                                        {#if entry.isAplat}
+                                            <div class="swatch-surface-outer reco-scale-swatch" style="background: {entry.surface_color};">
+                                                <div class="swatch-surface-inner" style="background: {entry.suggestion?.hex ?? entry.variant_color};"></div>
+                                            </div>
+                                        {:else}
+                                            <div
+                                                class="contrast-swatch-text reco-scale-swatch"
+                                                style="background: {swatch_bg_after}; color: {swatch_fg_after};{swatch_bg_after === selected_palette.highlight ? ' border: 1px solid var(--card);' : ''}"
+                                            >Aa</div>
+                                        {/if}
                                         <span class="suggest-ratio">{entry.suggestion?.ratio}</span>
                                         <span class="wcag-badge" style="background: #3d8a45; color: #ffffff;">AA</span>
                                     </div>
                                 </div>
                                 <div class="suggest-detail">
-                                    <span class="suggest-hex">{entry.suggestion?.hex}</span>
-                                    <span class="suggest-delta">L {sign}{entry.suggestion?.deltaL}%</span>
+                                    <span class="suggest-hex">
+                                        {entry.suggestion?.hex}
+                                    </span>
+                                    <span class="suggest-delta">
+                                        L {sign}{entry.suggestion?.deltaL}%
+                                    </span>
                                 </div>
                             </div>
                         {/each}
@@ -736,13 +847,10 @@
             
             <!-- Opposite theme suggestion-->
             <div class="rules-col">
-                {#if adjustment_suggestions.length !== 0}
+                {#if opposite_theme && opposite_adjustment_suggestions.length !== 0}
                     <div class="reco-subtitle">{trans?.contrast.suggest_title}</div>
-                {/if}
-
-                {#if adjustment_suggestions.length !== 0}
                     <div class="suggest-grid">
-                        {#each adjustment_suggestions as entry}
+                        {#each opposite_adjustment_suggestions as entry}
                             {@const sign = (entry.suggestion?.deltaL ?? 0) >= 0 ? '+' : ''}
                             {@const swatch_bg_before = entry.invert ? entry.variant_color : entry.surface_color}
                             {@const swatch_fg_before = entry.invert ? selected_accent.text_accent : entry.variant_color}
@@ -752,35 +860,68 @@
                             {@const priority_color = entry.priority === 'mandatory' ? '#ef4444' : '#f59e0b'}
                             <div class="suggest-item" style="border-left-color: {priority_color};">
                                 <div class="suggest-pair-header">
-                                    <span class="suggest-pair-label">{entry.variant_name} / {entry.surface_label}</span>
-                                    <span class="suggest-priority-badge" style="background: {priority_color}; color: #ffffff;">{priority_label}</span>
+                                    <span class="suggest-pair-label">
+                                        {entry.variant_name} / {entry.surface_label}
+                                    </span>
+                                    <span 
+                                        class="suggest-priority-badge" 
+                                        style="background: {priority_color}; color: #ffffff;"
+                                    >
+                                        {priority_label}
+                                    </span>
                                 </div>
                                 <div class="suggest-before-after">
                                     <div class="suggest-side">
-                                        <div
-                                            class="contrast-swatch-text reco-scale-swatch"
-                                            style="background: {swatch_bg_before}; color: {swatch_fg_before};{
-                                                swatch_bg_before === selected_palette.highlight ? ' border: 1px solid var(--card);' : ''
-                                            }"
-                                        >Aa</div>
-                                        <span class="suggest-ratio">{entry.ratio}</span>
-                                        <span class="wcag-badge" style="background: {entry.wcag.colour}; color: #ffffff;">{entry.wcag.level}</span>
+                                        {#if entry.isAplat}
+                                            <div class="swatch-surface-outer reco-scale-swatch" style="background: {entry.surface_color};">
+                                                <div class="swatch-surface-inner" style="background: {entry.variant_color};"></div>
+                                            </div>
+                                        {:else}
+                                            <div
+                                                class="contrast-swatch-text reco-scale-swatch"
+                                                style="background: {swatch_bg_before}; color: {swatch_fg_before};{swatch_bg_before === opposite_theme?.highlight ? ' border: 1px solid var(--card);' : ''}"
+                                            >Aa</div>
+                                        {/if}
+                                        <span class="suggest-ratio">
+                                            {entry.ratio}
+                                        </span>
+                                        <span
+                                            class="wcag-badge"
+                                            style="background: {entry.wcag.colour}; color: #ffffff;"
+                                        >
+                                            {entry.wcag.level}
+                                        </span>
                                     </div>
                                     <span class="suggest-arrow">→</span>
                                     <div class="suggest-side">
-                                        <div
-                                            class="contrast-swatch-text reco-scale-swatch"
-                                            style="background: {swatch_bg_after}; color: {swatch_fg_after};{
-                                                swatch_bg_after === selected_palette.highlight ? ' border: 1px solid var(--card);' : ''
-                                            }"
-                                        >Aa</div>
-                                        <span class="suggest-ratio">{entry.suggestion?.ratio}</span>
-                                        <span class="wcag-badge" style="background: #3d8a45; color: #ffffff;">AA</span>
+                                        {#if entry.isAplat}
+                                            <div class="swatch-surface-outer reco-scale-swatch" style="background: {entry.surface_color};">
+                                                <div class="swatch-surface-inner" style="background: {entry.suggestion?.hex ?? entry.variant_color};"></div>
+                                            </div>
+                                        {:else}
+                                            <div
+                                                class="contrast-swatch-text reco-scale-swatch"
+                                                style="background: {swatch_bg_after}; color: {swatch_fg_after};{swatch_bg_after === opposite_theme?.highlight ? ' border: 1px solid var(--card);' : ''}"
+                                            >Aa</div>
+                                        {/if}
+                                        <span class="suggest-ratio">
+                                            {entry.suggestion?.ratio}
+                                        </span>
+                                        <span
+                                            class="wcag-badge"
+                                            style="background: #3d8a45; color: #ffffff;"
+                                        >
+                                            AA
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="suggest-detail">
-                                    <span class="suggest-hex">{entry.suggestion?.hex}</span>
-                                    <span class="suggest-delta">L {sign}{entry.suggestion?.deltaL}%</span>
+                                    <span class="suggest-hex">
+                                        {entry.suggestion?.hex}
+                                    </span>
+                                    <span class="suggest-delta">
+                                        L {sign}{entry.suggestion?.deltaL}%
+                                    </span>
                                 </div>
                             </div>
                         {/each}
@@ -791,30 +932,30 @@
 
         <!-- ── Corrected scale ── -->
         <div class="reco-subtitle">{trans?.contrast.suggest_corrected_title}</div>
-        {#if scale_suggestion}
-            <div class="scale-swatches">
-                {#each scale_suggestion.shades as shade}
-                    <div class="scale-swatch-item" class:scale-swatch-fail={!shade.ok}>
-                        <div class="scale-swatch" style="background: {shade.hex};"></div>
-                        <span class="scale-swatch-label">{shade.name}</span>
-                        <span class="scale-swatch-hex">{shade.hex}</span>
-                        <span class="scale-swatch-l">L {Math.round(shade.l * 100)}%</span>
-                        {#if shade.adjusted}
-                            <span class="scale-swatch-status" style="color: #f59e0b;">{trans?.contrast.suggest_adjusted}</span>
-                        {/if}
-                        {#if !shade.ok}
-                            <span class="scale-swatch-status" style="color: #ef4444;">Fail</span>
-                        {/if}
-                    </div>
-                {/each}
-            </div>
-            <div class="scale-bar">
-                {#each scale_suggestion.shades as shade}
-                    <div class="scale-bar-segment" style="background: {shade.hex};" title="{shade.name}: {shade.hex}"></div>
-                {/each}
-            </div>
-        {:else}
-            <div class="reco-none">{trans?.contrast.suggest_scale_none}</div>
+        {#if adjustment_suggestions.length !== 0 || opposite_adjustment_suggestions.length !== 0}
+            {#if scale_suggestion}
+                <div class="scale-swatches">
+                    {#each scale_suggestion as shade, i}
+                        <div class="scale-swatch-item">
+                            <div class="scale-swatch" style="background: {shade.hex};"></div>
+                            <span class="scale-swatch-label">{shade.name}</span>
+                            {#if shade.adjusted}
+                                <span class="scale-swatch-hex scale-swatch-old">{scale_original_hexes[i]}</span>
+                                <span class="scale-swatch-hex">→ {shade.hex}</span>
+                            {:else}
+                                <span class="scale-swatch-hex">{shade.hex}</span>
+                            {/if}
+                        </div>
+                    {/each}
+                </div>
+                <div class="scale-bar">
+                    {#each scale_suggestion as shade}
+                        <div class="scale-bar-segment" style="background: {shade.hex};" title="{shade.name}: {shade.hex}"></div>
+                    {/each}
+                </div>
+            {:else}
+                <div class="reco-none">{trans?.contrast.suggest_scale_none}</div>
+            {/if}
         {/if}
 
         <!-- ── Export buttons ── -->
@@ -934,6 +1075,7 @@
     .contrast-swatch-surface {
         margin-bottom: 0.4rem;
     }
+
     .swatch-surface-outer {
         width: 3rem;
         height: 2rem;
@@ -942,6 +1084,7 @@
         align-items: center;
         justify-content: center;
     }
+
     .swatch-surface-inner {
         width: 1.4rem;
         height: 1rem;
@@ -983,13 +1126,6 @@
     }
 
     /* Adjustment suggestions */
-    .suggest-all-pass {
-        font-size: 0.82rem;
-        color: #10b981;
-        font-style: italic;
-        margin: 0.5rem 0;
-    }
-
     .suggest-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -1090,6 +1226,11 @@
         border-radius: 4px;
     }
 
+    .scale-swatch-old {
+        text-decoration: line-through;
+        opacity: 0.45;
+    }
+
     .scale-swatch-label {
         font-size: 0.7rem;
         font-weight: 600;
@@ -1100,21 +1241,6 @@
         font-size: 0.65rem;
         font-family: monospace;
         color: var(--text-muted);
-    }
-
-    .scale-swatch-l {
-        font-size: 0.65rem;
-        font-style: italic;
-        color: var(--text-muted);
-    }
-
-    .scale-swatch-fail {
-        opacity: 0.6;
-    }
-
-    .scale-swatch-status {
-        font-size: 0.6rem;
-        font-weight: 700;
     }
 
     .scale-bar {
@@ -1129,21 +1255,23 @@
         flex: 1;
     }
 
-    /* Opposite theme */
-    .opposite-selector {
+    /* Current & Opposite theme */
+    .opposite-selector, 
+    .selector-like {
         display: flex;
         align-items: center;
         gap: 0.75rem;
-        margin: 0.5rem 0 1rem 0;
     }
 
-    .opposite-selector-label {
+    .opposite-selector-label,
+    .current-theme-label {
         font-size: 0.8rem;
         font-weight: 600;
         color: var(--text-muted);
     }
 
-    .opposite-select {
+    .opposite-select,
+    .select-like {
         padding: 8px 12px;
         border: 2px solid var(--highlight);
         background: var(--bg);
@@ -1156,19 +1284,6 @@
     .opposite-select:focus {
         outline: none;
         border-color: var(--accent);
-    }
-
-    .opposite-results {
-        margin: 0.5rem 0 1rem 0;
-    }
-
-    .opposite-ratios-title {
-        font-size: 0.8rem;
-        font-weight: 700;
-        color: var(--text-muted);
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-        margin-bottom: 0.5rem;
     }
 
     /* Export */
