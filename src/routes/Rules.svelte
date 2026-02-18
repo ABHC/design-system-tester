@@ -106,7 +106,7 @@
         <div class="rules-ratio-row">
             <span class="rules-ratio">{rule.ratio}</span>
             <span class="rules-target">/ {rule.target}:1</span>
-            <span class="wcag-badge" style="background: {rule.passes ? '#3d8a45' : '#ef4444'}; color: #ffffff;">
+            <span class="wcag-badge" style="background: {rule.passes ? 'var(--accent-success)' : 'var(--accent-error)'}; color: var(--text-accent);">
                 {rule.passes ? 'Pass' : 'Fail'}
             </span>
         </div>
@@ -116,7 +116,7 @@
 <div class="rules-container">
     {#if mandatory.length > 0}
         <div class="rules-group-label">
-            <span class="rules-priority-dot" style="background: #ef4444;"></span>
+            <span class="rules-priority-dot" style="background: var(--accent-error);"></span>
             {trans?.contrast.suggest_mandatory}
         </div>
         <div class="rules-grid">
@@ -130,7 +130,7 @@
 
     {#if satisfactory.length > 0}
         <div class="rules-group-label">
-            <span class="rules-priority-dot" style="background: #f59e0b;"></span>
+            <span class="rules-priority-dot" style="background: var(--accent-warning);"></span>
             {trans?.contrast.suggest_satisfactory}
         </div>
         <div class="rules-grid">
@@ -151,11 +151,12 @@
     .rules-container {
         margin-top: 0.5rem;
         flex: 1;
+        max-width: 49%;
     }
 
     .rules-status-pass {
         font-size: 0.82rem;
-        color: #10b981;
+        color: var(--accent-success);
         font-style: italic;
         margin-top: 0.75rem;
     }
@@ -192,11 +193,11 @@
         padding: 0.5rem;
         background: var(--highlight);
         border-radius: 6px;
-        border-left: 3px solid #3d8a45;
+        border-left: 3px solid var(--accent-success);
     }
 
     .rules-item-fail {
-        border-left-color: #ef4444;
+        border-left-color: var(--accent-error);
     }
 
     .rules-swatch-row {

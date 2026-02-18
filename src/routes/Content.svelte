@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { AccentTheme, ToneTheme } from "$lib/types/palettes";
+    import type { AccentTheme, ToneTheme, ContextualColors } from "$lib/types/palettes";
     import type { Translation } from "$lib/types/translations";
     import type { PlaceholdersType } from "./placeholders";
     import Contrast from './Contrast.svelte';
@@ -13,6 +13,7 @@
         selected_accent: AccentTheme;
         light_palettes: ToneTheme[];
         dark_palettes: ToneTheme[];
+        contextual_colors: ContextualColors;
     }
 
     let {
@@ -22,6 +23,7 @@
         selected_accent,
         light_palettes,
         dark_palettes,
+        contextual_colors,
     }: Props = $props();
 
 </script>
@@ -221,7 +223,7 @@
     </div>
 
     <!-- Detailed Contrast Info -->
-    <Contrast {trans} {selected_palette} {selected_accent} {light_palettes} {dark_palettes} />
+    <Contrast {trans} {selected_palette} {selected_accent} {light_palettes} {dark_palettes} {contextual_colors} />
 
     <!-- Colorblind Simulation -->
     <Colorblind {trans} {selected_palette} {selected_accent} />
@@ -312,7 +314,7 @@
     }
 
     .button-primary:hover {
-        background: var(--accent-more);
+        background: var(--accent-invert);
     }
 
     .button-secondary {
@@ -463,11 +465,11 @@
     }
 
     .alert-success {
-        border-left: 4px solid var(--accent);
+        border-left: 4px solid var(--accent-success);
     }
 
     .alert-info {
-        border-left: 4px solid var(--accent-more);
+        border-left: 4px solid var(--accent-info);
     }
 
     .alert-error {

@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import type { AccentTheme, ToneTheme } from "$lib/types/palettes";
+    import type { AccentTheme, ToneTheme, ContextualColors } from "$lib/types/palettes";
     import type { FontConfig } from '$lib/types/fonts';
 
     import palettes from "$lib/data/palettes.json";
@@ -37,6 +37,14 @@
     // ---------- Derived placeholder data based on current locale ----------
     let lang_placeholders = $derived(placeholders[$locale as PlaceholderLocale] || placeholders.en);
 
+    // ---------- Contextual colors ----------
+    const contextual_colors = $derived<ContextualColors>({
+        error:   '#dc2626',
+        warning: '#b45309',
+        success: '#15803d',
+        info:    '#6b7280',
+    });
+
     // ---------- Reactive CSS variables ----------
     const css_variables = $derived({
         '--bg': selected_palette.bg,
@@ -48,13 +56,16 @@
         '--accent-light': selected_accent.accent_light,
         '--accent': selected_tone === 'dark' ? selected_accent.accent_light : selected_accent.accent_dark,
         '--accent-more': selected_tone === 'dark' ? selected_accent.accent_lighter : selected_accent.accent_darker,
+        '--accent-invert': selected_tone === 'dark' ? selected_accent.accent_dark : selected_accent.accent_light,
         '--accent-dark': selected_accent.accent_dark,
         '--accent-darker': selected_accent.accent_darker,
         '--text-accent': selected_accent.text_accent,
         '--font-body': `'${selected_body_font.family}', sans-serif`,
         '--font-heading': `'${selected_title_font.family}', sans-serif`,
-        '--accent-error': '#ef4444',
-        '--accent-warning': '#fb923c',
+        '--accent-error':   contextual_colors.error,
+        '--accent-warning': contextual_colors.warning,
+        '--accent-success': contextual_colors.success,
+        '--accent-info':    contextual_colors.info,
     });
 
     $effect(() => {
@@ -107,6 +118,7 @@
         {selected_accent}
         light_palettes={all_light_palettes}
         dark_palettes={all_dark_palettes}
+        {contextual_colors}
     />
 </div>
 

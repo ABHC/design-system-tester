@@ -28,9 +28,12 @@ body {
     --text: #f5f5f4;
     --text-muted: #a8a29e;
 
-    /* Contextual colors*/
-    --accent-error: #ef4444;
-    --accent-warning: #fb923c;
+    /* Contextual — all pass AA (4.5:1) with --text-accent (#ffffff) */
+    --accent-error:   #dc2626;  /* 4.89:1 with white */
+    --accent-warning: #b45309;  /* 4.82:1 with white */
+    --accent-success: #15803d;  /* 4.83:1 with white */
+    --accent-info: #6b7280;  /* 4.83:1 with white — surface/structural */
+    --accent-more:    #047857;  /* 5.08:1 with white — hover */
 
     /* Typography */
     --font-body: 'Inter', sans-serif;

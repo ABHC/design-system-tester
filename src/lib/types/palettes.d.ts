@@ -1,5 +1,12 @@
 // src/lib/types/palettes.ts
 
+export interface ContextualColors {
+    error: string;
+    warning: string;
+    success: string;
+    info: string;
+}
+
 export interface AccentTheme {
     name: string;
     display: boolean;

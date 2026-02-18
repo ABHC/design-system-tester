@@ -48,14 +48,14 @@ export function getContrastRatio(hex1: string, hex2: string): string {
 export function getWcagLevel(ratio: string, size: WcagSize = 'normal'): WcagResult {
     const r = parseFloat(ratio);
     if (size === 'normal') {
-        if (r >= 7)   return { level: 'AAA',      pass: true,  colour: '#10b981' };
-        if (r >= 4.5) return { level: 'AA',       pass: true,  colour: '#3d8a45' };
-        if (r >= 3)   return { level: 'AA Large', pass: true,  colour: '#f59e0b' };
-                      return { level: 'Fail',     pass: false, colour: '#ef4444' };
+        if (r >= 7)   return { level: 'AAA',      pass: true,  colour: 'var(--accent-info)' };
+        if (r >= 4.5) return { level: 'AA',       pass: true,  colour: 'var(--accent-success)' };
+        if (r >= 3)   return { level: 'AA Large', pass: true,  colour: 'var(--accent-warning)' };
+                      return { level: 'Fail',     pass: false, colour: 'var(--accent-error)' };
     } else {
-        if (r >= 4.5) return { level: 'AAA',      pass: true,  colour: '#10b981' };
-        if (r >= 3)   return { level: 'AA',       pass: true,  colour: '#3d8a45' };
-                      return { level: 'Fail',     pass: false, colour: '#ef4444' };
+        if (r >= 4.5) return { level: 'AAA',      pass: true,  colour: 'var(--accent-info)' };
+        if (r >= 3)   return { level: 'AA',       pass: true,  colour: 'var(--accent-success)' };
+                      return { level: 'Fail',     pass: false, colour: 'var(--accent-error)' };
     }
 }
 
