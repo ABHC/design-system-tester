@@ -14,9 +14,11 @@ body {
 
 :root {
     /* Accent */
-    --accent: #10b981;
-    --accent-dark: #059669;
+    --accent-lighter: #6ee7b7;
     --accent-light: #34d399;
+    --accent: #34d399;
+    --accent-dark: #059669;
+    --accent-darker: #047857;
     --text-accent: #ffffff;
 
     /* Tone */

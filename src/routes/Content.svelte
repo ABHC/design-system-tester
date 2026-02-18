@@ -4,7 +4,6 @@
     import type { PlaceholdersType } from "./placeholders";
     import Contrast from './Contrast.svelte';
     import Colorblind from './Colorblind.svelte';
-    import DualThemeFinder from './DualThemeFinder.svelte';
 
     // Props
     interface Props {
@@ -86,13 +85,28 @@
                     {selected_palette.highlight}
                 </div>
             </div>
-            <div class="swatch" style="background: var(--accent); color: var(--text-accent);">
+            <div
+                class="swatch"
+                style="background: var(--accent-lighter); color: var(--text-accent);"
+            >
                 <div class="swatch-header">
-                    <div class="swatch-label">Accent</div>
-                    <div class="swatch-var">--accent</div>
+                    <div class="swatch-label">Lighter</div>
+                    <div class="swatch-var">--accent-lighter</div>
                 </div>
                 <div class="swatch-hex">
-                    {selected_accent.accent}
+                    {selected_accent.accent_lighter}
+                </div>
+            </div>
+            <div
+                class="swatch"
+                style="background: var(--accent-light); color: var(--text-accent);"
+            >
+                <div class="swatch-header">
+                    <div class="swatch-label">Light</div>
+                    <div class="swatch-var">--accent-light</div>
+                </div>
+                <div class="swatch-hex">
+                    {selected_accent.accent_light}
                 </div>
             </div>
             <div
@@ -100,7 +114,7 @@
                 style="background: var(--accent-dark); color: var(--text-accent);"
             >
                 <div class="swatch-header">
-                    <div class="swatch-label">Accent Dark</div>
+                    <div class="swatch-label">Dark</div>
                     <div class="swatch-var">--accent-dark</div>
                 </div>
                 <div class="swatch-hex">
@@ -109,14 +123,14 @@
             </div>
             <div
                 class="swatch"
-                style="background: var(--accent-light); color: var(--text-accent);"
+                style="background: var(--accent-darker); color: var(--text-accent);"
             >
                 <div class="swatch-header">
-                    <div class="swatch-label">Accent Light</div>
-                    <div class="swatch-var">--accent-light</div>
+                    <div class="swatch-label">Darker</div>
+                    <div class="swatch-var">--accent-darker</div>
                 </div>
                 <div class="swatch-hex">
-                    {selected_accent.accent_light}
+                    {selected_accent.accent_darker}
                 </div>
             </div>
         </div>
@@ -201,10 +215,7 @@
     </div>
 
     <!-- Detailed Contrast Info -->
-    <Contrast {trans} {selected_palette} {selected_accent} />
-
-    <!-- Dual-theme Finder -->
-    <DualThemeFinder {trans} {light_palettes} {dark_palettes} {selected_accent} />
+    <Contrast {trans} {selected_palette} {selected_accent} {light_palettes} {dark_palettes} />
 
     <!-- Colorblind Simulation -->
     <Colorblind {trans} {selected_palette} {selected_accent} />

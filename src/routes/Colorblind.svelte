@@ -2,7 +2,7 @@
     import type { AccentTheme, ToneTheme } from "$lib/types/palettes";
     import type { Translation } from "$lib/types/translations";
     import { simulateColorblind, type ColorblindType } from "$lib/utils/colorblind";
-    import { getContrastRatio, getWcagLevel } from "$lib/utils/contrast";
+    import { getContrastRatio, getWcagLevel, getLuminance } from "$lib/utils/contrast";
 
     interface PairInfo {
         accent_name: string;
@@ -54,20 +54,26 @@
             { name: 'Highlight',  color: sim(selected_palette.highlight, t.key) },
         ],
         accents: [
+            { name: 'Lighter', color: sim(selected_accent.accent_lighter, t.key) },
             { name: 'Light',   color: sim(selected_accent.accent_light, t.key) },
-            { name: 'Accent',  color: sim(selected_accent.accent, t.key) },
             { name: 'Dark',    color: sim(selected_accent.accent_dark, t.key) },
+            { name: 'Darker',  color: sim(selected_accent.accent_darker, t.key) },
         ],
         preview: {
             bg: sim(selected_palette.bg, t.key),
             card: sim(selected_palette.card, t.key),
             high: sim(selected_palette.highlight, t.key),
-            fg: sim(selected_accent.accent, t.key),
+            fg: sim(selected_accent.accent_light, t.key),
             text_accent: sim(selected_accent.text_accent, t.key),
         },
     })));
 
-    // Score: 5 accents × 4 surfaces (bg, card, highlight, text_accent) = 20 pairs
+    // Detect dark/light mode from background luminance
+    const is_dark = $derived((getLuminance(selected_palette.bg) ?? 0) < 0.5);
+
+    // Score: theme-aware pairs following the 4-shade rules
+    // Dark: lighter(0) as text on bg/card/highlight, light(1) as aplat on card, text_accent on light(1)
+    // Light: darker(3) as text on bg/card/highlight, dark(2) as aplat on card, text_accent on dark(2)
     function computeScore(col: typeof columns[number]): ScoreResult {
         let aa = 0;
         let aaLarge = 0;
@@ -79,24 +85,37 @@
             { name: 'Highlight',  color: col.preview.high },
         ];
 
-        // Accent on surfaces (fg=accent, bg=surface)
-        for (const surf of surfaceBgs) {
-            for (const accent of col.accents) {
-                const ratio = parseFloat(getContrastRatio(accent.color, surf.color));
-                const level = getWcagLevel(ratio.toFixed(2), 'normal').level;
-                if (ratio >= 4.5) aa++;
-                if (ratio >= 3.0) aaLarge++;
-                pairs.push({ accent_name: accent.name, surface_name: surf.name, fg: accent.color, bg: surf.color, ratio, level });
-            }
-        }
+        // Text accent: lighter(0) for dark, darker(3) for light
+        const textAccent = is_dark ? col.accents[0] : col.accents[3];
+        // Aplat accent: light(1) for dark, dark(2) for light
+        const aplatAccent = is_dark ? col.accents[1] : col.accents[2];
 
-        // Text accent on accent variant (fg=text_accent, bg=accent)
-        for (const accent of col.accents) {
-            const ratio = parseFloat(getContrastRatio(col.preview.text_accent, accent.color));
+        // Text accent variant as text on surfaces
+        for (const surf of surfaceBgs) {
+            const ratio = parseFloat(getContrastRatio(textAccent.color, surf.color));
             const level = getWcagLevel(ratio.toFixed(2), 'normal').level;
             if (ratio >= 4.5) aa++;
             if (ratio >= 3.0) aaLarge++;
-            pairs.push({ accent_name: accent.name, surface_name: 'Text Accent', fg: col.preview.text_accent, bg: accent.color, ratio, level });
+            pairs.push({ accent_name: textAccent.name, surface_name: surf.name, fg: textAccent.color, bg: surf.color, ratio, level });
+        }
+
+        // Aplat accent as surface on card
+        {
+            const cardSurf = surfaceBgs[1];
+            const ratio = parseFloat(getContrastRatio(aplatAccent.color, cardSurf.color));
+            const level = getWcagLevel(ratio.toFixed(2), 'normal').level;
+            if (ratio >= 4.5) aa++;
+            if (ratio >= 3.0) aaLarge++;
+            pairs.push({ accent_name: aplatAccent.name, surface_name: cardSurf.name, fg: aplatAccent.color, bg: cardSurf.color, ratio, level });
+        }
+
+        // text_accent on aplat accent
+        {
+            const ratio = parseFloat(getContrastRatio(col.preview.text_accent, aplatAccent.color));
+            const level = getWcagLevel(ratio.toFixed(2), 'normal').level;
+            if (ratio >= 4.5) aa++;
+            if (ratio >= 3.0) aaLarge++;
+            pairs.push({ accent_name: aplatAccent.name, surface_name: 'Text Accent', fg: col.preview.text_accent, bg: aplatAccent.color, ratio, level });
         }
 
         return { aa, aaLarge, total: pairs.length, pairs };

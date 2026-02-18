@@ -3,9 +3,10 @@
 export interface AccentTheme {
     name: string;
     display: boolean;
-    accent: string;
-    accent_dark: string;
+    accent_lighter: string;
     accent_light: string;
+    accent_dark: string;
+    accent_darker: string;
     text_accent: string;
 }
 

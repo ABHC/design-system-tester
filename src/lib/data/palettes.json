@@ -3,126 +3,145 @@
         {
             "name": "Viridian",
             "display": true,
-            "accent": "#10b981",
-            "accent_dark": "#059669",
+            "accent_lighter": "#73e1b9",
             "accent_light": "#34d399",
+            "accent_dark": "#059669",
+            "accent_darker": "#035b40",
             "text_accent": "#ffffff"
         },
         {
             "name": "Emerald",
             "display": true,
-            "accent": "#16a085",
-            "accent_dark": "#0a7864",
+            "accent_lighter": "#3de0be",
             "accent_light": "#1db394",
+            "accent_dark": "#0a7864",
+            "accent_darker": "#054035",
             "text_accent": "#ffffff"
         },
         {
             "name": "Emerald II",
             "display": true,
-            "accent": "#127d68",
-            "accent_dark": "#0d6154",
+            "accent_lighter": "#29dcba",
             "accent_light": "#1a9e85",
-            "text_accent": "#ffffff",
-            "_ratio_vs_white": "4.55:1 ✅ AA"
+            "accent_dark": "#0d6154",
+            "accent_darker": "#07362f",
+            "text_accent": "#ffffff"
         },
         {
             "name": "Fern",
             "display": true,
-            "accent": "#57a35f",
-            "accent_dark": "#3d8a45",
+            "accent_lighter": "#a3d3a8",
             "accent_light": "#6fba77",
+            "accent_dark": "#3d8a45",
+            "accent_darker": "#2a6030",
             "text_accent": "#ffffff"
         },
         {
             "name": "Fern I",
             "display": true,
-            "accent": "#49734e",
-            "accent_dark": "#365740",
+            "accent_lighter": "#87b18c",
             "accent_light": "#5d8f62",
-            "text_accent": "#ffffff",
-            "_ratio_vs_white": "4.98:1 ✅ AA"
+            "accent_dark": "#365740",
+            "accent_darker": "#1f3124",
+            "text_accent": "#ffffff"
         },
         {
             "name": "Fern II",
             "display": true,
-            "accent": "#4c764c",
-            "accent_dark": "#385938",
+            "accent_lighter": "#8bb38b",
             "accent_light": "#609260",
-            "text_accent": "#ffffff",
-            "_ratio_vs_white": "4.74:1 ✅ AA"
+            "accent_dark": "#385938",
+            "accent_darker": "#203320",
+            "text_accent": "#ffffff"
         },
         {
             "name": "Fern III",
             "display": true,
-            "accent": "#507c53",
-            "accent_dark": "#3c5f3e",
+            "accent_lighter": "#93b795",
             "accent_light": "#659868",
-            "text_accent": "#ffffff",
-            "_ratio_vs_white": "4.53:1 ✅ AA"
+            "accent_dark": "#3c5f3e",
+            "accent_darker": "#243926",
+            "text_accent": "#ffffff"
         },
         {
             "name": "Fern IV",
             "display": true,
-            "accent": "#498349",
-            "accent_dark": "#366336",
+            "accent_lighter": "#8cbc8c",
             "accent_light": "#5d9f5d",
-            "text_accent": "#ffffff",
-            "_ratio_vs_white": "4.96:1 ✅ AA"
+            "accent_dark": "#366336",
+            "accent_darker": "#203b20",
+            "text_accent": "#ffffff"
+        },
+        {
+            "name": "Fern V",
+            "display": true,
+            "accent_lighter": "#8cbc8c",
+            "accent_light": "#4d834d",
+            "accent_dark": "#366336",
+            "accent_darker": "#203b20",
+            "text_accent": "#ffffff"
         },
         {
             "name": "Sage",
             "display": false,
-            "accent": "#3aaa72",
-            "accent_dark": "#2a8f5c",
+            "accent_lighter": "#8dd4af",
             "accent_light": "#55bf88",
+            "accent_dark": "#2a8f5c",
+            "accent_darker": "#1c603e",
             "text_accent": "#ffffff"
         },
         {
             "name": "Amethyst",
             "display": true,
-            "accent": "#8254f7",
-            "accent_dark": "#6b3df5",
+            "accent_lighter": "#cdbafc",
             "accent_light": "#9771f9",
+            "accent_dark": "#6b3df5",
+            "accent_darker": "#430ce9",
             "text_accent": "#ffffff"
         },
         {
             "name": "Cyan Techno",
             "display": true,
-            "accent": "#00d4ff",
-            "accent_dark": "#00a8cc",
+            "accent_lighter": "#9aedff",
             "accent_light": "#4ddfff",
+            "accent_dark": "#00a8cc",
+            "accent_darker": "#00768f",
             "text_accent": "#0a0e27"
         },
         {
             "name": "Azure Pro",
             "display": true,
-            "accent": "#0ea5e9",
-            "accent_dark": "#0284c7",
+            "accent_lighter": "#82d6fb",
             "accent_light": "#38bdf8",
+            "accent_dark": "#0284c7",
+            "accent_darker": "#015c8a",
             "text_accent": "#ffffff"
         },
         {
             "name": "Solar Yellow",
             "display": true,
-            "accent": "#fbbf24",
-            "accent_dark": "#f59e0b",
+            "accent_lighter": "#fde698",
             "accent_light": "#fcd34d",
+            "accent_dark": "#f59e0b",
+            "accent_darker": "#bb7808",
             "text_accent": "#1f1f1f"
         },
         {
             "name": "Gold Warm",
             "display": true,
-            "accent": "#f59e0b",
-            "accent_dark": "#d97706",
+            "accent_lighter": "#fcd56f",
             "accent_light": "#fbbf24",
+            "accent_dark": "#d97706",
+            "accent_darker": "#9d5604",
             "text_accent": "#1f1f1f"
         },
         {
             "name": "Sunset Orange",
             "display": true,
-            "accent": "#fb923c",
-            "accent_dark": "#ea580c",
+            "accent_lighter": "#fedfbf",
             "accent_light": "#fdba74",
+            "accent_dark": "#ea580c",
+            "accent_darker": "#b04209",
             "text_accent": "#ffffff"
         }
     ],
@@ -131,7 +150,7 @@
             "name": "Sepia",
             "display": true,
             "bg": "#e8e4d8",
-            "card":"#d0c9b8",
+            "card": "#d0c9b8",
             "highlight": "#bdb6a4",
             "text": "#1c1917",
             "text_muted": "#57534e"
@@ -140,7 +159,7 @@
             "name": "Balanced",
             "display": true,
             "bg": "#f0ede5",
-            "card":"#dcd9ce",
+            "card": "#dcd9ce",
             "highlight": "#e5e2d9",
             "text": "#1c1917",
             "text_muted": "#57534e"
@@ -149,7 +168,7 @@
             "name": "Soft",
             "display": true,
             "bg": "#f2f0eb",
-            "card":"#dddad2",
+            "card": "#dddad2",
             "highlight": "#e8e5de",
             "text": "#1c1917",
             "text_muted": "#57534e"
@@ -158,7 +177,7 @@
             "name": "Matte",
             "display": true,
             "bg": "#ebe8e0",
-            "card":"#d6d3c8",
+            "card": "#d6d3c8",
             "highlight": "#e0ddd5",
             "text": "#1c1917",
             "text_muted": "#57534e"
@@ -167,7 +186,7 @@
             "name": "Old Sepia",
             "display": false,
             "bg": "#e8e4d8",
-            "card":"#d3cfc0",
+            "card": "#d3cfc0",
             "highlight": "#ddd9cd",
             "text": "#1c1917",
             "text_muted": "#57534e"
@@ -176,7 +195,7 @@
             "name": "Vanilla Cream",
             "display": false,
             "bg": "#f5f3f0",
-            "card":"#e8e5e0",
+            "card": "#e8e5e0",
             "highlight": "#ede9e4",
             "text": "#1c1917",
             "text_muted": "#57534e"
@@ -187,7 +206,7 @@
             "name": "Old Deep",
             "display": false,
             "bg": "#252825",
-            "card":"#1a1d1a",
+            "card": "#1a1d1a",
             "highlight": "#2f342f",
             "text": "#f5f5f4",
             "text_muted": "#a8a29e"
@@ -205,7 +224,7 @@
             "name": "Deep",
             "display": true,
             "bg": "#1a1917",
-            "card":"#2d2a25",
+            "card": "#2d2a25",
             "highlight": "#3a3732",
             "text": "#f5f5f4",
             "text_muted": "#a8a29e"
@@ -214,7 +233,7 @@
             "name": "Pure Black",
             "display": true,
             "bg": "#0d0d0d",
-            "card":"#1a1a1a",
+            "card": "#1a1a1a",
             "highlight": "#2a2a2a",
             "text": "#ffffff",
             "text_muted": "#b0b0b0"
@@ -223,7 +242,7 @@
             "name": "Midnight Blue",
             "display": true,
             "bg": "#0f1419",
-            "card":"#1a1f2e",
+            "card": "#1a1f2e",
             "highlight": "#252d3d",
             "text": "#f5f5f7",
             "text_muted": "#a8adb5"
@@ -232,7 +251,7 @@
             "name": "Navy Deep",
             "display": true,
             "bg": "#11192b",
-            "card":"#1a2544",
+            "card": "#1a2544",
             "highlight": "#253047",
             "text": "#f2f4f8",
             "text_muted": "#a0aabb"
@@ -241,7 +260,7 @@
             "name": "Slate Stone",
             "display": true,
             "bg": "#1e2a3a",
-            "card":"#2a3a4a",
+            "card": "#2a3a4a",
             "highlight": "#3a4a5a",
             "text": "#f0f2f5",
             "text_muted": "#a8b0b8"
@@ -250,7 +269,7 @@
             "name": "Carbon",
             "display": true,
             "bg": "#1a1a1a",
-            "card":"#242424",
+            "card": "#242424",
             "highlight": "#353535",
             "text": "#fafafa",
             "text_muted": "#b0b0b0"
@@ -295,7 +314,7 @@
             "name": "Void",
             "display": true,
             "bg": "#000000",
-            "card":"#0f0f0f",
+            "card": "#0f0f0f",
             "highlight": "#1f1f1f",
             "text": "#ffffff",
             "text_muted": "#a0a0a0"

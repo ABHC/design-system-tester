@@ -3,17 +3,22 @@
     import type { Translation } from "$lib/types/translations";
     import { getContrastRatio, getWcagLevel, getLuminance, suggestAdjustedColor, hexToOklch, suggestCorrectedScale } from "$lib/utils/contrast";
     import type { AdjustmentSuggestion, RequiredPair, ScaleSuggestion } from "$lib/utils/contrast";
+    import Rules from './Rules.svelte';
 
     interface Props {
         trans: Translation | null;
         selected_palette: ToneTheme;
         selected_accent: AccentTheme;
+        light_palettes: ToneTheme[];
+        dark_palettes: ToneTheme[];
     }
 
     let {
         trans,
         selected_palette,
         selected_accent,
+        light_palettes,
+        dark_palettes,
     }: Props = $props();
 
     // ── Contrast ratios computed from palette/accent hex values ──
@@ -28,17 +33,17 @@
     const contrast_highlight_bg = $derived(getContrastRatio(selected_palette.highlight, selected_palette.bg));
     const contrast_highlight_card  = $derived(getContrastRatio(selected_palette.highlight, selected_palette.card));
 
+    // Accent Lighter
+    const contrast_accent_lighter = $derived(getContrastRatio(selected_accent.accent_lighter, selected_accent.text_accent));
+    const contrast_accent_lighter_bg = $derived(getContrastRatio(selected_accent.accent_lighter, selected_palette.bg));
+    const contrast_accent_lighter_card = $derived(getContrastRatio(selected_accent.accent_lighter, selected_palette.card));
+    const contrast_accent_lighter_highlight = $derived(getContrastRatio(selected_accent.accent_lighter, selected_palette.highlight));
+
     // Accent Light
     const contrast_accent_light = $derived(getContrastRatio(selected_accent.accent_light, selected_accent.text_accent));
     const contrast_accent_light_bg = $derived(getContrastRatio(selected_accent.accent_light, selected_palette.bg));
     const contrast_accent_light_card = $derived(getContrastRatio(selected_accent.accent_light, selected_palette.card));
     const contrast_accent_light_highlight = $derived(getContrastRatio(selected_accent.accent_light, selected_palette.highlight));
-
-    // Accent base
-    const contrast_accent = $derived(getContrastRatio(selected_accent.accent, selected_accent.text_accent));
-    const contrast_accent_bg = $derived(getContrastRatio(selected_accent.accent, selected_palette.bg));
-    const contrast_accent_card = $derived(getContrastRatio(selected_accent.accent, selected_palette.card));
-    const contrast_accent_highlight = $derived(getContrastRatio(selected_accent.accent, selected_palette.highlight));
 
     // Accent Dark
     const contrast_accent_dark = $derived(getContrastRatio(selected_accent.accent_dark, selected_accent.text_accent));
@@ -46,13 +51,18 @@
     const contrast_accent_dark_card = $derived(getContrastRatio(selected_accent.accent_dark, selected_palette.card));
     const contrast_accent_dark_highlight = $derived(getContrastRatio(selected_accent.accent_dark, selected_palette.highlight));
 
+    // Accent Darker
+    const contrast_accent_darker = $derived(getContrastRatio(selected_accent.accent_darker, selected_accent.text_accent));
+    const contrast_accent_darker_bg = $derived(getContrastRatio(selected_accent.accent_darker, selected_palette.bg));
+    const contrast_accent_darker_card = $derived(getContrastRatio(selected_accent.accent_darker, selected_palette.card));
+    const contrast_accent_darker_highlight = $derived(getContrastRatio(selected_accent.accent_darker, selected_palette.highlight));
+
     // ── Derived data structures ──
 
     const theme_name = $derived(selected_palette.name);
     const accent_name = $derived(selected_accent.name);
     let copied_text = $state(false);
     let copied_json = $state(false);
-    let show_detail = $state(false);
 
     // Detect dark/light mode from background luminance
     const is_dark = $derived((getLuminance(selected_palette.bg) ?? 0) < 0.5);
@@ -94,6 +104,16 @@
 
     const accent_variants = $derived([
         {
+            name: trans?.contrast.accent_lighter,
+            color: selected_accent.accent_lighter,
+            ratios: {
+                bg: contrast_accent_lighter_bg,
+                card: contrast_accent_lighter_card,
+                highlight: contrast_accent_lighter_highlight,
+                text: contrast_accent_lighter,
+            }
+        },
+        {
             name: trans?.contrast.accent_light,
             color: selected_accent.accent_light,
             ratios: {
@@ -101,16 +121,6 @@
                 card: contrast_accent_light_card,
                 highlight: contrast_accent_light_highlight,
                 text: contrast_accent_light,
-            }
-        },
-        {
-            name: trans?.contrast.accent,
-            color: selected_accent.accent,
-            ratios: {
-                bg: contrast_accent_bg,
-                card: contrast_accent_card,
-                highlight: contrast_accent_highlight,
-                text: contrast_accent,
             }
         },
         {
@@ -123,26 +133,19 @@
                 text: contrast_accent_dark,
             }
         },
+        {
+            name: trans?.contrast.accent_darker,
+            color: selected_accent.accent_darker,
+            ratios: {
+                bg: contrast_accent_darker_bg,
+                card: contrast_accent_darker_card,
+                highlight: contrast_accent_darker_highlight,
+                text: contrast_accent_darker,
+            }
+        },
     ]);
 
-    // Find the variant closest to the AA Large threshold (3:1) for a given surface.
-    // Dark mode: search darker → lighter (darkest passing variant)
-    // Light mode: search lighter → darker (lightest passing variant)
-    function getThreshold(ratio_key: 'bg' | 'card' | 'highlight' | 'text', variants: typeof accent_variants): {
-        name: string | undefined,
-        ratio: string,
-        wcag: ReturnType<typeof getWcagLevel>
-    } | null {
-        const ordered = is_dark ? [...variants].reverse() : variants;
-        for (const v of ordered) {
-            const ratio = v.ratios[ratio_key];
-            const wcag  = getWcagLevel(ratio, 'normal');
-            if (wcag.pass) return { name: v.name, ratio, wcag };
-        }
-        return null;
-    }
-
-    // ── Adjustment suggestions (AA ≥ 4.5:1) ──
+    // ── Surface maps ──
 
     const surfaceBgMap = $derived<Record<string, string>>({
         bg: selected_palette.bg,
@@ -151,28 +154,36 @@
         text: selected_accent.text_accent,
     });
 
+    const surfaceLabelMap = $derived<Record<string, { label: string | undefined; color: string }>>({
+        bg: { label: trans?.contrast.background, color: selected_palette.bg },
+        card: { label: trans?.contrast.card, color: selected_palette.card },
+        highlight: { label: trans?.contrast.highlight, color: selected_palette.highlight },
+        text: { label: trans?.contrast.text_accent, color: selected_accent.text_accent },
+    });
+
     // ── Business rules: which variant/surface pairs must pass AA ──
 
     const required_pairs = $derived.by(() => {
         const pairs: (RequiredPair & { priority: string })[] = [];
 
-        // text_accent sur accent (seul aplat primaire) → 4.5:1
-        pairs.push({ variant_idx: 1, surface_key: 'text', targetRatio: 4.5, priority: 'non_negotiable' });
-
         if (is_dark) {
-            // accent-light (idx=0) comme TEXTE sur surfaces sombres
-            pairs.push({ variant_idx: 0, surface_key: 'bg', targetRatio: 4.5, priority: 'non_negotiable' });
-            pairs.push({ variant_idx: 0, surface_key: 'card', targetRatio: 4.5, priority: 'non_negotiable' });
-            pairs.push({ variant_idx: 0, surface_key: 'highlight', targetRatio: 3.0, priority: 'satisfactory' });
-            // accent (idx=1) comme APLAT sur card → 3:1
-            pairs.push({ variant_idx: 1, surface_key: 'card', targetRatio: 3.0, priority: 'satisfactory' });
+            // text_accent on light aplat (idx=1) → 4.5:1
+            pairs.push({ variant_idx: 1, surface_key: 'text', targetRatio: 4.5, priority: 'mandatory', isAplat: false });
+            // lighter (idx=0) as TEXT on dark surfaces
+            pairs.push({ variant_idx: 0, surface_key: 'bg', targetRatio: 4.5, priority: 'mandatory', isAplat: false });
+            pairs.push({ variant_idx: 0, surface_key: 'card', targetRatio: 4.5, priority: 'mandatory', isAplat: false });
+            pairs.push({ variant_idx: 0, surface_key: 'highlight', targetRatio: 3.0, priority: 'satisfactory', isAplat: false });
+            // light (idx=1) as APLAT on card → 3:1
+            pairs.push({ variant_idx: 1, surface_key: 'card', targetRatio: 3.0, priority: 'satisfactory', isAplat: true });
         } else {
-            // accent-dark (idx=2) comme TEXTE sur surfaces claires
-            pairs.push({ variant_idx: 2, surface_key: 'bg', targetRatio: 4.5, priority: 'non_negotiable' });
-            pairs.push({ variant_idx: 2, surface_key: 'card', targetRatio: 4.5, priority: 'non_negotiable' });
-            pairs.push({ variant_idx: 2, surface_key: 'highlight', targetRatio: 3.0, priority: 'satisfactory' });
-            // accent (idx=1) comme APLAT sur card → 3:1
-            pairs.push({ variant_idx: 1, surface_key: 'card', targetRatio: 3.0, priority: 'satisfactory' });
+            // text_accent on dark aplat (idx=2) → 4.5:1
+            pairs.push({ variant_idx: 2, surface_key: 'text', targetRatio: 4.5, priority: 'mandatory', isAplat: false });
+            // darker (idx=3) as TEXT on light surfaces
+            pairs.push({ variant_idx: 3, surface_key: 'bg', targetRatio: 4.5, priority: 'mandatory', isAplat: false });
+            pairs.push({ variant_idx: 3, surface_key: 'card', targetRatio: 4.5, priority: 'mandatory', isAplat: false });
+            pairs.push({ variant_idx: 3, surface_key: 'highlight', targetRatio: 3.0, priority: 'satisfactory', isAplat: false });
+            // dark (idx=2) as APLAT on card → 3:1
+            pairs.push({ variant_idx: 2, surface_key: 'card', targetRatio: 3.0, priority: 'satisfactory', isAplat: true });
         }
 
         return pairs;
@@ -228,13 +239,14 @@
     // ── Suggested progressive scale ──
 
     const scale_suggestion = $derived.by((): ScaleSuggestion | null => {
-        const accentOklch = hexToOklch(selected_accent.accent);
+        const accentOklch = hexToOklch(selected_accent.accent_light);
         if (!accentOklch) return null;
 
         const existingHexes = [
+            selected_accent.accent_lighter,
             selected_accent.accent_light,
-            selected_accent.accent,
             selected_accent.accent_dark,
+            selected_accent.accent_darker,
         ];
 
         const rules: RequiredPair[] = required_pairs.map(p => ({
@@ -249,6 +261,52 @@
             surfaceBgMap,
             rules,
         );
+    });
+
+    // ── Opposite theme recommendations ──
+
+    const opposite_palettes = $derived(is_dark ? light_palettes : dark_palettes);
+    let opposite_index = $state(-1); // -1 = none selected
+
+    const opposite_theme = $derived(opposite_index >= 0 ? opposite_palettes[opposite_index] : null);
+
+    const opposite_rules = $derived.by(() => {
+        if (!opposite_theme) return [];
+        const pairs: (RequiredPair & { priority: string; isAplat: boolean })[] = [];
+
+        if (is_dark) {
+            // Current is dark → opposite is light
+            // text_accent on dark aplat (idx=2) → 4.5:1
+            pairs.push({ variant_idx: 2, surface_key: 'text', targetRatio: 4.5, priority: 'mandatory', isAplat: false });
+            // darker (idx=3) as TEXT on light surfaces
+            pairs.push({ variant_idx: 3, surface_key: 'bg', targetRatio: 4.5, priority: 'mandatory', isAplat: false });
+            pairs.push({ variant_idx: 3, surface_key: 'card', targetRatio: 4.5, priority: 'mandatory', isAplat: false });
+            pairs.push({ variant_idx: 3, surface_key: 'highlight', targetRatio: 3.0, priority: 'satisfactory', isAplat: false });
+            // dark (idx=2) as APLAT on card → 3:1
+            pairs.push({ variant_idx: 2, surface_key: 'card', targetRatio: 3.0, priority: 'satisfactory', isAplat: true });
+        } else {
+            // Current is light → opposite is dark
+            // text_accent on light aplat (idx=1) → 4.5:1
+            pairs.push({ variant_idx: 1, surface_key: 'text', targetRatio: 4.5, priority: 'mandatory', isAplat: false });
+            // lighter (idx=0) as TEXT on dark surfaces
+            pairs.push({ variant_idx: 0, surface_key: 'bg', targetRatio: 4.5, priority: 'mandatory', isAplat: false });
+            pairs.push({ variant_idx: 0, surface_key: 'card', targetRatio: 4.5, priority: 'mandatory', isAplat: false });
+            pairs.push({ variant_idx: 0, surface_key: 'highlight', targetRatio: 3.0, priority: 'satisfactory', isAplat: false });
+            // light (idx=1) as APLAT on card → 3:1
+            pairs.push({ variant_idx: 1, surface_key: 'card', targetRatio: 3.0, priority: 'satisfactory', isAplat: true });
+        }
+
+        return pairs;
+    });
+
+    const opposite_surface_map = $derived.by(() => {
+        if (!opposite_theme) return {};
+        return {
+            bg: { label: trans?.contrast.background, color: opposite_theme.bg },
+            card: { label: trans?.contrast.card, color: opposite_theme.card },
+            highlight: { label: trans?.contrast.highlight, color: opposite_theme.highlight },
+            text: { label: trans?.contrast.text_accent, color: selected_accent.text_accent },
+        } as Record<string, { label: string | undefined; color: string }>;
     });
 
     // ── Export functions ──
@@ -279,19 +337,21 @@
             lines.push(`  / ${trans?.contrast.highlight}    : ${v.ratios.highlight}  ${getWcagLevel(v.ratios.highlight, 'normal').level}`);
         }
 
+        // Required rules
         lines.push(``);
-        lines.push(`── ${trans?.contrast.reco_threshold} ──`);
+        lines.push(`── ${trans?.contrast.reco_title} ──`);
 
-        for (const s of surfaces) {
-            const threshold = getThreshold(s.key as 'bg' | 'card' | 'highlight', accent_variants);
-            if (threshold) {
-                lines.push(`${s.label}: ${trans?.contrast.reco_threshold_from} ${threshold.name} → ${threshold.ratio}:1 ${threshold.wcag.level}`);
-            } else {
-                lines.push(`${s.label}: ${trans?.contrast.reco_threshold_none}`);
-            }
+        for (const pair of required_pairs) {
+            const variant = accent_variants[pair.variant_idx];
+            const surface = surfaces.find(s => s.key === pair.surface_key);
+            if (!variant || !surface) continue;
+            const ratio = variant.ratios[surface.ratio_key];
+            const target = pair.targetRatio ?? 4.5;
+            const passes = parseFloat(ratio) >= target;
+            lines.push(`${variant.name} / ${surface.label} : ${ratio} (${target}:1) ${passes ? 'Pass' : 'FAIL'} [${pair.priority}]`);
         }
 
-        // Suggestions d'ajustement AA (filtered by business rules)
+        // Suggestions d'ajustement (filtered by business rules)
         lines.push(``);
         lines.push(`── ${trans?.contrast.suggest_title} ──`);
 
@@ -300,8 +360,8 @@
         } else {
             for (const entry of adjustment_suggestions) {
                 const sign = (entry.suggestion?.deltaL ?? 0) >= 0 ? '+' : '';
-                const priority = entry.priority === 'non_negotiable'
-                    ? trans?.contrast.suggest_non_negotiable
+                const priority = entry.priority === 'mandatory'
+                    ? trans?.contrast.suggest_mandatory
                     : trans?.contrast.suggest_satisfactory;
                 lines.push(`[${priority}] ${entry.variant_name} / ${entry.surface_label} : ${entry.ratio} ${entry.wcag.level} → ${entry.suggestion?.hex} (L ${sign}${entry.suggestion?.deltaL}%) → ${entry.suggestion?.ratio}:1 AA`);
             }
@@ -452,6 +512,20 @@
                     bg: selected_palette.highlight, 
                     size: 'normal' 
                 },
+                {
+                    label: `${trans?.contrast.text_accent} / ${trans?.contrast.accent_light}`,
+                    ratio: contrast_accent_light,
+                    fg: selected_accent.text_accent,
+                    bg: selected_accent.accent_light,
+                    size: 'normal'
+                },
+                {
+                    label: `${trans?.contrast.text_accent} / ${trans?.contrast.accent_dark}`,
+                    ratio: contrast_accent_dark,
+                    fg: selected_accent.text_accent,
+                    bg: selected_accent.accent_dark,
+                    size: 'normal'
+                },
             ] as item}
                 {@const wcag = getWcagLevel(item.ratio, item.size as 'normal' | 'large')}
                 <div class="contrast-item">
@@ -489,7 +563,8 @@
                 },
                 { 
                     label: `${trans?.contrast.highlight} / ${trans?.contrast.card}`,       
-                    ratio: contrast_highlight_card, c1: selected_palette.highlight, 
+                    ratio: contrast_highlight_card, 
+                    c1: selected_palette.highlight, 
                     c2: selected_palette.card 
                 },
             ] as item}
@@ -508,175 +583,211 @@
             {/each}
         </div>
 
-        <!-- ── Category 3 : Accent ── -->
-        <div class="contrast-category-title">{trans?.contrast.reco_scale}</div>
-        <div class="contrast-note">{trans?.contrast.large_text_note}</div>
-
-        <!-- Scale : all variants per surface -->
-        <div class="reco-scale-grid">
-            {#each surfaces as surface}
-                <div class="reco-scale-block">
-                    <div class="reco-scale-surface-label">{surface.label}</div>
-                    {#each accent_variants as variant}
-                        {@const wcag = getWcagLevel(variant.ratios[surface.ratio_key], 'normal')}
-                        {@const swatch_bg = surface.invert ? variant.color : surface.color}
-                        {@const swatch_fg = surface.invert ? selected_accent.text_accent : variant.color}
-                        <div class="reco-scale-row">
-                            <div
-                                class="contrast-swatch-text reco-scale-swatch"
-                                style="background: {swatch_bg}; color: {swatch_fg};{swatch_bg === selected_palette.highlight ? ' border: 1px solid var(--card);' : ''}"
-                            >Aa</div>
-                            <span class="reco-scale-name">{variant.name}</span>
-                            <span class="contrast-value2">{variant.ratios[surface.ratio_key]}</span>
-                            <span class="wcag-badge" style="background: {wcag.colour}; color: #ffffff;">{wcag.level}</span>
+        <div class="contrast-grid">
+            {#each (is_dark ? [
+                {
+                    label: `${trans?.contrast.accent_light} / ${trans?.contrast.background}`,
+                    ratio: contrast_accent_light_bg,
+                    c1: selected_accent.accent_light,
+                    c2: selected_palette.bg
+                },
+                {
+                    label: `${trans?.contrast.accent_light} / ${trans?.contrast.card}`,
+                    ratio: contrast_accent_light_card,
+                    c1: selected_accent.accent_light,
+                    c2: selected_palette.card
+                },
+            ] : [
+                {
+                    label: `${trans?.contrast.accent_dark} / ${trans?.contrast.background}`,
+                    ratio: contrast_accent_dark_bg,
+                    c1: selected_accent.accent_dark,
+                    c2: selected_palette.bg
+                },
+                {
+                    label: `${trans?.contrast.accent_dark} / ${trans?.contrast.card}`,
+                    ratio: contrast_accent_dark_card,
+                    c1: selected_accent.accent_dark,
+                    c2: selected_palette.card
+                },
+            ]) as item}
+                <div class="contrast-item">
+                    <div class="contrast-swatch-surface">
+                        <div 
+                            class="swatch-surface-outer" 
+                            style="background: 
+                                {item.c2};{item.c2}; 
+                                {item.c2 === selected_palette.highlight ? ' border: 1px solid var(--card);' : ''}
+                            "
+                        >
+                            <div 
+                                class="swatch-surface-inner" 
+                                style="background: {item.c1};{item.c1}"
+                            ></div>
                         </div>
-                    {/each}
+                    </div>
+                    <div class="contrast-label">{item.label}</div>
+                    <div class="contrast-row">
+                        <span class="contrast-value2">{item.ratio}</span>
+                        <span class="wcag-badge" style="background: #6b7280; color: #ffffff;">{trans?.contrast.surface_badge}</span>
+                    </div>
                 </div>
             {/each}
         </div>
 
-        <!-- Individual : all variants per surface (collapsible) -->
-        <button class="button button-secondary detail-toggle" onclick={() => show_detail = !show_detail}>
-            {show_detail ? trans?.contrast.detail_hide : trans?.contrast.detail_show}
-        </button>
-        {#if show_detail}
-            <div class="detail-grid">
-                {#each accent_variants as variant, i}
-                    {#if i > 0}
-                        <div class="detail-separator"></div>
-                    {/if}
-                    <div class="detail-variant-label">{variant.name}</div>
-                    <div class="contrast-grid">
-                        {#each [
-                            {
-                                surface_label: trans?.contrast.text_accent,
-                                ratio: variant.ratios.text,
-                                bg: variant.color,
-                                fg: selected_accent.text_accent
-                            },
-                            {
-                                surface_label: trans?.contrast.background,
-                                ratio: variant.ratios.bg,
-                                bg: selected_palette.bg,
-                                fg: variant.color
-                            },
-                            {
-                                surface_label: trans?.contrast.card,
-                                ratio: variant.ratios.card,
-                                bg: selected_palette.card,
-                                fg: variant.color
-                            },
-                            {
-                                surface_label: trans?.contrast.highlight,
-                                ratio: variant.ratios.highlight,
-                                bg: selected_palette.highlight,
-                                fg: variant.color
-                            },
-                        ] as item}
-                            {@const wcag = getWcagLevel(item.ratio, 'normal')}
-                            <div class="contrast-item">
-                                <div 
-                                    class="contrast-swatch-text" 
-                                    style="background: {item.bg}; color: {item.fg};{
-                                        item.bg === selected_palette.highlight ? ' border: 1px solid var(--card);' : ''
-                                    }"
-                                >Aa</div>
-                                <div class="contrast-label">{variant.name} / {item.surface_label}</div>
-                                <div class="contrast-row">
-                                    <span class="contrast-value2">{item.ratio}</span>
-                                    <span class="wcag-badge" style="background: {wcag.colour}; color: #ffffff;">{wcag.level}</span>
+        <!-- ── Rules : required pairs with pass/fail ── -->
+        <div class="contrast-category-title">{trans?.contrast.reco_title}</div>
+        <div class="rules-block">
+            <div class="rules-col">
+                <p class="contrast-note">{trans?.contrast.opposite_desc}</p>
+            </div>
+            <div class="rules-col">
+                <p class="contrast-note">{trans?.contrast.opposite_desc}</p>
+                <div class="opposite-selector">
+                    <label class="opposite-selector-label" for="opposite-select">{trans?.contrast.opposite_select_label}</label>
+                    <select id="opposite-select" class="opposite-select" bind:value={opposite_index}>
+                        <option value={-1}>{trans?.contrast.opposite_none}</option>
+                        {#each opposite_palettes as palette, i}
+                            <option value={i}>{palette.name}</option>
+                        {/each}
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="rules-block">
+            <Rules
+                {trans}
+                {required_pairs}
+                accent_variants={accent_variants.map(v => ({ name: v.name, color: v.color }))}
+                surface_map={surfaceLabelMap}
+                text_accent={selected_accent.text_accent}
+                highlight_color={selected_palette.highlight}
+            />
+
+            {#if opposite_theme}
+                <Rules
+                    {trans}
+                    required_pairs={opposite_rules}
+                    accent_variants={accent_variants.map(v => ({ name: v.name, color: v.color }))}
+                    surface_map={opposite_surface_map}
+                    text_accent={selected_accent.text_accent}
+                    highlight_color={opposite_theme.highlight}
+                />
+            {/if}
+        </div>
+
+        <!-- ── Adjustment suggestions ── -->
+        <div class="rules-block">
+
+            <!-- Current theme suggestion-->
+            <div class="rules-col">
+                {#if adjustment_suggestions.length !== 0}
+                    <div class="reco-subtitle">{trans?.contrast.suggest_title}</div>
+                {/if}
+
+                {#if adjustment_suggestions.length !== 0}
+                    <div class="suggest-grid">
+                        {#each adjustment_suggestions as entry}
+                            {@const sign = (entry.suggestion?.deltaL ?? 0) >= 0 ? '+' : ''}
+                            {@const swatch_bg_before = entry.invert ? entry.variant_color : entry.surface_color}
+                            {@const swatch_fg_before = entry.invert ? selected_accent.text_accent : entry.variant_color}
+                            {@const swatch_bg_after = entry.invert ? (entry.suggestion?.hex ?? entry.variant_color) : entry.surface_color}
+                            {@const swatch_fg_after = entry.invert ? selected_accent.text_accent : (entry.suggestion?.hex ?? entry.variant_color)}
+                            {@const priority_label = entry.priority === 'mandatory' ? trans?.contrast.suggest_mandatory : trans?.contrast.suggest_satisfactory}
+                            {@const priority_color = entry.priority === 'mandatory' ? '#ef4444' : '#f59e0b'}
+                            <div class="suggest-item" style="border-left-color: {priority_color};">
+                                <div class="suggest-pair-header">
+                                    <span class="suggest-pair-label">{entry.variant_name} / {entry.surface_label}</span>
+                                    <span class="suggest-priority-badge" style="background: {priority_color}; color: #ffffff;">{priority_label}</span>
+                                </div>
+                                <div class="suggest-before-after">
+                                    <div class="suggest-side">
+                                        <div
+                                            class="contrast-swatch-text reco-scale-swatch"
+                                            style="background: {swatch_bg_before}; color: {swatch_fg_before};{
+                                                swatch_bg_before === selected_palette.highlight ? ' border: 1px solid var(--card);' : ''
+                                            }"
+                                        >Aa</div>
+                                        <span class="suggest-ratio">{entry.ratio}</span>
+                                        <span class="wcag-badge" style="background: {entry.wcag.colour}; color: #ffffff;">{entry.wcag.level}</span>
+                                    </div>
+                                    <span class="suggest-arrow">→</span>
+                                    <div class="suggest-side">
+                                        <div
+                                            class="contrast-swatch-text reco-scale-swatch"
+                                            style="background: {swatch_bg_after}; color: {swatch_fg_after};{
+                                                swatch_bg_after === selected_palette.highlight ? ' border: 1px solid var(--card);' : ''
+                                            }"
+                                        >Aa</div>
+                                        <span class="suggest-ratio">{entry.suggestion?.ratio}</span>
+                                        <span class="wcag-badge" style="background: #3d8a45; color: #ffffff;">AA</span>
+                                    </div>
+                                </div>
+                                <div class="suggest-detail">
+                                    <span class="suggest-hex">{entry.suggestion?.hex}</span>
+                                    <span class="suggest-delta">L {sign}{entry.suggestion?.deltaL}%</span>
                                 </div>
                             </div>
                         {/each}
                     </div>
-                {/each}
+                {/if}
             </div>
-        {/if}
+            
+            <!-- Opposite theme suggestion-->
+            <div class="rules-col">
+                {#if adjustment_suggestions.length !== 0}
+                    <div class="reco-subtitle">{trans?.contrast.suggest_title}</div>
+                {/if}
 
-        <!-- ── Recommendations ── -->
-        <div class="contrast-category-title">{trans?.contrast.reco_title}</div>
-
-        <!-- Threshold : first passing variant per surface -->
-        <div class="reco-subtitle">{trans?.contrast.reco_threshold}</div>
-        <div class="contrast-grid">
-            {#each surfaces as surface}
-                {@const threshold = getThreshold(surface.ratio_key as 'bg' | 'card' | 'highlight' | 'text', accent_variants)}
-                <div class="contrast-item reco-item">
-                    <div class="contrast-label">{surface.label}</div>
-                    {#if threshold}
-                        {@const matched_variant = accent_variants.find(v => v.name === threshold.name)}
-                        {@const swatch_bg = surface.invert ? (matched_variant?.color ?? selected_accent.accent) : surface.color}
-                        {@const swatch_fg = surface.invert ? selected_accent.text_accent : (matched_variant?.color ?? selected_accent.accent)}
-                        <div
-                            class="contrast-swatch-text"
-                            style="background: {swatch_bg}; color: {swatch_fg};{
-                                swatch_bg === selected_palette.highlight ? ' border: 1px solid var(--card);' : ''
-                            }"
-                        >Aa</div>
-                        <div class="reco-best-name">
-                            {trans?.contrast.reco_threshold_from} <strong>{threshold.name}</strong>
-                        </div>
-                        <div class="contrast-row">
-                            <span class="contrast-value2">{threshold.ratio}</span>
-                            <span class="wcag-badge" style="background: {threshold.wcag.colour}; color: #ffffff;">{threshold.wcag.level}</span>
-                        </div>
-                    {:else}
-                        <div class="reco-none">{trans?.contrast.reco_threshold_none}</div>
-                    {/if}
-                </div>
-            {/each}
-        </div>
-
-        <!-- ── Adjustment suggestions ── -->
-        <div class="reco-subtitle">{trans?.contrast.suggest_title}</div>
-        {#if adjustment_suggestions.length === 0}
-            <div class="suggest-all-pass">{trans?.contrast.suggest_all_pass}</div>
-        {:else}
-            <div class="suggest-grid">
-                {#each adjustment_suggestions as entry}
-                    {@const sign = (entry.suggestion?.deltaL ?? 0) >= 0 ? '+' : ''}
-                    {@const swatch_bg_before = entry.invert ? entry.variant_color : entry.surface_color}
-                    {@const swatch_fg_before = entry.invert ? selected_accent.text_accent : entry.variant_color}
-                    {@const swatch_bg_after = entry.invert ? (entry.suggestion?.hex ?? entry.variant_color) : entry.surface_color}
-                    {@const swatch_fg_after = entry.invert ? selected_accent.text_accent : (entry.suggestion?.hex ?? entry.variant_color)}
-                    {@const priority_label = entry.priority === 'non_negotiable' ? trans?.contrast.suggest_non_negotiable : trans?.contrast.suggest_satisfactory}
-                    {@const priority_color = entry.priority === 'non_negotiable' ? '#ef4444' : '#f59e0b'}
-                    <div class="suggest-item" style="border-left-color: {priority_color};">
-                        <div class="suggest-pair-header">
-                            <span class="suggest-pair-label">{entry.variant_name} / {entry.surface_label}</span>
-                            <span class="suggest-priority-badge" style="background: {priority_color}; color: #ffffff;">{priority_label}</span>
-                        </div>
-                        <div class="suggest-before-after">
-                            <div class="suggest-side">
-                                <div
-                                    class="contrast-swatch-text reco-scale-swatch"
-                                    style="background: {swatch_bg_before}; color: {swatch_fg_before};{
-                                        swatch_bg_before === selected_palette.highlight ? ' border: 1px solid var(--card);' : ''
-                                    }"
-                                >Aa</div>
-                                <span class="suggest-ratio">{entry.ratio}</span>
-                                <span class="wcag-badge" style="background: {entry.wcag.colour}; color: #ffffff;">{entry.wcag.level}</span>
+                {#if adjustment_suggestions.length !== 0}
+                    <div class="suggest-grid">
+                        {#each adjustment_suggestions as entry}
+                            {@const sign = (entry.suggestion?.deltaL ?? 0) >= 0 ? '+' : ''}
+                            {@const swatch_bg_before = entry.invert ? entry.variant_color : entry.surface_color}
+                            {@const swatch_fg_before = entry.invert ? selected_accent.text_accent : entry.variant_color}
+                            {@const swatch_bg_after = entry.invert ? (entry.suggestion?.hex ?? entry.variant_color) : entry.surface_color}
+                            {@const swatch_fg_after = entry.invert ? selected_accent.text_accent : (entry.suggestion?.hex ?? entry.variant_color)}
+                            {@const priority_label = entry.priority === 'mandatory' ? trans?.contrast.suggest_mandatory : trans?.contrast.suggest_satisfactory}
+                            {@const priority_color = entry.priority === 'mandatory' ? '#ef4444' : '#f59e0b'}
+                            <div class="suggest-item" style="border-left-color: {priority_color};">
+                                <div class="suggest-pair-header">
+                                    <span class="suggest-pair-label">{entry.variant_name} / {entry.surface_label}</span>
+                                    <span class="suggest-priority-badge" style="background: {priority_color}; color: #ffffff;">{priority_label}</span>
+                                </div>
+                                <div class="suggest-before-after">
+                                    <div class="suggest-side">
+                                        <div
+                                            class="contrast-swatch-text reco-scale-swatch"
+                                            style="background: {swatch_bg_before}; color: {swatch_fg_before};{
+                                                swatch_bg_before === selected_palette.highlight ? ' border: 1px solid var(--card);' : ''
+                                            }"
+                                        >Aa</div>
+                                        <span class="suggest-ratio">{entry.ratio}</span>
+                                        <span class="wcag-badge" style="background: {entry.wcag.colour}; color: #ffffff;">{entry.wcag.level}</span>
+                                    </div>
+                                    <span class="suggest-arrow">→</span>
+                                    <div class="suggest-side">
+                                        <div
+                                            class="contrast-swatch-text reco-scale-swatch"
+                                            style="background: {swatch_bg_after}; color: {swatch_fg_after};{
+                                                swatch_bg_after === selected_palette.highlight ? ' border: 1px solid var(--card);' : ''
+                                            }"
+                                        >Aa</div>
+                                        <span class="suggest-ratio">{entry.suggestion?.ratio}</span>
+                                        <span class="wcag-badge" style="background: #3d8a45; color: #ffffff;">AA</span>
+                                    </div>
+                                </div>
+                                <div class="suggest-detail">
+                                    <span class="suggest-hex">{entry.suggestion?.hex}</span>
+                                    <span class="suggest-delta">L {sign}{entry.suggestion?.deltaL}%</span>
+                                </div>
                             </div>
-                            <span class="suggest-arrow">→</span>
-                            <div class="suggest-side">
-                                <div
-                                    class="contrast-swatch-text reco-scale-swatch"
-                                    style="background: {swatch_bg_after}; color: {swatch_fg_after};{
-                                        swatch_bg_after === selected_palette.highlight ? ' border: 1px solid var(--card);' : ''
-                                    }"
-                                >Aa</div>
-                                <span class="suggest-ratio">{entry.suggestion?.ratio}</span>
-                                <span class="wcag-badge" style="background: #3d8a45; color: #ffffff;">AA</span>
-                            </div>
-                        </div>
-                        <div class="suggest-detail">
-                            <span class="suggest-hex">{entry.suggestion?.hex}</span>
-                            <span class="suggest-delta">L {sign}{entry.suggestion?.deltaL}%</span>
-                        </div>
+                        {/each}
                     </div>
-                {/each}
+                {/if}
             </div>
-        {/if}
+        </div>
 
         <!-- ── Corrected scale ── -->
         <div class="reco-subtitle">{trans?.contrast.suggest_corrected_title}</div>
@@ -692,7 +803,7 @@
                             <span class="scale-swatch-status" style="color: #f59e0b;">{trans?.contrast.suggest_adjusted}</span>
                         {/if}
                         {#if !shade.ok}
-                            <span class="scale-swatch-status" style="color: #ef4444;">{trans?.contrast.dual_fail}</span>
+                            <span class="scale-swatch-status" style="color: #ef4444;">Fail</span>
                         {/if}
                     </div>
                 {/each}
@@ -845,44 +956,10 @@
         margin: 1rem 0 0.4rem 0;
     }
 
-    .reco-item {
-        border-left: 3px solid var(--accent);
-        padding-left: 0.5rem;
-    }
-
-    .reco-best-name {
-        font-size: 0.9rem;
-        font-weight: 600;
-        margin-bottom: 0.25rem;
-    }
-
-    .reco-scale-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 1rem;
-        margin-bottom: 1rem;
-    }
-
-    .reco-scale-block {
-        background: var(--highlight);
-        border-radius: 6px;
-        padding: 0.6rem;
-    }
-
-    .reco-scale-surface-label {
-        font-size: 0.8rem;
-        font-weight: 700;
-        color: var(--text-muted);
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-        margin-bottom: 0.5rem;
-    }
-
-    .reco-scale-row {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        margin-bottom: 0.35rem;
+    .reco-none {
+        font-size: 0.82rem;
+        color: #ef4444;
+        font-style: italic;
     }
 
     .reco-scale-swatch {
@@ -892,40 +969,17 @@
         font-size: 0.75rem;
     }
 
-    .reco-scale-name {
+    .rules-block {
+        display: flex;
+        justify-content: flex-start;
+        gap: 30px;
+    }
+
+    .rules-col {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
         flex: 1;
-        font-size: 0.78rem;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .reco-none {
-        font-size: 0.82rem;
-        color: #ef4444;
-        font-style: italic;
-    }
-
-    /* Detail toggle (collapsible individual section) */
-    .detail-toggle {
-        margin-top: 1rem;
-    }
-
-    .detail-grid {
-        margin-top: 1rem;
-    }
-
-    .detail-variant-label {
-        font-size: 0.85rem;
-        font-weight: 700;
-        color: var(--text);
-        margin-bottom: 0.25rem;
-    }
-
-    .detail-separator {
-        height: 1px;
-        background: var(--highlight);
-        margin: 1.25rem 0;
     }
 
     /* Adjustment suggestions */
@@ -1073,6 +1127,48 @@
 
     .scale-bar-segment {
         flex: 1;
+    }
+
+    /* Opposite theme */
+    .opposite-selector {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin: 0.5rem 0 1rem 0;
+    }
+
+    .opposite-selector-label {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--text-muted);
+    }
+
+    .opposite-select {
+        padding: 8px 12px;
+        border: 2px solid var(--highlight);
+        background: var(--bg);
+        color: var(--text);
+        border-radius: 6px;
+        font-size: 14px;
+        min-width: 180px;
+    }
+
+    .opposite-select:focus {
+        outline: none;
+        border-color: var(--accent);
+    }
+
+    .opposite-results {
+        margin: 0.5rem 0 1rem 0;
+    }
+
+    .opposite-ratios-title {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 0.5rem;
     }
 
     /* Export */
