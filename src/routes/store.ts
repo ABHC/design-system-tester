@@ -17,6 +17,16 @@ export const browser_name: Writable<string | null> = writable(null);
 export const window_height: Writable<number | null> = writable(null);
 export const window_width: Writable<number | null> = writable(null);
 
+// ---------- Opacity ----------
+export const ctx_opacity : number = 0.4;
+export const shadow_opacity : number = 0.3;
+
+// ---------- Badge blend surface ----------
+// Surface used as the fixed background layer under contextual badges (rgba + this = opaque).
+// Change this to 'bg' or 'card' to explore visual alternatives.
+// Must match the CSS var() used in ctxBg() in +page.svelte.
+export const ctx_surface : 'bg' | 'card' | 'highlight' = 'highlight';
+
 /* -----------------------------------------
  * Responsive Stores
  * ----------------------------------------- */

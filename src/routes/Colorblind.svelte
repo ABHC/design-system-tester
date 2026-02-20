@@ -1,8 +1,9 @@
 <script lang="ts">
-    import type { AccentTheme, ToneTheme } from "$lib/types/palettes";
+    import type { AccentTheme, ToneTheme, ContextualColors } from "$lib/types/palettes";
     import type { Translation } from "$lib/types/translations";
     import { simulateColorblind, type ColorblindType } from "$lib/utils/colorblind";
-    import { getContrastRatio, getWcagLevel, getLuminance } from "$lib/utils/contrast";
+    import { getContrastRatio, getWcagLevel, getLuminance, blendColor } from "$lib/utils/contrast";
+    import { ctx_opacity, ctx_surface } from "./store";
 
     interface PairInfo {
         accent_name: string;
@@ -24,12 +25,14 @@
         trans: Translation | null;
         selected_palette: ToneTheme;
         selected_accent: AccentTheme;
+        contextual_colors: ContextualColors;
     }
 
     let {
         trans,
         selected_palette,
         selected_accent,
+        contextual_colors,
     }: Props = $props();
 
     const types: { key: ColorblindType | 'normal'; label: () => string | undefined; desc: () => string | undefined }[] = [
@@ -76,6 +79,21 @@
             fg: sim(selected_accent.accent_light, t.key),
             text_accent: sim(selected_accent.text_accent, t.key),
         },
+        ctx_colors: (() => {
+            const simSurface = sim(selected_palette[ctx_surface], t.key);
+            const simText = sim(selected_palette.text, t.key);
+            return [
+                { label: trans?.contrast.ctx_error   ?? 'Error',   raw: sim(contextual_colors.error,   t.key) },
+                { label: trans?.contrast.ctx_warning ?? 'Warning', raw: sim(contextual_colors.warning, t.key) },
+                { label: trans?.contrast.ctx_success ?? 'Success', raw: sim(contextual_colors.success, t.key) },
+                { label: trans?.contrast.ctx_info    ?? 'Info',    raw: sim(contextual_colors.info,    t.key) },
+            ].map(c => ({
+                label:   c.label,
+                raw:     c.raw,
+                blended: blendColor(c.raw, simSurface, ctx_opacity),
+                text:    simText,
+            }));
+        })(),
     })));
 
     // Score: theme-aware pairs following the 4-shade rules
@@ -123,6 +141,15 @@
             if (ratio >= 4.5) aa++;
             if (ratio >= 3.0) aaLarge++;
             pairs.push({ accent_name: aplatAccent.name, surface_name: 'Text Accent', fg: col.preview.text_accent, bg: aplatAccent.color, ratio, level });
+        }
+
+        // Contextual colors: text on blended badge
+        for (const ctx of col.ctx_colors) {
+            const ratio = parseFloat(getContrastRatio(ctx.text, ctx.blended));
+            const level = getWcagLevel(ratio.toFixed(2), 'normal').level;
+            if (ratio >= 4.5) aa++;
+            if (ratio >= 3.0) aaLarge++;
+            pairs.push({ accent_name: ctx.label, surface_name: 'Text', fg: ctx.text, bg: ctx.blended, ratio, level });
         }
 
         return { aa, aaLarge, total: pairs.length, pairs };
@@ -217,6 +244,19 @@
                         <span style="color: {col.preview.text_accent}">Aa</span>
                     </div>
 
+                    <!-- Contextual color previews -->
+                    <div class="col-section-label" style="margin-top: 8px;">{trans?.contrast.cat_contextual ?? 'Contextual'}</div>
+                    <div class="ctx-preview-row">
+                        {#each col.ctx_colors as ctx}
+                            <div
+                                class="cb-preview cb-preview-ctx"
+                                style="background: {ctx.blended};"
+                                title="{ctx.label}"
+                            >
+                                <span style="color: {ctx.text}; font-size: 0.85rem;">Aa</span>
+                            </div>
+                        {/each}
+                    </div>
 
                     <!-- Score summary -->
                     {#if scores[i]}
@@ -381,6 +421,20 @@
         justify-content: space-around;
         font-size: 1.5rem;
         font-weight: 700;
+    }
+
+    .ctx-preview-row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 4px;
+        margin-top: 4px;
+    }
+
+    .cb-preview-ctx {
+        margin-top: 0;
+        height: 36px;
+        font-size: 1rem;
+        border-radius: 5px;
     }
 
     .cb-score {

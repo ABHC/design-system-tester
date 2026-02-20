@@ -5,13 +5,21 @@
 
     import palettes from "$lib/data/palettes.json";
     import stored_fonts from "$lib/data/fonts.json";
-
-    import { trans, locale } from './store';
+    import { hexToRgba } from '$lib/utils/contrast';
+    
     import { placeholders } from './placeholders';
     import type { PlaceholderLocale } from './placeholders';
 
     import ControlPanel from './ControlPanel.svelte';
     import Content from './Content.svelte';
+
+    import { 
+        trans, 
+        locale, 
+        shadow_opacity, 
+        ctx_opacity, 
+        ctx_surface 
+    } from './store';
 
     // ---------- Local state ----------
     let selected_tone = $state<'light' | 'dark'>('dark');
@@ -40,10 +48,41 @@
     // ---------- Contextual colors ----------
     const contextual_colors = $derived<ContextualColors>({
         error:   '#dc2626',
-        warning: '#b45309',
+        warning: '#F39C12',
         success: '#15803d',
         info:    '#6b7280',
+        //info: '#F0FFFF',
     });
+    //WARM
+    /*const contextual_colors = $derived<ContextualColors>({
+        error:   '#b91c1c',
+        warning: '#d97706',
+        success: '#65a30d',
+        info:    '#7c3aed',
+    });*/
+    //COLD
+    /*const contextual_colors = $derived<ContextualColors>({
+        error:   '#e11d48',
+        warning: '#ca8a04',
+        success: '#0d9488',
+        info:    '#0284c7',
+    });*/
+    //VIFS
+    /*const contextual_colors = $derived<ContextualColors>({
+        error:   '#ef4444',
+        warning: '#f97316',
+        success: '#22c55e',
+        info:    '#0ea5e9',
+    });*/
+
+    // ---------- Helper : CSS multi-layer background for contextual badges ----------
+    // background: color alone is invalid in non-final layers — wrap in a degenerate gradient.
+    // Result : linear-gradient(rgba, rgba), var(--highlight)
+    // The opaque highlight layer beneath ensures consistent rendering on any surface.
+    function ctxBg(hex: string): string {
+        const rgba = hexToRgba(hex, ctx_opacity);
+        return `linear-gradient(${rgba}, ${rgba}), var(--${ctx_surface})`;
+    }
 
     // ---------- Reactive CSS variables ----------
     const css_variables = $derived({
@@ -62,10 +101,20 @@
         '--text-accent': selected_accent.text_accent,
         '--font-body': `'${selected_body_font.family}', sans-serif`,
         '--font-heading': `'${selected_title_font.family}', sans-serif`,
-        '--accent-error':   contextual_colors.error,
-        '--accent-warning': contextual_colors.warning,
-        '--accent-success': contextual_colors.success,
-        '--accent-info':    contextual_colors.info,
+        '--ctx-error': contextual_colors.error,
+        '--ctx-warning': contextual_colors.warning,
+        '--ctx-success': contextual_colors.success,
+        '--ctx-info': contextual_colors.info,
+        '--ctx-success-blend': ctxBg(contextual_colors.success),
+        '--ctx-error-blend': ctxBg(contextual_colors.error),
+        '--ctx-warning-blend': ctxBg(contextual_colors.warning),
+        '--ctx-info-blend': ctxBg(contextual_colors.info),
+        '--tone-shadow': hexToRgba(selected_palette.text, shadow_opacity),
+        '--accent-shadow': hexToRgba(
+            selected_tone === 'dark' ? 
+                selected_accent.accent_light : selected_accent.accent_dark, 
+            shadow_opacity
+        ),
     });
 
     $effect(() => {

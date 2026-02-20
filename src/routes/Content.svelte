@@ -146,6 +146,30 @@
             <button class="button button-secondary">{trans?.buttons.secondary}</button>
             <button class="button button-ghost">{trans?.buttons.ghost}</button>
             <span class="badge">{trans?.buttons.badge}</span>
+            <span 
+                class="wcag-badge" 
+                style="background: var(--ctx-error-blend);"
+            >
+                {trans?.buttons.badge}
+            </span>
+            <span 
+                class="wcag-badge" 
+                style="background: var(--ctx-warning-blend);"
+            >
+                {trans?.buttons.badge}
+            </span>
+            <span 
+                class="wcag-badge" 
+                style="background: var(--ctx-success-blend);"
+            >
+                {trans?.buttons.badge}
+            </span>
+            <span 
+                class="wcag-badge" 
+                style="background: var(--ctx-info-blend);"
+            >
+                {trans?.buttons.badge}
+            </span>
         </div>
     </div>
 
@@ -226,7 +250,7 @@
     <Contrast {trans} {selected_palette} {selected_accent} {light_palettes} {dark_palettes} {contextual_colors} />
 
     <!-- Colorblind Simulation -->
-    <Colorblind {trans} {selected_palette} {selected_accent} />
+    <Colorblind {trans} {selected_palette} {selected_accent} {contextual_colors} />
 </div>
 
 <style>
@@ -465,19 +489,19 @@
     }
 
     .alert-success {
-        border-left: 4px solid var(--accent-success);
+        border-left: 4px solid var(--ctx-success);
     }
 
     .alert-info {
-        border-left: 4px solid var(--accent-info);
+        border-left: 4px solid var(--ctx-info);
     }
 
     .alert-error {
-        border-left: 4px solid var(--accent-error);
+        border-left: 4px solid var(--ctx-error);
     }
 
     .alert-warning {
-        border-left: 4px solid var(--accent-warning);
+        border-left: 4px solid var(--ctx-warning);
     }
 
     @media (max-width: 768px) {

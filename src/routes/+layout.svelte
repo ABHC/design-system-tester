@@ -233,6 +233,87 @@
         font-weight: 500;
     }
 
+    :global(.wcag-badge) {
+        display: inline-block;
+        padding: .4rem .75rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        color: var(--text);
+    }
+
+    /*Buttons (primary, secondary, ghost)*/
+    :global(.btn-primary) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        width: 100%;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.125rem;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        background: var(--accent);
+        color: var(--text-accent);
+        cursor: pointer;
+    }
+
+    :global(.btn-primary:hover) {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px var(--tone-shadow);
+    }
+
+    /* Badges (primary, title, ghost, contextuals) */
+    :global(.badge-primary) {
+        display: inline-block;
+        padding: .5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.875rem;
+        background: var(--accent);
+        color: var(--text-accent);
+    }
+
+    :global(.badge-title) {
+        font-size: .875rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+    }
+
+    :global(.badge-ghost) {
+        background: var(--highlight);
+        color: var(--text);
+    }
+
+    :global(.badge-ctx) {
+        display: inline-block;
+        padding: 5rem 1rem;
+        border-radius: 20px;
+        font-size: .875rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        color: var(--text);
+    }
+
+    :global(.badge-ctx-error) {
+        background: var(--ctx-error-blend);
+    }
+
+    :global(.badge-ctx-warning) {
+        background: var(--ctx-warning-blend);
+    }
+
+    :global(.badge-ctx-success) {
+        background: var(--ctx-success-blend);
+    }
+
+    :global(.badge-ctx-info) {
+        background: var(--ctx-success-blend);
+    }
+
     header {
         position: fixed;
         top: 0;

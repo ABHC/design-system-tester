@@ -12,6 +12,8 @@
         trans: Translation | null;
         required_pairs: (RequiredPair & { priority: string; isAplat?: boolean })[];
         accent_variants: AccentVariant[];
+        ctx_pairs?: (RequiredPair & { priority: string; isAplat?: boolean })[];
+        ctx_variants?: AccentVariant[];
         surface_map: Record<string, { label: string | undefined; color: string }>;
         text_accent: string;
         highlight_color: string;
@@ -21,26 +23,27 @@
         trans,
         required_pairs,
         accent_variants,
+        ctx_pairs = [],
+        ctx_variants = [],
         surface_map,
         text_accent,
         highlight_color,
     }: Props = $props();
 
-    const rule_results = $derived(required_pairs.map(pair => {
-        const variant = accent_variants[pair.variant_idx];
+    function make_rule_result(
+        pair: RequiredPair & { priority: string; isAplat?: boolean },
+        variant: AccentVariant | undefined
+    ) {
+        if (!variant) return null;
         const surface = surface_map[pair.surface_key];
-        if (!variant || !surface) return null;
+        if (!surface) return null;
 
         const target = pair.targetRatio ?? 4.5;
-        const is_text_surface = pair.surface_key === 'text';
+        const is_text_surface = pair.surface_key === 'text' || pair.surface_key === 'text_tone';
         const is_aplat = pair.isAplat ?? false;
 
-        // For aplat rules: variant is the surface (aplat), surface_color is behind it
-        // For text rules: variant is the foreground text
-        // For text_surface: text_accent is foreground on variant background
         let fg: string, bg: string;
         if (is_aplat) {
-            // Aplat distinction: variant color vs surface color (which is behind)
             fg = variant.color;
             bg = surface.color;
         } else if (is_text_surface) {
@@ -70,7 +73,13 @@
             wcag,
             priority: pair.priority,
         };
-    }).filter(Boolean));
+    }
+
+    const rule_results = $derived.by(() => {
+        const accent = required_pairs.map(p => make_rule_result(p, accent_variants[p.variant_idx]));
+        const ctx    = ctx_pairs.map(p => make_rule_result(p, ctx_variants[p.variant_idx]));
+        return [...accent, ...ctx].filter(Boolean);
+    });
 
     const mandatory = $derived(rule_results.filter(r => r!.priority === 'mandatory'));
     const satisfactory = $derived(rule_results.filter(r => r!.priority === 'satisfactory'));
@@ -100,13 +109,16 @@
             {/if}
             <div class="rules-pair-info">
                 <div class="rules-pair-label">{rule.variant_name}</div>
-                <div class="rules-pair-surface">{rule.is_text_surface ? trans?.contrast.text_accent : rule.surface_label}</div>
+                <div class="rules-pair-surface">{rule.surface_label}</div>
             </div>
         </div>
         <div class="rules-ratio-row">
             <span class="rules-ratio">{rule.ratio}</span>
             <span class="rules-target">/ {rule.target}:1</span>
-            <span class="wcag-badge" style="background: {rule.passes ? 'var(--accent-success)' : 'var(--accent-error)'}; color: var(--text-accent);">
+            <span 
+                class="wcag-badge" 
+                style="background: {rule.passes ? 'var(--ctx-success-blend)' : 'var(--ctx-error-blend)'};"
+            >
                 {rule.passes ? 'Pass' : 'Fail'}
             </span>
         </div>
@@ -116,7 +128,7 @@
 <div class="rules-container">
     {#if mandatory.length > 0}
         <div class="rules-group-label">
-            <span class="rules-priority-dot" style="background: var(--accent-error);"></span>
+            <span class="rules-priority-dot" style="background: var(--ctx-error);"></span>
             {trans?.contrast.suggest_mandatory}
         </div>
         <div class="rules-grid">
@@ -130,7 +142,7 @@
 
     {#if satisfactory.length > 0}
         <div class="rules-group-label">
-            <span class="rules-priority-dot" style="background: var(--accent-warning);"></span>
+            <span class="rules-priority-dot" style="background: var(--ctx-warning);"></span>
             {trans?.contrast.suggest_satisfactory}
         </div>
         <div class="rules-grid">
@@ -156,7 +168,7 @@
 
     .rules-status-pass {
         font-size: 0.82rem;
-        color: var(--accent-success);
+        color: var(--ctx-success);
         font-style: italic;
         margin-top: 0.75rem;
     }
@@ -193,11 +205,11 @@
         padding: 0.5rem;
         background: var(--highlight);
         border-radius: 6px;
-        border-left: 3px solid var(--accent-success);
+        border-left: 3px solid var(--ctx-success);
     }
 
     .rules-item-fail {
-        border-left-color: var(--accent-error);
+        border-left-color: var(--ctx-error);
     }
 
     .rules-swatch-row {
@@ -272,13 +284,7 @@
         color: var(--text-muted);
     }
 
-    .wcag-badge {
-        display: inline-block;
-        padding: 2px 8px;
-        border-radius: 20px;
-        font-size: 0.65rem;
-        font-weight: 700;
-        letter-spacing: 0.5px;
+    .rules-ratio-row .wcag-badge {
         margin-left: auto;
     }
 </style>

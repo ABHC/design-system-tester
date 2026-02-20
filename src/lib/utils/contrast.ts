@@ -4,6 +4,7 @@ export interface WcagResult {
     level: 'AAA' | 'AA' | 'AA Large' | 'Fail';
     pass: boolean;
     colour: string;
+    bg: string;
 }
 
 /**
@@ -17,14 +18,26 @@ export function toLinear(c: number): number {
 }
 
 /**
- * Compute WCAG 2.1 relative luminance from a hex colour.
+ * Parse a colour string (hex or rgba/rgb) into [r, g, b] 0-255 components.
+ * Alpha is ignored. Returns null if unparseable.
  */
-export function getLuminance(hex: string): number | null {
-    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    if (!result) return null;
-    const r = toLinear(parseInt(result[1], 16));
-    const g = toLinear(parseInt(result[2], 16));
-    const b = toLinear(parseInt(result[3], 16));
+export function parseRgbComponents(color: string): [number, number, number] | null {
+    const hex = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color);
+    if (hex) return [parseInt(hex[1], 16), parseInt(hex[2], 16), parseInt(hex[3], 16)];
+    const rgba = /rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/i.exec(color);
+    if (rgba) return [parseInt(rgba[1]), parseInt(rgba[2]), parseInt(rgba[3])];
+    return null;
+}
+
+/**
+ * Compute WCAG 2.1 relative luminance from a hex or rgba colour.
+ */
+export function getLuminance(color: string): number | null {
+    const rgb = parseRgbComponents(color);
+    if (!rgb) return null;
+    const r = toLinear(rgb[0]);
+    const g = toLinear(rgb[1]);
+    const b = toLinear(rgb[2]);
     return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 }
 
@@ -48,14 +61,49 @@ export function getContrastRatio(hex1: string, hex2: string): string {
 export function getWcagLevel(ratio: string, size: WcagSize = 'normal'): WcagResult {
     const r = parseFloat(ratio);
     if (size === 'normal') {
-        if (r >= 7)   return { level: 'AAA',      pass: true,  colour: 'var(--accent-info)' };
-        if (r >= 4.5) return { level: 'AA',       pass: true,  colour: 'var(--accent-success)' };
-        if (r >= 3)   return { level: 'AA Large', pass: true,  colour: 'var(--accent-warning)' };
-                      return { level: 'Fail',     pass: false, colour: 'var(--accent-error)' };
+        if (r >= 7)   return { 
+            level: 'AAA',      
+            pass: true,  
+            colour: 'var(--ctx-info)', 
+            bg: 'var(--ctx-info-blend)' 
+        };
+        if (r >= 4.5) return { 
+            level: 'AA',       
+            pass: true,  
+            colour: 'var(--ctx-success)',
+            bg: 'var(--ctx-success-blend)'  
+        };
+        if (r >= 3)   return { 
+            level: 'AA Large', 
+            pass: true,  
+            colour: 'var(--ctx-warning)',
+            bg: 'var(--ctx-warning-blend)'  
+        };
+        return { 
+            level: 'Fail',     
+            pass: false, 
+            colour: 'var(--ctx-error)', 
+            bg: 'var(--ctx-error-blend)' 
+        };
     } else {
-        if (r >= 4.5) return { level: 'AAA',      pass: true,  colour: 'var(--accent-info)' };
-        if (r >= 3)   return { level: 'AA',       pass: true,  colour: 'var(--accent-success)' };
-                      return { level: 'Fail',     pass: false, colour: 'var(--accent-error)' };
+        if (r >= 4.5) return { 
+            level: 'AAA',      
+            pass: true,  
+            colour: 'var(--ctx-info)',
+            bg: 'var(--ctx-info-blend)' 
+        };
+        if (r >= 3)   return { 
+            level: 'AA',       
+            pass: true,  
+            colour: 'var(--ctx-success)', 
+            bg: 'var(--ctx-success-blend)'
+        };
+        return { 
+            level: 'Fail',     
+            pass: false, 
+            colour: 'var(--ctx-error)', 
+            bg: 'var(--ctx-error-blend)' 
+        };
     }
 }
 
@@ -68,14 +116,14 @@ export interface AdjustmentSuggestion {
 }
 
 /**
- * Convert hex to HSL.
+ * Convert hex or rgba to HSL.
  */
-export function hexToHsl(hex: string): { h: number; s: number; l: number } | null {
-    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    if (!result) return null;
-    const r = parseInt(result[1], 16) / 255;
-    const g = parseInt(result[2], 16) / 255;
-    const b = parseInt(result[3], 16) / 255;
+export function hexToHsl(color: string): { h: number; s: number; l: number } | null {
+    const rgb = parseRgbComponents(color);
+    if (!rgb) return null;
+    const r = rgb[0] / 255;
+    const g = rgb[1] / 255;
+    const b = rgb[2] / 255;
     const max = Math.max(r, g, b);
     const min = Math.min(r, g, b);
     const l = (max + min) / 2;
@@ -204,15 +252,15 @@ function fromLinear(c: number): number {
 }
 
 /**
- * Convert hex to OKLCH.
+ * Convert hex or rgba to OKLCH.
  */
-export function hexToOklch(hex: string): Oklch | null {
-    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    if (!result) return null;
+export function hexToOklch(color: string): Oklch | null {
+    const rgb = parseRgbComponents(color);
+    if (!rgb) return null;
 
-    const r = toLinear(parseInt(result[1], 16));
-    const g = toLinear(parseInt(result[2], 16));
-    const b = toLinear(parseInt(result[3], 16));
+    const r = toLinear(rgb[0]);
+    const g = toLinear(rgb[1]);
+    const b = toLinear(rgb[2]);
 
     // Linear sRGB → LMS
     const lms_l = 0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b;
@@ -286,6 +334,106 @@ export function oklchToHex(L: number, C: number, H: number): string {
     const ch = (v: number) => Math.round(clamp01(fromLinear(clamp01(v))) * 255).toString(16).padStart(2, '0');
 
     return `#${ch(rgb[0])}${ch(rgb[1])}${ch(rgb[2])}`;
+}
+
+/**
+ * Convert a hex colour to its R, G, B components as a comma-separated string.
+ * e.g. "#15803d" → "21, 128, 61"
+ * Returns null if the colour is invalid.
+ */
+export function hexToRgbChannels(color: string): string | null {
+    const rgb = parseRgbComponents(color);
+    if (!rgb) return null;
+    return rgb.join(', ');
+}
+
+/**
+ * Convert a hex colour to a rgba() string with the given opacity.
+ * Returns a fallback transparent value if the hex is invalid.
+ *
+ * @param hex     - Hex colour string, e.g. "#15803d"
+ * @param opacity - Opacity between 0 and 1
+ * @returns       - Ready-to-use rgba() string, e.g. "rgba(21, 128, 61, 0.4)"
+ */
+export function hexToRgba(hex: string, opacity: number): string {
+    const channels = hexToRgbChannels(hex);
+    if (!channels) return `rgba(0, 0, 0, 0)`;
+    const clamped = Math.min(1, Math.max(0, opacity));
+    return `rgba(${channels}, ${clamped})`;
+}
+
+/**
+ * Alpha-composite an opaque foreground colour over an opaque background,
+ * simulating how a CSS rgba() badge layer is rendered on screen.
+ * Returns the resulting opaque hex.
+ *
+ * @param fgHex  - Opaque badge colour, e.g. "#dc2626"
+ * @param bgHex  - Opaque surface behind the badge, e.g. "#1a1d1a"
+ * @param alpha  - Badge opacity 0–1, e.g. 0.4
+ */
+export function blendColor(fgHex: string, bgHex: string, alpha: number): string {
+    const fg = parseRgbComponents(fgHex);
+    const bg = parseRgbComponents(bgHex);
+    if (!fg || !bg) return fgHex;
+    const a = Math.min(1, Math.max(0, alpha));
+    const r = Math.round(fg[0] * a + bg[0] * (1 - a));
+    const g = Math.round(fg[1] * a + bg[1] * (1 - a));
+    const b = Math.round(fg[2] * a + bg[2] * (1 - a));
+    return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+}
+
+/**
+ * Suggest minimal lightness adjustment on fgHex so that
+ * rgba(adjusted, alpha) blended over blendBgHex achieves targetRatio against textHex.
+ * This accounts for the transparency of contextual badges.
+ */
+export function suggestAdjustedColorTransparent(
+    fgHex: string,
+    alpha: number,
+    blendBgHex: string,
+    textHex: string,
+    targetRatio: number = 4.5
+): AdjustmentSuggestion | null {
+    const fgHsl_ = hexToHsl(fgHex);
+    if (!fgHsl_) return null;
+    const fgHsl = fgHsl_;
+    const originalL = fgHsl.l;
+
+    function blendedRatio(l: number): number {
+        const candidate = hslToHex(fgHsl.h, fgHsl.s, l);
+        const blended   = blendColor(candidate, blendBgHex, alpha);
+        return parseFloat(getContrastRatio(textHex, blended));
+    }
+
+    function tryDirection(lowL: number, highL: number): AdjustmentSuggestion | null {
+        let lo = lowL, hi = highL;
+        let bestHex: string | null = null;
+        let bestRatio = '';
+        let bestL = originalL;
+        for (let i = 0; i < 40; i++) {
+            const midL = (lo + hi) / 2;
+            const ratio = blendedRatio(midL);
+            if (ratio >= targetRatio) {
+                bestHex = hslToHex(fgHsl.h, fgHsl.s, midL);
+                bestRatio = ratio.toFixed(2);
+                bestL = midL;
+                if (midL < originalL) lo = midL; else hi = midL;
+            } else {
+                if (midL < originalL) hi = midL; else lo = midL;
+            }
+        }
+        if (!bestHex) return null;
+        return { hex: bestHex, ratio: bestRatio, deltaL: Math.round(bestL - originalL) };
+    }
+
+    const results: AdjustmentSuggestion[] = [];
+    const darker  = tryDirection(0, originalL);
+    if (darker)  results.push(darker);
+    const lighter = tryDirection(originalL, 100);
+    if (lighter) results.push(lighter);
+    if (results.length === 0) return null;
+    results.sort((a, b) => Math.abs(a.deltaL) - Math.abs(b.deltaL));
+    return results[0];
 }
 
 // ── Scale suggestions ──
