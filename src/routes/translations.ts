@@ -35,11 +35,17 @@ export const translations = {
             title: "🎨 Palette de couleurs"
         },
         buttons: {
-            title: "🔘 Boutons",
+            title: "Boutons",
             primary: "Bouton primaire",
             secondary: "Bouton secondaire",
             ghost: "Bouton ghost",
             badge: "badge",
+        },
+        badges: {
+            title: "Badges",
+        },
+        codeblocks: {
+            title: "Blocs de code",
         },
         cards: {
             title: "🃏 Cartes",
@@ -56,6 +62,22 @@ export const translations = {
         },
         alerts: {
             title: "⚠️ Alertes"
+        },
+        variants:{
+            primary: "primaire",
+            uppercase: "majuscule",
+            secondary: "secondaire",
+            ghost: "ghost",
+            card: "carte",
+            error: "erreur",
+            warning: "avertissement",
+            success: "succès",
+            info: "information",
+            large: "grand",
+            medium: "moyen",
+            small: "petit",
+            anim_left: "gauche",
+            anim_right: "droite",
         },
         contrast: {
             title: "📊 Informations de contraste",
@@ -180,11 +202,17 @@ export const translations = {
             title: "🎨 Color palette"
         },
         buttons: {
-            title: "🔘 Buttons",
+            title: "Buttons",
             primary: "Primary button",
             secondary: "Secondary button",
             ghost: "Ghost button",
             badge: "Badge",
+        },
+        badges: {
+            title: "Badges",
+        },
+        codeblocks: {
+            title: "Code blocks",
         },
         cards: {
             title: "🃏 Cards"
@@ -201,6 +229,22 @@ export const translations = {
         },
         alerts: {
             title: "⚠️ Alerts"
+        },
+        variants:{
+            primary: "primary",
+            uppercase: "uppercase",
+            secondary: "secondary",
+            ghost: "ghost",
+            card: "card",
+            error: "error",
+            warning: "warning",
+            success: "success",
+            info: "information",
+            large: "large",
+            medium: "medium",
+            small: "small",
+            anim_left: "left",
+            anim_right: "right",
         },
         contrast: {
             title: "📊 Contrast information",

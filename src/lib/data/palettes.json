@@ -1,35 +1,35 @@
 {
     "accent": [
         {
-            "name": "Viridian",
+            "name": "Fern",
             "display": true,
-            "accent_lighter": "#73e1b9",
-            "accent_light": "#34d399",
-            "accent_dark": "#059669",
-            "accent_darker": "#035b40",
+            "accent_lighter": "#8cbc8c",
+            "accent_light": "#4d834d",
+            "accent_dark": "#366336",
+            "accent_darker": "#203b20",
             "text_accent": "#ffffff"
         },
         {
             "name": "Emerald",
             "display": true,
-            "accent_lighter": "#3de0be",
-            "accent_light": "#1db394",
-            "accent_dark": "#0a7864",
-            "accent_darker": "#054035",
-            "text_accent": "#ffffff"
-        },
-        {
-            "name": "Emerald II",
-            "display": true,
             "accent_lighter": "#29dcba",
-            "accent_light": "#1a9e85",
+            "accent_light": "#168570",
             "accent_dark": "#0d6154",
             "accent_darker": "#07362f",
             "text_accent": "#ffffff"
         },
         {
-            "name": "Fern",
+            "name": "Viridian",
             "display": true,
+            "accent_lighter": "#73e1b9",
+            "accent_light": "#1d8660",
+            "accent_dark": "#04805a",
+            "accent_darker": "#035b40",
+            "text_accent": "#ffffff"
+        },
+        {
+            "name": "Fern Old",
+            "display": false,
             "accent_lighter": "#a3d3a8",
             "accent_light": "#6fba77",
             "accent_dark": "#3d8a45",
@@ -38,7 +38,7 @@
         },
         {
             "name": "Fern I",
-            "display": true,
+            "display": false,
             "accent_lighter": "#87b18c",
             "accent_light": "#5d8f62",
             "accent_dark": "#365740",
@@ -47,7 +47,7 @@
         },
         {
             "name": "Fern II",
-            "display": true,
+            "display": false,
             "accent_lighter": "#8bb38b",
             "accent_light": "#609260",
             "accent_dark": "#385938",
@@ -56,7 +56,7 @@
         },
         {
             "name": "Fern III",
-            "display": true,
+            "display": false,
             "accent_lighter": "#93b795",
             "accent_light": "#659868",
             "accent_dark": "#3c5f3e",
@@ -65,18 +65,9 @@
         },
         {
             "name": "Fern IV",
-            "display": true,
+            "display": false,
             "accent_lighter": "#8cbc8c",
             "accent_light": "#5d9f5d",
-            "accent_dark": "#366336",
-            "accent_darker": "#203b20",
-            "text_accent": "#ffffff"
-        },
-        {
-            "name": "Fern V",
-            "display": true,
-            "accent_lighter": "#8cbc8c",
-            "accent_light": "#4d834d",
             "accent_dark": "#366336",
             "accent_darker": "#203b20",
             "text_accent": "#ffffff"

@@ -4,6 +4,9 @@
     import type { PlaceholdersType } from "./placeholders";
     import Contrast from './Contrast.svelte';
     import Colorblind from './Colorblind.svelte';
+    import BadgeDemo from "./BadgeDemo.svelte";
+    import ButtonDemo from "./ButtonDemo.svelte";
+    import CodeBlockDemo from "./CodeBlockDemo.svelte";
 
     // Props
     interface Props {
@@ -139,39 +142,22 @@
     </div>
 
     <!-- Buttons -->
-    <div class="demo-section">
-        <h2 class="section-title">{trans?.buttons.title}</h2>
-        <div class="btn-badge-demo">
-            <button class="button button-primary">{trans?.buttons.primary}</button>
-            <button class="button button-secondary">{trans?.buttons.secondary}</button>
-            <button class="button button-ghost">{trans?.buttons.ghost}</button>
-            <span class="badge">{trans?.buttons.badge}</span>
-            <span 
-                class="wcag-badge" 
-                style="background: var(--ctx-error-blend);"
-            >
-                {trans?.buttons.badge}
-            </span>
-            <span 
-                class="wcag-badge" 
-                style="background: var(--ctx-warning-blend);"
-            >
-                {trans?.buttons.badge}
-            </span>
-            <span 
-                class="wcag-badge" 
-                style="background: var(--ctx-success-blend);"
-            >
-                {trans?.buttons.badge}
-            </span>
-            <span 
-                class="wcag-badge" 
-                style="background: var(--ctx-info-blend);"
-            >
-                {trans?.buttons.badge}
-            </span>
-        </div>
-    </div>
+    <ButtonDemo
+        trans={trans}
+        placeholders={placeholders}
+    />
+
+    <!-- Badges -->
+    <BadgeDemo
+        trans={trans}
+        placeholders={placeholders}
+    />
+
+    <!-- Code blocks -->
+    <CodeBlockDemo
+        trans={trans}
+        placeholders={placeholders}
+    />
 
     <!-- Cards -->
     <div class="demo-section">

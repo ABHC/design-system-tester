@@ -5,8 +5,8 @@
 
     import palettes from "$lib/data/palettes.json";
     import stored_fonts from "$lib/data/fonts.json";
-    import { hexToRgba } from '$lib/utils/contrast';
-    
+    import { tokenValues } from '../design-system/token-schema';
+
     import { placeholders } from './placeholders';
     import type { PlaceholderLocale } from './placeholders';
 
@@ -75,47 +75,32 @@
         info:    '#0ea5e9',
     });*/
 
-    // ---------- Helper : CSS multi-layer background for contextual badges ----------
-    // background: color alone is invalid in non-final layers — wrap in a degenerate gradient.
-    // Result : linear-gradient(rgba, rgba), var(--highlight)
-    // The opaque highlight layer beneath ensures consistent rendering on any surface.
-    function ctxBg(hex: string): string {
-        const rgba = hexToRgba(hex, ctx_opacity);
-        return `linear-gradient(${rgba}, ${rgba}), var(--${ctx_surface})`;
-    }
-
     // ---------- Reactive CSS variables ----------
-    const css_variables = $derived({
-        '--bg': selected_palette.bg,
-        '--card': selected_palette.card,
-        '--highlight': selected_palette.highlight,
-        '--text': selected_palette.text,
-        '--text-muted': selected_palette.text_muted,
-        '--accent-lighter': selected_accent.accent_lighter,
-        '--accent-light': selected_accent.accent_light,
-        '--accent': selected_tone === 'dark' ? selected_accent.accent_light : selected_accent.accent_dark,
-        '--accent-more': selected_tone === 'dark' ? selected_accent.accent_lighter : selected_accent.accent_darker,
-        '--accent-invert': selected_tone === 'dark' ? selected_accent.accent_dark : selected_accent.accent_light,
-        '--accent-dark': selected_accent.accent_dark,
-        '--accent-darker': selected_accent.accent_darker,
-        '--text-accent': selected_accent.text_accent,
-        '--font-body': `'${selected_body_font.family}', sans-serif`,
-        '--font-heading': `'${selected_title_font.family}', sans-serif`,
-        '--ctx-error': contextual_colors.error,
-        '--ctx-warning': contextual_colors.warning,
-        '--ctx-success': contextual_colors.success,
-        '--ctx-info': contextual_colors.info,
-        '--ctx-success-blend': ctxBg(contextual_colors.success),
-        '--ctx-error-blend': ctxBg(contextual_colors.error),
-        '--ctx-warning-blend': ctxBg(contextual_colors.warning),
-        '--ctx-info-blend': ctxBg(contextual_colors.info),
-        '--tone-shadow': hexToRgba(selected_palette.text, shadow_opacity),
-        '--accent-shadow': hexToRgba(
-            selected_tone === 'dark' ? 
-                selected_accent.accent_light : selected_accent.accent_dark, 
-            shadow_opacity
-        ),
-    });
+    const css_variables = $derived(tokenValues({
+        palette: {
+            bg:         selected_palette.bg,
+            card:       selected_palette.card,
+            highlight:  selected_palette.highlight,
+            text:       selected_palette.text,
+            text_muted: selected_palette.text_muted,
+        },
+        accent: {
+            accent_lighter: selected_accent.accent_lighter,
+            accent_light:   selected_accent.accent_light,
+            accent_dark:    selected_accent.accent_dark,
+            accent_darker:  selected_accent.accent_darker,
+            text_accent:    selected_accent.text_accent,
+        },
+        tone: selected_tone,
+        typography: {
+            body:    `'${selected_body_font.family}', sans-serif`,
+            heading: `'${selected_title_font.family}', sans-serif`,
+        },
+        contextual: contextual_colors,
+        ctx_opacity,
+        shadow_opacity,
+        ctx_surface,
+    }));
 
     $effect(() => {
         for (const [key, value] of Object.entries(css_variables)) {

@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onMount } from 'svelte';
+    import '../design-system/tokens.css';
     import fontsData from '$lib/data/fonts.json';
     import { preconnectGoogleFonts } from '$lib/utils/fontLoader';
     import favicon from '$lib/assets/favicon.svg';
@@ -122,6 +123,7 @@
     {#if googleFontsUrl}
         <link rel="stylesheet" href={googleFontsUrl} />
     {/if}
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 </svelte:head>
 
 <header>
@@ -200,39 +202,6 @@
         box-sizing: border-box;
     }
 
-    /* Typography */
-    :global(h1), :global(h2), :global(h3), :global(h4), :global(h5), :global(h6) {
-        font-family: var(--font-heading);
-        font-weight: 600;
-        color: var(--text);
-    }
-
-    :global(h1) {
-        font-size: 2.5rem;
-        font-weight: 700;
-    }
-
-    :global(h2) {
-        font-size: 2rem;
-    }
-
-    :global(h3) {
-        font-size: 1.5rem;
-    }
-
-    :global(h4) {
-        font-size: 1.25rem;
-    }
-
-    :global(h5) {
-        font-size: 1.125rem;
-    }
-
-    :global(h6) {
-        font-size: 1rem;
-        font-weight: 500;
-    }
-
     :global(.wcag-badge) {
         display: inline-block;
         padding: .4rem .75rem;
@@ -241,77 +210,6 @@
         font-weight: 700;
         letter-spacing: 0.5px;
         color: var(--text);
-    }
-
-    /*Buttons (primary, secondary, ghost)*/
-    :global(.btn-primary) {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-        width: 100%;
-        padding: 1rem 2rem;
-        border: none;
-        border-radius: 8px;
-        font-size: 1.125rem;
-        font-weight: 700;
-        transition: all 0.3s ease;
-        background: var(--accent);
-        color: var(--text-accent);
-        cursor: pointer;
-    }
-
-    :global(.btn-primary:hover) {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px var(--tone-shadow);
-    }
-
-    /* Badges (primary, title, ghost, contextuals) */
-    :global(.badge-primary) {
-        display: inline-block;
-        padding: .5rem 1rem;
-        border-radius: 20px;
-        font-size: 0.875rem;
-        background: var(--accent);
-        color: var(--text-accent);
-    }
-
-    :global(.badge-title) {
-        font-size: .875rem;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-    }
-
-    :global(.badge-ghost) {
-        background: var(--highlight);
-        color: var(--text);
-    }
-
-    :global(.badge-ctx) {
-        display: inline-block;
-        padding: 5rem 1rem;
-        border-radius: 20px;
-        font-size: .875rem;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-        color: var(--text);
-    }
-
-    :global(.badge-ctx-error) {
-        background: var(--ctx-error-blend);
-    }
-
-    :global(.badge-ctx-warning) {
-        background: var(--ctx-warning-blend);
-    }
-
-    :global(.badge-ctx-success) {
-        background: var(--ctx-success-blend);
-    }
-
-    :global(.badge-ctx-info) {
-        background: var(--ctx-success-blend);
     }
 
     header {
