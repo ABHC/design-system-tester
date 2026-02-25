@@ -8,6 +8,9 @@ export const buttonConfig = {
             secondary: "btn-secondary",
             ghost: "btn-ghost",
             muted: "btn-muted",
+            // Square nav button — icon stacked above label, used inside Nav component
+            // Palette context (accent vs tone) is controlled by the parent Nav container
+            nav: "btn-nav",
         },
 
         size: {
@@ -23,6 +26,10 @@ export const buttonConfig = {
 
         uppercase: {
             true: "btn-uppercase"
+        },
+
+        active: {
+            true: "btn-active"
         }
     }
 };

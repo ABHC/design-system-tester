@@ -6,6 +6,7 @@
     import Colorblind from './Colorblind.svelte';
     import BadgeDemo from "./BadgeDemo.svelte";
     import ButtonDemo from "./ButtonDemo.svelte";
+    import NavDemo from "./NavDemo.svelte";
     import CodeBlockDemo from "./CodeBlockDemo.svelte";
 
     // Props
@@ -149,6 +150,12 @@
 
     <!-- Badges -->
     <BadgeDemo
+        trans={trans}
+        placeholders={placeholders}
+    />
+
+    <!-- Navs -->
+    <NavDemo 
         trans={trans}
         placeholders={placeholders}
     />
