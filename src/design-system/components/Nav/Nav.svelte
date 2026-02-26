@@ -6,60 +6,60 @@
 
     // Types
 
-    type Layout    = "row" | "column";
-    type Position  = "fixed" | "sticky";
+    type Position  = "fixed" | "floating";
     type Direction = "top" | "bottom" | "left" | "right";
     type Palette   = "accent" | "tone";
 
     export interface NavItem {
-        // Material Symbols icon name (e.g. "design_services", "code")
-        icon:     string;
-        // Short label displayed below the icon
-        label:    string;
+        // Icon slot accepts any HTML snippet: Material Symbols, SVG, Simple Icons… (rendered inside a wrapper)
+        // Short label displayed below the icon.
         // Marks this item as the currently active route/section
-        active?:  boolean;
-        // Click handler — navigation, scroll, etc.
-        onclick?: () => void;
+        // Click handler — navigation, scroll, route change, etc
         // Optional accessible label override (defaults to label)
+        icon: Snippet;
+        label: string;
+        active?: boolean;
+        onclick?: () => void;
         aria_label?: string;
     }
 
     interface Props {
-        layout?:    Layout;
-        position?:  Position;
+        position?: Position;
         direction?: Direction;
-        palette?:   Palette;
-        items:      NavItem[];
-        // Optional header slot — e.g. logo, title
-        header?:    Snippet;
-        // Optional footer slot — e.g. theme toggle
-        footer?:    Snippet;
+        palette?: Palette;
+        items: NavItem[];
+        rounded?: boolean;
+        squared?: boolean;
+        offset?: string; // Shifts the nav away from its anchor edge in fixed mode (e.g. "100px" to sit below a header)
+        header?: Snippet; // Optional header slot (logo, title, etc..)
+        footer?: Snippet; // Optional footer slot (theme toggle, language selector, etc.. )
     }
 
     let {
-        layout = "column",
         position = "fixed",
         direction = "left",
         palette = "accent",
         items,
+        rounded = false,
+        squared = false,
+        offset = "0px",
         header,
         footer,
     }: Props = $props();
 
+    // Layout helper
+    const is_column = $derived(direction === "left" || direction === "right");
+
     // Variant resolution
-
     const resolve = createVariant(navConfig);
-
     const wrapper_classes = $derived(
-        resolve({ layout, position, direction, palette }).trim()
+        resolve({
+            position,
+            direction,
+            palette,
+            rounded: rounded ? true : undefined,
+        }).trim()
     );
-
-    // Geometry helpers 
-    // For fixed/sticky navs on left/right, the nav is vertically centred.
-    // For top/bottom navs, it spans the full width and is horizontally centred.
-
-    const is_vertical = $derived(direction === "left" || direction === "right");
-    const is_row_layout = $derived(layout === "row");
 </script>
 
 <!--
@@ -68,7 +68,8 @@
     so the colour logic stays in one place and Button.svelte stays agnostic.
 -->
 <nav
-    class={wrapper_classes}
+    class="{wrapper_classes} {is_column ? 'nav-layout-column' : 'nav-layout-row'}"
+    style="--nav-offset: {offset}"
     aria-label="Navigation"
 >
     {#if header}
@@ -81,19 +82,23 @@
         {#each items as item}
             <Button
                 variant="nav"
+                {squared}
                 active={item.active ?? false}
                 aria_label={item.aria_label ?? item.label}
                 onclick={item.onclick}
             >
-                <span 
-                    class="nav-icon material-symbols-outlined" 
-                    aria-hidden="true"
-                >
-                    {item.icon}
+                <!--
+                    Icon wrapper — agnostic to icon system.
+                    User passes a Snippet, which can be:
+                    • <span class="material-symbols-outlined">code</span>
+                    • <svg>…</svg>
+                    • <img src="…" />
+                    • Any Simple Icons markup, etc.
+                -->
+                <span class="nav-icon" aria-hidden="true">
+                    {@render item.icon()}
                 </span>
-                <span class="nav-label">
-                    {item.label}
-                </span>
+                <span class="nav-label">{item.label}</span>
             </Button>
         {/each}
     </div>
@@ -110,165 +115,160 @@
     .nav-component {
         display: flex;
         align-items: center;
-        border-radius: 12px;
+        justify-content: space-evenly;
         transition: background 0.3s ease, box-shadow 0.3s ease;
         z-index: 100;
     }
 
-    /* Internal flex direction */
-    /* Column layout: items stack vertically */
+    /* Rounded corners — only when rounded prop is passed */
+    .nav-rounded { border-radius: 12px; }
+
+    /* Top / bottom bars only round the inner edge */
+    .nav-direction-top.nav-rounded    { border-radius: 0 0 12px 12px; }
+    .nav-direction-bottom.nav-rounded { border-radius: 12px 12px 0 0; }
+
+    /* Layout directions — derived from direction prop */
     .nav-layout-column {
         flex-direction: column;
-        justify-content: center;
-        gap: 0;
-        padding: 0.5rem 0;
+        padding: 0.5rem 0.5rem;
     }
 
-    /* Row layout: items are side by side */
     .nav-layout-row {
         flex-direction: row;
-        justify-content: space-evenly;
-        gap: 0;
-        padding: 0 0.5rem;
     }
 
-    /* Header and footer slots — always stacked */
+    /* Header / footer slots always stack perpendicular to the nav axis */
     .nav-header,
     .nav-footer {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 100%;
+        width: 10%;
+        /*margin: 0 30px;*/
     }
 
-    /* Items container matches the layout direction */
+    /* Items container inherits the parent direction */
     .nav-items {
-        display: flex;
+        display:     flex;
         align-items: center;
-        justify-content: center;
-        gap: 0;
+        gap:         10px;
     }
 
     .nav-layout-column .nav-items {
         flex-direction: column;
+        justify-content: center;
+        width: fit-content;
+    }
+
+    /* In column mode, all buttons stretch to the width of the widest one */
+    .nav-layout-column .nav-items :global(.btn-nav) {
+        width: 100%;
+    }
+
+    /* Column + rect only: space icon and label apart */
+    .nav-layout-column .nav-items :global(.btn-nav:not(.btn-squared)) {
+        justify-content: space-between;
+        gap:0.6rem;
     }
 
     .nav-layout-row .nav-items {
         flex-direction: row;
+        justify-content: space-evenly;
+        width: 100%;
     }
 
-    /* Positioning */
-    .nav-position-fixed {
-        position: fixed;
+    .nav-layout-row .nav-items :global(.btn-nav:not(.btn-squared)) {
+        gap:0.6rem;
     }
 
-    .nav-position-sticky {
-        position: sticky;
+    /* Padding zones — keep items off the edges */
+    .nav-direction-top .nav-items,
+    .nav-direction-bottom .nav-items { 
+        padding: 0.5rem 0.5rem; 
     }
 
-    /* Direction — fixed positioning anchors */
-    /* Left side: vertically centred on the left edge */
-    .nav-direction-left.nav-position-fixed {
+    .nav-direction-left.nav-items,
+    .nav-direction-right .nav-items { 
+        padding: 0.5rem 0;       
+    }
+
+    /*  Positioning  */
+    .nav-fixed { 
+        position: fixed;  
+    }
+
+    .nav-floating { 
+        position: sticky; 
+        width: fit-content;
+    }
+
+    /*  Direction anchors — fixed mode */
+    .nav-direction-left.nav-fixed {
         top: 50%;
         left: 1rem;
         transform: translateY(-50%);
     }
 
-    /* Right side: vertically centred on the right edge */
-    .nav-direction-right.nav-position-fixed {
+    .nav-direction-right.nav-fixed {
         top: 50%;
         right: 1rem;
         transform: translateY(-50%);
     }
 
-    /* Top bar: full-width bar pinned at the top */
-    .nav-direction-top.nav-position-fixed {
-        top: 0;
+    .nav-direction-top.nav-fixed {
+        top: var(--nav-offset, 0);
         left: 0;
         right: 0;
         width: 100%;
-        border-radius: 0 0 12px 12px;
     }
 
-    /* Bottom bar: full-width bar pinned at the bottom */
-    .nav-direction-bottom.nav-position-fixed {
-        bottom: 0;
+    .nav-direction-bottom.nav-fixed {
+        bottom: var(--nav-offset, 0);
         left: 0;
         right: 0;
         width: 100%;
-        border-radius: 12px 12px 0 0;
     }
 
-    /* Sticky variants — used in normal flow (e.g. inside a scrollable panel) */
-    .nav-direction-top.nav-position-sticky {
-        top: 0;
-        width: 100%;
-        border-radius: 0 0 12px 12px;
-    }
-
-    .nav-direction-bottom.nav-position-sticky {
-        bottom: 0;
-        width: 100%;
-        border-radius: 12px 12px 0 0;
-    }
-
-    .nav-direction-left.nav-position-sticky {
-        /* Used inside a flex/grid layout column */
+    /*  Direction anchors — floating (sticky) mode */
+    .nav-direction-left.nav-floating,
+    .nav-direction-right.nav-floating {
+        /* Stick to the top of the scroll container, vertically centred via  */
+        /* align-self on the parent flex column */
         align-self: flex-start;
         top: 1rem;
     }
 
-    .nav-direction-right.nav-position-sticky {
-        align-self: flex-start;
-        top: 1rem;
+    .nav-direction-top.nav-floating {
+        top: 0;
+        width: 100%;
     }
 
-    /* Palette — accent mode (portfolio side-nav style) */
-    /* Background = accent colour, buttons inherit --text-accent */
+    .nav-direction-bottom.nav-floating {
+        bottom: 0;
+        width: 100%;
+    }
+
+    /*  Palette — accent (portfolio side-nav style)  */
     .nav-palette-accent {
         background: var(--accent);
         box-shadow: 0 4px 24px var(--muted-shadow);
-
-        /* Expose tokens consumed by Button variant="nav" */
-        --nav-btn-color:         var(--text-accent);
-        --nav-btn-hover-bg:      rgba(255, 255, 255, 0.15);
-        --nav-btn-active-bg:     rgba(255, 255, 255, 0.25);
+        /* Tokens consumed by Button variant="nav" */
+        --nav-btn-color: var(--text-accent);
+        --nav-btn-hover-bg: rgba(255, 255, 255, 0.15);
+        --nav-btn-active-bg: rgba(255, 255, 255, 0.25);
         --nav-btn-active-border: rgba(255, 255, 255, 0.45);
     }
 
-    /* Palette — tone mode (styleguide card/highlight style) */
-    /* Background = card surface, buttons use --text colour */
+    /*  Palette — tone (styleguide card/highlight style)*/
     .nav-palette-tone {
         background: var(--card);
-        border: 1.5px solid var(--highlight);
+        border:     1.5px solid var(--highlight);
         box-shadow: 0 2px 12px var(--muted-shadow);
-
-        /* Expose tokens consumed by Button variant="nav" */
-        --nav-btn-color:         var(--text);
-        --nav-btn-hover-bg:      var(--highlight);
-        --nav-btn-active-bg:     var(--accent);
+        /* Tokens consumed by Button variant="nav" */
+        --nav-btn-color: var(--text);
+        --nav-btn-hover-bg: var(--highlight);
+        --nav-btn-active-bg: var(--accent);
         --nav-btn-active-border: var(--accent);
     }
 
-    /* When tone palette is active, override the active button text colour */
-    /* so it stays legible on the accent background */
-    .nav-palette-tone :global(.btn-nav.btn-active) {
-        color: var(--text-accent);
-    }
-
-    .nav-palette-tone :global(.btn-nav.btn-active:hover) {
-        color: var(--text-accent);
-    }
-
-    /* Top/bottom bars need horizontal padding on the items zone */
-    .nav-direction-top .nav-items,
-    .nav-direction-bottom .nav-items {
-        padding: 0.25rem 0.5rem;
-    }
-
-    /* Left/right columns need vertical padding on the items zone */
-    .nav-direction-left .nav-items,
-    .nav-direction-right .nav-items {
-        padding: 0.5rem 0;
-    }
 </style>

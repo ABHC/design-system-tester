@@ -13,7 +13,8 @@
         uppercase?: boolean;
         animate?: Animate;
         active?: boolean; //highlights the button as currently selected (nav use)
-        aria_label?: string; 
+        squared?: boolean;
+        aria_label?: string;
         onclick?: () => void;
         children?: Snippet;
     }
@@ -24,15 +25,16 @@
         uppercase = false,
         animate = undefined,
         active = false,
+        squared = false,
         aria_label = undefined,
         onclick = undefined,
         children
     }: Props = $props();
 
     const resolve = createVariant(buttonConfig);
-    
+
     const variant_classes = $derived(
-        resolve({ variant, size, animate, uppercase, active })
+        resolve({ variant, size, animate, uppercase, active, squared })
     );
 
     const classes = $derived(
@@ -112,22 +114,18 @@
         color: var(--accent);
     }
 
-    /* Nav — square icon + label stacked vertically 
+    /* Nav — icon + label stacked along the nav axis.
     Colour context is inherited from the parent Nav container.
     Two palette modes are driven by CSS custom properties set
     on the Nav wrapper:
         • palette="accent" → parent sets --nav-btn-color, --nav-btn-hover-bg
         • palette="tone" → same tokens, different values
+    flex-direction mirrors the nav axis via --nav-btn-flex-direction
+    set on the Nav wrapper (column for left/right, row for top/bottom).
     */
     .btn-nav {
-        /* Square geometry */
-        width:  var(--nav-btn-size, 56px);
-        height: var(--nav-btn-size, 56px);
-        /* Stack icon above label */
-        flex-direction: column;
-        gap: 0.2rem;
+        gap: 0.25rem;
         border-radius: 8px;
-        /* Inherits colour from Nav wrapper via custom properties */
         background: transparent;
         border: none;
         color: var(--nav-btn-color, var(--text-accent));
@@ -140,29 +138,30 @@
     }
 
     .btn-nav :global(.nav-label) {
-        font-size: 0.6rem;
+        font-family: var(--font-heading);
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.4px;
         line-height: 1;
         /* Prevent label from wrapping and overflowing the square */
         white-space: nowrap;
-        overflow: hidden;
+        /*overflow: hidden;*/
         text-overflow: ellipsis;
         max-width: 100%;
     }
 
     .btn-nav:hover {
         background: var(--nav-btn-hover-bg, rgba(255, 255, 255, 0.15));
-        /* Subtle lift matching the portfolio behaviour */
-        transform: scale(1.08);
+        /*transform: scale(1.05);*/
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
     /* Active / current page highlight */
     .btn-nav.btn-active {
-        background: var(--nav-btn-active-bg, rgba(255, 255, 255, 0.25));
-        box-shadow: inset 0 0 0 2px var(--nav-btn-active-border, rgba(255, 255, 255, 0.4));
+        /*background: var(--nav-btn-active-bg, rgba(255, 255, 255, 0.25));
+        box-shadow: inset 0 0 0 2px var(--nav-btn-active-border, rgba(255, 255, 255, 0.4));*/
+        border-bottom: solid 2px var(--nav-btn-active-border);
+        border-radius: 8px 8px 0 0;
     }
 
     .btn-nav.btn-active:hover {
@@ -186,17 +185,17 @@
         padding: 0.3rem 0.6rem;
     }
 
-    /* Nav size overrides — the square dimensions are set via --nav-btn-size */
-    .btn-nav.btn-sm { 
-        --nav-btn-size: 44px; 
-    
+    /* Squared — declared after sizes so it overrides their padding.
+    Column layout: icon stacked above label. */
+    .btn-squared {
+        flex-direction: column;
+        aspect-ratio:   1;
+        padding:        0.25rem;
     }
-    .btn-nav.btn-md { 
-        --nav-btn-size: 56px; 
-    }
-    .btn-nav.btn-lg { 
-        --nav-btn-size: 68px; 
-    }
+
+    .btn-squared.btn-sm { width: 46px; }
+    .btn-squared.btn-md { width: 62px; }
+    .btn-squared.btn-lg { width: 74px; }
 
     /* Animate */
     .btn-animate-left:hover {

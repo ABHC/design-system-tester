@@ -42,7 +42,11 @@ export const placeholders = {
             placeholder_message: "Salve ! Je viens d'admirer votre magnifique système de design..."
         },
         navigation: {
-            items: ["Domus", "Legiones", "Respublica", "Contactus", "Ad visitandum"]
+            items: ["Domus", "Legiones", "Respublica", "Contactus", "Ad visitandum"], 
+            domus: "Domus",
+            respublica: "Curia",
+            lex: "Lex",
+            epistola: "Epistola"
         },
         alerts: {
             success: "✅ Votre message a traversé les frontières sans incident et a été livré au Forum Romanum !",
@@ -94,7 +98,11 @@ export const placeholders = {
             placeholder_message: "Salve ! Your design system is as imposing as the Colosseum itself..."
         },
         navigation: {
-            items: ["Domus", "Legiones", "Senatus", "Contactus", "Ad visitandum"]
+            items: ["Domus", "Legiones", "Senatus", "Contactus", "Ad visitandum"],
+            domus: "Domus",
+            respublica: "Curia",
+            lex: "Lex",
+            epistola: "Epistola"
         },
         alerts: {
             success: "✅ Your message has crossed the Roman roads safely and reached the Forum Romanum!",

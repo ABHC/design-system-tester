@@ -15,8 +15,10 @@ export const translations = {
             theme: "Thème",
             palette: "Palette",
             accent: "Couleur d'accent",
+            fonts: "Polices",
             font_body: "Police - Corps de texte",
             font_titles: "Police - Titres",
+            contrast: "Contrastes",
             more: "Voir plus",
             less: "Voir moins"
         },
@@ -51,7 +53,7 @@ export const translations = {
             title: "🃏 Cartes",
         },
         nav: {
-            title: "🧭 Navigation"
+            title: "Navigation",
         },
         form: {
             title: "📋 Formulaires",
@@ -182,8 +184,10 @@ export const translations = {
             theme: "Theme",
             palette: "Palette",
             accent: "Accent Color",
+            fonts: "Fonts",
             font_body: "Font - Body",
             font_titles: "Font - Titles",
+            contrast: "Contrast",
             more: "See more",
             less: "See less"
         },
@@ -218,7 +222,7 @@ export const translations = {
             title: "🃏 Cards"
         },
         nav: {
-            title: "🧭 Navigation"
+            title: "Navigation"
         },
         form: {
             title: "📋 Forms",

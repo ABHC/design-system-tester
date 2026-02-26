@@ -129,7 +129,7 @@
 </svelte:head>
 
 <div class="tester-container">
-    <ControlPanel
+    <!--<ControlPanel
         {selected_tone}
         {tone_palettes}
         {accent_palettes}
@@ -143,7 +143,7 @@
         on_accent_index_change={(index) => (accent_index = index)}
         on_body_font_change={(index) => (body_font_index = index)}
         on_title_font_change={(index) => (title_font_index = index)}
-    />
+    />-->
 
     <Content
         trans={$trans}

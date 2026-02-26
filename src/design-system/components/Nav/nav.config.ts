@@ -6,19 +6,18 @@ export const navConfig = {
     base: "nav-component",
 
     variants: {
-        // Layout of buttons inside the nav bar
-        layout: {
-            row:    "nav-layout-row",
-            column: "nav-layout-column",
-        },
-
-        // CSS positioning strategy
+        // CSS positioning strategy.
+        // "fixed"    → position: fixed, overlays the viewport.
+        // "floating" → position: sticky, floats within normal flow
         position: {
-            fixed:  "nav-position-fixed",
-            sticky: "nav-position-sticky",
+            fixed:    "nav-fixed",
+            floating: "nav-floating",
         },
 
-        // Side of the viewport the nav is anchored to
+        // Side of the viewport the nav is anchored to.
+        // Also drives the internal flex direction:
+        //   left | right  →  flex-direction: column
+        //   top  | bottom →  flex-direction: row
         direction: {
             top:    "nav-direction-top",
             bottom: "nav-direction-bottom",
@@ -26,12 +25,18 @@ export const navConfig = {
             right:  "nav-direction-right",
         },
 
-        // Colour palette mode
-        // • accent — background uses --accent, text uses --text-accent 
-        // • tone   — background uses --card / --highlight, text uses --text
+        // Colour palette mode.
+        // accent → background: --accent, buttons inherit --text-accent
+        // tone → background: --card, buttons inherit --text
         palette: {
             accent: "nav-palette-accent",
             tone:   "nav-palette-tone",
+        },
+
+        // Whether the nav container has rounded corners.
+        // rounded=true adds nav-rounded; omitted = no border-radius.
+        rounded: {
+            true: "nav-rounded",
         },
     }
 };

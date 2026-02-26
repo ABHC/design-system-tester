@@ -5,6 +5,8 @@
     import { preconnectGoogleFonts } from '$lib/utils/fontLoader';
     import favicon from '$lib/assets/favicon.svg';
     import Logo from './Logo.svelte';
+    import Nav from '../design-system/components/Nav/Nav.svelte';
+    import Button from '../design-system/components/Button/Button.svelte';
     import {
 		locale,
 		trans,
@@ -29,6 +31,8 @@
 	let width: number = $state(0);
 	let height: number = $state(0);
     let copied: boolean = $state(false);
+    let headerElement: HTMLElement | undefined = $state(undefined);
+    let header_visible: boolean = $state(true);
 
 	// ---------- Lifecycle ----------
 	onMount(async (): Promise<void> => {
@@ -111,6 +115,16 @@
     onMount(() => {
         preconnectGoogleFonts();
     });
+
+    onMount(() => {
+        if (!headerElement) return;
+        const observer = new IntersectionObserver(
+            ([entry]) => { header_visible = entry.isIntersecting; },
+            { threshold: 0 }
+        );
+        observer.observe(headerElement);
+        return () => observer.disconnect();
+    });
 </script>
 
 <svelte:head>
@@ -126,7 +140,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 </svelte:head>
 
-<header>
+<header bind:this={headerElement}>
     <div class="title-container">
         <div class="tagline">
             <div class="id">
@@ -135,12 +149,36 @@
             </div>
         </div>
         <h1 id="pipe">&nbsp;|&nbsp;</h1>
-        <div id="logo-container">
+        <div class="logo-container">
             <Logo />
         </div>
     </div>
 
-    <select 
+    <h1 id="project">{$trans?.header.project.toUpperCase()}</h1>
+</header>
+
+{#snippet icon_colors()}
+    <span class="material-symbols-outlined">colors</span>
+{/snippet}
+{#snippet icon_fonts()}
+    <span class="material-symbols-outlined">brand_family</span>
+{/snippet}
+{#snippet icon_contrast()}
+    <span class="material-symbols-outlined">contrast_square</span>
+{/snippet}
+
+{#snippet empty_nav()}
+    <span></span>
+{/snippet}
+
+{#snippet logo_in_nav()}
+    <div class="nav-logo">
+        <Logo size={32} />
+    </div>
+{/snippet}
+
+{#snippet lang_select()}
+    <select
         aria-label="Select language"
         class="local-select"
         bind:value={$locale}
@@ -149,9 +187,32 @@
             <option value={lang}>{getFlagEmoji(lang)} {lang.toUpperCase()}</option>
         {/each}
     </select>
+{/snippet}
 
-    <h1 id="project">{$trans?.header.project.toUpperCase()}</h1>
-</header>
+<Nav
+    position="floating"
+    direction="top"
+    palette="tone"
+    header={header_visible ? empty_nav : logo_in_nav}
+    footer={lang_select}
+    items={[
+        {
+            icon: icon_colors,
+            label: `${$trans?.control.theme}`,
+            onclick: () => {}
+        },
+        {
+            icon: icon_fonts,
+            label: `${$trans?.control.fonts}`,
+            onclick: () => {}
+        },
+        {
+            icon: icon_contrast,
+            label: `${$trans?.control.contrast}`,
+            onclick: () => {}
+        },
+    ]}
+/>
 
 <main>
     {@render children?.()}
@@ -213,21 +274,15 @@
     }
 
     header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
         width: 100%;
         height: 100px;
         display: flex;
         justify-content: space-between;
         align-items: center;
         background-color: var(--card);
-        padding: 0px var(--side-margin) 0px var(--side-margin);
         color: var(--text);
         font-family: 'Space Grotesk', sans-serif;
         border-bottom: 4px solid var(--accent);
-        z-index: 50;
         padding: 0 100px;
     }
 
@@ -245,7 +300,7 @@
         text-align: end;
     }
 
-    #logo-container {
+    .logo-container {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -253,6 +308,11 @@
         z-index: 5;
         height: 100%;
         gap: 20px;
+        color: var(--accent);
+    }
+
+    .nav-logo {
+        cursor: pointer;
         color: var(--accent);
     }
 
@@ -279,7 +339,6 @@
     }
 
     main {
-        padding-top: 100px; /* Hauteur du header */
         flex: 1;
     }
 

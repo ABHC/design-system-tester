@@ -30,6 +30,10 @@ export const buttonConfig = {
 
         active: {
             true: "btn-active"
+        },
+
+        squared: {
+            true: "btn-squared"
         }
     }
 };
