@@ -7,6 +7,8 @@
     import BadgeDemo from "./BadgeDemo.svelte";
     import ButtonDemo from "./ButtonDemo.svelte";
     import NavDemo from "./NavDemo.svelte";
+    import ListItemDemo from "./ListItemDemo.svelte";
+    import SidebarDemo from "./SidebarDemo.svelte";
     import CodeBlockDemo from "./CodeBlockDemo.svelte";
 
     // Props
@@ -154,8 +156,20 @@
         placeholders={placeholders}
     />
 
+    <!-- List Items -->
+    <ListItemDemo
+        trans={trans}
+        placeholders={placeholders}
+    />
+
     <!-- Navs -->
     <NavDemo 
+        trans={trans}
+        placeholders={placeholders}
+    />
+
+    <!-- Sidebar -->
+    <SidebarDemo
         trans={trans}
         placeholders={placeholders}
     />
@@ -251,7 +265,7 @@
     .content {
         max-width: 1400px;
         margin: 0 auto;
-        padding: 200px 40px 40px;
+        padding: 40px 40px 40px;
     }
 
     /* Demo Sections */

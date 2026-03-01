@@ -122,16 +122,14 @@
 />`;
 </script>
 
-<!--
-    ─── Svelte 5 note on icon Snippets ─────────────────────────────────────────
+<!-- Svelte 5 note on icon Snippets -----------------------------------------
     Snippets are template-only constructs in Svelte 5. They cannot be defined
     in <script> and then referenced in data arrays. The correct pattern is:
     define {#snippet} blocks in the template, then pass them as NavItem.icon
-    directly in the Nav items prop — which is what we do below.
-    ────────────────────────────────────────────────────────────────────────── -->
+    directly in the Nav items prop — which is what we do below. -->
 
 <!-- Icon Snippets — agnostic to icon system: Material Symbols here, but can be
-     any SVG, Simple Icons, img, or custom markup.                             -->
+     any SVG, Simple Icons, img, or custom markup. -->
 {#snippet icon_design()}
     <span class="material-symbols-outlined">home</span>
 {/snippet}
@@ -149,7 +147,7 @@
     {trans?.nav?.title ?? "🧭 Navigation"}
 </Headline>
 
-<!-- ── Interactive controls ────────────────────────────────────────────────── -->
+<!-- Interactive controls -->
 <div class="nav-controls">
     <div class="control-group">
         <span class="control-label">Position</span>
@@ -387,6 +385,7 @@
         overflow: hidden;
         margin-bottom: 1.5rem;
         padding: 10px;
+        z-index: 10;
     }
 
     /* Central content skeleton */

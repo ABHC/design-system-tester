@@ -133,7 +133,6 @@
     }
 
     .btn-nav :global(.nav-icon) {
-        font-size: 1.375rem;
         line-height: 1;
     }
 

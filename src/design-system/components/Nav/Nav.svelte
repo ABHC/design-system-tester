@@ -10,12 +10,16 @@
     type Direction = "top" | "bottom" | "left" | "right";
     type Palette   = "accent" | "tone";
 
+    /*
+        Props
+        Icon slot accepts any HTML snippet: Material Symbols, SVG, Simple Icons… (rendered inside a wrapper)
+        Short label displayed below the icon.
+        Marks this item as the currently active route/section
+        Click handler — navigation, scroll, route change, etc
+        Optional accessible label override (defaults to label)
+    */
+
     export interface NavItem {
-        // Icon slot accepts any HTML snippet: Material Symbols, SVG, Simple Icons… (rendered inside a wrapper)
-        // Short label displayed below the icon.
-        // Marks this item as the currently active route/section
-        // Click handler — navigation, scroll, route change, etc
-        // Optional accessible label override (defaults to label)
         icon: Snippet;
         label: string;
         active?: boolean;
@@ -251,19 +255,16 @@
     /*  Palette — accent (portfolio side-nav style)  */
     .nav-palette-accent {
         background: var(--accent);
-        box-shadow: 0 4px 24px var(--muted-shadow);
         /* Tokens consumed by Button variant="nav" */
         --nav-btn-color: var(--text-accent);
-        --nav-btn-hover-bg: rgba(255, 255, 255, 0.15);
-        --nav-btn-active-bg: rgba(255, 255, 255, 0.25);
-        --nav-btn-active-border: rgba(255, 255, 255, 0.45);
+        --nav-btn-hover-bg: color-mix(in srgb, var(--text-accent) 15%, transparent);
+        --nav-btn-active-bg: color-mix(in srgb, var(--text-accent) 25%, transparent);
+        --nav-btn-active-border: color-mix(in srgb, var(--text-accent) 45%, transparent);
     }
 
     /*  Palette — tone (styleguide card/highlight style)*/
     .nav-palette-tone {
         background: var(--card);
-        border:     1.5px solid var(--highlight);
-        box-shadow: 0 2px 12px var(--muted-shadow);
         /* Tokens consumed by Button variant="nav" */
         --nav-btn-color: var(--text);
         --nav-btn-hover-bg: var(--highlight);

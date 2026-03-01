@@ -3,6 +3,10 @@ import { derived, writable, type Writable, get } from 'svelte/store';
 import { browser } from '$app/environment';
 import { translations, available_locales } from './translations';
 import type { Locale, Translation } from "$lib/types/translations";
+import palettes   from '$lib/data/palettes.json';
+import fonts_data from '$lib/data/fonts.json';
+import type { AccentTheme, ToneTheme } from '$lib/types/palettes';
+import type { FontConfig } from '$lib/types/fonts';
 
 /* -----------------------------------------
  * Translations Stores
@@ -39,5 +43,35 @@ export const responsive = derived(window_width, ($width) => ({
     isAbove: (breakpoint: number) => $width !== null && $width >= breakpoint
 }));
 
+// ── Sidebar navigation ───────────────────────────────────────────────────────
+export type SidebarMenu = "theme" | "theme:tone" | "theme:accent" | "fonts" | null;
+export const sidebar_open: Writable<boolean>     = writable(false);
+export const sidebar_menu: Writable<SidebarMenu> = writable(null);
 
+// ── Theme/font control ───────────────────────────────────────────────────────
+export const selected_tone    = writable<'light' | 'dark'>('dark');
+export const tone_index       = writable(0);
+export const accent_index     = writable(0);
+export const body_font_index  = writable(0);
+export const title_font_index = writable(1);
 
+// ── Static data (filtered once) ──────────────────────────────────────────────
+export const accent_palettes: AccentTheme[] = palettes.accent.filter(a => a.display);
+export const available_fonts: FontConfig[]  = fonts_data.fonts.filter(f => f.display);
+
+// ── Derived stores ────────────────────────────────────────────────────────────
+export const tone_palettes = derived(selected_tone, ($tone) =>
+    (palettes[$tone] as ToneTheme[]).filter(t => t.display)
+);
+export const selected_palette = derived([tone_palettes, tone_index], ([$pals, $idx]) =>
+    $pals[$idx]
+);
+export const selected_accent = derived(accent_index, ($idx) =>
+    accent_palettes[$idx]
+);
+export const selected_body_font = derived(body_font_index, ($idx) =>
+    available_fonts[$idx]
+);
+export const selected_title_font = derived(title_font_index, ($idx) =>
+    available_fonts[$idx]
+);

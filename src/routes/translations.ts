@@ -10,15 +10,17 @@ export const translations = {
             logo_btn: "Retour à l'accueil"
         },
         control: {
-            light: "☀️ Clair",
-            dark: "🌙 Sombre",
+            light: "Clair",
+            dark: "Sombre",
             theme: "Thème",
+            tone: "Teinte",
             palette: "Palette",
             accent: "Couleur d'accent",
             fonts: "Polices",
-            font_body: "Police - Corps de texte",
-            font_titles: "Police - Titres",
+            font_body: "Corps de texte",
+            font_titles: "Titres",
             contrast: "Contrastes",
+            export: "Export",
             more: "Voir plus",
             less: "Voir moins"
         },
@@ -54,6 +56,13 @@ export const translations = {
         },
         nav: {
             title: "Navigation",
+        },
+        sidebar: {
+            title: "Menu latéral",
+            test: "Philippe ! Je sais où tu te caches !"
+        },
+        list_items: {
+            title: "Éléments de liste",
         },
         form: {
             title: "📋 Formulaires",
@@ -169,6 +178,10 @@ export const translations = {
             meta: "",
             title: ""
         },
+        aria: {
+            return: "Retour",
+            close: "Fermer"
+        }
     },
     en: {
         language_name: "English",
@@ -179,15 +192,17 @@ export const translations = {
             logo_btn: "Back to home"
         },
         control: {
-            light: "☀️ Light",
-            dark: "🌙 Dark",
+            light: "Light",
+            dark: "Dark",
             theme: "Theme",
+            tone: "Tone",
             palette: "Palette",
             accent: "Accent Color",
             fonts: "Fonts",
-            font_body: "Font - Body",
-            font_titles: "Font - Titles",
+            font_body: "Body",
+            font_titles: "Headings",
             contrast: "Contrast",
+            export: "Export",
             more: "See more",
             less: "See less"
         },
@@ -223,6 +238,13 @@ export const translations = {
         },
         nav: {
             title: "Navigation"
+        },
+        sidebar: {
+            title: "Sidebar",
+            test: "The quick brown fox"
+        },
+        list_items: {
+            title: "List Items",
         },
         form: {
             title: "📋 Forms",
@@ -339,6 +361,10 @@ export const translations = {
             meta: "",
             title: ""
         },
+        aria: {
+            return: "Return",
+            close: "Close"
+        }
     }
 };
 
