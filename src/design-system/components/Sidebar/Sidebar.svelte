@@ -343,7 +343,7 @@
         display: flex;
         flex-direction: column;
         gap: 1rem;
-        padding: 0.75rem 0.5rem;
+        padding: 0.75rem 0.75rem;
         font-family: var(--font-body);
         overflow-y: auto;
         scrollbar-width: thin;

@@ -46,9 +46,13 @@
 
 <style>
     .badge {
-        display: inline-block;
-        padding: .4rem .9rem;
+        /*display: inline-block;*/
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
         border-radius: 20px;
+        line-height: 1;
     }
 
     /* Badges (primary, uppercase, ghost, contextuals) */
@@ -78,30 +82,33 @@
         text-transform: uppercase;
     }
 
+    /* Sizes */
+    .badge-lg {
+        font-size: 1.125rem;
+        font-weight: 700;
+        padding: 0.65rem 1.3rem;
+    }
+
+    .badge-md {
+        padding: 0.45rem 0.9rem;
+    }
+
+    .badge-sm {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.6rem;
+    }
+
+
     /* Contextuals */
     .badge-ctx {
         font-weight: 600;
         color: var(--text);
+        border: 2px solid transparent;
     }
 
-    .badge-ctx-error {
-        border: 2px solid var(--ctx-error-blend);
-        background: var(--ctx-error-blend);
-    }
-
-    .badge-ctx-warning {
-        border: 2px solid var(--ctx-warning-blend);
-        background: var(--ctx-warning-blend);
-    }
-
-    .badge-ctx-success {
-        border: 2px solid var(--ctx-success-blend);
-        background: var(--ctx-success-blend);
-    }
-
-    .badge-ctx-info {
-        border: 2px solid var(--ctx-info-blend);
-        background: var(--ctx-info-blend);
-    }
+    .badge-ctx-error   { background: var(--ctx-error-blend); }
+    .badge-ctx-warning { background: var(--ctx-warning-blend); }
+    .badge-ctx-success { background: var(--ctx-success-blend); }
+    .badge-ctx-info    { background: var(--ctx-info-blend); }
 
 </style>

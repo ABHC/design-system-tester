@@ -4,12 +4,14 @@
     import type { PlaceholdersType } from "./placeholders";
     import Contrast from './Contrast.svelte';
     import Colorblind from './Colorblind.svelte';
+    import Headline from "../design-system/components/Headline/Headline.svelte";
     import BadgeDemo from "./BadgeDemo.svelte";
     import ButtonDemo from "./ButtonDemo.svelte";
     import NavDemo from "./NavDemo.svelte";
     import ListItemDemo from "./ListItemDemo.svelte";
     import SidebarDemo from "./SidebarDemo.svelte";
     import CodeBlockDemo from "./CodeBlockDemo.svelte";
+	import TileGridDemo from "./TileGridDemo.svelte";
 
     // Props
     interface Props {
@@ -36,9 +38,13 @@
 
 <!-- Main Content -->
 <div class="content">
+
     <!-- Typography -->
+    <Headline size="md" uppercase>
+        {trans?.typo.title}
+    </Headline>
+
     <div class="demo-section typography-demo">
-        <h2 class="section-title">{trans?.typo.title}</h2>
         <h1>{trans?.typo.h1} - {placeholders.typography.h1_context}</h1>
         <h2>{trans?.typo.h2} - {placeholders.typography.h2_context}</h2>
         <h3>{trans?.typo.h3} - {placeholders.typography.h3_context}</h3>
@@ -54,8 +60,11 @@
     </div>
 
     <!-- Color Swatches -->
+    <Headline size="md" uppercase>
+        {trans?.palette.title}
+    </Headline>
+
     <div class="demo-section">
-        <h2 class="section-title">{trans?.palette.title}</h2>
         <div class="swatch-grid">
             <div
                 class="swatch"
@@ -162,6 +171,11 @@
         placeholders={placeholders}
     />
 
+    <!-- Tile Grid -->
+    <TileGridDemo
+        trans={trans}
+    />
+
     <!-- Navs -->
     <NavDemo 
         trans={trans}
@@ -202,16 +216,6 @@
                         {/if}
                     </div>
                 </div>
-            {/each}
-        </div>
-    </div>
-
-    <!-- Navigation -->
-    <div class="demo-section">
-        <h2 class="section-title">{trans?.nav.title}</h2>
-        <div class="nav-demo">
-            {#each placeholders.navigation.items as item}
-                <div class="nav-item {item === placeholders.navigation.items[0] ? 'active' : ''}">{item}</div>
             {/each}
         </div>
     </div>

@@ -57,6 +57,22 @@ export const translations = {
         nav: {
             title: "Navigation",
         },
+        tile_grid: {
+            title: "Grille de tuiles",
+            id_note_title: "Rôle de l'identifiant (id)",
+            id_note: "Chaque tuile peut recevoir un id optionnel. Quand il est renseigné, la tuile devient un lien vers {href_base}/{id} — survol SvelteKit et curseur pointer activés. Sans id, la tuile reste un bloc purement décoratif : aucun lien, curseur neutre.",
+            ctrl_mode: "Mode",
+            ctrl_position: "Position",
+            ctrl_columns: "Colonnes",
+            ctrl_hero_span: "Empan héro",
+            ctrl_hero_badge: "Badge héro",
+            ctrl_rounded: "Arrondi",
+            code_desc: "TileGrid affiche une collection de projets en grille responsive.\n\n**Breakpoints**\n1 colonne mobile\n2 colonnes tablette\n`columns` colonnes desktop\n\n**image_mode**\n`background` — fond CSS plein cadre, dégradé overlay au survol\n`none` — carte plate sur fond `--card`\n`decorative` — image flottante ancrée à un coin ou bord via `image_position`\n\n**Position image**\nBackground : valeur CSS bg-position (`center`, `top`…)\nDécoratif : ancre du coin (`top-right`, `right`…)\n`image_size` contrôle la taille en mode décoratif.\n\n**Tuile héro**\n`hero: true` étend la tuile.\n`hero_span=\"half\"` → 2 colonnes\n`hero_span=\"full\"` → rangée entière\n`hero_text` → texte du badge\n`hero_icon` → icône du badge\n\n**Autres props**\n`show_hero_badge` — badge sur le héro\n`show_hero_border` — bordure accent\n`excerpt_length` — troncature de l'abstract sur les tuiles normales\n`rounded` — coins arrondis\n`locale` — langue de l'abstract",
+            tab_background: "Fond image",
+            tab_flat: "Flat",
+            tab_decorative: "Décoratif",
+            tab_hero_full: "Héro plein",
+        },
         sidebar: {
             title: "Menu latéral",
             test: "Philippe ! Je sais où tu te caches !"
@@ -235,6 +251,22 @@ export const translations = {
         },
         cards: {
             title: "🃏 Cards"
+        },
+        tile_grid: {
+            title: "Tile Grid",
+            id_note_title: "Role of the identifier (id)",
+            id_note: "Each tile can receive an optional id. When provided, the tile becomes a link to {href_base}/{id} — enabling SvelteKit preloading and a pointer cursor. Without id, the tile is a purely decorative block: no link, neutral cursor.",
+            ctrl_mode: "Mode",
+            ctrl_position: "Position",
+            ctrl_columns: "Columns",
+            ctrl_hero_span: "Hero span",
+            ctrl_hero_badge: "Hero badge",
+            ctrl_rounded: "Rounded",
+            code_desc: "TileGrid renders a project collection as a responsive grid.\n\n**Breakpoints**\n1 column mobile\n2 columns tablet\n`columns` columns desktop\n\n**image_mode**\n`background` — full-frame CSS background with hover overlay gradient\n`none` — flat card on `--card` surface\n`decorative` — floating image anchored to a corner or edge via `image_position`\n\n**Image position**\nBackground: CSS bg-position value (`center`, `top`…)\nDecorative: anchor point (`top-right`, `right`…)\n`image_size` controls the image dimension in decorative mode.\n\n**Hero tile**\n`hero: true` extends the tile.\n`hero_span=\"half\"` → 2 columns\n`hero_span=\"full\"` → full row\n`hero_text` → badge label\n`hero_icon` → Material icon\n\n**Other props**\n`show_hero_badge` — badge on the hero\n`show_hero_border` — accent border\n`excerpt_length` — abstract truncation on normal tiles\n`rounded` — rounded corners\n`locale` — abstract language",
+            tab_background: "Image bg",
+            tab_flat: "Flat",
+            tab_decorative: "Decorative",
+            tab_hero_full: "Full hero",
         },
         nav: {
             title: "Navigation"

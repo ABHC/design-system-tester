@@ -12,29 +12,41 @@
         language?: string;
     }
 
+    /*
+        -- Props
+        title : "titled" / "terminal" → text displayed in header
+        filename : "filename" variant    → file icon + name in header
+        description : any non-simple variant → activates split layout with a side panel (supports basic markdown)
+        language : language badge (e.g. "TypeScript", "CSS")
+        tabs : "tabbed" variant → tab navigation
+        code : code content for non-tabbed variants
+        copyable : show copy button
+        line_numbers : show line numbers
+    */
+
     interface Props {
         variant?: Variant;
         size?: Size;
-        title?: string;        // "titled" / "terminal" → text displayed in header
-        filename?: string;     // "filename" variant    → file icon + name in header
-        description?: string;  // any non-simple variant → activates split layout with a side panel (supports basic markdown)
-        language?: string;     // language badge (e.g. "TypeScript", "CSS")
-        tabs?: Tab[];          // "tabbed" variant      → tab navigation
-        code?: string;         // code content for non-tabbed variants
-        copyable?: boolean;    // show copy button
-        line_numbers?: boolean; // show line numbers
+        title?: string;
+        filename?: string;
+        description?: string;
+        language?: string;
+        tabs?: Tab[];
+        code?: string;
+        copyable?: boolean;
+        line_numbers?: boolean;
     }
 
     let {
-        variant     = "simple",
-        size        = "md",
-        title       = undefined,
-        filename    = undefined,
+        variant = "simple",
+        size = "md",
+        title = undefined,
+        filename = undefined,
         description = undefined,
-        language    = undefined,
-        tabs        = undefined,
-        code        = undefined,
-        copyable    = false,
+        language = undefined,
+        tabs = undefined,
+        code = undefined,
+        copyable = false,
         line_numbers = false,
     }: Props = $props();
 
@@ -418,7 +430,7 @@
     /* Split layout: description panel on the left, code on the right */
     .codeblock-body-split {
         display: grid;
-        grid-template-columns: 200px 1fr;
+        grid-template-columns: 250px 1fr;
     }
 
     .codeblock-description {

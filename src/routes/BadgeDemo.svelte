@@ -53,6 +53,7 @@
     <Badge
         variant="ctx"
         state="error"
+        size= "lg"
     >
         {trans?.variants.error}
     </Badge>
@@ -67,6 +68,7 @@
     <Badge
         variant="ctx"
         state="success"
+        size= "sm"
     >
         {trans?.variants.success}
     </Badge>
@@ -75,6 +77,7 @@
         variant="ctx"
         state="info"
     >
+        <icon class="material-symbols-outlined badge-icon">info</icon>
         {trans?.variants.info}
     </Badge>
 </div>
@@ -139,6 +142,12 @@
 <style>
     .content {
         display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
         gap: 20px;
+    }
+
+    .badge-icon {
+        font-size: 1em;
     }
 </style>

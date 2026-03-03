@@ -62,6 +62,7 @@
         transition: all 0.3s ease;
         width: fit-content;
         height: fit-content;
+        line-height: 1;
     }
 
     /* Primary */
