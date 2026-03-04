@@ -139,8 +139,6 @@
     .content {
         display: flex;
         flex-wrap: wrap;
-        width: max-content;
-        height:max-content;
         gap: 20px;
     }
 </style>

@@ -310,5 +310,39 @@
             "text": "#ffffff",
             "text_muted": "#a0a0a0"
         }
+    ],
+    "ctx": [
+        {
+            "name": "Cold",
+            "display": true,
+            "error": "#e11d48",
+            "warning": "#ca8a04",
+            "success": "#0d9488",
+            "info": "#0284c7"
+        },
+        {
+            "name": "Warm",
+            "display": true,
+            "error": "#b91c1c",
+            "warning": "#d97706",
+            "success": "#65a30d",
+            "info": "#7c3aed"
+        },
+        {
+            "name": "Bright",
+            "display": true,
+            "error": "#ef4444",
+            "warning": "#f97316",
+            "success": "#22c55e",
+            "info": "#0ea5e9"
+        },
+        {
+            "name": "Neutral",
+            "display": true,
+            "error": "#dc2626",
+            "warning": "#F39C12",
+            "success": "#15803d",
+            "info": "#6b7280"
+        }
     ]
 }

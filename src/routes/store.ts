@@ -5,7 +5,7 @@ import { translations, available_locales } from './translations';
 import type { Locale, Translation } from "$lib/types/translations";
 import palettes   from '$lib/data/palettes.json';
 import fonts_data from '$lib/data/fonts.json';
-import type { AccentTheme, ToneTheme } from '$lib/types/palettes';
+import type { AccentTheme, ToneTheme, ContextualColors } from '$lib/types/palettes';
 import type { FontConfig } from '$lib/types/fonts';
 
 /* -----------------------------------------
@@ -44,20 +44,22 @@ export const responsive = derived(window_width, ($width) => ({
 }));
 
 // ── Sidebar navigation ───────────────────────────────────────────────────────
-export type SidebarMenu = "theme" | "theme:tone" | "theme:accent" | "fonts" | null;
+export type SidebarMenu = "theme" | "theme:tone" | "theme:accent" | "theme:ctx" | "fonts" | "settings" |null;
 export const sidebar_open: Writable<boolean>     = writable(false);
 export const sidebar_menu: Writable<SidebarMenu> = writable(null);
 
 // ── Theme/font control ───────────────────────────────────────────────────────
-export const selected_tone    = writable<'light' | 'dark'>('dark');
-export const tone_index       = writable(0);
-export const accent_index     = writable(0);
-export const body_font_index  = writable(0);
+export const selected_tone = writable<'light' | 'dark'>('dark');
+export const tone_index = writable(0);
+export const accent_index = writable(0);
+export const body_font_index = writable(0);
 export const title_font_index = writable(1);
+export const ctx_index = writable (0);
 
 // ── Static data (filtered once) ──────────────────────────────────────────────
 export const accent_palettes: AccentTheme[] = palettes.accent.filter(a => a.display);
 export const available_fonts: FontConfig[]  = fonts_data.fonts.filter(f => f.display);
+export const ctx_colors: ContextualColors[] = palettes.ctx.filter(c => c.display)
 
 // ── Derived stores ────────────────────────────────────────────────────────────
 export const tone_palettes = derived(selected_tone, ($tone) =>
@@ -74,4 +76,8 @@ export const selected_body_font = derived(body_font_index, ($idx) =>
 );
 export const selected_title_font = derived(title_font_index, ($idx) =>
     available_fonts[$idx]
+);
+
+export const selected_ctx = derived(ctx_index, ($idx) =>
+    ctx_colors[$idx]
 );

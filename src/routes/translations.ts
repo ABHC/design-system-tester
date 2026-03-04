@@ -16,16 +16,19 @@ export const translations = {
             tone: "Teinte",
             palette: "Palette",
             accent: "Couleur d'accent",
+            ctx: "Couleurs contextuelles",
             fonts: "Polices",
             font_body: "Corps de texte",
             font_titles: "Titres",
             contrast: "Contrastes",
+            demo: "Démo",
             export: "Export",
+            settings: "Options",
             more: "Voir plus",
             less: "Voir moins"
         },
         typo: {
-            title: "📝 Typographie",
+            title: "Typographie",
             h1: "Titre 1",
             h2: "Titre 2",
             h3: "Titre 3",
@@ -36,7 +39,7 @@ export const translations = {
             body: "Corps de texte"
         },
         palette: {
-            title: "🎨 Palette de couleurs"
+            title: "Palette de couleurs"
         },
         buttons: {
             title: "Boutons",
@@ -107,7 +110,7 @@ export const translations = {
             anim_right: "droite",
         },
         contrast: {
-            title: "📊 Informations de contraste",
+            title: "Informations de contraste",
             desc: "Ratios de contraste actuels :",
             required1: "✅ WCAG AA requis: 4.5:1 pour texte normal, 3:1 pour texte large",
             required2: "✅ WCAG AAA requis: 7:1 pour texte normal, 4.5:1 pour texte large",
@@ -168,7 +171,7 @@ export const translations = {
             ctx_suggest_title: "Suggestions contextuelles",
         },
         colorblind: {
-            title: "👁️ Simulation daltonisme",
+            title: "Simulation daltonisme",
             normal: "Normal",
             normal_desc: "Dans la limite des variations individuelles",
             protan: "Protanopie",
@@ -214,16 +217,19 @@ export const translations = {
             tone: "Tone",
             palette: "Palette",
             accent: "Accent Color",
+            ctx: "Contextual colors",
             fonts: "Fonts",
             font_body: "Body",
             font_titles: "Headings",
             contrast: "Contrast",
+            demo: "Demo",
             export: "Export",
+            settings: "Settings",
             more: "See more",
             less: "See less"
         },
         typo: {
-            title: "📝 Typography",
+            title: "Typography",
             h1: "Heading 1",
             h2: "Heading 2",
             h3: "Heading 3",
@@ -234,7 +240,7 @@ export const translations = {
             body: "Body text"
         },
         palette: {
-            title: "🎨 Color palette"
+            title: "Color palette"
         },
         buttons: {
             title: "Buttons",
@@ -305,7 +311,7 @@ export const translations = {
             anim_right: "right",
         },
         contrast: {
-            title: "📊 Contrast information",
+            title: "Contrast information",
             desc: "Current contrast ratios (approximate):",
             required1: "✅ WCAG AA required: 4.5:1 for normal text, 3:1 for large text",
             required2: "✅ WCAG AAA required: 7:1 for normal text, 4.5:1 for large text",
@@ -367,7 +373,7 @@ export const translations = {
             ctx_suggest_title: "Contextual suggestions",
         },
         colorblind: {
-            title: "👁️ Color blindness simulation",
+            title: "Color blindness simulation",
             normal: "Normal",
             normal_desc: "Within the limits of individual variations",
             protan: "Protanopia",

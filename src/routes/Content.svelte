@@ -2,8 +2,8 @@
     import type { AccentTheme, ToneTheme, ContextualColors } from "$lib/types/palettes";
     import type { Translation } from "$lib/types/translations";
     import type { PlaceholdersType } from "./placeholders";
-    import Contrast from './Contrast.svelte';
-    import Colorblind from './Colorblind.svelte';
+    import Contrast from './contrast/Contrast.svelte';
+    import Colorblind from './contrast/Colorblind.svelte';
     import Headline from "../design-system/components/Headline/Headline.svelte";
     import BadgeDemo from "./BadgeDemo.svelte";
     import ButtonDemo from "./ButtonDemo.svelte";
@@ -21,7 +21,7 @@
         selected_accent: AccentTheme;
         light_palettes: ToneTheme[];
         dark_palettes: ToneTheme[];
-        contextual_colors: ContextualColors;
+        selected_ctx: ContextualColors;
     }
 
     let {
@@ -31,7 +31,7 @@
         selected_accent,
         light_palettes,
         dark_palettes,
-        contextual_colors,
+        selected_ctx,
     }: Props = $props();
 
 </script>
@@ -57,100 +57,6 @@
         <p>
             {placeholders.typography.body}
         </p>
-    </div>
-
-    <!-- Color Swatches -->
-    <Headline size="md" uppercase>
-        {trans?.palette.title}
-    </Headline>
-
-    <div class="demo-section">
-        <div class="swatch-grid">
-            <div
-                class="swatch"
-                style="border: 2px solid var(--highlight);"
-            >
-                <div class="swatch-header">
-                    <div class="swatch-label">Background</div>
-                    <div class="swatch-var">--bg</div>
-                </div>
-                <div class="swatch-hex">
-                    {selected_palette.bg}
-                </div>
-            </div>
-            <div
-                class="swatch"
-                style="background: var(--card);"
-            >
-                <div class="swatch-header">
-                    <div class="swatch-label">Card</div>
-                    <div class="swatch-var">--card</div>
-                </div>
-                <div class="swatch-hex">
-                    {selected_palette.card}
-                </div>
-            </div>
-            <div
-                class="swatch"
-                style="background: var(--highlight);"
-            >
-                <div class="swatch-header">
-                    <div class="swatch-label">Highlight</div>
-                    <div class="swatch-var">--highlight</div>
-                </div>
-                <div class="swatch-hex">
-                    {selected_palette.highlight}
-                </div>
-            </div>
-            <div
-                class="swatch"
-                style="background: var(--accent-lighter); color: var(--text-accent);"
-            >
-                <div class="swatch-header">
-                    <div class="swatch-label">Lighter</div>
-                    <div class="swatch-var">--accent-lighter</div>
-                </div>
-                <div class="swatch-hex">
-                    {selected_accent.accent_lighter}
-                </div>
-            </div>
-            <div
-                class="swatch"
-                style="background: var(--accent-light); color: var(--text-accent);"
-            >
-                <div class="swatch-header">
-                    <div class="swatch-label">Light</div>
-                    <div class="swatch-var">--accent-light</div>
-                </div>
-                <div class="swatch-hex">
-                    {selected_accent.accent_light}
-                </div>
-            </div>
-            <div
-                class="swatch"
-                style="background: var(--accent-dark); color: var(--text-accent);"
-            >
-                <div class="swatch-header">
-                    <div class="swatch-label">Dark</div>
-                    <div class="swatch-var">--accent-dark</div>
-                </div>
-                <div class="swatch-hex">
-                    {selected_accent.accent_dark}
-                </div>
-            </div>
-            <div
-                class="swatch"
-                style="background: var(--accent-darker); color: var(--text-accent);"
-            >
-                <div class="swatch-header">
-                    <div class="swatch-label">Darker</div>
-                    <div class="swatch-var">--accent-darker</div>
-                </div>
-                <div class="swatch-hex">
-                    {selected_accent.accent_darker}
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- Buttons -->
@@ -256,12 +162,6 @@
             {placeholders.alerts.info}
         </div>
     </div>
-
-    <!-- Detailed Contrast Info -->
-    <Contrast {trans} {selected_palette} {selected_accent} {light_palettes} {dark_palettes} {contextual_colors} />
-
-    <!-- Colorblind Simulation -->
-    <Colorblind {trans} {selected_palette} {selected_accent} {contextual_colors} />
 </div>
 
 <style>
@@ -269,7 +169,7 @@
     .content {
         max-width: 1400px;
         margin: 0 auto;
-        padding: 40px 40px 40px;
+        padding: 10px 40px 40px;
     }
 
     /* Demo Sections */
@@ -324,13 +224,6 @@
     }
 
     /* Buttons */
-    .btn-badge-demo {
-        display: flex; 
-        align-items: center;
-        gap: 15px; 
-        flex-wrap: wrap;
-    }
-
     .button {
         display: inline-block;
         padding: 12px 24px;
@@ -350,17 +243,6 @@
 
     .button-primary:hover {
         background: var(--accent-invert);
-    }
-
-    .button-secondary {
-        background: transparent;
-        color: var(--accent-more);
-        border: 2px solid var(--accent);
-    }
-
-    .button-secondary:hover {
-        background: var(--accent);
-        color: var(--text-accent);
     }
 
     .button-ghost {
@@ -384,34 +266,6 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-    }
-
-    /* Navigation */
-    .nav-demo {
-        background: var(--card);
-        padding: 20px;
-        border-radius: 12px;
-        display: flex;
-        gap: 15px;
-        align-items: center;
-        flex-wrap: wrap;
-    }
-
-    .nav-item {
-        padding: 10px 16px;
-        border-radius: 6px;
-        cursor: pointer;
-        transition: all 0.2s;
-        color: var(--text);
-    }
-
-    .nav-item:hover {
-        background: var(--highlight);
-    }
-
-    .nav-item.active {
-        background: var(--accent);
-        color: var(--text-accent);
     }
 
     /* Forms */
@@ -441,53 +295,6 @@
     .form-input:focus {
         outline: none;
         border-color: var(--accent);
-    }
-
-    /* Color Swatches */
-    .swatch-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-        gap: 15px;
-    }
-
-    .swatch {
-        aspect-ratio: 1;
-        border-radius: 8px;
-        padding: 15px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        font-size: 11px;
-        font-family: 'Courier New', monospace;
-        font-weight: 600;
-        position: relative;
-    }
-
-    .swatch-header {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-    }
-
-    .swatch-label {
-        font-size: 10px;
-        opacity: 0.8;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    .swatch-var {
-        font-size: 11px;
-        opacity: 0.9;
-    }
-
-    .swatch-hex {
-        font-size: 13px;
-        font-weight: 700;
-        padding: 6px 10px;
-        border-radius: 4px;
-        text-align: center;
-        background: rgba(255,255,255,0.35);
     }
 
     /* Alert/Badge Components */
@@ -521,7 +328,7 @@
         }
 
         .content {
-            padding: 280px 20px 40px;
+            padding: 10px 20px 40px;
         }
     }
 </style>

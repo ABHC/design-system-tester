@@ -3,7 +3,7 @@
     import type { Translation } from "$lib/types/translations";
     import { simulateColorblind, type ColorblindType } from "$lib/utils/colorblind";
     import { getContrastRatio, getWcagLevel, getLuminance, blendColor } from "$lib/utils/contrast";
-    import { ctx_opacity, ctx_surface } from "./store";
+    import { ctx_opacity, ctx_surface } from "../store";
 
     interface PairInfo {
         accent_name: string;
@@ -25,14 +25,14 @@
         trans: Translation | null;
         selected_palette: ToneTheme;
         selected_accent: AccentTheme;
-        contextual_colors: ContextualColors;
+        selected_ctx: ContextualColors;
     }
 
     let {
         trans,
         selected_palette,
         selected_accent,
-        contextual_colors,
+        selected_ctx,
     }: Props = $props();
 
     const types: { key: ColorblindType | 'normal'; label: () => string | undefined; desc: () => string | undefined }[] = [
@@ -83,10 +83,10 @@
             const simSurface = sim(selected_palette[ctx_surface], t.key);
             const simText = sim(selected_palette.text, t.key);
             return [
-                { label: trans?.contrast.ctx_error   ?? 'Error',   raw: sim(contextual_colors.error,   t.key) },
-                { label: trans?.contrast.ctx_warning ?? 'Warning', raw: sim(contextual_colors.warning, t.key) },
-                { label: trans?.contrast.ctx_success ?? 'Success', raw: sim(contextual_colors.success, t.key) },
-                { label: trans?.contrast.ctx_info    ?? 'Info',    raw: sim(contextual_colors.info,    t.key) },
+                { label: trans?.contrast.ctx_error   ?? 'Error',   raw: sim(selected_ctx.error,   t.key) },
+                { label: trans?.contrast.ctx_warning ?? 'Warning', raw: sim(selected_ctx.warning, t.key) },
+                { label: trans?.contrast.ctx_success ?? 'Success', raw: sim(selected_ctx.success, t.key) },
+                { label: trans?.contrast.ctx_info    ?? 'Info',    raw: sim(selected_ctx.info,    t.key) },
             ].map(c => ({
                 label:   c.label,
                 raw:     c.raw,
@@ -172,7 +172,6 @@
 </script>
 
 <div class="demo-section">
-    <div class="section-title">{trans?.colorblind.title}</div>
     <div class="colorblind-info">
         <div class="colorblind-grid">
             {#each columns as col, i}

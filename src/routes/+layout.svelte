@@ -21,16 +21,30 @@
         selected_tone,
         tone_index,
         accent_index,
+        ctx_index,
         body_font_index,
         title_font_index,
         tone_palettes,
         accent_palettes,
         available_fonts,
+        ctx_colors,
+        selected_palette,
+        selected_accent,
+        selected_body_font,
+        selected_title_font,
+        selected_ctx,
+        shadow_opacity,
+        ctx_opacity,
+        ctx_surface,
     } from './store';
+
+    import { tokenValues } from '../design-system/token-schema';
 
     import { translations } from './translations';
     import type { Locale } from "$lib/types/translations";
     import type { Snippet } from 'svelte';
+	import { goto } from '$app/navigation';
+    import { page } from '$app/state';
 
 	// ---------- Props ----------
 	let { children }: { children?: Snippet | null } = $props();
@@ -45,6 +59,44 @@
     let header_visible: boolean = $state(true);
     let googleFontsUrl = $state('');
     let font_role: 'body' | 'title' = $state('body');
+
+    // ---------- CSS variables (global, shared across all routes) ----------
+    const css_variables = $derived(tokenValues({
+        palette: {
+            bg:         $selected_palette.bg,
+            card:       $selected_palette.card,
+            highlight:  $selected_palette.highlight,
+            text:       $selected_palette.text,
+            text_muted: $selected_palette.text_muted,
+        },
+        accent: {
+            accent_lighter: $selected_accent.accent_lighter,
+            accent_light:   $selected_accent.accent_light,
+            accent_dark:    $selected_accent.accent_dark,
+            accent_darker:  $selected_accent.accent_darker,
+            text_accent:    $selected_accent.text_accent,
+        },
+        tone: $selected_tone,
+        typography: {
+            body:    `'${$selected_body_font.family}', sans-serif`,
+            heading: `'${$selected_title_font.family}', sans-serif`,
+        },
+        contextual: {
+            error:   $selected_ctx.error,
+            warning: $selected_ctx.warning,
+            success: $selected_ctx.success,
+            info:    $selected_ctx.info,
+        },
+        ctx_opacity,
+        shadow_opacity,
+        ctx_surface,
+    }));
+
+    $effect(() => {
+        for (const [key, value] of Object.entries(css_variables)) {
+            document.documentElement.style.setProperty(key, value);
+        }
+    });
 
     // ---------- Snippet helpers ----------
     const swatches = (shades: string[]) => createRawSnippet(() => {
@@ -81,9 +133,14 @@
                                 onclick: () => { $sidebar_menu = "theme:tone"; } 
                             },
                             {
-                                icon: icon_sb("palette"), 
+                                icon: icon_sb("style"), 
                                 label: `${$trans?.control.accent}`, 
                                 onclick: () => { $sidebar_menu = "theme:accent"; } 
+                            },
+                            {
+                                icon: icon_sb("palette"), 
+                                label: `${$trans?.control.ctx}`, 
+                                onclick: () => { $sidebar_menu = "theme:ctx"; } 
                             }
                         ]
                     }
@@ -148,6 +205,29 @@
                     }
                 ] satisfies SidebarItem[];
 
+            case "theme:ctx":
+                return [
+                    {
+                        type: "listitem",
+                        layout: "column",
+                        items: [
+                            ...ctx_colors.map((c, i) => ({
+                                main: c.name,
+                                extra: `${c.error} ${c.warning} 
+                                    ${c.success} ${c.info}`,
+                                leading: swatches([
+                                    c.error,
+                                    c.warning,
+                                    c.success,
+                                    c.info
+                                ]),
+                                active: i === $ctx_index,
+                                onclick: () => { $ctx_index = i; },
+                            })),
+                        ]
+                    }
+                ] satisfies SidebarItem[];
+
             case "fonts":
                 return [
                     {
@@ -184,6 +264,52 @@
                                     else $title_font_index = i;
                                 },
                             }))
+                        ]
+                    }
+                ] satisfies SidebarItem[];
+
+            case "settings":
+                return [
+                    {
+                        type: "button",
+                        layout: "column",
+                        items: [
+                            {
+                                icon: icon_sb("routine"),
+                                label: `${$trans?.control.tone}`,    
+                                onclick: () => { $sidebar_menu = "theme:tone"; } 
+                            },
+                            {
+                                icon: icon_sb("style"), 
+                                label: `${$trans?.control.accent}`, 
+                                onclick: () => { $sidebar_menu = "theme:accent"; } 
+                            },
+                            {
+                                icon: icon_sb("palette"), 
+                                label: `${$trans?.control.ctx}`, 
+                                onclick: () => { $sidebar_menu = "theme:ctx"; } 
+                            },
+                            {
+                                icon: icon_sb("brand_family"), 
+                                label: `${$trans?.control.fonts}`, 
+                                onclick: () => { $sidebar_menu = "fonts"; } 
+                            },
+                            {
+                                icon: page.url.pathname.startsWith('/contrast') ? 
+                                    icon_sb("grid_view") : icon_sb("contrast_square"), 
+                                label: page.url.pathname.startsWith('/contrast') ?
+                                    `${$trans?.control.demo}` : `${$trans?.control.contrast}`, 
+                                onclick: () => {
+                                    goto(
+                                        page.url.pathname.startsWith('/contrast') ? '/' : '/contrast'
+                                    ) 
+                                } 
+                            },
+                            {
+                                icon: icon_sb("file_export"), 
+                                label: `${$trans?.control.export}`, 
+                                onclick: () => { } 
+                            }
                         ]
                     }
                 ] satisfies SidebarItem[];
@@ -247,6 +373,11 @@
 		$window_height = height;
 	}
 
+    $effect(() => {
+        $window_width = width;
+        $window_height = height;
+    });
+
     // Generate URL from fonts configuration
     $effect(() => {
         if (fontsData.fonts) {
@@ -285,6 +416,8 @@
     });
 </script>
 
+<svelte:window bind:innerWidth={width} bind:innerHeight={height} />
+
 <svelte:head>
     <link rel="icon" href={favicon} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -312,17 +445,30 @@
     <h1 id="project">{$trans?.header.project.toUpperCase()}</h1>
 </header>
 
+
+<!-- Nav's snippets & components -->
 {#snippet icon_colors()}
     <span class="material-symbols-outlined">colors</span>
 {/snippet}
+
 {#snippet icon_fonts()}
     <span class="material-symbols-outlined">brand_family</span>
 {/snippet}
+
 {#snippet icon_contrast()}
     <span class="material-symbols-outlined">contrast_square</span>
 {/snippet}
+
+{#snippet icon_demo()}
+    <span class="material-symbols-outlined">grid_view</span>
+{/snippet}
+
 {#snippet icon_export()}
     <span class="material-symbols-outlined">file_export</span>
+{/snippet}
+
+{#snippet icon_settings()}
+    <span class="material-symbols-outlined">settings</span>
 {/snippet}
 
 {#snippet empty_nav()}
@@ -347,64 +493,107 @@
     </select>
 {/snippet}
 
-<Nav
-    position="floating"
-    direction="top"
-    palette="tone"
-    header={header_visible ? empty_nav : logo_in_nav}
-    footer={lang_select}
-    items={[
-        {
-            icon: icon_colors,
-            label: `${$trans?.control.theme}`,
-            onclick: () => { $sidebar_menu = "theme"; $sidebar_open = true; }
-        },
-        {
-            icon: icon_fonts,
-            label: `${$trans?.control.fonts}`,
-            onclick: () => { $sidebar_menu = "fonts"; $sidebar_open = true; }
-        },
-        {
-            icon: icon_contrast,
-            label: `${$trans?.control.contrast}`,
-            onclick: () => {}
-        },
-        {
-            icon: icon_export,
-            label: `${$trans?.control.export}`,
-            onclick: () => {}
-        },
-    ]}
-/>
+{#if $responsive.isBelow(1024)}
+    <Nav
+        position="floating"
+        direction="top"
+        palette="tone"
+        header={header_visible ? empty_nav : logo_in_nav}
+        footer={lang_select}
+        items={[
+            {
+                icon: icon_settings,
+                label: `${$trans?.control.settings}`,
+                onclick: () => { $sidebar_menu = "settings"; $sidebar_open = true; }
+            },
+        ]}
+    />
+{:else}
+    <Nav
+        position="floating"
+        direction="top"
+        palette="tone"
+        header={header_visible ? empty_nav : logo_in_nav}
+        footer={lang_select}
+        items={[
+            {
+                icon: icon_colors,
+                label: `${$trans?.control.theme}`,
+                onclick: () => { $sidebar_menu = "theme"; $sidebar_open = true; }
+            },
+            {
+                icon: icon_fonts,
+                label: `${$trans?.control.fonts}`,
+                onclick: () => { $sidebar_menu = "fonts"; $sidebar_open = true; }
+            },
+            {
+                icon: 
+                    page.url.pathname.startsWith('/contrast') ? 
+                    icon_demo : icon_contrast,
+                label: 
+                    page.url.pathname.startsWith('/contrast') ? 
+                    `${$trans?.control.demo}` : `${$trans?.control.contrast}`,
+                onclick: () => { 
+                    goto(page.url.pathname.startsWith('/contrast') ? '/' : '/contrast') 
+                }
+            },
+            {
+                icon: icon_export,
+                label: `${$trans?.control.export}`,
+                onclick: () => {}
+            },
+        ]}
+    />
+{/if}
 
+<!-- Sidebar's snippets & components -->
 {#snippet sidebar_header()}
     <div class="sb-head">
-        {#if $sidebar_menu === "theme:tone" || $sidebar_menu === "theme:accent"}
+        {#if 
+            $sidebar_menu === "theme:tone" || 
+            $sidebar_menu === "theme:accent" || 
+            $sidebar_menu === "theme:ctx"
+        }
             <button
                 class="sb-head-back"
                 aria-label="{$trans?.aria.return}"
-                onclick={() => { $sidebar_menu = "theme"; }}
+                onclick={() => { 
+                    $responsive.isBelow(1024) ? $sidebar_menu = "settings" : 
+                    $sidebar_menu = "theme"; 
+                }}
             >
                 <span class="material-symbols-outlined">arrow_back</span>
             </button>
             <span class="sb-head-title">
                 {
-                    $sidebar_menu === "theme:tone" ? 
-                    `${$trans?.control.tone}` : `${$trans?.control.accent}`
+                    $sidebar_menu === "theme:tone" ? `${$trans?.control.tone}` : 
+                    $sidebar_menu === "theme:accent" ? `${$trans?.control.accent}` : 
+                    `${$trans?.control.ctx}`
                 }
             </span>
         {:else}
-            <button
-                class="sb-head-close"
-                aria-label="{$trans?.aria.close}"
-                onclick={() => { $sidebar_open = false; $sidebar_menu = null; }}
-            >
-                <span class="material-symbols-outlined">close</span>
-            </button>
+            {#if $responsive.isBelow(1024) && $sidebar_menu != "settings"}
+                <button
+                    class="sb-head-back"
+                    aria-label="{$trans?.aria.return}"
+                    onclick={() => { $sidebar_menu = "settings" }}
+                >
+                    <span class="material-symbols-outlined">arrow_back</span>
+                </button>
+            {:else}
+                <button
+                    class="sb-head-close"
+                    aria-label="{$trans?.aria.close}"
+                    onclick={() => { $sidebar_open = false; $sidebar_menu = null; }}
+                >
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            {/if}
             <span class="sb-head-title">
                 {
-                    $sidebar_menu === "theme" ? 
-                    `${$trans?.control.theme}` : `${$trans?.control.fonts}`
+                    $sidebar_menu === "settings" ? `${$trans?.control.settings}` : 
+                    $sidebar_menu === "theme" ? `${$trans?.control.theme}` : 
+                    `${$trans?.control.fonts}`
                 }
             </span>
         {/if}
@@ -465,7 +654,14 @@
     </div>
 </footer>
 
-<style global>
+<style>
+    :global(body) {
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--font-body);
+        font-size: 14px;
+    }
+
     * {
         margin: 0;
         padding: 0;
@@ -534,7 +730,7 @@
         border-radius: 6px;
         background-color: transparent;
         height: 40px;
-        padding: 8px 16px;
+        padding: 5px 10px;
         display: flex;
         align-items: center;
         justify-content: center;

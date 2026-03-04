@@ -65,43 +65,43 @@
         rounded = defaultTileGridConfig.rounded,
     }: Props = $props();
 
-    // ── Helpers ───────────────────────────────────────────────────────────────
+    // -- Helpers 
 
-    /**
-     * Inject --tg-columns and --tg-gap as CSS custom properties on the grid wrapper.
-     * The CSS rules consume these to drive grid-template-columns and gap.
-     */
+    /*
+        Inject --tg-columns and --tg-gap as CSS custom properties on the grid wrapper.
+        The CSS rules consume these to drive grid-template-columns and gap.
+    */
     const grid_style = $derived(
         `--tg-columns: ${columns}; --tg-gap: ${gap};`
     );
 
-    /**
-     * Resolve the correct grid-column span class for a hero tile.
-     * Returns an empty string for non-hero tiles.
-     *
-     * "half" → tg-tile-hero-half (span 2)
-     * "full" → tg-tile-hero-full (1 / -1, i.e. all columns)
-     *
-     * Both classes are neutralised below the 1024px breakpoint via CSS,
-     * so the tile collapses to a single column on mobile without JS.
-     */
+    /*
+        Resolve the correct grid-column span class for a hero tile.
+        Returns an empty string for non-hero tiles.
+    
+        "half" → tg-tile-hero-half (span 2)
+        "full" → tg-tile-hero-full (1 / -1, i.e. all columns)
+    
+        Both classes are neutralised below the 1024px breakpoint via CSS,
+        so the tile collapses to a single column on mobile without JS.
+    */
     function hero_span_class(is_hero: boolean): string {
         if (!is_hero) return "";
         return hero_span === "full" ? "tg-tile-hero-full" : "tg-tile-hero-half";
     }
 
-    /**
-     * Truncate a string to max_len characters, appending an ellipsis if needed.
-     */
+    /*
+        Truncate a string to max_len characters, appending an ellipsis if needed.
+    */
     function truncate(str: string, max_len: number): string {
         if (!str) return "";
         return str.length > max_len ? str.substring(0, max_len) + "…" : str;
     }
 
-    /**
-     * Return true if a tile has a usable first media asset.
-     * Used to decide whether to render in image mode or fall back to flat.
-     */
+    /*
+        Return true if a tile has a usable first media asset.
+        Used to decide whether to render in image mode or fall back to flat.
+    */
     function has_image(tile: Tile): boolean {
         return (
             Array.isArray(tile.media) &&
@@ -110,19 +110,19 @@
         );
     }
 
-    /**
-     * Build the inline style string for image-mode tiles.
-     * Injects --bg-image and --bg-position as CSS custom properties.
-     */
+    /*
+        Build the inline style string for image-mode tiles.
+        Injects --bg-image and --bg-position as CSS custom properties.
+    */
     function image_style(tile: Tile): string {
         if (!has_image(tile)) return "";
         return `--bg-image: url('${tile.media![0].src}'); --bg-position: ${image_position};`;
     }
 
-    /**
-     * Resolve a localised string from a Record<string, string>,
-     * falling back to the first available locale if the requested one is absent.
-     */
+    /*
+        Resolve a localised string from a Record<string, string>,
+        falling back to the first available locale if the requested one is absent.
+    */
     function localise(record: Record<string, string> | undefined): string {
         if (!record) return "";
         return record[locale] ?? Object.values(record)[0] ?? "";
@@ -131,7 +131,7 @@
     const localised_abstract = (tile: Tile) => localise(tile.abstract);
 </script>
 
-<!-- ─── Markup ────────────────────────────────────────────────────────────── -->
+<!-- Markup -->
 
 <section class="tile-grid-section" aria-label="Tile grid">
     <div

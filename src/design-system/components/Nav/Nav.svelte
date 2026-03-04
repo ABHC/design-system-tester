@@ -148,7 +148,7 @@
         align-items: center;
         justify-content: center;
         width: 10%;
-        /*margin: 0 30px;*/
+        margin: 0 30px;
     }
 
     /* Items container inherits the parent direction */

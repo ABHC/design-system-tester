@@ -1,6 +1,8 @@
 // src/lib/types/palettes.ts
 
 export interface ContextualColors {
+    name: string;
+    display: boolean;
     error: string;
     warning: string;
     success: string;
@@ -31,4 +33,5 @@ export interface ThemeConfig {
     accent: AccentTheme[];
     light: ToneTheme[];
     dark: ToneTheme[];
+    ctx: ContextualColors[];
 }

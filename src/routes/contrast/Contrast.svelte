@@ -18,8 +18,8 @@
         AdjustmentSuggestion,
         RequiredPair
     } from "$lib/utils/contrast";
-    import Rules from './Rules.svelte';
-    import { ctx_opacity, ctx_surface } from "./store";
+    import Rules from '../Rules.svelte';
+    import { ctx_opacity, ctx_surface } from "../store";
 
     interface Props {
         trans: Translation | null;
@@ -27,7 +27,7 @@
         selected_accent: AccentTheme;
         light_palettes: ToneTheme[];
         dark_palettes: ToneTheme[];
-        contextual_colors: ContextualColors;
+        selected_ctx: ContextualColors;
     }
 
     let {
@@ -36,7 +36,7 @@
         selected_accent,
         light_palettes,
         dark_palettes,
-        contextual_colors,
+        selected_ctx,
     }: Props = $props();
 
     // ── Contrast ratios computed from palette/accent hex values ──
@@ -76,10 +76,10 @@
     const contrast_accent_darker_highlight = $derived(getContrastRatio(selected_accent.accent_darker, selected_palette.highlight));
 
     // Contextual — blend badge colour over --bg (mirrors how the browser renders rgba)
-    const ctx_blended_error   = $derived(blendColor(contextual_colors.error,   selected_palette[ctx_surface], ctx_opacity));
-    const ctx_blended_warning = $derived(blendColor(contextual_colors.warning, selected_palette[ctx_surface], ctx_opacity));
-    const ctx_blended_info    = $derived(blendColor(contextual_colors.info,    selected_palette[ctx_surface], ctx_opacity));
-    const ctx_blended_success = $derived(blendColor(contextual_colors.success, selected_palette[ctx_surface], ctx_opacity));
+    const ctx_blended_error   = $derived(blendColor(selected_ctx.error,   selected_palette[ctx_surface], ctx_opacity));
+    const ctx_blended_warning = $derived(blendColor(selected_ctx.warning, selected_palette[ctx_surface], ctx_opacity));
+    const ctx_blended_info    = $derived(blendColor(selected_ctx.info,    selected_palette[ctx_surface], ctx_opacity));
+    const ctx_blended_success = $derived(blendColor(selected_ctx.success, selected_palette[ctx_surface], ctx_opacity));
 
     const contrast_txt_error   = $derived(getContrastRatio(selected_palette.text, ctx_blended_error));
     const contrast_txt_warning = $derived(getContrastRatio(selected_palette.text, ctx_blended_warning));
@@ -186,26 +186,26 @@
     const ctx_variants = $derived([
         {
             name: trans?.contrast.ctx_error,
-            color: hexToRgba(contextual_colors.error, ctx_opacity),
-            color_hex: contextual_colors.error,
+            color: hexToRgba(selected_ctx.error, ctx_opacity),
+            color_hex: selected_ctx.error,
             ratios: { text_tone: contrast_txt_error }
         },
         {
             name: trans?.contrast.ctx_warning,
-            color: hexToRgba(contextual_colors.warning, ctx_opacity),
-            color_hex: contextual_colors.warning,
+            color: hexToRgba(selected_ctx.warning, ctx_opacity),
+            color_hex: selected_ctx.warning,
             ratios: { text_tone: contrast_txt_warning }
         },
         {
             name: trans?.contrast.ctx_info,
-            color: hexToRgba(contextual_colors.info, ctx_opacity),
-            color_hex: contextual_colors.info,
+            color: hexToRgba(selected_ctx.info, ctx_opacity),
+            color_hex: selected_ctx.info,
             ratios: { text_tone: contrast_txt_info }
         },
         {
             name: trans?.contrast.ctx_success,
-            color: hexToRgba(contextual_colors.success, ctx_opacity),
-            color_hex: contextual_colors.success,
+            color: hexToRgba(selected_ctx.success, ctx_opacity),
+            color_hex: selected_ctx.success,
             ratios: { text_tone: contrast_txt_success }
         },
     ]);
@@ -606,7 +606,7 @@
             { key: 'info',    label: trans?.contrast.ctx_info },
         ];
         return defs.map(({ key, label }) => {
-            const color   = contextual_colors[key];
+            const color   = selected_ctx[key];
             const blended = blendColor(color, selected_palette[ctx_surface], ctx_opacity);
             const ratio   = getContrastRatio(selected_palette.text, blended);
             const wcag    = getWcagLevel(ratio, 'normal');
@@ -817,7 +817,6 @@
 
 <!-- Contrast Info -->
 <div class="demo-section">
-    <div class="section-title">{trans?.contrast.title}</div>
     <div class="contrast-info">
         <p class="contrast-legend">
             <span style="color: var(--ctx-info);">■</span> AAA ≥ 7:1 &nbsp;
