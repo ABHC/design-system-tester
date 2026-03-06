@@ -177,41 +177,38 @@
                     </span>
                 {/if}
                 {#if copyable}
-                    <!-- Native button handles the click; Button component handles the visual -->
-                    <button class="codeblock-copy-btn" onclick={handleCopy} aria-label="Copy code">
-                        <Button variant="muted" size="sm">
-                            {#if copied}
-                                <svg 
-                                    width="11" 
-                                    height="11" 
-                                    viewBox="0 0 24 24" 
-                                    fill="none" 
-                                    stroke="currentColor" 
-                                    stroke-width="2.5" 
-                                    stroke-linecap="round" 
-                                    stroke-linejoin="round" 
-                                    aria-hidden="true"
-                                >
-                                    <polyline points="20 6 9 17 4 12"/>
-                                </svg>
-                            {:else}
-                                <svg 
-                                    width="11" 
-                                    height="11" 
-                                    viewBox="0 0 24 24" 
-                                    fill="none" 
-                                    stroke="currentColor" 
-                                    stroke-width="2" 
-                                    stroke-linecap="round" 
-                                    stroke-linejoin="round" 
-                                    aria-hidden="true"
-                                >
-                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-                                </svg>
-                            {/if}
-                        </Button>
-                    </button>
+                    <Button variant="muted" size="sm" onclick={handleCopy} aria_label="Copy code">
+                        {#if copied}
+                            <svg
+                                width="11"
+                                height="11"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                            >
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                        {:else}
+                            <svg
+                                width="11"
+                                height="11"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                            >
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                            </svg>
+                        {/if}
+                    </Button>
                 {/if}
             </div>
         </div>
@@ -222,37 +219,33 @@
 
         <!-- Floating copy button for the "simple" variant (no header) -->
         {#if copyable && variant === "simple"}
-            <button 
-                class="codeblock-copy-btn codeblock-copy-float" 
-                onclick={handleCopy} 
-                aria-label="Copy code"
-            >
-                <Button variant="muted" size="sm">
+            <div class="codeblock-copy-float">
+                <Button variant="muted" size="sm" onclick={handleCopy} aria_label="Copy code">
                     {#if copied}
-                        <svg 
-                            width="13" 
-                            height="13" 
-                            viewBox="0 0 24 24" 
-                            fill="none" 
-                            stroke="currentColor" 
-                            stroke-width="2.5" 
-                            stroke-linecap="round" 
-                            stroke-linejoin="round" 
+                        <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
                             aria-hidden="true"
                         >
                             <polyline points="20 6 9 17 4 12"/>
                         </svg>
                         Copied
                     {:else}
-                        <svg 
-                            width="13" 
-                            height="13" 
-                            viewBox="0 0 24 24" 
-                            fill="none" 
-                            stroke="currentColor" 
-                            stroke-width="2" 
-                            stroke-linecap="round" 
-                            stroke-linejoin="round" 
+                        <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
                             aria-hidden="true"
                         >
                             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
@@ -261,7 +254,7 @@
                         Copy
                     {/if}
                 </Button>
-            </button>
+            </div>
         {/if}
 
         <!-- Description panel (split layout only) — supports basic markdown -->
@@ -403,15 +396,6 @@
     }
 
     /*  Copy button */
-
-    /* Native <button> wrapper: resets browser defaults, Button component handles the visual */
-    .codeblock-copy-btn {
-        background: none;
-        border: none;
-        padding: 0;
-        cursor: pointer;
-        display: flex;
-    }
 
     /* Floating copy button for the "simple" variant (no header) */
     .codeblock-copy-float {

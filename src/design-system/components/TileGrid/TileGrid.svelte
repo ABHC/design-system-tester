@@ -209,7 +209,7 @@
                             </div>
 
                             <!-- Tile name -->
-                            <h3 class="tg-name">
+                            <h3 class="tg-name {use_image ? 'on-image' : ''}">
                                 {tile.name}
                             </h3>
 

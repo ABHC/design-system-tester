@@ -3,7 +3,7 @@
     import { createVariant } from "../../utils/builder";
     import { buttonConfig } from './button.config';
 
-    type Variant = "primary" | "secondary" | "ghost" | "muted" | "nav";
+    type Variant = "primary" | "secondary" | "ghost" | "muted" | "nav" | "text";
     type Size = "sm" | "md" | "lg";
     type Animate = "left" | "right" ;
 
@@ -63,6 +63,7 @@
         width: fit-content;
         height: fit-content;
         line-height: 1;
+        font-family: var(--font-body);
     }
 
     /* Primary */
@@ -166,6 +167,20 @@
 
     .btn-nav.btn-active:hover {
         transform: scale(1.05);
+    }
+
+    /* Text — no background, opacity-based fade.
+    Inherits --nav-btn-color when inside a Nav or Header wrapper (palette context),
+    falls back to currentColor otherwise. squared prop works as-is for icon-only use. */
+    .btn-text {
+        border: none;
+        background: transparent;
+        color: color-mix(in srgb, var(--nav-btn-color, currentColor) 78%, transparent);
+        padding: 0.25rem 0.5rem;
+    }
+
+    .btn-text:hover {
+        color: var(--nav-btn-color, currentColor);
     }
 
     /* Sizes */
