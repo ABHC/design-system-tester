@@ -1,12 +1,12 @@
 export const placeholders = {
     fr: {
         typography: {
-            h1_context: "L'Empire Romain",
-            h2_context: "Architecture et ingénierie",
-            h3_context: "Villes principales",
-            h4_context: "Infrastructures routières",
-            h5_context: "Technologie antique",
-            h6_context: "Vestiges archéologiques",
+            h1_context: "Giscardpunk",
+            h2_context: "Cyberpunk",
+            h3_context: "Steampunk",
+            h4_context: "Dieselpunk",
+            h5_context: "Solarpunk",
+            h6_context: "Juste punk",
             lead: "Adipisci velit sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.",
             body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
             paragraph: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
@@ -49,10 +49,19 @@ export const placeholders = {
             epistola: "Epistola"
         },
         alerts: {
-            success: "✅ Votre message a traversé les frontières sans incident et a été livré au Forum Romanum !",
-            info: "ℹ️ Ce système de design a résisté à 2000 ans d'épreuves sans perdre sa dignité.",
-            warning: "⚠️ Attention: les gladiateurs du CSS pourraient s'échapper de leurs conteneurs.",
-            error: "❌ Les barbares ont attaqué votre palette de couleurs. Défenses activées."
+            success: "Votre message a traversé les frontières sans incident et a été livré au Forum Romanum.",
+            info: "Ce système de design a résisté à 2000 ans d'épreuves sans perdre sa dignité.",
+            warning_pre: "Votre session expire bientôt.",
+            warning_link: "Renouveler maintenant",
+            error: "Les barbares ont attaqué votre palette de couleurs. Défenses activées."
+        },
+        callout: {
+            info:    "Les légions romaines parcouraient 30 km par jour sur leurs routes pavées. Chaque borne milliaire était une promesse de précision.",
+            success: "La lex a été promulguée avec succès. Le Forum Romanum retentit d'acclamations.",
+            warning: "Les ides de mars approchent. Restez vigilant et vérifiez vos accès avant de poursuivre.",
+            error:   "Les barbares ont franchi le limes. Une erreur critique s'est produite — veuillez réessayer ou contacter votre consul.",
+            accent:  "Astuce : vous pouvez composer librement les slots leading, children et following pour adapter le callout à votre usage.",
+            neutral: "Note : ce composant est purement informatif et n'implique aucune action obligatoire de la part de l'utilisateur."
         }
     },
     en: {
@@ -105,10 +114,19 @@ export const placeholders = {
             epistola: "Epistola"
         },
         alerts: {
-            success: "✅ Your message has crossed the Roman roads safely and reached the Forum Romanum!",
-            info: "ℹ️ This design system has withstood 2000 years of trials without surrendering its dignity.",
-            warning: "⚠️ Beware: CSS gladiators may escape their containers.",
-            error: "❌ Barbarians have attacked your colour palette. Defence protocols activated."
+            success: "Your message has crossed the Roman roads safely and reached the Forum Romanum.",
+            info: "This design system has withstood 2000 years of trials without surrendering its dignity.",
+            warning_pre: "Your session expires soon.",
+            warning_link: "Renew now",
+            error: "Barbarians have attacked your colour palette. Defence protocols activated."
+        },
+        callout: {
+            info:    "Roman legions covered 30 km per day on their paved roads. Every milestone was a promise of precision.",
+            success: "The lex has been enacted successfully. The Forum Romanum echoes with acclamation.",
+            warning: "The Ides of March are approaching. Stay vigilant and verify your access before proceeding.",
+            error:   "Barbarians have breached the limes. A critical error occurred — please retry or contact your consul.",
+            accent:  "Tip: freely compose the leading, children, and following slots to adapt the callout to your needs.",
+            neutral: "Note: this component is purely informational and requires no mandatory action from the user."
         }
     }
 };

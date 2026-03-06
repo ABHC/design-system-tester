@@ -322,7 +322,9 @@
 	// ---------- Lifecycle ----------
 	onMount(async (): Promise<void> => {
 		timestamp = Date.now();
+        console.log(timestamp);
 		await getLocale();
+        console.log(locale);
 		updateScreenSize();
 		$browser_name = detectBrowser();
 	});
@@ -688,7 +690,7 @@
         color: var(--text);
         font-family: 'Space Grotesk', sans-serif;
         border-bottom: 4px solid var(--accent);
-        padding: 0 100px;
+        padding: 0 5%;
     }
 
     .title-container {

@@ -28,40 +28,47 @@
     <Button
         variant="primary"
     >
-        {trans?.variants.primary}
+        {trans?.buttons.primary}
     </Button>
 
     <Button
         variant="primary"
         uppercase
     >
-        {trans?.variants.uppercase}
+        {trans?.buttons.uppercase}
     </Button>
 
     <Button
         variant="primary"
         size="lg"
     >
-        {trans?.variants.large}
+        {trans?.buttons.large}
     </Button>
 
     <Button
         variant="primary"
         size="sm"
     >
-        {trans?.variants.small}
+        {trans?.buttons.small}
     </Button>
 
     <Button
         variant="secondary"
     >
-        {trans?.variants.secondary}
+        {trans?.buttons.secondary}
     </Button>
 
     <Button
         variant="ghost"
     >
-        {trans?.variants.ghost}
+        {trans?.buttons.ghost}
+    </Button>
+
+    <Button
+        variant="text"
+        size= "lg"
+    >
+        {trans?.buttons.text}
     </Button>
 
     <Button
@@ -69,15 +76,23 @@
         animate="left"
     >
         <icon class="material-symbols-outlined">arrow_back</icon>
-        {trans?.variants.anim_left}
+        {trans?.buttons.anim_left}
     </Button>
 
     <Button
         variant="ghost"
         animate="right"
     >
-        {trans?.variants.anim_right}
+        {trans?.buttons.anim_right}
         <icon class="material-symbols-outlined">arrow_forward</icon>
+    </Button>
+
+    <Button
+        variant="primary"
+        squared
+    >
+        <icon class="material-symbols-outlined">star</icon>
+        {trans?.buttons.primary}
     </Button>
 </div>
 
@@ -86,47 +101,47 @@
     copyable
     tabs={[
         {
-            label: `${trans?.variants.primary}`,
-            code: `<Button variant="primary">${trans?.variants.primary}</Button>`,
+            label: `${trans?.buttons.primary}`,
+            code: `<Button variant="primary">${trans?.buttons.primary}</Button>`,
             language: "Svelte"
         },
         {
-            label: `${trans?.variants.uppercase}`,
-            code: `<Button variant="primary" uppercase>${trans?.variants.uppercase}</Button>`,
+            label: `${trans?.buttons.uppercase}`,
+            code: `<Button variant="primary" uppercase>${trans?.buttons.uppercase}</Button>`,
             language: "Svelte"
         },
         {
-            label: `${trans?.variants.large}`,
-            code: `<Button variant="primary" size="lg">${trans?.variants.large}</Button>`,
+            label: `${trans?.buttons.large}`,
+            code: `<Button variant="primary" size="lg">${trans?.buttons.large}</Button>`,
             language: "Svelte"
         },
         {
-            label: `${trans?.variants.small}`,
-            code: `<Button variant="primary" size="sm">${trans?.variants.small}</Button>`,
+            label: `${trans?.buttons.small}`,
+            code: `<Button variant="primary" size="sm">${trans?.buttons.small}</Button>`,
             language: "Svelte"
         },
         {
-            label: `${trans?.variants.secondary}`,
-            code: `<Button variant="secondary">${trans?.variants.secondary}</Button>`,
+            label: `${trans?.buttons.secondary}`,
+            code: `<Button variant="secondary">${trans?.buttons.secondary}</Button>`,
             language: "Svelte"
         },
         {
-            label: `${trans?.variants.ghost}`,
-            code: `<Button variant="ghost">${trans?.variants.ghost}</Button>`,
+            label: `${trans?.buttons.ghost}`,
+            code: `<Button variant="ghost">${trans?.buttons.ghost}</Button>`,
             language: "Svelte"
         },
         {
-            label: `${trans?.variants.anim_left}`,
+            label: `${trans?.buttons.anim_left}`,
             code: `<Button variant="ghost" animate="left">`
             +`<icon class="material-symbols-outlined">arrow_back</icon>`
-            +`${trans?.variants.anim_left}`
+            +`${trans?.buttons.anim_left}`
             +`</Button>`,
             language: "Svelte"
         },
         {
-            label: `${trans?.variants.anim_right}`,
+            label: `${trans?.buttons.anim_right}`,
             code: `<Button variant="ghost" animate="right">`
-            +`${trans?.variants.anim_right}`
+            +`${trans?.buttons.anim_right}`
             +`<icon class="material-symbols-outlined">arrow_forward</icon>`
             +`</Button>`,
             language: "Svelte"

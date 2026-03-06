@@ -28,26 +28,26 @@
     <Badge
         variant="primary"
     >
-        {trans?.variants.primary}
+        {trans?.buttons.primary}
     </Badge>
 
     <Badge
         variant="primary"
         uppercase
     >
-        {trans?.variants.uppercase}
+        {trans?.buttons.uppercase}
     </Badge>
 
     <Badge
         variant="secondary"
     >
-        {trans?.variants.secondary}
+        {trans?.buttons.secondary}
     </Badge>
 
     <Badge
         variant="ghost"
     >
-        {trans?.variants.ghost}
+        {trans?.buttons.ghost}
     </Badge>
 
     <Badge
@@ -55,14 +55,14 @@
         state="error"
         size= "lg"
     >
-        {trans?.variants.error}
+        {trans?.buttons.error}
     </Badge>
 
     <Badge
         variant="ctx"
         state="warning"
     >
-        {trans?.variants.warning}
+        {trans?.buttons.warning}
     </Badge>
 
     <Badge
@@ -70,7 +70,7 @@
         state="success"
         size= "sm"
     >
-        {trans?.variants.success}
+        {trans?.buttons.success}
     </Badge>
 
     <Badge
@@ -78,7 +78,7 @@
         state="info"
     >
         <icon class="material-symbols-outlined badge-icon">info</icon>
-        {trans?.variants.info}
+        {trans?.buttons.info}
     </Badge>
 </div>
 
@@ -87,52 +87,52 @@
     copyable
     tabs={[
         {
-            label: `${trans?.variants.primary}`,
-            code: `<Badge variant="primary">${trans?.variants.primary}</Badge>`,
+            label: `${trans?.buttons.primary}`,
+            code: `<Badge variant="primary">${trans?.buttons.primary}</Badge>`,
             language: "Svelte"
         },
         {
-            label: `${trans?.variants.uppercase}`,
+            label: `${trans?.buttons.uppercase}`,
             code: `<Badge variant="primary" uppercase>`
-            +`${trans?.variants.uppercase}`
+            +`${trans?.buttons.uppercase}`
             +`</Badge>`,
             language: "Svelte"
         },
         {
-            label: `${trans?.variants.secondary}`,
-            code: `<Badge variant="secondary">${trans?.variants.secondary}</Badge>`,
+            label: `${trans?.buttons.secondary}`,
+            code: `<Badge variant="secondary">${trans?.buttons.secondary}</Badge>`,
             language: "Svelte"
         },
         {
-            label: `${trans?.variants.ghost}`,
-            code: `<Badge variant="ghost">${trans?.variants.ghost}</Badge>`,
+            label: `${trans?.buttons.ghost}`,
+            code: `<Badge variant="ghost">${trans?.buttons.ghost}</Badge>`,
             language: "Svelte"
         },
         {
-            label: `${trans?.variants.error}`,
+            label: `${trans?.buttons.error}`,
             code: `<Badge variant="ctx" state="error">`
-            +`${trans?.variants.error}`
+            +`${trans?.buttons.error}`
             +`</Badge>`,
             language: "Svelte"
         },
         {
-            label: `${trans?.variants.warning}`,
+            label: `${trans?.buttons.warning}`,
             code: `<Badge variant="ctx" state="warning">`
-            +`${trans?.variants.warning}`
+            +`${trans?.buttons.warning}`
             +`</Badge>`,
             language: "Svelte"
         },
         {
-            label: `${trans?.variants.success}`,
+            label: `${trans?.buttons.success}`,
             code: `<Badge variant="ctx" state="success">`
-            +`${trans?.variants.success}`
+            +`${trans?.buttons.success}`
             +`</Badge>`,
             language: "Svelte"
         },
         {
-            label: `${trans?.variants.info}`,
+            label: `${trans?.buttons.info}`,
             code: `<Badge variant="ctx" state="info">`
-            +`${trans?.variants.info}`
+            +`${trans?.buttons.info}`
             +`</Badge>`,
             language: "Svelte"
         },

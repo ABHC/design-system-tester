@@ -12,6 +12,10 @@
     import SidebarDemo from "./SidebarDemo.svelte";
     import CodeBlockDemo from "./CodeBlockDemo.svelte";
 	import TileGridDemo from "./TileGridDemo.svelte";
+    import HeaderDemo from "./HeaderDemo.svelte";
+    import FooterDemo  from "./FooterDemo.svelte";
+    import CalloutDemo from "./CalloutDemo.svelte";
+    import AlertDemo from "./AlertDemo.svelte";
 
     // Props
     interface Props {
@@ -58,6 +62,30 @@
             {placeholders.typography.body}
         </p>
     </div>
+
+    <!-- Header -->
+    <HeaderDemo
+        trans={trans}
+        placeholders={placeholders}
+    />
+
+    <!-- Footer -->
+    <FooterDemo
+        trans={trans}
+        placeholders={placeholders}
+    />
+
+    <!-- Callout -->
+    <CalloutDemo
+        trans={trans}
+        placeholders={placeholders}
+    />
+
+    <!-- Alert -->
+    <AlertDemo
+        trans={trans}
+        placeholders={placeholders}
+    />
 
     <!-- Buttons -->
     <ButtonDemo
@@ -146,22 +174,6 @@
         </div>
     </div>
 
-    <!-- Alerts -->
-    <div class="demo-section">
-        <h2 class="section-title">{trans?.alerts.title}</h2>
-        <div class="alert alert-info">
-            {placeholders.alerts.info}
-        </div>
-        <div class="alert alert-success">
-            {placeholders.alerts.success}
-        </div>
-        <div class="alert alert-warning">
-            {placeholders.alerts.info}
-        </div>
-        <div class="alert alert-error">
-            {placeholders.alerts.info}
-        </div>
-    </div>
 </div>
 
 <style>
@@ -295,31 +307,6 @@
     .form-input:focus {
         outline: none;
         border-color: var(--accent);
-    }
-
-    /* Alert/Badge Components */
-    .alert {
-        padding: 15px 20px;
-        border-radius: 8px;
-        margin-bottom: 15px;
-        background: var(--highlight);
-        color: var(--text);
-    }
-
-    .alert-success {
-        border-left: 4px solid var(--ctx-success);
-    }
-
-    .alert-info {
-        border-left: 4px solid var(--ctx-info);
-    }
-
-    .alert-error {
-        border-left: 4px solid var(--ctx-error);
-    }
-
-    .alert-warning {
-        border-left: 4px solid var(--ctx-warning);
     }
 
     @media (max-width: 768px) {
