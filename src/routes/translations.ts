@@ -211,6 +211,8 @@ export const translations = {
             license: "Site sous licence GPLv3",
             git_btn: "Github",
             linked_in_btn: "LinkedIn",
+            copied: "Copié !",
+            clipboard: "L'adresse e-mail a été copiée dans votre presse-papier"
         },
         seo: {
             meta: "",
@@ -432,6 +434,8 @@ export const translations = {
             license: "Website under GPLv3 license",
             git_btn: "Github",
             linked_in_btn: "LinkedIn",
+            copied: "Copied !",
+            clipboard: "The email address has been copied to your clipboard."
         },
         seo: {
             meta: "",
