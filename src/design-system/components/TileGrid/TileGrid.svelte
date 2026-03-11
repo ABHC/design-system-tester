@@ -164,7 +164,7 @@
                     <!-- Hero badge -->
                     {#if is_hero && show_hero_badge && hero_text}
                         <span class="tg-hero-badge-anchor">
-                            <Badge variant="primary" uppercase size="sm">
+                            <Badge variant="accent" uppercase size="sm">
                                 {#if tile.hero_icon}
                                     <span
                                         class="material-symbols-outlined tg-hero-badge-icon"
@@ -197,12 +197,12 @@
                             <!-- Origin + years badges -->
                             <div class="tg-meta">
                                 {#if tile.origin}
-                                    <Badge variant="primary" uppercase size="sm">
+                                    <Badge variant="accent" uppercase size="sm">
                                         {tile.origin}
                                     </Badge>
                                 {/if}
                                 {#if tile.years}
-                                    <Badge variant="ghost" uppercase size="sm">
+                                    <Badge variant="flat" uppercase size="sm">
                                         {tile.years}
                                     </Badge>
                                 {/if}
