@@ -4,12 +4,12 @@ export const buttonConfig = {
 
     variants: {
         variant: {
-            primary: "btn-primary",
-            secondary: "btn-secondary",
-            ghost: "btn-ghost",
+            accent: "btn-accent",
+            outlined: "btn-outlined",
+            flat: "btn-flat",
             muted: "btn-muted",
             nav: "btn-nav", // Nav button — icon + label, palette context inherited from Nav or Header wrapper
-            text: "btn-text",
+            textual: "btn-textual",
         },
 
         size: {

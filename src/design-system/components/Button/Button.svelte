@@ -3,7 +3,7 @@
     import { createVariant } from "../../utils/builder";
     import { buttonConfig } from './button.config';
 
-    type Variant = "primary" | "secondary" | "ghost" | "muted" | "nav" | "text";
+    type Variant = "accent" | "outlined" | "flat" | "muted" | "nav" | "textual";
     type Size = "sm" | "md" | "lg";
     type Animate = "left" | "right" ;
 
@@ -20,7 +20,7 @@
     }
 
     let {
-        variant = "primary",
+        variant = "accent",
         size = "md",
         uppercase = false,
         animate = undefined,
@@ -67,38 +67,38 @@
     }
 
     /* Primary */
-    .btn-primary {
+    .btn-accent {
         border: 2px solid var(--accent);
         background: var(--accent);
         color: var(--text-accent);
     }
 
-    .btn-primary:hover {
+    .btn-accent:hover {
         transform: translateY(-2px);
         box-shadow: 0 4px 4px var(--muted-shadow);
     }
 
     /* Secondary */
-    .btn-secondary {
+    .btn-outlined {
         border: 2px solid var(--accent-more);
-        background: var(--bg);
+        background: transparent;
         color: var(--accent-more);
     }
 
-    .btn-secondary:hover {
+    .btn-outlined:hover {
         border: 2px solid var(--accent);
         background: var(--accent);
         color: var(--text-accent);
     }
 
     /* Ghost */
-    .btn-ghost {
+    .btn-flat {
         border: 2px solid var(--highlight);
         background: var(--highlight);
         color: var(--text);
     }
 
-    .btn-ghost:hover {
+    .btn-flat:hover {
         border: 2px solid var(--accent);
         background: var(--accent);
         color: var(--text-accent);
@@ -172,14 +172,14 @@
     /* Text — no background, opacity-based fade.
     Inherits --nav-btn-color when inside a Nav or Header wrapper (palette context),
     falls back to currentColor otherwise. squared prop works as-is for icon-only use. */
-    .btn-text {
+    .btn-textual {
         border: none;
         background: transparent;
         color: color-mix(in srgb, var(--nav-btn-color, currentColor) 78%, transparent);
         padding: 0.25rem 0.5rem;
     }
 
-    .btn-text:hover {
+    .btn-textual:hover {
         color: var(--nav-btn-color, currentColor);
     }
 
