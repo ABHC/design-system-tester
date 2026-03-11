@@ -1,12 +1,17 @@
+export interface BadgeItem {
+    value: string;
+    label: string;
+}
+
 // Declarative badge configuration
 export const badgeConfig = {
     base: "badge",
 
     variants: {
         variant: {
-            primary: "badge-primary",
-            secondary: "badge-secondary",
-            ghost: "badge-ghost",
+            accent: "badge-accent",
+            outlined: "badge-outlined",
+            flat: "badge-flat",
             ctx: "badge-ctx"
         },
 
