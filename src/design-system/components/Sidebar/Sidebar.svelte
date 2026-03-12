@@ -306,6 +306,8 @@
 
         --listitem-bg: color-mix(in srgb, var(--text-accent) 15%, transparent);
         --listitem-hover-bg: color-mix(in srgb, var(--text-accent) 25%, transparent);
+
+        --dot-bg: var(--accent);
     }
 
     /* Palette — tone */
@@ -327,6 +329,8 @@
 
         --listitem-bg: var(--highlight);
         --listitem-hover-bg: color-mix(in srgb, var(--accent) 15%, var(--highlight));
+
+        --dot-bg: var(--card);
     }
 
     /* Slots */
