@@ -137,27 +137,25 @@
         font-size: 1.2rem;
     }
 
-    /* 
-        Button inside callout — muted variant inherits --cb-color
-        Specificity trick: .callout-base + .btn + .btn-muted (3 classes)
-        beats Button's own .btn-muted.svelte-hash (2 classes). 
+    /*
+        Buttons inside callout — ghost and textual variants inherit --cb-color.
+        Three-class specificity (.callout-base + .btn + .btn-ghost) beats
+        Button's own scoped rules.
     */
-    .callout-base :global(.btn.btn-muted) {
-        border-color: color-mix(in srgb, var(--cb-color) 50%, transparent);
+    .callout-base :global(.btn.btn-ghost) {
         color: var(--cb-color);
     }
 
-    .callout-base :global(.btn.btn-muted:hover) {
-        border-color: var(--cb-color);
-        background: var(--cb-color);
-        color: var(--card);
+    .callout-base :global(.btn.btn-ghost:hover) {
+        background: color-mix(in srgb, var(--cb-color) 15%, transparent);
+        box-shadow: none;
     }
 
-    .callout-base :global(.btn.btn-text) {
+    .callout-base :global(.btn.btn-textual) {
         color: color-mix(in srgb, var(--cb-color) 70%, var(--text) 30%);
     }
 
-    .callout-base :global(.btn.btn-text:hover) {
+    .callout-base :global(.btn.btn-textual:hover) {
         color: var(--cb-color);
     }
 </style>

@@ -217,23 +217,12 @@
         opacity: 0.75;
     }
 
-    /* Button overrides — btn-muted and btn-text both inherit --al-color.*/
-    .alert-base :global(.btn.btn-muted) {
-        border-color: color-mix(in srgb, var(--al-color) 50%, transparent);
-        color: var(--al-color);
-    }
-
-    .alert-base :global(.btn.btn-muted:hover) {
-        border-color: var(--al-color);
-        background: var(--al-color);
-        color: var(--card);
-    }
-
-    .alert-base :global(.btn.btn-text) {
+    /* Button overrides — textual buttons inside an alert inherit --al-color */
+    .alert-base :global(.btn.btn-textual) {
         color: color-mix(in srgb, var(--al-color) 70%, var(--text) 30%);
     }
 
-    .alert-base :global(.btn.btn-text:hover) {
+    .alert-base :global(.btn.btn-textual:hover) {
         color: var(--al-color);
     }
 </style>

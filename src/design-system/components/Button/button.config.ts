@@ -1,38 +1,39 @@
-// Declarative button configuration
 export const buttonConfig = {
     base: "btn",
 
     variants: {
         variant: {
-            accent: "btn-accent",
-            outlined: "btn-outlined",
             flat: "btn-flat",
-            muted: "btn-muted",
-            nav: "btn-nav", // Nav button — icon + label, palette context inherited from Nav or Header wrapper
+            outlined: "btn-outlined",
+            ghost: "btn-ghost",
             textual: "btn-textual",
+        },
+
+        palette: {
+            accent: "btn-palette-accent",
+            tone: "btn-palette-tone",
+            error: "btn-palette-error",
+            warning: "btn-palette-warning",
+            success: "btn-palette-success",
+            info: "btn-palette-info",
         },
 
         size: {
             sm: "btn-sm",
             md: "btn-md",
-            lg: "btn-lg"
+            lg: "btn-lg",
         },
 
         animate: {
             left: "btn-animate-left",
             right: "btn-animate-right",
+            top: "btn-animate-top",
+            bottom: "btn-animate-bottom",
         },
 
-        uppercase: {
-            true: "btn-uppercase"
-        },
-
-        active: {
-            true: "btn-active"
-        },
-
-        squared: {
-            true: "btn-squared"
-        }
+        uppercase: { true: "btn-uppercase" },
+        active: { true: "btn-active" },
+        rounded: { true: "btn-rounded" },
+        squared: { true: "btn-squared" },
     }
 };
