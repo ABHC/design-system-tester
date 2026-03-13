@@ -43,13 +43,7 @@
     );
 </script>
 
-<div
-    class="{wrapper_classes}"
-    aria-label="List Item"
-    role={onclick ? "button" : undefined}
-    tabindex={onclick ? 0 : undefined}
-    {onclick}
->
+{#snippet content()}
     {#if leading}
         <div class="leading">
             {@render leading()}
@@ -70,9 +64,26 @@
             </div>
         {/if}
     </div>
-</div>
+{/snippet}
+
+{#if onclick}
+    <button class="{wrapper_classes}" {onclick}>
+        {@render content()}
+    </button>
+{:else}
+    <div class="{wrapper_classes}">
+        {@render content()}
+    </div>
+{/if}
 
 <style>
+    /* Reset button styles */
+    button.list-item {
+        font: inherit;
+        text-align: inherit;
+        width: 100%;
+    }
+
     /* Base */
     .list-item {
         display: flex;
