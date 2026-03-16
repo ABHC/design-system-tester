@@ -9,6 +9,7 @@
         type ImagePosition,
         type Columns,
         type HeroSpan,
+        type Elevation,
     } from "./tilegrid.config";
 
     // ── Props ─────────────────────────────────────────────────────────────────
@@ -47,6 +48,7 @@
         excerpt_length?: number;
         href_base?: string;
         rounded?: boolean;
+        elevation?: Elevation;
     }
 
     let {
@@ -63,6 +65,7 @@
         excerpt_length = defaultTileGridConfig.excerpt_length,
         href_base = defaultTileGridConfig.href_base,
         rounded = defaultTileGridConfig.rounded,
+        elevation = defaultTileGridConfig.elevation,
     }: Props = $props();
 
     // -- Helpers 
@@ -150,12 +153,13 @@
                 {@const border_class = is_hero && show_hero_border ? "tg-tile-hero-border" : ""}
                 {@const deco_pos_class = use_decorative ? `tg-deco-${image_position}` : ""}
                 {@const rounded_class = rounded ? "tg-rounded" : ""}
+                {@const elevation_class = elevation !== "none" ? `tg-elevation-${elevation}` : ""}
                 {@const abstract = localise(tile.abstract)}
                 {@const hero_text = localise(tile.hero_text)}
 
                 <a
                     href={tile.id ? `${href_base}/${tile.id}` : undefined}
-                    class="tg-tile {mode_class} {hero_class} {span_class} {border_class} {deco_pos_class} {rounded_class}"
+                    class="tg-tile {mode_class} {hero_class} {span_class} {border_class} {deco_pos_class} {rounded_class} {elevation_class}"
                     style={use_image ? image_style(tile) : undefined}
                     aria-label="{tile.name}{is_hero && hero_text ? ` — ${hero_text}` : ''}"
                     data-sveltekit-preload-data={tile.id ? "hover" : undefined}
@@ -164,7 +168,7 @@
                     <!-- Hero badge -->
                     {#if is_hero && show_hero_badge && hero_text}
                         <span class="tg-hero-badge-anchor">
-                            <Badge variant="accent" uppercase size="sm">
+                            <Badge variant="flat" palette="accent" uppercase size="sm">
                                 {#if tile.hero_icon}
                                     <span
                                         class="material-symbols-outlined tg-hero-badge-icon"
@@ -197,12 +201,12 @@
                             <!-- Origin + years badges -->
                             <div class="tg-meta">
                                 {#if tile.origin}
-                                    <Badge variant="accent" uppercase size="sm">
+                                    <Badge variant="flat" palette="accent" uppercase size="sm">
                                         {tile.origin}
                                     </Badge>
                                 {/if}
                                 {#if tile.years}
-                                    <Badge variant="flat" uppercase size="sm">
+                                    <Badge variant="flat" palette="tone" uppercase size="sm">
                                         {tile.years}
                                     </Badge>
                                 {/if}
@@ -300,24 +304,23 @@
         border-radius: 12px;
     }
 
-    /* ---- Hero accent border ---- */
-    /*
-     * Primary visual differentiator on mobile (no column span available).
-     * Also provides a subtle frame on desktop.
-     * Toggled via the show_hero_border prop → "tg-tile-hero-border" class.
-     */
+    /* ---- Elevation ---- */
 
-    /*.tg-tile-hero-border {
-        border: 2px solid var(--accent);
-    }*/
+    .tg-elevation-subtle:hover {
+        box-shadow: 0 4px 12px var(--shadow-subtle);
+    }
+
+    .tg-elevation-hard:hover {
+        box-shadow: 0.4rem 0.4rem var(--shadow);
+    }
 
     /* ---- Hero badge ---- */
 
     .tg-hero-badge-anchor {
-        position:       absolute;
-        top:            0.75rem;
-        right:          0.75rem;
-        z-index:        10;
+        position: absolute;
+        top: 0.75rem;
+        right: 0.75rem;
+        z-index: 10;
         pointer-events: none;
     }
 
@@ -338,8 +341,6 @@
 
     .tg-tile-image:hover {
         transform: translateY(-6px);
-        /*box-shadow: 0 16px 32px var(--tone-shadow);*/
-        box-shadow: 0 8px 4px var(--tone-shadow);
     }
 
     /* ---- FLAT TILE ---- */
@@ -363,7 +364,6 @@
     .tg-tile-flat:hover {
         border-left-color: var(--accent);
         background: var(--highlight);
-        box-shadow: -1px 5px 10px var(--tone-shadow);
     }
 
     @media (min-width: 640px) {
@@ -399,7 +399,6 @@
     .tg-tile-deco:hover {
         border-left: 4px solid var(--accent);
         background: var(--highlight);
-        box-shadow: -1px 5px 10px var(--tone-shadow);
     }
 
     @media (min-width: 640px) {
@@ -522,7 +521,7 @@
         display: flex;
         gap: 0.45rem;
         align-items: center;
-        flex-wrap:   wrap;
+        flex-wrap: wrap;
     }
 
     .tg-content {

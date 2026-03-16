@@ -94,6 +94,8 @@ export type HeroSpan = "half" | "full";
     href_base : Base path used to build tile hrefs: "{href_base}/{tile.id}
 */
 
+export type Elevation = "none" | "subtle" | "hard";
+
 export interface TileGridConfig {
     image_mode: ImageMode;
     image_position: ImagePosition;
@@ -105,6 +107,7 @@ export interface TileGridConfig {
     excerpt_length: number;
     href_base: string;
     rounded: boolean;
+    elevation: Elevation;
 }
 
 // ── Defaults ──────────────────────────────────────────────────────────────────
@@ -120,4 +123,5 @@ export const defaultTileGridConfig: TileGridConfig = {
     excerpt_length: 52,
     href_base: "/projects",
     rounded: true,
+    elevation: "hard",
 };
