@@ -6,25 +6,13 @@
     // ── Types ─────────────────────────────────────────────────────────────────
 
     type Variant = "flat" | "outlined" | "ghost";
+    type Elevation = "none" | "subtle" | "hard";
 
     // ── Props ─────────────────────────────────────────────────────────────────
 
-    /*
-        variant : Visual surface — flat | outlined | elevated | ghost
-        width   : CSS width value injected as inline style. Omit to fill parent.
-        rounded : Border-radius toggle (uses --card-radius, default 12px)
-        href    : Renders root as <a>. Best for cards with no interactive children.
-
-        Slots
-        header   : Top zone — no padding by default, image fills edge-to-edge.
-                   Add your own padding inside the snippet when no image.
-        children : Body zone — has default padding (--card-padding, 1.25rem).
-        footer   : Bottom zone — has default padding, separated by a top border.
-                   Rendered only when the snippet is provided.
-    */
-
     interface Props {
         variant?: Variant;
+        elevation?: Elevation;
         width?: string;
         rounded?: boolean;
         href?: string;
@@ -35,6 +23,7 @@
 
     let {
         variant = defaultCardConfig.variant,
+        elevation = defaultCardConfig.elevation,
         width = undefined,
         rounded = defaultCardConfig.rounded,
         href = undefined,
@@ -47,7 +36,7 @@
 
     const resolve = createVariant(cardConfig);
 
-    const classes = $derived(resolve({ variant, rounded }));
+    const classes = $derived(resolve({ variant, rounded, elevation }));
 
     const style = $derived(width ? `width: ${width};` : undefined);
 </script>
@@ -122,13 +111,22 @@
         border-radius: var(--card-radius);
     }
 
-    /* ── Hover — link cards only ──────────────────────────────────────────── */
+    /* ── Elevation ────────────────────────────────────────────────────────── */
 
-    a.card-flat:hover {
-        box-shadow: 0 8px 28px var(--tone-shadow);
-        transform: translateY(-2px);
-        transition: box-shadow 0.2s ease, transform 0.2s ease;
+    .card-elevation-none {
+        box-shadow: none;
     }
+
+    .card-elevation-subtle {
+        box-shadow: 0 4px 12px var(--shadow-subtle);
+    }
+
+    .card-elevation-hard {
+        box-shadow: 0.4rem 0.4rem var(--shadow);
+        transition: box-shadow 0.15s ease, transform 0.15s ease;
+    }
+
+    /* ── Hover — link cards only ──────────────────────────────────────────── */
 
     a.card-outlined:hover {
         border-color: var(--accent);
