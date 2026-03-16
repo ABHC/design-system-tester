@@ -80,6 +80,7 @@
         font-family: var(--font-heading);
         border-bottom: 4px solid var(--accent);
         padding: 0 100px;
+        z-index: 200;
     }
 
     /* Rounded */
@@ -89,10 +90,6 @@
     .header-palette-tone {
         background: var(--card);
         color: var(--text);
-        --nav-btn-color: var(--text);
-        --nav-btn-hover-bg: var(--highlight);
-        --nav-btn-active-bg: var(--accent);
-        --nav-btn-active-border: var(--accent);
     }
 
     /* Palette — accent */
@@ -100,10 +97,6 @@
         background: var(--accent);
         color: var(--text-accent);
         border-bottom-color: var(--highlight);
-        --nav-btn-color: var(--text-accent);
-        --nav-btn-hover-bg: color-mix(in srgb, var(--text-accent) 15%, transparent);
-        --nav-btn-active-bg: color-mix(in srgb, var(--text-accent) 25%, transparent);
-        --nav-btn-active-border: color-mix(in srgb, var(--text-accent) 45%, transparent);
     }
 
     /* Slots layout — flex-shrink: 0 prevents leading/following from compressing */

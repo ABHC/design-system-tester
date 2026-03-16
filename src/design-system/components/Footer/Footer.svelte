@@ -63,6 +63,7 @@
         align-items: center;
         font-family: var(--font-body);
         margin-top: auto;
+        z-index: 200;
     }
 
     /* Rounded — top corners only */
