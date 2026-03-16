@@ -1,17 +1,23 @@
 <script lang="ts">
-    import type { Translation } from "$lib/types/translations";
-    import Headline  from "../design-system/components/Headline/Headline.svelte";
+    import Headline from "../design-system/components/Headline/Headline.svelte";
     import CodeBlock from "../design-system/components/CodeBlock/CodeBlock.svelte";
-    import TileGrid  from "../design-system/components/TileGrid/TileGrid.svelte";
-    import type { Tile, Columns, HeroSpan } from "../design-system/components/TileGrid/tilegrid.config";
+    import TileGrid from "../design-system/components/TileGrid/TileGrid.svelte";
+    import Callout from "../design-system/components/Callout/Callout.svelte";
+    import Selector from "../design-system/components/Selector/Selector.svelte";
+    import ControlBar from "../design-system/components/Selector/ControlBar.svelte";
+
+    import type { Tile, Columns, HeroSpan, Elevation } from "../design-system/components/TileGrid/tilegrid.config";
+    import type { Translation } from "$lib/types/translations";
+    import type { PlaceholdersType } from "./placeholders";
 
     // -- Props 
 
     interface Props {
         trans: Translation | null;
+        placeholders: PlaceholdersType[keyof PlaceholdersType];
     }
 
-    let { trans }: Props = $props();
+    let { trans, placeholders }: Props = $props();
 
     // -- Demo state
 
@@ -23,140 +29,100 @@
     let demo_hero_span: HeroSpan = $state("half");
     let demo_hero_badge: boolean = $state(true);
     let demo_rounded: boolean = $state(true);
+    let demo_elevation: Elevation = $state("hard");
 
-    const bg_positions   = ["center", "top", "bottom"] as const;
+    const bg_positions = ["center", "top", "bottom"] as const;
     const deco_positions = ["top-right", "top-left", "top-center", "right", "left"] as const;
+    const bool_opts = [{ value: true, label: "on" }, { value: false, label: "off" }] as const;
 
     function set_mode(m: Mode) {
-        demo_mode     = m;
+        demo_mode = m;
         demo_position = m === "decorative" ? "top-right" : "center";
     }
 
-    // -- Demo tiles — no id (non-clickable) 
+    // Demo tiles — no id (non-clickable), built from placeholders.grid
 
-    const tiles: readonly Tile[] = [
+    const tile_media = [
+        "/assets/tgv.jpeg",
+        "/assets/concorde.jpeg",
+        "/assets/minitel.jpeg",
+        "/assets/ariane3.jpeg",
+        "/assets/renault.jpeg",
+    ];
+
+    const tiles = $derived([
         {
+            ...placeholders.grid.tgv,
+            display:    true,
+            hero: true,
+            hero_text: { en: placeholders.grid.hero_text },
+            hero_icon: "star",
+            media: [{ src: tile_media[0], type: "image" }],
+            abstract: { en: placeholders.grid.tgv.abstract },
+        },
+        {
+            ...placeholders.grid.concord,
+            display: true,
+            hero: false,
+            media: [{ src: tile_media[1], type: "image" }],
+            abstract: { en: placeholders.grid.concord.abstract },
+        },
+        {
+            ...placeholders.grid.minitel,
+            display: true,
+            hero: false,
+            media: [{ src: tile_media[2], type: "image" }],
+            abstract: { en: placeholders.grid.minitel.abstract },
+        },
+        {
+            ...placeholders.grid.ariane,
+            display: true,
+            hero: false,
+            media: [{ src: tile_media[3], type: "image" }],
+            abstract: { en: placeholders.grid.ariane.abstract },
+        },
+        {
+            ...placeholders.grid.renault,
+            display:  true,
+            hero: false,
+            media: [{ src: tile_media[4], type: "image" }],
+            abstract: { en: placeholders.grid.renault.abstract },
+        },
+    ]);
+
+    // Code examples — with id 
+
+    const code_background = `<TileGrid
+    tiles={[
+        {
+            id: "atlas",
             name: "Atlas",
             origin: "Personal",
             years: "2023–24",
             display: true,
             hero: true,
-            hero_text: { 
-                fr: "En vedette", 
-                en: "Featured" 
-            },
-            hero_icon: "star",
-            media: [
-                { 
-                    src: "https://picsum.photos/seed/atlas/900/600",   
-                    type: "image" 
-                }
-            ],
-            abstract:  { 
-                fr: "Système de conception hardware pour dispositifs embarqués", 
-                en: "Hardware design system for embedded devices" 
-            },
-        },
-        {
-            name: "Meridian",
-            origin: "Client",
-            years: "2024",
-            display: true,
-            hero: false,
-            media: [
-                { 
-                    src: "https://picsum.photos/seed/meridian/800/600", 
-                    type: "image" 
-                }
-            ],
-            abstract: { fr: "Plateforme de supervision industrielle",        en: "Industrial supervision platform" },
-        },
-        {
-            name: "Capsule",
-            origin: "Open Source",
-            years: "2022",
-            display: true,
-            hero: false,
-            media: [
-                { 
-                    src: "https://picsum.photos/seed/capsule/800/600",  
-                    type: "image" 
-                }
-            ],
-            abstract: { 
-                fr: "Boîtier modulaire pour cartes de prototypage", 
-                en: "Modular enclosure for prototyping boards" 
-            },
-        },
-        {
-            name: "Stratum",
-            origin: "Personal",
-            years: "2023",
-            display: true,
-            hero: false,
-            media: [
-                { 
-                    src: "https://picsum.photos/seed/stratum/800/600",  
-                    type: "image" 
-                }
-            ],
-            abstract: { 
-                fr: "Interface de configuration pour réseau de capteurs", 
-                en: "Configuration interface for sensor networks" 
-            },
-        },
-        {
-            name: "Lichen",
-            origin: "Client",
-            years: "2024",
-            display: true,
-            hero: false,
-            media: [
-                { 
-                    src: "https://picsum.photos/seed/lichen/800/600",   
-                    type: "image" 
-                }
-            ],
-            abstract: { 
-                fr: "Système de monitoring environnemental basse consommation", 
-                en: "Low-power environmental monitoring system" 
-            },
-        },
-    ];
-
-    // -- Code examples — with id 
-
-    const code_background = `<TileGrid
-    tiles={[
-        {
-            id:        "atlas",
-            name:      "Atlas",
-            origin:    "Personal",
-            years:     "2023–24",
-            display:   true,
-            hero:      true,
             hero_text: { fr: "En vedette", en: "Featured" },
             hero_icon: "star",
             media:     [{ src: "/images/atlas.jpg", type: "image" }],
             abstract:  { en: "Hardware design system for embedded devices" },
         },
         {
-            id:      "meridian",
-            name:    "Meridian",
-            origin:  "Client",
-            years:   "2024",
+            id: "meridian",
+            name: "Meridian",
+            origin: "Client",
+            years: "2024",
             display: true,
-            hero:    false,
-            media:   [{ src: "/images/meridian.jpg", type: "image" }],
+            hero: false,
+            media: [{ src: "/images/meridian.jpg", type: "image" }],
             abstract: { en: "Industrial supervision platform" },
         },
         {
-            id:      "capsule",
-            name:    "Capsule",
-            origin:  "Open Source",
+            id: "capsule",
+            name: "Capsule",
+            origin: "Open Source",
             display: true,
-            hero:    false,
-            media:   [{ src: "/images/capsule.jpg", type: "image" }],
+            hero: false,
+            media: [{ src: "/images/capsule.jpg", type: "image" }],
             abstract: { en: "Modular enclosure for prototyping boards" },
         },
     ]}
@@ -172,32 +138,32 @@
     const code_flat = `<TileGrid
     tiles={[
         {
-            id:        "core-api",
-            name:      "Core API",
-            origin:    "Personal",
-            years:     "2024",
-            display:   true,
-            hero:      true,
+            id: "core-api",
+            name: "Core API",
+            origin: "Personal",
+            years: "2024",
+            display: true,
+            hero: true,
             hero_text: { en: "Featured" },
-            media:     [],
-            abstract:  { en: "Modular REST API built on FastAPI and Docker" },
+            media: [],
+            abstract: { en: "Modular REST API built on FastAPI and Docker" },
         },
         {
-            id:      "dashboard",
-            name:    "Dashboard",
-            origin:  "Client",
+            id: "dashboard",
+            name: "Dashboard",
+            origin: "Client",
             display: true,
-            hero:    false,
-            media:   [],
+            hero: false,
+            media: [],
             abstract: { en: "Admin interface for an IoT sensor fleet" },
         },
         {
-            id:      "cli-toolkit",
-            name:    "CLI Toolkit",
-            origin:  "Open Source",
+            id: "cli-toolkit",
+            name: "CLI Toolkit",
+            origin: "Open Source",
             display: true,
-            hero:    false,
-            media:   [],
+            hero: false,
+            media: [],
             abstract: { en: "CLI toolkit for Linux task automation" },
         },
     ]}
@@ -212,25 +178,25 @@
     const code_decorative = `<TileGrid
     tiles={[
         {
-            id:      "capsule",
-            name:    "Capsule",
-            origin:  "Open Source",
+            id: "capsule",
+            name: "Capsule",
+            origin: "Open Source",
             display: true,
             media:   [{ src: "/images/capsule.png", type: "image" }],
             abstract: { en: "Modular enclosure for prototyping boards" },
         },
         {
-            id:      "stratum",
-            name:    "Stratum",
+            id: "stratum",
+            name: "Stratum",
             origin:  "Personal",
             display: true,
-            media:   [{ src: "/images/stratum.png", type: "image" }],
+            media: [{ src: "/images/stratum.png", type: "image" }],
             abstract: { en: "Configuration interface for sensor networks" },
         },
         {
-            id:      "lichen",
-            name:    "Lichen",
-            origin:  "Client",
+            id: "lichen",
+            name: "Lichen",
+            origin: "Client",
             display: true,
             media:   [{ src: "/images/lichen.png", type: "image" }],
             abstract: { en: "Low-power environmental monitoring system" },
@@ -248,31 +214,31 @@
 <TileGrid
     tiles={[
         {
-            id:        "atlas",
-            name:      "Atlas",
-            origin:    "Personal",
-            years:     "2023–24",
-            display:   true,
-            hero:      true,
+            id: "atlas",
+            name: "Atlas",
+            origin: "Personal",
+            years: "2023–24",
+            display: true,
+            hero: true,
             hero_text: { fr: "En vedette", en: "Featured" },
             hero_icon: "star",
             media:     [{ src: "/images/atlas.jpg", type: "image" }],
             abstract:  { en: "Hardware design system for embedded devices" },
         },
         {
-            id:      "meridian",
-            name:    "Meridian",
+            id: "meridian",
+            name: "Meridian",
             display: true,
-            hero:    false,
-            media:   [{ src: "/images/meridian.jpg", type: "image" }],
+            hero: false,
+            media: [{ src: "/images/meridian.jpg", type: "image" }],
             abstract: { en: "Industrial supervision platform" },
         },
         {
-            id:      "capsule",
-            name:    "Capsule",
+            id: "capsule",
+            name: "Capsule",
             display: true,
-            hero:    false,
-            media:   [{ src: "/images/capsule.jpg", type: "image" }],
+            hero: false,
+            media: [{ src: "/images/capsule.jpg", type: "image" }],
             abstract: { en: "Modular enclosure for prototyping boards" },
         },
     ]}
@@ -294,118 +260,53 @@
 
 <!-- Controls -->
 
-<div class="tg-controls">
-
-    <div class="control-group">
-        <span class="control-label">{trans?.tile_grid?.ctrl_mode ?? "Mode"}</span>
-        <div class="control-options">
-            {#each (["background", "none", "decorative"] as const) as m}
-                <button
-                    class="opt-btn"
-                    class:opt-active={demo_mode === m}
-                    onclick={() => set_mode(m)}
-                >{m}</button>
-            {/each}
-        </div>
-    </div>
-
+<ControlBar palette="tone" rounded>
+    <Selector
+        label={trans?.tile_grid?.ctrl_mode}
+        options={["background", "none", "decorative"]}
+        bind:value={demo_mode}
+        onchange={set_mode}
+    />
     {#if demo_mode === "background"}
-        <div class="control-group">
-            <span class="control-label">{trans?.tile_grid?.ctrl_position ?? "Position"}</span>
-            <div class="control-options">
-                {#each bg_positions as pos}
-                    <button
-                        class="opt-btn"
-                        class:opt-active={demo_position === pos}
-                        onclick={() => demo_position = pos}
-                    >{pos}</button>
-                {/each}
-            </div>
-        </div>
+        <Selector
+            label={trans?.tile_grid?.ctrl_position}
+            options={bg_positions}
+            bind:value={demo_position}
+        />
     {/if}
-
     {#if demo_mode === "decorative"}
-        <div class="control-group">
-            <span class="control-label">{trans?.tile_grid?.ctrl_position ?? "Position"}</span>
-            <div class="control-options">
-                {#each deco_positions as pos}
-                    <button
-                        class="opt-btn"
-                        class:opt-active={demo_position === pos}
-                        onclick={() => demo_position = pos}
-                    >{pos}</button>
-                {/each}
-            </div>
-        </div>
+        <Selector
+            label={trans?.tile_grid?.ctrl_position}
+            options={deco_positions}
+            bind:value={demo_position}
+        />
     {/if}
-
-    <div class="control-group">
-        <span class="control-label">{trans?.tile_grid?.ctrl_columns ?? "Columns"}</span>
-        <div class="control-options">
-            {#each ([2, 3, 4] as Columns[]) as c}
-                <button
-                    class="opt-btn"
-                    class:opt-active={demo_columns === c}
-                    onclick={() => demo_columns = c}
-                >{c}</button>
-            {/each}
-        </div>
-    </div>
-
-    <div class="control-group">
-        <span class="control-label">{trans?.tile_grid?.ctrl_hero_span ?? "Hero span"}</span>
-        <div class="control-options">
-            {#each (["half", "full"] as const) as s}
-                <button
-                    class="opt-btn"
-                    class:opt-active={demo_hero_span === s}
-                    onclick={() => demo_hero_span = s}
-                >{s}</button>
-            {/each}
-        </div>
-    </div>
-
-    <div class="control-group">
-        <span class="control-label">{trans?.tile_grid?.ctrl_hero_badge ?? "Hero badge"}</span>
-        <div class="control-options">
-            <button 
-                class="opt-btn" 
-                class:opt-active={demo_hero_badge}  
-                onclick={() => demo_hero_badge = true}
-            >
-                on
-            </button>
-            <button 
-                class="opt-btn" 
-                class:opt-active={!demo_hero_badge} 
-                onclick={() => demo_hero_badge = false}
-            >
-                off
-            </button>
-        </div>
-    </div>
-
-    <div class="control-group">
-        <span class="control-label">{trans?.tile_grid?.ctrl_rounded ?? "Rounded"}</span>
-        <div class="control-options">
-            <button 
-                class="opt-btn" 
-                class:opt-active={demo_rounded}
-                onclick={() => demo_rounded = true}
-            >
-                on
-            </button>
-            <button 
-                class="opt-btn" 
-                class:opt-active={!demo_rounded} 
-                onclick={() => demo_rounded = false}
-            >
-                off
-            </button>
-        </div>
-    </div>
-
-</div>
+    <Selector
+        label={trans?.tile_grid?.ctrl_columns}
+        options={[2, 3, 4]}
+        bind:value={demo_columns}
+    />
+    <Selector
+        label={trans?.tile_grid?.ctrl_hero_span}
+        options={["half", "full"]}
+        bind:value={demo_hero_span}
+    />
+    <Selector
+        label={trans?.tile_grid?.ctrl_hero_badge}
+        options={bool_opts}
+        bind:value={demo_hero_badge}
+    />
+    <Selector
+        label={trans?.tile_grid?.ctrl_rounded}
+        options={bool_opts}
+        bind:value={demo_rounded}
+    />
+    <Selector
+        label="Elevation"
+        options={["none", "subtle", "hard"]}
+        bind:value={demo_elevation}
+    />
+</ControlBar>
 
 <!-- Live preview -->
 
@@ -420,23 +321,89 @@
         show_hero_badge={demo_hero_badge}
         show_hero_border={true}
         rounded={demo_rounded}
+        elevation={demo_elevation}
         excerpt_length={52}
     />
 </div>
 
 <!-- ID info note -->
 
-<div class="tg-id-note" role="note">
-    <span class="material-symbols-outlined tg-id-note-icon" aria-hidden="true">info</span>
-    <div class="tg-id-note-content">
-        <strong class="tg-id-note-title">
-            {trans?.tile_grid?.id_note_title ?? "Role of the identifier (id)"}
+<Callout variant="info" align="center" rounded>
+    {#snippet leading()}
+        <span class="material-symbols-outlined">
+            photo_library
+        </span>
+    {/snippet}
+    {#snippet children()}
+        <strong>
+            {placeholders?.grid.attribution.header}
         </strong>
-        <p class="tg-id-note-body">
-            {trans?.tile_grid?.id_note}
+        <p>
+            <a 
+                class="attr" 
+                target="_blank"
+                href={placeholders?.grid.attribution.tgv_link}
+            >
+                {placeholders.grid.attribution.tgv}
+            </a>
         </p>
-    </div>
-</div>
+        <p>
+            <a 
+                class="attr" 
+                target="_blank"
+                href={placeholders?.grid.attribution.concord_link}
+            >
+                {placeholders.grid.attribution.concord}
+            </a>
+        </p>
+        <p>
+            <a 
+                class="attr" 
+                href={placeholders?.grid.attribution.minitel_link}
+                target="_blank"
+            >
+                {placeholders.grid.attribution.minitel}
+            </a>
+        </p>
+        <p>
+            <a 
+                class="attr" 
+                target="_blank"
+                href={placeholders?.grid.attribution.ariane_link}
+            >
+                {placeholders.grid.attribution.ariane}
+            </a>
+        </p>
+        <p>
+            {placeholders.grid.attribution.renault}
+        </p>
+    {/snippet}
+</Callout>
+
+<div class="callout-gap"></div>
+
+<!-- ID info note -->
+
+<Callout variant="accent" align="start" rounded>
+    {#snippet leading()}
+        <span 
+            class="material-symbols-outlined" 
+            aria-hidden="true"
+        >
+            info
+        </span>
+    {/snippet}
+    {#snippet children()}
+        <div class="tg-id-note-content">
+            <strong class="tg-id-note-title">
+                {trans?.tile_grid?.id_note_title ?? "Role of the identifier (id)"}
+            </strong>
+            <p class="tg-id-note-body">
+                {trans?.tile_grid?.id_note}
+            </p>
+        </div>
+    {/snippet}
+</Callout>
 
 <!-- Code examples — split layout -->
 
@@ -469,63 +436,6 @@
 />
 
 <style>
-    /* Controls */
-
-    .tg-controls {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem 2rem;
-        margin-bottom: 1.5rem;
-        padding: 1rem 1.25rem;
-        background: var(--card);
-        border-radius: 10px;
-        border: 1.5px solid var(--highlight);
-    }
-
-    .control-group {
-        display: flex;
-        flex-direction: column;
-        gap: 0.4rem;
-    }
-
-    .control-label {
-        font-size: 0.7rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        color: var(--text-muted);
-    }
-
-    .control-options {
-        display: flex;
-        gap: 0.35rem;
-        flex-wrap: wrap;
-    }
-
-    .opt-btn {
-        padding: 0.25rem 0.6rem;
-        border-radius: 6px;
-        border: 1.5px solid var(--highlight);
-        background: transparent;
-        color: var(--text-muted);
-        font-size: 0.72rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        font-family: inherit;
-        text-transform: lowercase;
-    }
-
-    .opt-btn:hover { 
-        border-color: var(--accent); 
-        color: var(--accent); 
-    }
-
-    .opt-btn.opt-active {
-        background: var(--accent);
-        border-color: var(--accent);
-        color: var(--text-accent);
-    }
 
     /* Preview */
 
@@ -576,5 +486,15 @@
         color: var(--text);
         line-height: 1.55;
         opacity: 0.85;
+    }
+
+    /* Attributions */
+
+    .attr {
+        color: var(--text);
+    }
+
+    .callout-gap {
+        height: 1rem;
     }
 </style>

@@ -2,30 +2,34 @@
     import { createRawSnippet }  from "svelte";
     import type { Translation }  from "$lib/types/translations";
     import type { PlaceholdersType } from "./placeholders";
-    import Headline   from "../design-system/components/Headline/Headline.svelte";
-    import Sidebar    from "../design-system/components/Sidebar/Sidebar.svelte";
+    import Headline from "../design-system/components/Headline/Headline.svelte";
+    import Avatar from "../design-system/components/Avatar/avatar.svelte";
+    import Sidebar from "../design-system/components/Sidebar/Sidebar.svelte";
     import type { SidebarItem } from "../design-system/components/Sidebar/Sidebar.svelte";
+    import Selector from "../design-system/components/Selector/Selector.svelte";
+    import ControlBar from "../design-system/components/Selector/ControlBar.svelte";
     import CodeBlock  from "../design-system/components/CodeBlock/CodeBlock.svelte";
 
     interface Props {
-        trans:        Translation | null;
+        trans: Translation | null;
         placeholders: PlaceholdersType[keyof PlaceholdersType];
     }
 
     let { trans, placeholders }: Props = $props();
 
     type Direction = "left" | "right";
-    type Palette   = "accent" | "tone";
-    type Position  = "fixed" | "floating";
+    type Palette = "accent" | "tone";
+    type Position = "fixed" | "floating";
 
     type ItemType = "buttons" | "listitems" | "mixed";
 
     let demo_direction: Direction = $state("left");
-    let demo_palette:   Palette   = $state("accent");
-    let demo_position:  Position  = $state("floating");
-    let demo_rounded:   boolean   = $state(true);
-    let demo_open:      boolean   = $state(true);
-    let demo_item_type: ItemType  = $state("mixed");
+    let demo_palette: Palette = $state("accent");
+    let demo_position: Position = $state("floating");
+    let demo_rounded: boolean = $state(true);
+    let demo_roundedBtn: boolean = $state(true);
+    let demo_open: boolean = $state(true);
+    let demo_item_type: ItemType = $state("mixed");
 
     // Active item tracking
     let active: string = $state("Dashboard");
@@ -35,13 +39,13 @@
         render: () => `<span class="material-symbols-outlined">${name}</span>`,
     }));
 
-    const icon_home       = make_icon("home");
+    const icon_home = make_icon("home");
     const icon_components = make_icon("widgets");
-    const icon_palette    = make_icon("palette");
-    const icon_type       = make_icon("text_fields");
-    const icon_settings   = make_icon("settings");
-    const icon_btn        = make_icon("smart_button");
-    const icon_pin        = make_icon("push_pin");
+    const icon_palette = make_icon("palette");
+    const icon_type = make_icon("text_fields");
+    const icon_settings = make_icon("settings");
+    const icon_btn = make_icon("smart_button");
+    const icon_pin = make_icon("push_pin");
 
     // Items — vary by demo_item_type
     const sidebar_items = $derived.by<SidebarItem[]>(() => {
@@ -51,11 +55,35 @@
                 type: "button",
                 // layout omitted → defaults to "column" (stacked full-width)
                 items: [
-                    { icon: icon_home,       label: "Dashboard",  active: active === "Dashboard",  onclick: () => { active = "Dashboard";  } },
-                    { icon: icon_components, label: "Components", active: active === "Components", onclick: () => { active = "Components"; } },
-                    { icon: icon_palette,    label: "Colours",    active: active === "Colours",    onclick: () => { active = "Colours";    } },
-                    { icon: icon_type,       label: "Typography", active: active === "Typography", onclick: () => { active = "Typography"; } },
-                    { icon: icon_settings,   label: "Settings",   active: active === "Settings",   onclick: () => { active = "Settings";   } },
+                    { 
+                        icon: icon_home, 
+                        label: "Dashboard",  
+                        active: active === "Dashboard",  
+                        onclick: () => { active = "Dashboard";  } 
+                    },
+                    { 
+                        icon: icon_components, 
+                        label: "Components", 
+                        active: active === "Components", 
+                        onclick: () => { active = "Components"; } 
+                    },
+                    { 
+                        icon: icon_palette, 
+                        label: "Colours", 
+                        active: active === "Colours",
+                        onclick: () => { active = "Colours"; } 
+                    },
+                    { icon: icon_type, 
+                        label: "Typography", 
+                        active: active === "Typography", 
+                        onclick: () => { active = "Typography"; } 
+                    },
+                    { 
+                        icon: icon_settings, 
+                        label: "Settings", 
+                        active: active === "Settings", 
+                        onclick: () => { active = "Settings"; } 
+                    },
                 ],
             },
         ];
@@ -65,10 +93,30 @@
                 type: "listitem",
                 // layout omitted → defaults to "column"
                 items: [
-                    { main: "Button.svelte",  extra: "src/components", active: active === "Button.svelte",  onclick: () => { active = "Button.svelte";  } },
-                    { main: "tokens.css",     extra: "design-system",  active: active === "tokens.css",     onclick: () => { active = "tokens.css";     } },
-                    { main: "App.svelte",     extra: "src/routes",     active: active === "App.svelte",     onclick: () => { active = "App.svelte";     } },
-                    { main: "+layout.svelte", extra: "src/routes",     active: active === "+layout.svelte", onclick: () => { active = "+layout.svelte"; } },
+                    { 
+                        main: "Button.svelte",  
+                        extra: "src/components", 
+                        active: active === "Button.svelte",  
+                        onclick: () => { active = "Button.svelte"; } 
+                    },
+                    { 
+                        main: "tokens.css", 
+                        extra: "design-system", 
+                        active: active === "tokens.css", 
+                        onclick: () => { active = "tokens.css"; } 
+                    },
+                    { 
+                        main: "App.svelte", 
+                        extra: "src/routes", 
+                        active: active === "App.svelte", 
+                        onclick: () => { active = "App.svelte"; } 
+                    },
+                    { 
+                        main: "+layout.svelte", 
+                        extra: "src/routes", 
+                        active: active === "+layout.svelte", 
+                        onclick: () => { active = "+layout.svelte"; } 
+                    },
                 ],
             },
         ];
@@ -79,19 +127,54 @@
                 type: "button",
                 layout: "row",   // icons side by side
                 items: [
-                    { icon: icon_home,       label: "Home",       active: active === "Home",       onclick: () => { active = "Home";       } },
-                    { icon: icon_components, label: "Components", active: active === "Components", onclick: () => { active = "Components"; } },
-                    { icon: icon_btn,        label: "Buttons",    active: active === "Buttons",    onclick: () => { active = "Buttons";    } },
-                    { icon: icon_settings,   label: "Settings",   active: active === "Settings",   onclick: () => { active = "Settings";   } },
+                    { 
+                        icon: icon_home, 
+                        label: "Home", 
+                        active: active === "Home", 
+                        onclick: () => { active = "Home"; } 
+                    },
+                    { 
+                        icon: icon_components, 
+                        label: "Components", 
+                        active: active === "Components", 
+                        onclick: () => { active = "Components"; } 
+                    },
+                    { 
+                        icon: icon_btn, 
+                        label: "Buttons",
+                        active: active === "Buttons", 
+                        onclick: () => { active = "Buttons"; } 
+                    },
+                    { 
+                        icon: icon_settings, 
+                        label: "Settings", 
+                        active: active === "Settings",
+                        onclick: () => { active = "Settings"; } 
+                    },
                 ],
             },
             { type: "separator", label: "Pinned files" },
             {
                 type: "listitem",
                 items: [
-                    { main: "Button.svelte",  extra: "Pinned", active: active === "Button.svelte",  onclick: () => { active = "Button.svelte";  } },
-                    { main: "tokens.css",     extra: "Pinned", active: active === "tokens.css",     onclick: () => { active = "tokens.css";     } },
-                    { main: "+layout.svelte", extra: "Pinned", active: active === "+layout.svelte", onclick: () => { active = "+layout.svelte"; } },
+                    { 
+                        main: "Button.svelte", 
+                        extra: "Pinned", 
+                        active: active === "Button.svelte",  
+                        onclick: () => { active = "Button.svelte"; } 
+                    },
+                    { 
+                        main: "tokens.css", 
+                        extra: "Pinned", 
+                        active: active === "tokens.css", 
+                        onclick: () => { active = "tokens.css"; } 
+                    },
+                    { 
+                        main: "+layout.svelte", 
+                        extra: "Pinned", 
+                        active: active === "+layout.svelte", 
+                        onclick: () => { active = "+layout.svelte"; } 
+                    },
                 ],
             },
         ];
@@ -261,11 +344,8 @@
 
 {#snippet sidebar_footer()}
     <div style="display:flex; align-items:center; gap:.6rem; width:100%">
-        <div class="avatar">AB<\/div>
-        <div>
-            <div style="font-weight:600; font-size:.8rem">Alice B.<\/div>
-            <div style="font-size:.7rem; opacity:.65">Online<\/div>
-        <\/div>
+        <Avatar size="sm" circular label="AB" status="online" \/>
+        <span style="font-weight:600; font-size:.8rem">Alice B.<\/span>
     <\/div>
 {/snippet}
 
@@ -287,77 +367,15 @@
 </Headline>
 
 <!-- Controls -->
-<div class="sidebar-controls">
-
-    <div class="control-group">
-        <span class="control-label">Direction</span>
-        <div class="control-options">
-            {#each (["left", "right"] as Direction[]) as dir}
-                <button
-                    class="opt-btn {demo_direction === dir ? 'opt-active' : ''}"
-                    onclick={() => { demo_direction = dir; }}
-                >{dir}</button>
-            {/each}
-        </div>
-    </div>
-
-    <div class="control-group">
-        <span class="control-label">Palette</span>
-        <div class="control-options">
-            {#each (["accent", "tone"] as Palette[]) as p}
-                <button
-                    class="opt-btn {demo_palette === p ? 'opt-active' : ''}"
-                    onclick={() => { demo_palette = p; }}
-                >{p}</button>
-            {/each}
-        </div>
-    </div>
-
-    <div class="control-group">
-        <span class="control-label">Position</span>
-        <div class="control-options">
-            {#each (["fixed", "floating"] as Position[]) as pos}
-                <button
-                    class="opt-btn {demo_position === pos ? 'opt-active' : ''}"
-                    onclick={() => { demo_position = pos; }}
-                >{pos}</button>
-            {/each}
-        </div>
-    </div>
-
-    <div class="control-group">
-        <span class="control-label">Rounded</span>
-        <div class="control-options">
-            <button
-                class="opt-btn {demo_rounded ? 'opt-active' : ''}"
-                onclick={() => { demo_rounded = !demo_rounded; }}
-            >{demo_rounded ? "on" : "off"}</button>
-        </div>
-    </div>
-
-    <div class="control-group">
-        <span class="control-label">Items</span>
-        <div class="control-options">
-            {#each (["buttons", "listitems", "mixed"] as ItemType[]) as t}
-                <button
-                    class="opt-btn {demo_item_type === t ? 'opt-active' : ''}"
-                    onclick={() => { demo_item_type = t; active = t === "listitems" ? "Button.svelte" : "Dashboard"; }}
-                >{t}</button>
-            {/each}
-        </div>
-    </div>
-
-    <div class="control-group">
-        <span class="control-label">Open</span>
-        <div class="control-options">
-            <button
-                class="opt-btn {demo_open ? 'opt-active' : ''}"
-                onclick={() => { demo_open = !demo_open; }}
-            >{demo_open ? "open" : "closed"}</button>
-        </div>
-    </div>
-
-</div>
+<ControlBar palette="tone" rounded>
+    <Selector label="Direction" options={["left", "right"]} bind:value={demo_direction} />
+    <Selector label="Palette"   options={["accent", "tone"]} bind:value={demo_palette} />
+    <Selector label="Position"  options={["fixed", "floating"]} bind:value={demo_position} />
+    <Selector label="Rounded"   options={[{value: true, label: "on"}, {value: false, label: "off"}]} bind:value={demo_rounded} />
+    <Selector label="Rounded Btn" options={[{value: true, label: "on"}, {value: false, label: "off"}]} bind:value={demo_roundedBtn} />
+    <Selector label="Items"     options={["buttons", "listitems", "mixed"]} bind:value={demo_item_type} onchange={(t) => { active = t === "listitems" ? "Button.svelte" : "Dashboard"; }} />
+    <Selector label="Open"      options={[{value: true, label: "open"}, {value: false, label: "closed"}]} bind:value={demo_open} />
+</ControlBar>
 
 <!-- Preview -->
 <div class="sidebar-preview sidebar-preview--{demo_direction}">
@@ -368,6 +386,7 @@
             direction={demo_direction}
             palette={demo_palette}
             rounded={demo_rounded}
+            roundedBtn={demo_roundedBtn}
             open={demo_open}
             items={sidebar_items}
         >
@@ -389,13 +408,9 @@
             <!-- Footer slot: user profile -->
             {#snippet footer()}
                 <div class="preview-user">
-                    <div class="preview-user-avatar">AB</div>
+                    <Avatar size="sm" circular label="AB" status="online" />
                     <div class="preview-user-info">
                         <span class="preview-user-name">Alice B.</span>
-                        <span class="preview-user-status">
-                            <span class="preview-status-dot"></span>
-                            Online
-                        </span>
                     </div>
                 </div>
             {/snippet}
@@ -435,55 +450,6 @@
 />
 
 <style>
-    /* Controls */
-    .sidebar-controls {
-        display:       flex;
-        flex-wrap:     wrap;
-        gap:           1rem 2rem;
-        margin-bottom: 1.5rem;
-        padding:       1rem 1.25rem;
-        background:    var(--card);
-        border-radius: 10px;
-        border:        1.5px solid var(--highlight);
-    }
-
-    .control-group {
-        display:        flex;
-        flex-direction: column;
-        gap:            0.4rem;
-    }
-
-    .control-label {
-        font-size:      0.7rem;
-        font-weight:    700;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        color:          var(--text-muted);
-    }
-
-    .control-options { display: flex; gap: 0.35rem; }
-
-    .opt-btn {
-        padding:        0.25rem 0.6rem;
-        border-radius:  6px;
-        border:         1.5px solid var(--highlight);
-        background:     transparent;
-        color:          var(--text-muted);
-        font-size:      0.72rem;
-        font-weight:    600;
-        cursor:         pointer;
-        transition:     all 0.2s ease;
-        font-family:    inherit;
-        text-transform: lowercase;
-    }
-
-    .opt-btn:hover      { border-color: var(--accent); color: var(--accent); }
-    .opt-btn.opt-active {
-        background:   var(--accent);
-        border-color: var(--accent);
-        color:        var(--text-accent);
-    }
-
     /* Preview box */
     .sidebar-preview {
         position:      relative;
@@ -608,20 +574,6 @@
         color:       var(--sidebar-text, currentColor);
     }
 
-    .preview-user-avatar {
-        width:           30px;
-        height:          30px;
-        border-radius:   50%;
-        background:      var(--sidebar-item-hover-bg, rgba(255, 255, 255, 0.18));
-        display:         flex;
-        align-items:     center;
-        justify-content: center;
-        font-size:       0.65rem;
-        font-weight:     700;
-        flex-shrink:     0;
-        letter-spacing:  0.02em;
-    }
-
     .preview-user-info {
         display:        flex;
         flex-direction: column;
@@ -635,20 +587,5 @@
         line-height: 1;
     }
 
-    .preview-user-status {
-        display:     flex;
-        align-items: center;
-        gap:         0.3rem;
-        font-size:   0.7rem;
-        opacity:     0.65;
-        line-height: 1;
-    }
 
-    .preview-status-dot {
-        width:         6px;
-        height:        6px;
-        border-radius: 50%;
-        background:    #4ade80;
-        flex-shrink:   0;
-    }
 </style>

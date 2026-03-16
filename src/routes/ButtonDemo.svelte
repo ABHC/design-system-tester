@@ -5,6 +5,8 @@
     import Button from "../design-system/components/Button/Button.svelte";
     import BackToTop from "../design-system/components/BackToTop/BackToTop.svelte";
     import CodeBlock from "../design-system/components/CodeBlock/CodeBlock.svelte";
+    import Selector from "../design-system/components/Selector/Selector.svelte";
+    import ControlBar from "../design-system/components/Selector/ControlBar.svelte";
 
     interface Props {
         trans: Translation | null;
@@ -13,201 +15,46 @@
 
     let { trans, placeholders }: Props = $props();
 
-    // Active tracking per variant
-    type Palette = "accent" | "tone" | "error" | "warning" | "success" | "info";
-    let active_flat: Palette | undefined = $state(undefined);
-    let active_outlined: Palette | undefined = $state(undefined);
-    let active_ghost: string | undefined = $state(undefined);
-    let active_textual: Palette | undefined = $state(undefined);
+    // Demo state ──────────────────────────────────────────────────────────
 
-    // Palette → demo button label mapping
-    const flat_labels = $derived<Record<Palette, string>>({
-        accent: placeholders?.buttons.accent ?? "",
-        tone: placeholders?.buttons.tone ?? "",
-        error: placeholders?.buttons.delete,
-        warning: placeholders?.buttons.warning,
-        success: placeholders?.buttons.confirm,
-        info: placeholders?.buttons.info,
-    });
+    type Variant = "flat" | "outlined" | "ghost" | "textual";
+    type Size = "sm" | "md" | "lg";
+    type Elevation = "none" | "subtle" | "hard";
+    type Animate = "none" | "left" | "right" | "top" | "bottom";
+    type Bg = "bg" | "card" | "accent";
+    type Direction = "row" | "column";
 
-    const outlined_labels = $derived<Record<Palette, string>>({
-        accent: placeholders?.buttons.accent ?? "",
-        tone: placeholders?.buttons.tone ?? "",
-        error: placeholders?.buttons.delete,
-        warning: placeholders?.buttons.warning,
-        success: placeholders?.buttons.confirm,
-        info: placeholders?.buttons.info,
-    });
-</script>
+    let demo_variant: Variant = $state("flat");
+    let demo_size: Size = $state("md");
+    let demo_elevation: Elevation = $state("none");
+    let demo_rounded: boolean = $state(false);
+    let demo_uppercase: boolean = $state(false);
+    let demo_animate: Animate = $state("none");
+    let demo_bg: Bg = $state("bg");
+    let demo_direction: Direction = $state("row");
 
-<Headline size="md" uppercase>
-    {trans?.buttons.title}
-</Headline>
+    const bool_opts = [
+        { value: true, label: "true" }, { value: false, label: "false" }
+    ] as const;
 
-<!-- Variant × Palette grid -->
+    // Active state tracking
+    let active_id: string | undefined = $state(undefined);
 
-<p class="demo-label">{trans?.buttons.lbl_flat}</p>
-<div class="content">
-    {#each (["accent", "tone", "error", "warning", "success", "info"] as const) as pal}
-        <Button 
-            variant="flat" 
-            palette={pal} 
-            active={active_flat === pal} 
-            onclick={() => { active_flat = pal; }}
-        >
-            {flat_labels[pal]}
-        </Button>
-    {/each}
-</div>
+    // Animate prop — undefined when "none"
+    const animate_prop = $derived(demo_animate === "none" ? undefined : demo_animate);
 
-<p class="demo-label">{trans?.buttons.lbl_outlined}</p>
-<div class="content">
-    {#each (["accent", "tone", "error", "warning", "success", "info"] as const) as pal}
-        <Button 
-            variant="outlined" 
-            palette={pal} rounded 
-            active={active_outlined === pal} 
-            onclick={() => { active_outlined = pal; }}
-        >
-            {outlined_labels[pal]}
-        </Button>
-    {/each}
-</div>
+    // Code examples ───────────────────────────────────────────────────────
 
-<p class="demo-label">{trans?.buttons.lbl_ghost}</p>
-<div class="demo-row">
-    <div class="content on-accent">
-        <Button 
-            variant="ghost" 
-            palette="accent" 
-            rounded 
-            active={active_ghost === "accent-rect"} 
-            onclick={() => { active_ghost = "accent-rect"; }}
-        >
-            {placeholders?.buttons.rect}
-        </Button>
-        <Button 
-            variant="ghost" 
-            palette="accent" 
-            rounded squared 
-            active={active_ghost === "accent-sq"} 
-            onclick={() => { active_ghost = "accent-sq"; }}
-        >
-            <icon class="material-symbols-outlined">star</icon>
-            {placeholders?.buttons.squared}
-        </Button>
-    </div>
-
-    <div class="content">
-        <Button 
-            variant="ghost" 
-            palette="tone" 
-            active={active_ghost === "tone-rect"} 
-            onclick={() => { active_ghost = "tone-rect"; }}
-        >
-            {placeholders?.buttons.rect}
-        </Button>
-        <Button 
-            variant="ghost" 
-            palette="tone" 
-            rounded 
-            squared 
-            active={active_ghost === "tone-sq"} 
-            onclick={() => { active_ghost = "tone-sq"; }}
-        >
-            <icon class="material-symbols-outlined">star</icon>
-            {placeholders?.buttons.squared}
-        </Button>
-    </div>
-</div>
-
-<p class="demo-label">{trans?.buttons.lbl_textual}</p>
-<div class="demo-row">
-    <div class="content on-accent">
-        <Button 
-            variant="textual" 
-            palette="accent" 
-            active={active_textual === "accent"} 
-            onclick={() => { active_textual = "accent"; }}
-        >
-            {placeholders?.buttons.text}
-        </Button>
-    </div>
-    <div class="content">
-        {#each (["tone", "error", "warning", "success", "info"] as const) as pal}
-            <Button 
-                variant="textual" 
-                palette={pal} 
-                active={active_textual === pal} 
-                onclick={() => { active_textual = pal; }}
-            >
-                {placeholders?.buttons.text}
-            </Button>
-        {/each}
-    </div>
-</div>
-
-<!-- Sizes -->
-
-<p class="demo-label">{trans?.buttons.lbl_sizes}</p>
-<div class="content">
-    <Button size="lg">{placeholders?.buttons.large}</Button>
-    <Button>{placeholders?.buttons.medium}</Button>
-    <Button size="sm">{placeholders?.buttons.small}</Button>
-</div>
-
-<!-- Modifiers -->
-
-<p class="demo-label">{trans?.buttons.lbl_modifiers}</p>
-<div class="content">
-    <Button uppercase>{placeholders?.buttons.uppercase}</Button>
-    <Button variant="flat" palette="tone" animate="left">
-        <icon class="material-symbols-outlined">arrow_back</icon>
-        {placeholders?.buttons.anim_left}
-    </Button>
-    <Button variant="flat" palette="accent" animate="top" rounded>
-        <icon class="material-symbols-outlined">arrow_upward</icon>
-        {placeholders?.buttons.anim_top}
-    </Button>
-    <Button variant="flat" palette="accent" animate="bottom" rounded>
-        {placeholders?.buttons.anim_bottom}
-        <icon class="material-symbols-outlined">arrow_downward</icon>
-    </Button>
-    <Button variant="flat" palette="tone" animate="right">
-        {placeholders?.buttons.anim_right}
-        <icon class="material-symbols-outlined">arrow_forward</icon>
-    </Button>
-    <Button squared rounded>
-        <icon class="material-symbols-outlined">star</icon>
-        {placeholders?.buttons.squared}
-    </Button>
-</div>
-
-<CodeBlock
-    variant="tabbed"
-    copyable
-    tabs={[
-        {
-            label: "flat",
-            code:
-`<Button>Accent</Button>
+    const code_flat = `<Button>Accent</Button>
 <Button palette="tone">Neutral</Button>
 <Button palette="error">Delete</Button>
-<Button palette="success">Confirm</Button>`,
-            language: "Svelte"
-        },
-        {
-            label: "outlined",
-            code:
-`<Button variant="outlined" rounded>Tone</Button>
+<Button palette="success">Confirm</Button>`;
+
+    const code_outlined = `<Button variant="outlined" rounded>Accent</Button>
 <Button variant="outlined" palette="tone" rounded>Neutral</Button>
-<Button variant="outlined" palette="error" rounded>Delete</Button>`,
-            language: "Svelte"
-        },
-        {
-            label: "ghost",
-            code:
-`<!-- palette matches the container background -->
+<Button variant="outlined" palette="error" rounded>Delete</Button>`;
+
+    const code_ghost = `<!-- palette matches the container background -->
 <!-- on accent bg: palette="accent" → light text + white-ish hover -->
 <Button variant="ghost" palette="accent" rounded>Nav item</Button>
 <Button variant="ghost" palette="accent" rounded squared>
@@ -216,20 +63,13 @@
 </Button>
 
 <!-- on neutral bg: palette="tone" → dark text + highlight hover -->
-<Button variant="ghost" palette="tone">Nav item</Button>`,
-            language: "Svelte"
-        },
-        {
-            label: "textual",
-            code:
-`<Button variant="textual">Link-style</Button>
+<Button variant="ghost" palette="tone">Nav item</Button>`;
+
+    const code_textual = `<Button variant="textual">Link-style</Button>
 <Button variant="textual" palette="tone">Neutral</Button>
-<Button variant="textual" palette="error">Error</Button>`,
-            language: "Svelte"
-        },
-        {
-            label: "active",
-            code:
+<Button variant="textual" palette="error">Error</Button>`;
+
+    const code_active =
 "<!-- Track active state per variant group -->\n" +
 "<" + "script>\n" +
 "    let active: string | undefined = $state(undefined);\n" +
@@ -242,21 +82,13 @@
 "    >\n" +
 "        {pal}\n" +
 "    </Button>\n" +
-"{/each}",
-            language: "Svelte"
-        },
-        {
-            label: "sizes",
-            code:
-`<Button size="lg">Large</Button>
-<Button>Medium (default)</Button>
-<Button size="sm">Small</Button>`,
-            language: "Svelte"
-        },
-        {
-            label: "modifiers",
-            code:
-`<Button uppercase>Uppercase</Button>
+"{/each}";
+
+    const code_elevation = `<!-- Elevation appears on hover -->
+<Button elevation="subtle">Subtle shadow</Button>
+<Button elevation="hard">Hard shadow</Button>`;
+
+    const code_modifiers = `<Button uppercase>Uppercase</Button>
 <Button animate="left">
     <span class="material-symbols-outlined">arrow_back</span>
     Back
@@ -265,63 +97,245 @@
     Next
     <span class="material-symbols-outlined">arrow_forward</span>
 </Button>
-<Button animate="top" rounded>
-    <span class="material-symbols-outlined">arrow_upward</span>
-    Up
-</Button>
 <Button squared rounded>
     <span class="material-symbols-outlined">star</span>
     Label
-</Button>`,
-            language: "Svelte"
-        },
-    ]}
-/>
+</Button>`;
 
-<p class="demo-label">{trans?.buttons.back_to_top1} — <code>BackToTop</code></p>
-<p class="demo-label">{trans?.buttons.back_to_top2}</p>
+    const code_sizes = `<Button size="lg">Large</Button>
+<Button>Medium (default)</Button>
+<Button size="sm">Small</Button>`;
 
-<div class="btt-preview">
-    <BackToTop palette="accent" />
-    <BackToTop palette="accent" round />
-    <BackToTop palette="tone" />
-    <BackToTop palette="tone" round />
-    <BackToTop palette="accent" outlined />
-    <BackToTop palette="tone" outlined />
+    const code_back_to_top = `<!-- Fixed button — scrolls to top on click -->
+<BackToTop />
+<BackToTop palette="tone" round />
+<BackToTop palette="accent" outlined />`;
+</script>
+
+<!-- ── Markup ─────────────────────────────────────────────────────────────── -->
+
+<Headline size="md" uppercase>
+    {trans?.buttons.title}
+</Headline>
+
+<!-- Controls -->
+
+<ControlBar palette="tone" rounded>
+    <Selector 
+        label="Variant"
+        options={["flat", "outlined", "ghost", "textual"]}
+        bind:value={demo_variant} 
+    />
+    <Selector 
+        label="Size"
+        options={["sm", "md", "lg"]}
+        bind:value={demo_size} 
+    />
+    <Selector 
+        label="Elevation" 
+        options={["none", "subtle", "hard"]} 
+        bind:value={demo_elevation} 
+    />
+    <Selector 
+        label="Rounded" 
+        options={bool_opts} 
+        bind:value={demo_rounded} 
+    />
+    <Selector 
+        label="Direction" 
+        options={["row", "column"]} 
+        bind:value={demo_direction} 
+    />
+    <Selector 
+        label="Uppercase" 
+        options={bool_opts} 
+        bind:value={demo_uppercase} 
+    />
+    <Selector 
+        label="Animate" 
+        options={["none", "left", "right", "top", "bottom"]} 
+        bind:value={demo_animate} 
+    />
+    <Selector 
+        label="Background" 
+        options={["bg", "card", "accent"]} 
+        bind:value={demo_bg} 
+    />
+</ControlBar>
+
+<!-- Live preview -->
+
+<div
+    class="btn-preview"
+    style="background: var(--{demo_bg});"
+>
+    <!-- Accent palette buttons -->
+    <div class="btn-group">
+        <Button
+            variant={demo_variant}
+            palette="accent"
+            size={demo_size}
+            elevation={demo_elevation}
+            rounded={demo_rounded}
+            direction={demo_direction}
+            uppercase={demo_uppercase}
+            animate={animate_prop}
+            active={active_id === "accent"}
+            onclick={() => active_id = "accent"}
+        >
+            {placeholders.buttons.accent}
+        </Button>
+    </div>
+
+    <!-- Tone palette buttons -->
+    <div class="btn-group">
+        <Button
+            variant={demo_variant}
+            palette="tone"
+            size={demo_size}
+            elevation={demo_elevation}
+            rounded={demo_rounded}
+            direction={demo_direction}
+            uppercase={demo_uppercase}
+            animate={animate_prop}
+            active={active_id === "tone"}
+            onclick={() => active_id = "tone"}
+        >
+            {placeholders.buttons.tone}
+        </Button>
+    </div>
+
+    <!-- Contextual palette buttons -->
+    <div class="btn-group">
+        {#each ([
+            { 
+                pal: "error",   
+                label: placeholders.buttons.delete,  
+                icon: "delete" 
+            },
+            { 
+                pal: "warning", 
+                label: placeholders.buttons.warning, 
+                icon: "warning" 
+            },
+            { 
+                pal: "success", 
+                label: placeholders.buttons.confirm, 
+                icon: "check_circle" 
+            },
+            { 
+                pal: "info",    
+                label: placeholders.buttons.info, 
+                icon: "info" 
+            },
+        ] as const) as item}
+            <Button
+                variant={demo_variant}
+                palette={item.pal}
+                size={demo_size}
+                elevation={demo_elevation}
+                rounded={demo_rounded}
+                direction={demo_direction}
+                uppercase={demo_uppercase}
+                animate={animate_prop}
+                active={active_id === item.pal}
+                onclick={() => active_id = item.pal}
+            >
+                <span class="material-symbols-outlined item-demo">
+                    {item.icon}
+                </span>
+                {item.label}
+            </Button>
+        {/each}
+    </div>
 </div>
+
+<!-- Code examples -->
 
 <CodeBlock
     variant="tabbed"
     copyable
     tabs={[
-        { label: "accent", code: `<BackToTop />`, language: "Svelte" },
-        { label: "accent round", code: `<BackToTop round />`, language: "Svelte" },
-        { label: "tone", code: `<BackToTop palette="tone" />`, language: "Svelte" },
-        { label: "tone round", code: `<BackToTop palette="tone" round />`, language: "Svelte" },
-        { label: "accent outlined", code: `<BackToTop outlined />`, language: "Svelte" },
-        { label: "tone outlined", code: `<BackToTop palette="tone" outlined />`, language: "Svelte" },
-        {
-            label: "left",
-            code:
-`<!-- position left/right define if BackToTop button is in bottom left/right corner the viewport -->
-<BackToTop position="left" />`,
-            language: "Svelte"
+        { 
+            label: "flat", 
+            code: code_flat, 
+            language: "Svelte" 
+        },
+        { 
+            label: "outlined",   
+            code: code_outlined, 
+            language: "Svelte" 
+        },
+        { 
+            label: "ghost", 
+            code: code_ghost,      
+            language: "Svelte" 
+        },
+        { 
+            label: "textual",    
+            code: code_textual,     
+            language: "Svelte" 
+        },
+        { 
+            label: "active", 
+            code: code_active, 
+            language: "Svelte" 
+        },
+        { 
+            label: "sizes", 
+            code: code_sizes, 
+            language: "Svelte" 
+        },
+        { 
+            label: "modifiers",  
+            code: code_modifiers,  
+            language: "Svelte" 
+        },
+        { 
+            label: "elevation",  
+            code: code_elevation,  
+            language: "Svelte" 
+        },
+        { 
+            label: "BackToTop",  
+            code: code_back_to_top, 
+            language: "Svelte" 
         },
     ]}
 />
 
+<!-- BackToTop -->
+
+<p class="demo-label">{trans?.buttons.back_to_top1} — <code>BackToTop</code></p>
+<p class="demo-label">{trans?.buttons.back_to_top2}</p>
+
+<div class="btt-preview">
+    <BackToTop palette="accent" elevation="hard"/>
+    <BackToTop palette="accent" elevation="hard" round />
+    <BackToTop palette="tone" elevation="subtle"/>
+    <BackToTop palette="tone" elevation="subtle" round />
+    <BackToTop palette="accent" outlined />
+    <BackToTop palette="tone" outlined />
+</div>
+
 <style>
-    .content {
+    .btn-preview {
+        border: 1.5px solid var(--highlight);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 0.75rem;
         display: flex;
         flex-wrap: wrap;
-        gap: 20px;
-        margin-bottom: 0.5rem;
+        gap: 1.5rem;
+        align-items: center;
+        transition: background 0.2s ease;
     }
 
-    .on-accent {
-        background: var(--accent);
-        padding: 1rem;
-        border-radius: 8px;
+    .btn-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        align-items: center;
     }
 
     .btt-preview {
@@ -330,17 +344,11 @@
         gap: 12px;
     }
 
-    /* Force static display for demo — overrides fixed positioning and scroll-triggered opacity */
+    /* Force static display for demo */
     .btt-preview :global(.btt-btn) {
         position: static;
         opacity: 1;
         pointer-events: auto;
-    }
-
-    .demo-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 2rem
     }
 
     .demo-label {
@@ -356,5 +364,9 @@
         padding: 0.1em 0.35em;
         border-radius: 4px;
         font-size: 0.9em;
+    }
+
+    .item-demo {
+        font-size: 100%;
     }
 </style>

@@ -1,132 +1,504 @@
 export const placeholders = {
     fr: {
         typography: {
-            h1_context: "Giscardpunk",
-            h2_context: "Cyberpunk",
-            h3_context: "Steampunk",
-            h4_context: "Dieselpunk",
-            h5_context: "Solarpunk",
+            h1_context: "Giscardpunk",                                                                                                                                                                              
+            h2_context: "Cyberpunk",                                                                                                                                                                                
+            h3_context: "Steampunk",                                                                                                                                                                                
+            h4_context: "Dieselpunk",                                                                                                                                                                               
+            h5_context: "Solarpunk",       
             h6_context: "Juste punk",
             lead: "Adipisci velit sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.",
             body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
             paragraph: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
         },
+        badges: {
+            accent: "Accent",
+            tone: "Ton",
+            delete: "Supprimer",
+            warning: "Attention",
+            confirm: "Confirmer",
+            info: "Info",
+            click_me: "Cliquez-moi",
+            add: "Ajouter",
+            see_more: "Voir plus",
+            pending: "En attente",
+            validated: "Validé",
+            link: "Lien",
+            learn_more: "En savoir plus",
+            filters: ["Design", "Svelte", "A11y"],
+            filter_remove: "Retirer",
+            all_removed: "Tous retirés",
+            click: "click",
+        },
+        buttons: {
+            large: "grand",
+            medium: "moyen",
+            small: "petit",
+            uppercase: "majuscule",
+            anim_left: "gauche",
+            anim_right: "droite",
+            anim_top: "haut",
+            anim_bottom: "bas",
+            text: "texte",
+            accent: "Accent",
+            tone: "Ton",
+            delete: "Supprimer",
+            warning: "Attention",
+            confirm: "Confirmer",
+            info: "Info",
+            rect: "Rectangulaire",
+            squared: "Carré",
+        },
+        form: {
+            placeholder_name: "Ex. Johnny Matignon",
+            placeholder_email: "punk@republique.fr",
+            placeholder_message: "Merci d'avoir osé le futur"
+        },
+        navigation: {
+            items: ["TGV", "Concorde", "Ariane", "Minitel"],
+            label1: "TGV",
+            label2: "Concorde",
+            label3: "Ariane",
+            label4: "Minitel",
+            label5: "Contact"
+        },
+        alerts: {
+            success: "La catalogue de la COGIP est bien arrivé dans votre boîte aux lettres",
+            info: "Mettre un turboréacteur sur un train n'est pas économique",
+            warning_pre: "Votre session expire bientôt.",
+            warning_link: "Renouvelez votre abonnement Minitel maintenant",
+            error: "Échec du lancement de la fusée Ariane"
+        },
+        callout: {
+            success_label: "Succès",
+            error_label: "Erreur",
+            note_label: "Note",
+            info: "Le réseau Minitel n'est fermée qu'en 2012 par France Télécom",
+            success: "Le 26 février 1981 le TGV bat le record mondiale de vitesse sur rail avec 380 km/h",
+            warning: "Votre facture téléphonique a dépassé 1000 francs",
+            error:   "Échec du lancement de la fusée Ariane",
+            accent:  "Astuce : vous pouvez composer librement les slots leading, children et following pour adapter le callout à votre usage.",
+            neutral: "Note : ce composant est un message à caractère informatif et n'implique aucune action obligatoire de la part de l'utilisateur."
+        },
+        grid: {
+            hero_text: "En vedette",
+            tgv: {
+                name: "TGV",
+                origin: "France",
+                years: "1981",
+                abstract: "380 km/h les jours sans grève",
+            },
+            concord: {
+                name: "Concorde",
+                origin: "France & Royaume-Uni",
+                years: "1976",
+                abstract: "Supersonique, super-bruyant et super-chère",
+            },
+            minitel: {
+                name: "Minitel",
+                origin: "France",
+                years: "1980",
+                abstract: "3615 Internet",
+            },
+            ariane: {
+                name: "Ariane 3",
+                origin: "Europe",
+                years: "1984",
+                abstract: "Comment lancer Astérix dans l'espace",
+            },
+            renault: {
+                name: "Renault Gabbiano Concept",
+                origin: "France",
+                years: "1983",
+                abstract: "Ne viens pas du futur mais peut-être De Lorraine",
+            },
+            attribution: {
+                header: "Photographies sous licence CC-BY-SA (3.0 et 4.0)",
+                tgv: "TGV : joost.j bakker",
+                tgv_link: "https://commons.wikimedia.org/w/index.php?curid=11305259",
+                concord: "Concorde : Eduard Marmet",
+                concord_link: "https://www.airliners.net/photo/British-Airways/Aerospatiale-BAC-Concorde-102/1406076/L",
+                minitel: "Minitel : Bernard Marti",
+                minitel_link: "https://commons.wikimedia.org/w/index.php?curid=15102738",
+                ariane: "Ariane 3 : ESA/CNES/Arianespace",
+                ariane_link: "https://www.esa.int/Enabling_Support/Space_Transportation/Ariane/40_years_of_Ariane",
+                renault : "Renault Gabbiano : Renault/Italdesign",
+                renault_link: ""
+            }
+        },
+        selector: {
+            sect_standalone: "Selector standalone — sans ControlBar, tokens de fallback",
+            sect_tone: "ControlBar palette tone — fond card",
+            sect_accent: "ControlBar palette accent — fond accent",
+            sect_swatches: "Control Bar avec header — rounded — pastilles de couleur",
+            lbl_layout: "Disposition",
+            lbl_cols: "Colonnes",
+            lbl_rounded: "Coins",
+            lbl_color: "Couleur",
+            opt_on: "on",
+            opt_off: "off",
+            selected_color: "Couleur sélectionnée :",
+            sect_borderless: "ControlBar bordered={false} avec header — séparateur header uniquement",
+            header_borderless: "Paramètres d'affichage",
+        },
         cards: {
-            provinces: [
+            tiles: [
                 {
-                    name: "Gallia Lugdunensis",
-                    description: "Région stratégique du nord-est incluant les grandes cités de Paris et Strasbourg. Carrefour commercial majeur avec rivières navigables et routes terrestres reliant l'Italie aux côtes atlantiques.",
-                    badge: "Commerce",
-                    date: "27 av. J.-C.",
-                    btn: "Visiter"
-                },
-                {
-                    name: "Hispania Tarraconensis",
-                    description: "Province méditerranéenne prospère connue pour ses mines d'argent et ses vignobles prestigieux. Centre culturel avec amphithéâtres remarquables et traditions complexes.",
-                    badge: "Richesses",
-                    date: "197 av. J.-C.",
+                    name: "Catalogue COGIP",
+                    description: "Retrouvez le meilleur de la GOGIP, préparé par nos chefs d'étages.",
+                    badge: "Design",
                     btn: "Découvrir"
                 },
                 {
-                    name: "Aegyptus Ptolemaica",
-                    description: "Grenier du monde antique avec le Nil comme artère commerciale vitale. Mélange fascinant de traditions égyptiennes et d'administration romaine.",
-                    badge: "Mystère",
-                    date: "30 av. J.-C.",
-                    btn: "Explorer"
+                    name: "3618 MIAMI",
+                    description: "Pour contacter d'autres utilisateurs de Minitel",
+                    badge: "Liberté",
+                    btn: "PTT"
+                },
+                {
+                    name: "Aérotrain",
+                    description: "Image : Association des amis de Jean Bertin",
+                    badge: "Ingénierie",
+                    btn: "Source"
                 }
-            ]
+            ],
+            testimonials: [
+                {
+                    name: "Valéry G.E.",
+                    role: "Cardiologue",
+                    quote: "Vous n'avez pas le monopôle du coeur.",
+                    avatar_initial: "VGE"
+                },
+                {
+                    name: "Jacques C.",
+                    role: "Agriculteur",
+                    quote: "Mangez des pommes !",
+                    avatar_initial: "JC"
+                },
+                {
+                    name: "Jean-Pierre R.",
+                    role: "Professeur d'anglais",
+                    quote: "Win the yes needs the no, to win against the no !",
+                    avatar_initial: "JR"
+                }
+            ],
+            profile: {
+                name: "Jean Michel",
+                initials: "JM",
+                role: "Designeur de jouet",
+                bio: "Je conçois des jouets professionnels mais surtout rigolo en 220V pour vos bambins de 1 à 4 ans. Les jouets Jean-Michel c'est sensationnel.",
+                langs: ["FR", "EN", "DE"],
+                skills_label: "Compétences",
+                skills: [
+                    { value: "dessin", label: "dessin" },
+                    { value: "gravure", label: "gravure" },
+                    { value: "220V", label: "Haute Tension" },
+                ],
+                experience_label: "Expérience",
+                experience: [
+                    { date: "1980 – présent", role: "PDG · Jouets Jean-Michel" },
+                    { date: "1975 – 1980", role: "Illustrateur · COGIP" },
+                    { date: "1972 – 1975", role: "Graveur de Timbres · PTT" }
+                ],
+                contact_btn: "Secrétariat",
+                cv_btn: "Recevoir notre catalogue par courrier",
+                contact_email: "3615 MICHEL",
+                linkedin_label: "LinkedIn"
+            }
         },
-        form: {
-            placeholder_name: "Ex. Marcus Aurelius",
-            placeholder_email: "consul@imperium.romanum",
-            placeholder_message: "Salve ! Je viens d'admirer votre magnifique système de design..."
+        list_items: {
+            nav: [
+                { main: "TGV (tone)", extra: "Paris — Lyon" },
+                { main: "Concorde (highlight)", extra: "Paris — New York" },
+                { main: "Ariane (accent)", extra: "Kourou — Station spatial Mir" },
+                { main: "Minitel (ghost)",  extra: "3615 COGIP" },
+            ],
+            delete_main:  "Annuler la mission (error)",
+            delete_extra: "Action irréversible",
+            warning_main:  "Mettre en attente (warning)",
+            warning_extra: "Nécessite une validation",
+            success_main:  "Mission accomplie (success)",
+            success_extra: "Ariane est en orbite",
+            info_main:  "Consulter les archives (info)",
+            info_extra: "Dossier COGIP 1984",
         },
-        navigation: {
-            items: ["Domus", "Legiones", "Respublica", "Contactus", "Ad visitandum"], 
-            domus: "Domus",
-            respublica: "Curia",
-            lex: "Lex",
-            epistola: "Epistola"
+        modal: {
+            // Tone palette — delete confirmation
+            tone_title: "Supprimer le fichier",
+            tone_body: "Êtes-vous sûr de vouloir supprimer « tokens.css » ? Cette action est définitive et ne peut pas être annulée.",
+            tone_confirm: "Supprimer",
+            tone_cancel: "Annuler",
+            // Accent palette — announcement
+            accent_title: "Catalogue disponible",
+            accent_body: "Le catalogue COGIP 1984 est disponible en téléchargement. 420 pages, index Minitel inclus.",
+            accent_cta: "Télécharger",
+            accent_dismiss: "Plus tard",
+            // Composition — profile
+            compose_name: "Jean Michel",
+            compose_role: "Designeur de jouet",
+            compose_bio: "Je conçois des jouets professionnels mais surtout rigolos en 220V pour vos bambins de 1 à 4 ans.",
+            compose_skills: ["dessin", "220V", "gravure"],
+            compose_contact: "Secrétariat",
+            compose_close: "Fermer",
+            // Width — narrow
+            narrow_title: "Session expirée",
+            narrow_body: "Votre session Minitel a expiré. Reconnectez-vous pour continuer.",
+            narrow_confirm: "Reconnexion",
+            narrow_cancel: "Annuler",
+            // Width — wide
+            wide_title: "Conditions d'utilisation du réseau Minitel",
+            wide_body: "En accédant au réseau Minitel, vous acceptez les conditions générales d'utilisation établies par la Direction Générale des Télécommunications. L'utilisation des services 3615 est soumise à facturation à la minute. La COGIP décline toute responsabilité en cas de surtension électrique lors de la consultation du catalogue en ligne. Les données personnelles collectées seront conservées sur bande magnétique pendant une durée de 7 ans conformément à la réglementation en vigueur.",
+            wide_accept: "J'accepte",
+            wide_decline: "Je refuse",
         },
-        alerts: {
-            success: "Votre message a traversé les frontières sans incident et a été livré au Forum Romanum.",
-            info: "Ce système de design a résisté à 2000 ans d'épreuves sans perdre sa dignité.",
-            warning_pre: "Votre session expire bientôt.",
-            warning_link: "Renouveler maintenant",
-            error: "Les barbares ont attaqué votre palette de couleurs. Défenses activées."
-        },
-        callout: {
-            info:    "Les légions romaines parcouraient 30 km par jour sur leurs routes pavées. Chaque borne milliaire était une promesse de précision.",
-            success: "La lex a été promulguée avec succès. Le Forum Romanum retentit d'acclamations.",
-            warning: "Les ides de mars approchent. Restez vigilant et vérifiez vos accès avant de poursuivre.",
-            error:   "Les barbares ont franchi le limes. Une erreur critique s'est produite — veuillez réessayer ou contacter votre consul.",
-            accent:  "Astuce : vous pouvez composer librement les slots leading, children et following pour adapter le callout à votre usage.",
-            neutral: "Note : ce composant est purement informatif et n'implique aucune action obligatoire de la part de l'utilisateur."
-        }
     },
     en: {
         typography: {
-            h1_context: "The Roman Empire",
-            h2_context: "Architecture and engineering", 
-            h3_context: "Major cities",
-            h4_context: "Road infrastructure",
-            h5_context: "Ancient technology",
-            h6_context: "Archaeological remains",
+            h1_context: "Giscardpunk",
+            h2_context: "Cyberpunk",
+            h3_context: "Steampunk",
+            h4_context: "Dieselpunk",
+            h5_context: "Solarpunk",
+            h6_context: "Just punk",
             lead: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis.",
             body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
             paragraph: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
         },
+        badges: {
+            text: "text",
+            accent: "Accent",
+            tone: "Tone",
+            delete: "Delete",
+            warning: "Warning",
+            confirm: "Confirm",
+            info: "Info",
+            click_me: "Click me",
+            add: "Add",
+            see_more: "See more",
+            pending: "Pending",
+            validated: "Validated",
+            link: "Link",
+            learn_more: "Learn more",
+            filters: ["Design", "Svelte", "A11y"],
+            filter_remove: "Remove",
+            all_removed: "All removed",
+            click: "click",
+        },
+        buttons: {
+            large: "large",
+            medium: "medium",
+            small: "small",
+            uppercase: "uppercase",
+            anim_left: "left",
+            anim_right: "right",
+            anim_top: "up",
+            anim_bottom: "down",
+            text: "text",
+            accent: "Accent",
+            tone: "Tone",
+            delete: "Delete",
+            warning: "Warning",
+            confirm: "Confirm",
+            info: "Info",
+            rect: "Rectangular",
+            squared: "squared",
+        },
+        form: {
+            placeholder_name: "Ex. Johnny Matignon",
+            placeholder_email: "punk@republic.fr",
+            placeholder_message: "Hey! Your design system is proper anarchy — clean as Téléphone, radical as a 1977 manifesto..."
+        },
+        navigation: {
+            items: ["TGV", "Concorde", "Ariane", "Minitel"],
+            label1: "TGV",
+            label2: "Concorde",
+            label3: "Ariane",
+            label4: "Minitel",
+            label5: "Contact"
+        },
+        alerts: {
+            success: "The COGIP catalogue has been delivered to your mailbox",
+            info: "Putting a turbojet engine on a train is not economical",
+            warning_pre: "Your session will expire soon.",
+            warning_link: "Renew your Minitel subscription now",
+            error: "Failure to launch the Ariane rocket"
+            },
+        callout: {
+            success_label: "Success",
+            error_label: "Error",
+            note_label: "Note",
+            info: "The Minitel network was only closed in 2012 by France Télécom",
+            success: "On 26 February 1981, the TGV broke the world rail speed record with 380 km/h",
+            warning: "Your telephone bill has exceeded 1,000 francs",
+            error:   "Failure of the Ariane rocket launch",
+            accent:  "Tip: you can freely compose the leading, children and following slots to adapt the callout to your use.",
+            neutral: "Note: this component is an informative message and does not imply any mandatory action on the part of the user."
+        },
+        grid: {
+            hero_text: "Featured",
+            tgv: {
+                name: "TGV",
+                origin: "France",
+                years: "1981",
+                abstract: "380 km/h on non-strike days",
+            },
+            concord: {
+                name: "Concorde",
+                origin: "France & United Kingdom",
+                years: "1976",
+                abstract: "Supersonic, super-loud and super-expensive",
+            },
+            minitel: {
+                name: "Minitel",
+                origin: "France",
+                years: "1980",
+                abstract: "3615 Internet",
+            },
+            ariane: {
+                name: "Ariane 3",
+                origin: "Europe",
+                years: "1984",
+                abstract: "How to launch Astérix into space",
+            },
+            renault: {
+                name: "Renault Gabbiano Concept",
+                origin: "France",
+                years: "1983",
+                abstract: "Not from the future, but possibly from Lorraine",
+            },
+            attribution: {
+                header: "Pictures under CC-BY-SA (3.0 and 4.0) license",
+                tgv: "TGV : joost.j bakker",
+                tgv_link: "https://commons.wikimedia.org/w/index.php?curid=11305259",
+                concord: "Concord : Eduard Marmet",
+                concord_link: "https://www.airliners.net/photo/British-Airways/Aerospatiale-BAC-Concorde-102/1406076/L",
+                minitel: "Minitel : Bernard Marti",
+                minitel_link: "https://commons.wikimedia.org/w/index.php?curid=15102738",
+                ariane: "Ariane 3 : ESA/CNES/Arianespace",
+                ariane_link: "https://www.esa.int/Enabling_Support/Space_Transportation/Ariane/40_years_of_Ariane",
+                renault : "Renault Gabbiano : Renault/Italdesign",
+                renault_link: ""
+            }
+        },
+        selector: {
+            sect_standalone: "Standalone Selector — no ControlBar, fallback tokens",
+            sect_tone: "ControlBar palette tone — card background",
+            sect_accent: "ControlBar palette accent — accent background",
+            sect_swatches: "ControlBar with header — rounded — color dots",
+            lbl_layout: "Layout",
+            lbl_cols: "Columns",
+            lbl_rounded: "Corners",
+            lbl_color: "Color",
+            opt_on: "on",
+            opt_off: "off",
+            selected_color: "Selected color :",
+            sect_borderless: "ControlBar bordered={false} with header — header separator only",
+            header_borderless: "Display settings",
+        },
         cards: {
-            provinces: [
+            tiles: [
                 {
-                    name: "Britannia",
-                    description: "Misty island territory at the edge of the known world. Famous for its fierce warrior tribes and inexplicable weather patterns that confound Roman engineers.",
-                    badge: "Frontier",
-                    date: "43 AD",
-                    btn: "Explore"
-                },
-                {
-                    name: "Asia Proconsularis",
-                    description: "Wealthy Mediterranean province teeming with Greek culture and ancient temples. Economic powerhouse and intellectual centre of the eastern empire.",
-                    badge: "Wealth",
-                    date: "133 BC",
+                    name: "COGIP Catalogue",
+                    description: "Discover the finest of COGIP, curated by our floor managers.",
+                    badge: "Design",
                     btn: "Discover"
                 },
                 {
-                    name: "Syria Coele",
-                    description: "Crossroads of empires where Silk Road merchants congregate. Rich in spices, silks, and exotic goods from distant Cathay and the mysterious East.",
-                    badge: "Trade",
-                    date: "64 BC",
-                    btn: "Visit"
+                    name: "3618 MIAMI",
+                    description: "To get in touch with other Minitel users",
+                    badge: "Freedom",
+                    btn: "PTT"
                 },
-            ]
+                {
+                    name: "Aérotrain",
+                    description: "Picture : Association des amis de Jean Bertin",
+                    badge: "Engineering",
+                    btn: "Source"
+                }
+            ],
+            testimonials: [
+                {
+                    name: "Valéry G.E.",
+                    role: "Cardiologist",
+                    quote: "You don't have a monopoly on the heart.",
+                    avatar_initial: "VGE"
+                },
+                {
+                    name: "Jacques C.",
+                    role: "Farmer",
+                    quote: "Eat apples!",
+                    avatar_initial: "JC"
+                },
+                {
+                    name: "Jean-Pierre R.",
+                    role: "English teacher",
+                    quote: "Win the yes needs the no, to win against the no!",
+                    avatar_initial: "JR"
+                }
+            ],
+            profile: {
+                name: "Jean Michel",
+                initials: "JM",
+                role: "Toy designer",
+                bio: "I design professional yet fun 220V toys for your little ones aged 1 to 4. Jean-Michel toys are sensational.",
+                langs: ["FR", "EN", "DE"],
+                skills_label: "Skills",
+                skills: [
+                    { value: "dessin",  label: "drawing" },
+                    { value: "gravure", label: "engraving" },
+                    { value: "220V",    label: "High Voltage" },
+                ],
+                experience_label: "Experience",
+                experience: [
+                    { date: "1980 – present", role: "CEO · Jean-Michel Toys" },
+                    { date: "1975 – 1980",    role: "Illustrator · COGIP" },
+                    { date: "1972 – 1975",    role: "Stamp Engraver · PTT" }
+                ],
+                contact_btn: "Reception desk",
+                cv_btn: "Receive our catalogue by post",
+                contact_email: "3615 MICHEL",
+                linkedin_label: "LinkedIn"
+            }
         },
-        form: {
-            placeholder_name: "Ex. Caius Julius Caesar",
-            placeholder_email: "imperator@senate.rome",
-            placeholder_message: "Salve ! Your design system is as imposing as the Colosseum itself..."
+        list_items: {
+            nav: [
+                { main: "TGV (tone)", extra: "Paris — Lyon" },
+                { main: "Concorde (highlight)", extra: "Paris — New York" },
+                { main: "Ariane (accent)", extra: "Kourou — Mir space station" },
+                { main: "Minitel (ghost)",  extra: "3615 COGIP" },
+            ],
+            delete_main:  "Cancel mission (error)",
+            delete_extra: "Irreversible action",
+            warning_main:  "Put on hold (warning)",
+            warning_extra: "Requires validation",
+            success_main:  "Mission accomplished (success)",
+            success_extra: "Ariane is in orbit",
+            info_main:  "Browse archives (info)",
+            info_extra: "COGIP file 1984",
         },
-        navigation: {
-            items: ["Domus", "Legiones", "Senatus", "Contactus", "Ad visitandum"],
-            domus: "Domus",
-            respublica: "Curia",
-            lex: "Lex",
-            epistola: "Epistola"
-        },
-        alerts: {
-            success: "Your message has crossed the Roman roads safely and reached the Forum Romanum.",
-            info: "This design system has withstood 2000 years of trials without surrendering its dignity.",
-            warning_pre: "Your session expires soon.",
-            warning_link: "Renew now",
-            error: "Barbarians have attacked your colour palette. Defence protocols activated."
-        },
-        callout: {
-            info:    "Roman legions covered 30 km per day on their paved roads. Every milestone was a promise of precision.",
-            success: "The lex has been enacted successfully. The Forum Romanum echoes with acclamation.",
-            warning: "The Ides of March are approaching. Stay vigilant and verify your access before proceeding.",
-            error:   "Barbarians have breached the limes. A critical error occurred — please retry or contact your consul.",
-            accent:  "Tip: freely compose the leading, children, and following slots to adapt the callout to your needs.",
-            neutral: "Note: this component is purely informational and requires no mandatory action from the user."
+        modal: {
+            tone_title: "Delete file",
+            tone_body: "Are you sure you want to delete «tokens.css»? This action is permanent and cannot be undone.",
+            tone_confirm: "Delete",
+            tone_cancel: "Cancel",
+            accent_title: "Catalogue available",
+            accent_body: "The COGIP 1984 catalogue is now available for download. 420 pages, Minitel index included.",
+            accent_cta: "Download",
+            accent_dismiss: "Later",
+            compose_name: "Jean Michel",
+            compose_role: "Toy designer",
+            compose_bio: "I design professional yet fun 220V toys for your little ones aged 1 to 4.",
+            compose_skills: ["drawing", "220V", "engraving"],
+            compose_contact: "Reception desk",
+            compose_close: "Close",
+            narrow_title: "Session expired",
+            narrow_body: "Your Minitel session has expired. Please reconnect to continue.",
+            narrow_confirm: "Reconnect",
+            narrow_cancel: "Cancel",
+            wide_title: "Minitel Network Terms of Use",
+            wide_body: "By accessing the Minitel network, you agree to the general terms of use established by the Direction Générale des Télécommunications. Use of 3615 services is billed by the minute. COGIP accepts no liability for electrical surges during online catalogue browsing. Personal data collected will be stored on magnetic tape for 7 years in accordance with applicable regulations.",
+            wide_accept: "I accept",
+            wide_decline: "I decline",
         }
     }
 };

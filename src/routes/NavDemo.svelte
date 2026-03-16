@@ -3,9 +3,11 @@
     import type { PlaceholdersType } from "./placeholders";
     import Headline from "../design-system/components/Headline/Headline.svelte";
     import Nav from "../design-system/components/Nav/Nav.svelte";
+    import Selector from "../design-system/components/Selector/Selector.svelte";
+    import ControlBar from "../design-system/components/Selector/ControlBar.svelte";
     import CodeBlock from "../design-system/components/CodeBlock/CodeBlock.svelte";
 
-    // ── Props ────────────────────────────────────────────────────────────────
+    // Props ────────────────────────────────────────────────────────────────
 
     interface Props {
         trans: Translation | null;
@@ -14,28 +16,31 @@
 
     let { trans, placeholders }: Props = $props();
 
-    // ── Demo configuration state ──────────────────────────────────────────────
+    // Demo configuration state ──────────────────────────────────────────────
 
     type Direction = "top" | "bottom" | "left" | "right";
-    type Palette   = "accent" | "tone";
-    type Position  = "fixed" | "floating";
+    type Palette = "accent" | "tone";
+    type Position = "fixed" | "floating";
+    type DirectionBtn = "row" | "column";
 
     let demo_direction: Direction = $state("left");
-    let demo_palette:   Palette   = $state("accent");
-    let demo_position:  Position  = $state("floating");
-    let demo_rounded:   boolean   = $state(true);
-    let demo_squared:   boolean   = $state(true);
+    let demo_palette: Palette = $state("accent");
+    let demo_position: Position = $state("floating");
+    let demo_rounded: boolean = $state(true);
+    let demo_squared: boolean = $state(true);
+    let demo_directionBtn: DirectionBtn = $state("column");
+    let demo_roundedBtn: boolean = $state(true);
 
     // Active item tracking
     let active_index = $state(0);
 
-    // ── Labels (i18n) ─────────────────────────────────────────────────────────
-    const label_design  = $derived(placeholders.navigation.domus);
-    const label_apps    = $derived(placeholders.navigation.respublica);
-    const label_visuals = $derived(placeholders.navigation.lex);
-    const label_about   = $derived(placeholders.navigation.epistola);
+    // Labels ─────────────────────────────────────────────────────────
+    const label1 = $derived(placeholders.navigation.label1);
+    const label2 = $derived(placeholders.navigation.label2);
+    const label3 = $derived(placeholders.navigation.label3);
+    const label4 = $derived(placeholders.navigation.label4);
 
-    // ── Code examples ─────────────────────────────────────────────────────────
+    // Code examples ─────────────────────────────────────────────────────────
 
     const usage_basic = `<!-- Floating side nav — core usage pattern -->
 {#snippet icon_design()}
@@ -130,110 +135,58 @@
 
 <!-- Icon Snippets — agnostic to icon system: Material Symbols here, but can be
      any SVG, Simple Icons, img, or custom markup. -->
-{#snippet icon_design()}
-    <span class="material-symbols-outlined">home</span>
+{#snippet icon1()}
+    <span class="material-symbols-outlined">train</span>
 {/snippet}
-{#snippet icon_code()}
-    <span class="material-symbols-outlined">account_balance</span>
+{#snippet icon2()}
+    <span class="material-symbols-outlined">airlines</span>
 {/snippet}
-{#snippet icon_palette_icon()}
-    <span class="material-symbols-outlined">balance</span>
+{#snippet icon3()}
+    <span class="material-symbols-outlined">rocket_launch</span>
 {/snippet}
-{#snippet icon_person()}
-    <span class="material-symbols-outlined">mail</span>
+{#snippet icon4()}
+    <span class="material-symbols-outlined">Monitor</span>
 {/snippet}
 
 <Headline size="md" uppercase>
-    {trans?.nav?.title ?? "🧭 Navigation"}
+    {trans?.nav?.title}
 </Headline>
 
 <!-- Interactive controls -->
-<div class="nav-controls">
-    <div class="control-group">
-        <span class="control-label">Position</span>
-        <div class="control-options">
-            {#each (["floating", "fixed"] as const) as pos}
-                <button
-                    class="opt-btn"
-                    class:opt-active={demo_position === pos}
-                    onclick={() => demo_position = pos}
-                >
-                    {pos}
-                </button>
-            {/each}
-        </div>
-    </div>
-
-    <div class="control-group">
-        <span class="control-label">Direction</span>
-        <div class="control-options">
-            {#each (["top", "bottom", "left", "right"] as const) as dir}
-                <button
-                    class="opt-btn"
-                    class:opt-active={demo_direction === dir}
-                    onclick={() => demo_direction = dir}
-                >
-                    {dir}
-                </button>
-            {/each}
-        </div>
-    </div>
-
-    <div class="control-group">
-        <span class="control-label">Palette</span>
-        <div class="control-options">
-            {#each (["accent", "tone"] as const) as pal}
-                <button
-                    class="opt-btn"
-                    class:opt-active={demo_palette === pal}
-                    onclick={() => demo_palette = pal}
-                >
-                    {pal}
-                </button>
-            {/each}
-        </div>
-    </div>
-
-    <div class="control-group">
-        <span class="control-label">Rounded</span>
-        <div class="control-options">
-            <button
-                class="opt-btn"
-                class:opt-active={demo_rounded}
-                onclick={() => demo_rounded = true}
-            >
-                yes
-            </button>
-            <button
-                class="opt-btn"
-                class:opt-active={!demo_rounded}
-                onclick={() => demo_rounded = false}
-            >
-                no
-            </button>
-        </div>
-    </div>
-
-    <div class="control-group">
-        <span class="control-label">Buttons</span>
-        <div class="control-options">
-            <button
-                class="opt-btn"
-                class:opt-active={demo_squared}
-                onclick={() => demo_squared = true}
-            >
-                squared
-            </button>
-            <button
-                class="opt-btn"
-                class:opt-active={!demo_squared}
-                onclick={() => demo_squared = false}
-            >
-                rect
-            </button>
-        </div>
-    </div>
-</div>
+<ControlBar palette="tone" rounded>
+    <Selector 
+        label="Position" 
+        options={["floating", "fixed"]} 
+        bind:value={demo_position} 
+    />
+    <Selector 
+        label="Direction" 
+        options={["top", "bottom", "left", "right"]} 
+        bind:value={demo_direction} 
+    />
+    <Selector 
+        label="Palette"  
+        options={["accent", "tone"]} 
+        bind:value={demo_palette} 
+    />
+    <Selector 
+        label="Rounded"   
+        options={[{value: true, label: "yes"}, 
+        {value: false, label: "no"}]} 
+        bind:value={demo_rounded} 
+    />
+    <Selector 
+        label="Buttons Direction"   
+        options={["row", "column"]} 
+        bind:value={demo_directionBtn} 
+    />
+    <Selector 
+        label="Rounded Btn" 
+        options={[{value: true, label: "on"}, 
+        {value: false, label: "off"}]} 
+        bind:value={demo_roundedBtn} 
+    />
+</ControlBar>
 
 <!-- Live preview — 5-area CSS Grid simulating a mini-viewport.
 
@@ -271,30 +224,31 @@
             direction={demo_direction}
             palette={demo_palette}
             rounded={demo_rounded}
-            squared={demo_squared}
+            directionBtn={demo_directionBtn}
+            roundedBtn={demo_roundedBtn}
             items={[
                 {
-                    icon:    icon_design,
-                    label:   label_design,
-                    active:  active_index === 0,
+                    icon: icon1,
+                    label: label1,
+                    active: active_index === 0,
                     onclick: () => { active_index = 0; },
                 },
                 {
-                    icon:    icon_code,
-                    label:   label_apps,
-                    active:  active_index === 1,
+                    icon: icon2,
+                    label: label2,
+                    active: active_index === 1,
                     onclick: () => { active_index = 1; },
                 },
                 {
-                    icon:    icon_palette_icon,
-                    label:   label_visuals,
-                    active:  active_index === 2,
+                    icon: icon3,
+                    label: label3,
+                    active: active_index === 2,
                     onclick: () => { active_index = 2; },
                 },
                 {
-                    icon:    icon_person,
-                    label:   label_about,
-                    active:  active_index === 3,
+                    icon: icon4,
+                    label: label4,
+                    active: active_index === 3,
                     onclick: () => { active_index = 3; },
                 },
             ]}
@@ -303,8 +257,8 @@
 
     {#if demo_position === "fixed"}
         <div class="fixed-note">
-            ℹ️ <code>position="fixed"</code> overlays the real viewport —
-            preview uses <code>floating</code> for layout safety.
+            ℹ️ <code>{trans?.nav.code}</code>
+            {trans?.nav.fixed}
         </div>
     {/if}
 </div>
@@ -314,60 +268,30 @@
     variant="tabbed"
     copyable
     tabs={[
-        { label: "floating side nav",   code: usage_basic,         language: "Svelte" },
-        { label: "fixed + offset",      code: usage_offset,        language: "Svelte" },
-        { label: "header & footer",     code: usage_header_footer, language: "Svelte" },
-        { label: "scroll-aware logo",   code: usage_scroll_aware,  language: "Svelte" },
+        { 
+            label: "floating side nav", 
+            code: usage_basic, 
+            language: "Svelte" 
+        },
+        { 
+            label: "fixed + offset", 
+            code: usage_offset, 
+            language: "Svelte" 
+        },
+        { 
+            label: "header & footer", 
+            code: usage_header_footer, 
+            language: "Svelte" 
+        },
+        { 
+            label: "scroll-aware logo", 
+            code: usage_scroll_aware,  
+            language: "Svelte" 
+        },
     ]}
 />
 
 <style>
-    /* ── Controls ─────────────────────────────────────────────────────────── */
-    .nav-controls {
-        display:       flex;
-        flex-wrap:     wrap;
-        gap:           1rem 2rem;
-        margin-bottom: 1.5rem;
-        padding:       1rem 1.25rem;
-        background:    var(--card);
-        border-radius: 10px;
-        border:        1.5px solid var(--highlight);
-    }
-
-    .control-group {
-        display:        flex;
-        flex-direction: column;
-        gap:            0.4rem;
-    }
-
-    .control-label {
-        font-size:      0.7rem;
-        font-weight:    700;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        color:          var(--text-muted);
-    }
-
-    .control-options { display: flex; gap: 0.35rem; }
-
-    .opt-btn {
-        padding:        0.25rem 0.6rem;
-        border-radius:  6px;
-        border:         1.5px solid var(--highlight);
-        background:     transparent;
-        color:          var(--text-muted);
-        font-size:      0.72rem;
-        font-weight:    600;
-        cursor:         pointer;
-        transition:     all 0.2s ease;
-        font-family:    inherit;
-        text-transform: lowercase;
-    }
-
-    .opt-btn:hover      { border-color: var(--accent); color: var(--accent);    }
-    .opt-btn.opt-active { background: var(--accent); border-color: var(--accent);
-                          color: var(--text-accent);                              }
-
     /* ── Preview grid ─────────────────────────────────────────────────────── */
     .nav-preview {
         position: relative;
@@ -390,68 +314,62 @@
 
     /* Central content skeleton */
     .preview-main {
-        grid-area:      main;
-        display:        flex;
+        grid-area: main;
+        display: flex;
         flex-direction: column;
-        gap:            0.6rem;
-        padding:        0.75rem;
-        align-self:     center;
+        gap: 0.6rem;
+        padding: 0.75rem;
+        align-self: center;
     }
 
     .mock-line {
-        height:        10px;
-        background:    var(--highlight);
+        height: 10px;
+        background: var(--highlight);
         border-radius: 4px;
-        width:         100%;
+        width: 100%;
     }
 
     .mock-line.short { width: 60%; }
 
-    /* Nav slot containers — one per grid area                                 */
+    /* Nav slot containers — one per grid area */
     .nav-slot {
-        display:         flex;
-        align-items:     stretch;
+        display: flex;
+        align-items: stretch;
         justify-content: stretch;
     }
 
-    .nav-slot-top    {
-        grid-area:       top;
-        align-items:     flex-start;
-        /* Nav fills the top bar width                                          */
-    }
-    .nav-slot-bottom {
-        grid-area:       bottom;
-        align-items:     flex-end;
-    }
-    .nav-slot-left   {
-        grid-area:       left;
-        justify-content: flex-start;
-        align-items:     center;
-    }
-    .nav-slot-right  {
-        grid-area:       right;
-        justify-content: flex-end;
-        align-items:     center;
+    .nav-slot-top {
+        grid-area: top;
+        align-items: flex-start;
     }
 
-    /* Top / bottom slots: nav must stretch full width                          */
-    .nav-slot-top    :global(.nav-component),
+    .nav-slot-bottom {
+        grid-area: bottom;
+        align-items: flex-end;
+    }
+
+    .nav-slot-left   {
+        grid-area: left;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .nav-slot-right  {
+        grid-area: right;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .nav-slot-top :global(.nav-component),
     .nav-slot-bottom :global(.nav-component) {
         width: 100%;
     }
 
-    /* Left / right slots: nav at natural height, centred in the row.
-       height: 100% would combine with the nav's own top: 1rem (from
-       .nav-direction-*.nav-floating) to always overflow by exactly
-       (1rem - padding_top) regardless of min-height — so we let the
-       nav size itself and reset the offset. */
     .nav-slot-left  :global(.nav-component),
     .nav-slot-right :global(.nav-component) {
         justify-content: center;
     }
 
-    /* Higher specificity to win over .nav-direction-left.nav-floating
-       which sets align-self: flex-start and top: 1rem */
     .nav-slot-left  :global(.nav-direction-left.nav-floating),
     .nav-slot-right :global(.nav-direction-right.nav-floating) {
         align-self: center;
@@ -476,8 +394,8 @@
     }
 
     .fixed-note code {
-        font-size:   0.68rem;
+        font-size: 0.68rem;
         font-family: monospace;
-        color:       var(--accent-more);
+        color: var(--accent-more);
     }
 </style>

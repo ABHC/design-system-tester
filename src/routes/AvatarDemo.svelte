@@ -1,0 +1,261 @@
+<script lang="ts">
+    import Avatar from "../design-system/components/Avatar/avatar.svelte";
+    import Headline from "../design-system/components/Headline/Headline.svelte";
+    import CodeBlock from "../design-system/components/CodeBlock/CodeBlock.svelte";
+    import Selector from "../design-system/components/Selector/Selector.svelte";
+    import ControlBar from "../design-system/components/Selector/ControlBar.svelte";
+    import type { Translation } from "$lib/types/translations";
+    import type { PlaceholdersType } from "./placeholders";
+
+    interface Props {
+        trans: Translation | null;
+        placeholders: PlaceholdersType[keyof PlaceholdersType];
+    }
+
+    let { trans, placeholders }: Props = $props();
+
+    // ── Demo state ──────────────────────────────────────────────────────────
+
+    type Size    = "xsm" | "sm" | "md" | "lg" | "xlg";
+    type Palette = "accent" | "tone";
+    type Status  = "none" | "online" | "offline" | "absent" | "do-not-disturb";
+    type Content = "label" | "image";
+
+    let demo_size:     Size    = $state("lg");
+    let demo_palette:  Palette = $state("accent");
+    let demo_circular: boolean = $state(true);
+    let demo_status:   Status  = $state("none");
+    let demo_content:  Content = $state("label");
+
+    const bool_opts = [{ value: true, label: "yes" }, { value: false, label: "no" }] as const;
+
+    const status_prop = $derived(demo_status === "none" ? undefined : demo_status);
+
+    const vge_avatar = "assets/vge.jpeg";
+    const jc_avatar = "assets/jc.jpeg";
+
+    // ── Interactive state ────────────────────────────────────────────────────
+
+    let click_count = $state(0);
+
+    // ── Code examples ───────────────────────────────────────────────────────
+
+    const code_sizes = `<Avatar size="xsm" circular label="JD" />
+<Avatar size="sm"  circular label="JD" />
+<Avatar size="md"  circular label="JD" />
+<Avatar size="lg"  circular label="JD" />
+<Avatar size="xlg" circular label="JD" />`;
+
+    const code_palette = `<!-- accent palette (default) or tone -->
+<Avatar size="lg" circular palette="accent" label="AC" />
+<Avatar size="lg" circular palette="tone"   label="TN" />
+
+<!-- square (default) or circular -->
+<Avatar size="lg" label="JD" />
+<Avatar size="lg" circular label="JD" />`;
+
+    const code_content = `<!-- label: auto-truncated to 3 characters -->
+<Avatar size="lg" circular label="Jean-Dupont" />
+<!-- → renders "JEA" -->
+
+<!-- src: takes priority over label -->
+<Avatar
+    size="lg"
+    circular
+    src="/avatars/jean.jpg"
+    alt="Jean Dupont"
+/>`;
+
+    const code_status = `<Avatar size="lg" circular label="ON"  status="online" />
+<Avatar size="lg" circular label="OF"  status="offline" />
+<Avatar size="lg" circular label="AB"  status="absent" />
+<Avatar size="lg" circular label="DND" status="do-not-disturb" />
+
+<!-- --dot-bg: border colour of the state dot, defaults to var(--bg) -->
+<div style="--dot-bg: var(--card)">
+    <Avatar size="lg" circular label="ON" status="online" />
+</div>`;
+
+    const code_onclick = `<!-- onclick → root becomes <button> -->
+<Avatar
+    size="lg"
+    circular
+    label="JD"
+    status="online"
+    onclick={() => openStatusMenu()}
+/>`;
+</script>
+
+<!-- ── Markup ─────────────────────────────────────────────────────────────── -->
+
+<Headline size="md" uppercase>{trans?.avatar.title}</Headline>
+
+<!-- Controls -->
+
+<ControlBar palette="tone" rounded>
+    <Selector label="Size" options={["xsm", "sm", "md", "lg", "xlg"]}                          bind:value={demo_size} />
+    <Selector label="Palette" options={["accent", "tone"]}                                         bind:value={demo_palette} />
+    <Selector label="Circular" options={bool_opts}                                                  bind:value={demo_circular} />
+    <Selector label="Status" options={["none", "online", "offline", "absent", "do-not-disturb"]}  bind:value={demo_status} />
+    <Selector label="Content" options={["label", "image"]}                                         bind:value={demo_content} />
+</ControlBar>
+
+<!-- Live preview -->
+
+<div class="avatar-preview">
+    <!-- Accent -->
+    <div class="avatar-group">
+        <Avatar
+            size={demo_size}
+            palette={demo_palette}
+            circular={demo_circular}
+            status={status_prop}
+            label={demo_content === "label" ? "VGE" : undefined}
+            src={demo_content === "image" ? vge_avatar : undefined}
+            alt={demo_content === "image" ? "VGE" : undefined}
+        />
+        <Avatar
+            size={demo_size}
+            palette={demo_palette}
+            circular={demo_circular}
+            status={status_prop}
+            label={demo_content === "label" ? "JCH" : undefined}
+            src={demo_content === "image" ? jc_avatar : undefined}
+            alt={demo_content === "image" ? "JC" : undefined}
+        />
+        <Avatar
+            size={demo_size}
+            palette={demo_palette}
+            circular={demo_circular}
+            status={status_prop}
+            label="PM"
+        />
+    </div>
+</div>
+
+<!-- Status dots -->
+
+<p class="demo-label">{@html trans?.avatar.sect_status}</p>
+<div class="row align-center">
+    <div class="status-item">
+        <Avatar size="lg" circular label="ON" status="online" />
+        <span class="status-label">{trans?.avatar.status_online}</span>
+    </div>
+    <div class="status-item">
+        <Avatar size="lg" circular label="OF" status="offline" />
+        <span class="status-label">{trans?.avatar.status_offline}</span>
+    </div>
+    <div class="status-item">
+        <Avatar size="lg" circular label="AB" status="absent" />
+        <span class="status-label">{trans?.avatar.status_absent}</span>
+    </div>
+    <div class="status-item">
+        <Avatar size="lg" circular label="DND" status="do-not-disturb" />
+        <span class="status-label">{trans?.avatar.status_dnd}</span>
+    </div>
+</div>
+
+<!-- Interactive -->
+
+<p class="demo-label">{@html trans?.avatar.sect_interactive}</p>
+<div class="row align-center">
+    <Avatar 
+        size="lg" 
+        circular label="JC" 
+        onclick={() => click_count++} 
+    />
+    <Avatar 
+        size="lg" 
+        circular label="JR" 
+        status="online" 
+        onclick={() => click_count++} 
+    />
+    
+    {#if click_count > 0}
+        <span class="click-result">
+            {click_count} {trans?.avatar.click}{click_count > 1 ? 's' : ''}
+        </span>
+    {/if}
+</div>
+
+<!-- Code examples -->
+
+<CodeBlock
+    variant="tabbed"
+    copyable
+    tabs={[
+        { label: "Sizes", code: code_sizes,   language: "Svelte" },
+        { label: "Palette & Shape", code: code_palette, language: "Svelte" },
+        { label: "label vs src", code: code_content, language: "Svelte" },
+        { label: "Status", code: code_status,  language: "Svelte" },
+        { label: "onclick", code: code_onclick, language: "Svelte" },
+    ]}
+/>
+
+<style>
+    .avatar-preview {
+        border: 1.5px solid var(--highlight);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 0.75rem;
+        background: var(--bg);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        align-items: center;
+    }
+
+    .avatar-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        align-items: center;
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+    }
+
+    .row.align-center {
+        align-items: center;
+    }
+
+    .demo-label {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin: 0.75rem 0 0.4rem;
+        font-style: italic;
+    }
+
+    .demo-label :global(code) {
+        font-style: normal;
+        background: var(--highlight);
+        padding: 0.1em 0.35em;
+        border-radius: 4px;
+        font-size: 0.9em;
+    }
+
+    .status-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .status-label {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        font-family: monospace;
+    }
+
+    .click-result {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        font-style: italic;
+        align-self: center;
+    }
+</style>

@@ -6,6 +6,8 @@
     import Footer from "../design-system/components/Footer/Footer.svelte";
     import Button from "../design-system/components/Button/Button.svelte";
     import Callout from "../design-system/components/Callout/Callout.svelte";
+    import Selector from "../design-system/components/Selector/Selector.svelte";
+    import ControlBar from "../design-system/components/Selector/ControlBar.svelte";
     import CodeBlock  from "../design-system/components/CodeBlock/CodeBlock.svelte";
 
     interface Props {
@@ -74,9 +76,14 @@
     <div class="demo-row">
         <div class="mock-social-links">
             {#each ["alternate_email", "code", "person"] as icon}
-                <div class="mock-social-link">
+                <Button 
+                    variant="ghost" 
+                    palette={demo_palette} 
+                    size="sm" 
+                    rounded
+                >
                     <span class="material-symbols-outlined">{icon}</span>
-                </div>
+                </Button>
             {/each}
         </div>
         <p class="mock-copy">© 2025 — MIT License</p>
@@ -85,7 +92,7 @@
 
 {#snippet minimal_preset()}
     <div class="demo-center">
-        <p class="mock-copy">Built with SvelteKit · {placeholders.navigation.domus} · {placeholders.navigation.respublica}</p>
+        <p class="mock-copy">Built with SvelteKit</p>
     </div>
 {/snippet}
 
@@ -103,7 +110,7 @@
             </span>
         </div>
         <nav class="mock-footer-nav">
-            {#each [placeholders.navigation.domus, placeholders.navigation.respublica, placeholders.navigation.lex] as label}
+            {#each [placeholders.navigation.label1, placeholders.navigation.label2, placeholders.navigation.label3] as label}
                 <span class="mock-footer-link">{label}</span>
             {/each}
         </nav>
@@ -117,57 +124,11 @@
 
 <!-- Controls -->
 
-<div class="footer-controls">
-    <div class="control-group">
-        <span class="control-label">Palette</span>
-        <div class="control-options">
-            {#each (["accent", "tone"] as const) as pal}
-                <button
-                    class="opt-btn"
-                    class:opt-active={demo_palette === pal}
-                    onclick={() => demo_palette = pal}
-                >
-                    {pal}
-                </button>
-            {/each}
-        </div>
-    </div>
-
-    <div class="control-group">
-        <span class="control-label">Rounded</span>
-        <div class="control-options">
-            <button
-                class="opt-btn"
-                class:opt-active={demo_rounded}
-                onclick={() => demo_rounded = true}
-            >
-                yes
-            </button>
-            <button
-                class="opt-btn"
-                class:opt-active={!demo_rounded}
-                onclick={() => demo_rounded = false}
-            >
-                no
-            </button>
-        </div>
-    </div>
-
-    <div class="control-group">
-        <span class="control-label">Preset</span>
-        <div class="control-options">
-            {#each (["social", "minimal", "brand"] as const) as preset}
-                <button
-                    class="opt-btn"
-                    class:opt-active={demo_preset === preset}
-                    onclick={() => demo_preset = preset}
-                >
-                    {preset}
-                </button>
-            {/each}
-        </div>
-    </div>
-</div>
+<ControlBar palette="tone" rounded>
+    <Selector label="Palette" options={["accent", "tone"]} bind:value={demo_palette} />
+    <Selector label="Rounded" options={[{value: true, label: "yes"}, {value: false, label: "no"}]} bind:value={demo_rounded} />
+    <Selector label="Preset"  options={["social", "minimal", "brand"]} bind:value={demo_preset} />
+</ControlBar>
 
 <!-- Live preview -->
 
@@ -228,62 +189,6 @@
 />
 
 <style>
-    /* Controls (same pattern as HeaderDemo) */
-    .footer-controls {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem 2rem;
-        margin-bottom: 1.5rem;
-        padding: 1rem 1.25rem;
-        background: var(--card);
-        border-radius: 10px;
-        border: 1.5px solid var(--highlight);
-    }
-
-    .control-group {
-        display: flex;
-        flex-direction: column;
-        gap: 0.4rem;
-    }
-
-    .control-label {
-        font-size: 0.7rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        color: var(--text-muted);
-    }
-
-    .control-options { 
-        display: flex; 
-        gap: 0.35rem; 
-    }
-
-    .opt-btn {
-        padding: 0.25rem 0.6rem;
-        border-radius: 6px;
-        border: 1.5px solid var(--highlight);
-        background: transparent;
-        color: var(--text-muted);
-        font-size: 0.72rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        font-family: inherit;
-        text-transform: lowercase;
-    }
-
-    .opt-btn:hover { 
-        border-color: var(--accent); 
-        color: var(--accent); 
-    }
-
-    .opt-btn.opt-active { 
-        background: var(--accent); 
-        border-color: var(--accent); 
-        color: var(--text-accent); 
-    }
-
     /* Preview */
     .footer-preview {
         border: 1.5px solid var(--highlight);

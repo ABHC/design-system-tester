@@ -9,6 +9,15 @@ export const translations = {
             name3: "Combe",
             logo_btn: "Retour à l'accueil"
         },
+        welcome: {
+            title: "Styleguide",
+            intro: "Explorez les composants du design system. Testez les variantes, ajustez les paramètres et copiez le code directement depuis la page.",
+            filter_header: "Catégorie",
+            cat_all: "tout",
+            cat_presentation: "présentation",
+            cat_structure: "structure",
+            cat_composants: "composants",
+        },
         control: {
             light: "Clair",
             dark: "Sombre",
@@ -43,34 +52,63 @@ export const translations = {
         },
         buttons: {
             title: "Boutons",
-            primary: "primaire",
-            uppercase: "majuscule",
-            secondary: "secondaire",
-            ghost: "ghost",
-            card: "carte",
-            error: "erreur",
-            warning: "avertissement",
-            success: "succès",
-            info: "information",
-            large: "grand",
-            medium: "moyen",
-            small: "petit",
-            anim_left: "gauche",
-            anim_right: "droite",
-            text: "texte",
-            squared: "carré"
+            back_to_top1: "Boutons spéciaux",
+            back_to_top2: "Au clic font remonter l'utilisateur en haut de la page",
+            lbl_flat: 'variant="flat"',
+            lbl_outlined: 'variant="outlined" — arrondi',
+            lbl_ghost: 'variant="ghost" — sur fond accent (palette="accent") / sur fond neutre (palette="tone")',
+            lbl_textual: 'variant="textual" — accent (sur fond accent) / tone / error / warning / success / info',
+            lbl_sizes: "Tailles — lg / md / sm",
+            lbl_modifiers: "Modificateurs — uppercase / left / top / bottom / right / squared",
+            lbl_active: "(actif)",
         },
         badges: {
             title: "Badges",
+            trailing: "Trailing icon — Utile pour créer des filtres — ",
+            link: "Lien intégré au badge — ",
+            multiple: "BadgeGroup — sélection multiple ou unique"
+        },
+        avatar: {
+            title: "Avatar",
+            sect_sizes: "Tailles — <code>xsm</code> à <code>xlg</code>, sur les combinaisons forme × palette × status",
+            sect_content: "Contenu — <code>label</code> (tronqué à 3 car.) vs <code>src</code> (photo)",
+            sect_status: "Status dots — <code>do-not-disturb</code> utilise un double border",
+            sect_interactive: "Interactif — <code>onclick</code> réservé pour un flyout ou une modale",
+            status_online: "online",
+            status_offline: "offline",
+            status_absent: "absent",
+            status_dnd: "do-not-disturb",
+            click: "click",
+        },
+        modal: {
+            title: "Modal",
+            sect_palette: "Palette — <code>tone</code> (défaut) vs <code>accent</code>",
+            sect_compose: "Composition libre des slots <code>header</code> / <code>children</code> / <code>footer</code>",
+            sect_width: "Largeur — prop <code>width</code> (défaut : 480px, max : 100vw − 2rem)",
+            btn_open_tone: "Ouvrir (tone)",
+            btn_open_accent: "Ouvrir (accent)",
+            btn_open_compose: "Ouvrir composition",
+            btn_open_narrow: "Étroit — 360px",
+            btn_open_wide: "Large — 680px",
         },
         codeblocks: {
             title: "Blocs de code",
         },
         cards: {
-            title: "🃏 Cartes",
+            title: "Cartes",
+            variantes: "Variantes",
+            clickable: "Cartes cliquables (href) — pas de children interactifs",
+            layout: "Header / Body / Footer — avec une image en header", 
+            profile: "Exemple profil — Header / Body / Footer, largeur 100%", 
+            testimonials: "Exemple témoignage — {#each} dans une flexbox parente"
         },
         nav: {
             title: "Navigation",
+            code: "position='fixed'",
+            fixed: "recouvre la fenêtre d'affichage réelle - la preview utilise floating pour ne pas casser le layout",
+        },
+        selector_demo: {
+            title: "Barre de contrôle & Sélecteur",
         },
         tile_grid: {
             title: "Grille de tuiles",
@@ -90,10 +128,28 @@ export const translations = {
         },
         sidebar: {
             title: "Menu latéral",
-            test: "Philippe ! Je sais où tu te caches !"
+            test: "Philippe ! Je sais où tu te caches !",
         },
         list_items: {
             title: "Éléments de liste",
+        },
+        switch_demo: {
+            title: "Interrupteurs",
+            lbl_palette: "Palette",
+            lbl_size: "Taille",
+            lbl_circle: "Circle",
+            lbl_on_bg: "Sur fond neutre (--bg / --card)",
+            lbl_on_accent: "Sur fond accent",
+            lbl_enabled: "Activé",
+            lbl_disabled: "Désactivé",
+            wifi: "Wi-Fi",
+            notifications: "Notifications",
+            light_mode: "Mode clair",
+            dark_mode: "Mode sombre",
+            airplane: "Mode avion",
+            bluetooth: "Bluetooth",
+            sync: "Synchronisation",
+            dnd: "Ne pas déranger",
         },
         form: {
             title: "📋 Formulaires",
@@ -117,7 +173,7 @@ export const translations = {
             title: "Header",
             layout: "Structure", 
             preset_editorial: `<strong>Editorial</strong> — <code>leading</code> wordmark, <code>following</code> liens texte + CTA primaire. Palette <code>tone</code> ou <code>accent</code>.`,
-            preset_app: `<strong>App</strong> — <code>leading</code> logo, <code>following</code> <code>Button variant="nav" squared</code> icône seule. Les tokens <code>--nav-btn-*</code> sont hérités automatiquement via la palette.`,
+            preset_app: `<strong>App</strong> — <code>leading</code> logo, <code>following</code> <code>Button variant="ghost" palette="tone" squared</code> icône seule. La palette est inversée par rapport au Header pour un contraste optimal.`,
             preset_mixed: `<strong>Mixed</strong> — <code>leading</code> logo, <code>children</code> liens de navigation centrés (slot default), <code>following</code> icône + CTA.`,
             bind_visible: `<code>bind:visible</code> — le Header observe lui-même sa visibilité dans le viewport et expose un booléen bindable. Simulation ci-dessous (en prod : déclenché par le scroll).`,
         },
@@ -220,7 +276,8 @@ export const translations = {
         },
         aria: {
             return: "Retour",
-            close: "Fermer"
+            close: "Fermer",
+            back_to_top: "Retour en haut de page"
         }
     },
     en: {
@@ -230,6 +287,15 @@ export const translations = {
             name1: "Alexandre",
             name3: "Combe",
             logo_btn: "Back to home"
+        },
+        welcome: {
+            title: "Styleguide",
+            intro: "Browse the design system components. Test variants, adjust settings and copy the code directly from the page.",
+            filter_header: "Category",
+            cat_all: "all",
+            cat_presentation: "presentation",
+            cat_structure: "structure",
+            cat_composants: "components",
         },
         control: {
             light: "Light",
@@ -265,31 +331,58 @@ export const translations = {
         },
         buttons: {
             title: "Buttons",
-            primary: "primary",
-            uppercase: "uppercase",
-            secondary: "secondary",
-            ghost: "ghost",
-            card: "card",
-            error: "error",
-            warning: "warning",
-            success: "success",
-            info: "information",
-            large: "large",
-            medium: "medium",
-            small: "small",
-            anim_left: "left",
-            anim_right: "right",
-            text: "text",
-            squared: "squared"
+            back_to_top1: "Special buttons",
+            back_to_top2: "Trigger a scroll to the top of the page when clicked",
+            lbl_flat: 'variant="flat"',
+            lbl_outlined: 'variant="outlined" — rounded',
+            lbl_ghost: 'variant="ghost" — on accent background (palette="accent") / on neutral background (palette="tone")',
+            lbl_textual: 'variant="textual" — accent (on accent background) / tone / error / warning / success / info',
+            lbl_sizes: "Sizes — lg / md / sm",
+            lbl_modifiers: "Modifiers — uppercase / left / top / bottom / right / squared",
+            lbl_active: "(active)",
         },
         badges: {
             title: "Badges",
+            trailing: "Trailing icon — Useful for create filters — ",
+            link: "Integrated links to the badge — ",
+            multiple: "BadgeGroup — multiple or single selection"
+        },
+        avatar: {
+            title: "Avatar",
+            sect_sizes: "Sizes — <code>xsm</code> to <code>xlg</code>, across shape × palette × status combinations",
+            sect_content: "Content — <code>label</code> (truncated to 3 chars) vs <code>src</code> (photo)",
+            sect_status: "Status dots — <code>do-not-disturb</code> uses a double border",
+            sect_interactive: "Interactive — <code>onclick</code> reserved for a flyout or modal",
+            status_online: "online",
+            status_offline: "offline",
+            status_absent: "absent",
+            status_dnd: "do-not-disturb",
+            click: "click",
+        },
+        modal: {
+            title: "Modal",
+            sect_palette: "Palette — <code>tone</code> (default) vs <code>accent</code>",
+            sect_compose: "Free slot composition — <code>header</code> / <code>children</code> / <code>footer</code>",
+            sect_width: "Width — <code>width</code> prop (default: 480px, max: 100vw − 2rem)",
+            btn_open_tone: "Open (tone)",
+            btn_open_accent: "Open (accent)",
+            btn_open_compose: "Open composition",
+            btn_open_narrow: "Narrow — 360px",
+            btn_open_wide: "Wide — 680px",
         },
         codeblocks: {
             title: "Code blocks",
         },
         cards: {
-            title: "🃏 Cards"
+            title: "Cards",
+            variantes: "Variants",
+            clickable: "Clickable card (href) — no interactive children",
+            layout: "Header / Body / Footer — with an image header", 
+            profile: "Profile card Example — Header / Body / Footer, width 100%", 
+            testimonials: "Testimonials Example — as {#each} in a flexbox"
+        },
+        selector_demo: {
+            title: "ControlBar & Selector",
         },
         tile_grid: {
             title: "Tile Grid",
@@ -305,10 +398,12 @@ export const translations = {
             tab_background: "Image bg",
             tab_flat: "Flat",
             tab_decorative: "Decorative",
-            tab_hero_full: "Full hero",
+            tab_hero_full: "Full hero",            
         },
         nav: {
-            title: "Navigation"
+            title: "Navigation",
+            code: "position='fixed'",
+            fixed: "overlays the real viewport - preview uses floating for layout safety",
         },
         sidebar: {
             title: "Sidebar",
@@ -316,6 +411,24 @@ export const translations = {
         },
         list_items: {
             title: "List Items",
+        },
+        switch_demo: {
+            title: "Switches",
+            lbl_palette: "Palette",
+            lbl_size: "Size",
+            lbl_circle: "Circle",
+            lbl_on_bg: "On neutral surface (--bg / --card)",
+            lbl_on_accent: "On accent surface",
+            lbl_enabled: "Enabled",
+            lbl_disabled: "Disabled",
+            wifi: "Wi-Fi",
+            notifications: "Notifications",
+            light_mode: "Light mode",
+            dark_mode: "Dark mode",
+            airplane: "Airplane mode",
+            bluetooth: "Bluetooth",
+            sync: "Sync",
+            dnd: "Do not disturb",
         },
         form: {
             title: "📋 Forms",
@@ -339,7 +452,7 @@ export const translations = {
             title : "Header",
             layout: "Layout", 
             preset_editorial: `<strong>Editorial</strong> — <code>leading</code> wordmark, <code>following</code> text links + primary CTA. <code>tone</code> or <code>accent</code> palette.`,
-            preset_app: `<strong>App</strong> — <code>leading</code> logo, <code>following</code> <code>Button variant="nav" squared</code> icon-only. The <code>--nav-btn-*</code> tokens are inherited automatically via the palette.`,
+            preset_app: `<strong>App</strong> — <code>leading</code> logo, <code>following</code> <code>Button variant="ghost" palette="tone" squared</code> icon-only. Palette is inverted relative to the Header for optimal contrast.`,
             preset_mixed: `<strong>Mixed</strong> — <code>leading</code> logo, <code>children</code> centred navigation links (default slot), <code>following</code> icon + CTA.`,
             bind_visible: `<code>bind:visible</code> — the Header observes its own viewport visibility and exposes a bindable boolean. Simulated below (in production: triggered by scroll).`,
         },
@@ -443,7 +556,8 @@ export const translations = {
         },
         aria: {
             return: "Return",
-            close: "Close"
+            close: "Close",
+            back_to_top: "Back to top"
         }
     }
 };

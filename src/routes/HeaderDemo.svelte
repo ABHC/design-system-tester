@@ -6,6 +6,8 @@
     import Header  from "../design-system/components/Header/Header.svelte";
     import Button  from "../design-system/components/Button/Button.svelte";
     import Callout from "../design-system/components/Callout/Callout.svelte";
+    import Selector from "../design-system/components/Selector/Selector.svelte";
+    import ControlBar from "../design-system/components/Selector/ControlBar.svelte";
     import CodeBlock from "../design-system/components/CodeBlock/CodeBlock.svelte";
 
     interface Props {
@@ -26,10 +28,10 @@
     let header_sim_visible: boolean = $state(true);
 
     const nav_labels = $derived([
-        placeholders.navigation.domus,
-        placeholders.navigation.respublica,
-        placeholders.navigation.lex,
-        placeholders.navigation.epistola,
+        placeholders.navigation.label1,
+        placeholders.navigation.label2,
+        placeholders.navigation.label3,
+        placeholders.navigation.label4,
     ]);
 
     // ── Code examples ────────────────────────────────────────────────────────
@@ -43,15 +45,15 @@
 {/snippet}
 
 {#snippet actions()}
-    <Button variant="text">Work</Button>
-    <Button variant="text">About</Button>
-    <Button variant="text">Blog</Button>
-    <Button variant="primary" size="sm">Contact</Button>
+    <Button variant="textual">Work</Button>
+    <Button variant="textual">About</Button>
+    <Button variant="textual">Blog</Button>
+    <Button variant="flat" size="sm">Contact</Button>
 {/snippet}
 
 <Header palette="tone" leading={wordmark} following={actions} />`;
 
-    const code_app = `<!-- App header — accent palette, icon-only squared nav buttons -->
+    const code_app = `<!-- App header — accent palette, icon-only squared ghost buttons -->
 {#snippet logo()}
     <div class="logo">
         <span class="material-symbols-outlined">deployed_code</span>
@@ -60,13 +62,13 @@
 {/snippet}
 
 {#snippet toolbar()}
-    <Button variant="nav" squared aria_label="Search">
+    <Button variant="ghost" palette="accent" squared aria_label="Search">
         <span class="material-symbols-outlined">search</span>
     </Button>
-    <Button variant="nav" squared aria_label="Notifications">
+    <Button variant="ghost" palette="accent" squared aria_label="Notifications">
         <span class="material-symbols-outlined">notifications</span>
     </Button>
-    <Button variant="nav" squared aria_label="Account">
+    <Button variant="ghost" palette="accent" squared aria_label="Account">
         <span class="material-symbols-outlined">account_circle</span>
     </Button>
 {/snippet}
@@ -77,19 +79,19 @@
 {#snippet logo()}…{/snippet}
 
 {#snippet actions()}
-    <Button variant="nav" squared aria_label="Settings">
+    <Button variant="ghost" palette="tone" squared aria_label="Settings">
         <span class="material-symbols-outlined">settings</span>
     </Button>
-    <Button variant="primary" size="sm">Sign up</Button>
+    <Button size="sm">Sign up</Button>
 {/snippet}
 
 <!-- Nav links go in the children slot — pass as prop or inline between tags -->
 <Header palette="tone" leading={logo} following={actions}>
     <nav style="display:flex; gap: 0.5rem;">
-        <Button variant="text">Domus</Button>
-        <Button variant="text">Curia</Button>
-        <Button variant="text">Lex</Button>
-        <Button variant="text">Epistola</Button>
+        <Button variant="textual">Domus</Button>
+        <Button variant="textual">Curia</Button>
+        <Button variant="textual">Lex</Button>
+        <Button variant="textual">Epistola</Button>
     </nav>
 </Header>`;
 
@@ -139,13 +141,15 @@ let header_visible = $state(true);
         </div>
         <div class="demo-actions">
             {#each nav_labels as label}
-                <Button variant="text">{label}</Button>
+                <Button variant="textual" palette={demo_palette}>{label}</Button>
             {/each}
-            {#if demo_palette === "accent"}
-                <Button variant="ghost" size="sm">Contact</Button>
-            {:else}
-                <Button variant="primary" size="sm">Contact</Button>
-            {/if}
+            <Button 
+                variant="flat" 
+                palette={demo_palette === "accent" ? "tone" : "accent"} 
+                size="sm"
+            >
+                {placeholders.navigation.label5}
+            </Button>
         </div>
     </div>
 {/snippet}
@@ -162,13 +166,13 @@ let header_visible = $state(true);
             <span class="mock-name">AppName</span>
         </div>
         <div class="demo-actions">
-            <Button variant="nav" squared aria_label="Search">
+            <Button variant="ghost" palette={demo_palette} squared aria_label="Search">
                 <span class="material-symbols-outlined">search</span>
             </Button>
-            <Button variant="nav" squared aria_label="Notifications">
+            <Button variant="ghost" palette={demo_palette} squared aria_label="Notifications">
                 <span class="material-symbols-outlined">notifications</span>
             </Button>
-            <Button variant="nav" squared aria_label="Account">
+            <Button variant="ghost" palette={demo_palette} squared aria_label="Account">
                 <span class="material-symbols-outlined">account_circle</span>
             </Button>
         </div>
@@ -188,18 +192,14 @@ let header_visible = $state(true);
         </div>
         <nav class="demo-nav">
             {#each nav_labels as label}
-                <Button variant="text">{label}</Button>
+                <Button variant="textual" palette={demo_palette}>{label}</Button>
             {/each}
         </nav>
         <div class="demo-actions">
-            <Button variant="nav" squared aria_label="Settings">
+            <Button variant="ghost" palette={demo_palette} squared aria_label="Settings">
                 <span class="material-symbols-outlined">settings</span>
             </Button>
-            {#if demo_palette === "accent"}
-                <Button variant="ghost" size="sm">Sign up</Button>
-            {:else}
-                <Button variant="primary" size="sm">Sign up</Button>
-            {/if}
+            <Button variant="flat" palette={demo_palette === "accent" ? "tone" : "accent"} size="sm">Sign up</Button>
         </div>
     </div>
 {/snippet}
@@ -218,55 +218,11 @@ let header_visible = $state(true);
 
 <!-- Controls ─────────────────────────────────────────────────────────── -->
 
-<div class="header-controls">
-    <div class="control-group">
-        <span class="control-label">Palette</span>
-        <div class="control-options">
-            {#each (["tone", "accent"] as const) as pal}
-                <button
-                    class="opt-btn"
-                    class:opt-active={demo_palette === pal}
-                    onclick={() => demo_palette = pal}
-                >{pal}</button>
-            {/each}
-        </div>
-    </div>
-
-    <div class="control-group">
-        <span class="control-label">Rounded</span>
-        <div class="control-options">
-            <button 
-                class="opt-btn" 
-                class:opt-active={demo_rounded}  
-                onclick={() => demo_rounded = true}
-            >
-                yes
-            </button>
-            <button 
-                class="opt-btn" 
-                class:opt-active={!demo_rounded} 
-                onclick={() => demo_rounded = false}
-            >
-                no
-            </button>
-        </div>
-    </div>
-
-    <div class="control-group">
-        <span class="control-label">Preset</span>
-        <div class="control-options">
-            {#each (["editorial", "app", "mixed"] as const) as preset}
-                <button
-                    class="opt-btn"
-                    class:opt-active={demo_preset === preset}
-                    onclick={() => demo_preset = preset}
-                >
-                    {preset}
-                </button>
-            {/each}
-        </div>
-    </div>
-</div>
+<ControlBar palette="tone" rounded>
+    <Selector label="Palette" options={["tone", "accent"]} bind:value={demo_palette} />
+    <Selector label="Rounded" options={[{value: true, label: "yes"}, {value: false, label: "no"}]} bind:value={demo_rounded} />
+    <Selector label="Preset"  options={["editorial", "app", "mixed"]} bind:value={demo_preset} />
+</ControlBar>
 
 <!-- Live preview ──────────────────────────────────────────────────────── -->
 
@@ -384,62 +340,6 @@ let header_visible = $state(true);
 />
 
 <style>
-    /* ---- Controls (same pattern as NavDemo) ---- */
-    .header-controls {
-        display: flex;
-        flex-wrap:wrap;
-        gap: 1rem 2rem;
-        margin-bottom: 1.5rem;
-        padding: 1rem 1.25rem;
-        background: var(--card);
-        border-radius: 10px;
-        border: 1.5px solid var(--highlight);
-    }
-
-    .control-group {
-        display: flex;
-        flex-direction: column;
-        gap: 0.4rem;
-    }
-
-    .control-label {
-        font-size: 0.7rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        color: var(--text-muted);
-    }
-
-    .control-options { 
-        display: flex; 
-        gap: 0.35rem; 
-    }
-
-    .opt-btn {
-        padding: 0.25rem 0.6rem;
-        border-radius: 6px;
-        border: 1.5px solid var(--highlight);
-        background: transparent;
-        color: var(--text-muted);
-        font-size: 0.72rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        font-family: inherit;
-        text-transform: lowercase;
-    }
-
-    .opt-btn:hover { 
-        border-color: var(--accent); 
-        color: var(--accent); 
-    }
-
-    .opt-btn.opt-active { 
-        background: var(--accent); 
-        border-color: var(--accent); 
-        color: var(--text-accent); 
-    }
-
     /* ---- Preview ---- */
     .header-preview {
         border: 1.5px solid var(--highlight);

@@ -2,20 +2,25 @@
     import type { AccentTheme, ToneTheme, ContextualColors } from "$lib/types/palettes";
     import type { Translation } from "$lib/types/translations";
     import type { PlaceholdersType } from "./placeholders";
-    import Contrast from './contrast/Contrast.svelte';
-    import Colorblind from './contrast/Colorblind.svelte';
-    import Headline from "../design-system/components/Headline/Headline.svelte";
-    import BadgeDemo from "./BadgeDemo.svelte";
-    import ButtonDemo from "./ButtonDemo.svelte";
-    import NavDemo from "./NavDemo.svelte";
-    import ListItemDemo from "./ListItemDemo.svelte";
-    import SidebarDemo from "./SidebarDemo.svelte";
+    import Headline      from "../design-system/components/Headline/Headline.svelte";
+    import Button        from "../design-system/components/Button/Button.svelte";
+    import Welcome       from "./Welcome.svelte";
+    import BadgeDemo     from "./BadgeDemo.svelte";
+    import ButtonDemo    from "./ButtonDemo.svelte";
+    import NavDemo       from "./NavDemo.svelte";
+    import ListItemDemo  from "./ListItemDemo.svelte";
+    import SidebarDemo   from "./SidebarDemo.svelte";
     import CodeBlockDemo from "./CodeBlockDemo.svelte";
-	import TileGridDemo from "./TileGridDemo.svelte";
-    import HeaderDemo from "./HeaderDemo.svelte";
-    import FooterDemo  from "./FooterDemo.svelte";
-    import CalloutDemo from "./CalloutDemo.svelte";
-    import AlertDemo from "./AlertDemo.svelte";
+    import TileGridDemo  from "./TileGridDemo.svelte";
+    import SelectorDemo  from "./SelectorDemo.svelte";
+    import HeaderDemo    from "./HeaderDemo.svelte";
+    import FooterDemo    from "./FooterDemo.svelte";
+    import CalloutDemo   from "./CalloutDemo.svelte";
+    import AlertDemo     from "./AlertDemo.svelte";
+    import CardDemo      from "./CardDemo.svelte";
+    import AvatarDemo    from "./AvatarDemo.svelte";
+    import ModalDemo     from "./ModalDemo.svelte";
+    import SwitchDemo    from "./SwitchDemo.svelte";
 
     // Props
     interface Props {
@@ -38,153 +43,185 @@
         selected_ctx,
     }: Props = $props();
 
+    // ── Filtrage par catégorie ─────────────────────────────────────────────
+
+    type Category = "all" | "presentation" | "structure" | "composants";
+
+    let selected_category: Category = $state("all");
+
+    function show(cats: Category[]): boolean {
+        return selected_category === "all" || cats.includes(selected_category);
+    }
+
 </script>
 
 <!-- Main Content -->
 <div class="content">
 
-    <!-- Typography -->
-    <Headline size="md" uppercase>
-        {trans?.typo.title}
-    </Headline>
+    <Welcome trans={trans} bind:selected_category />
 
-    <div class="demo-section typography-demo">
-        <h1>{trans?.typo.h1} - {placeholders.typography.h1_context}</h1>
-        <h2>{trans?.typo.h2} - {placeholders.typography.h2_context}</h2>
-        <h3>{trans?.typo.h3} - {placeholders.typography.h3_context}</h3>
-        <h4>{trans?.typo.h4} - {placeholders.typography.h4_context}</h4>
-        <h5>{trans?.typo.h5} - {placeholders.typography.h5_context}</h5>
-        <h6>{trans?.typo.h6} - {placeholders.typography.h6_context}</h6>
-        <p class="lead">
-            {placeholders.typography.lead}
-        </p>
-        <p>
-            {placeholders.typography.body}
-        </p>
+    <!-- Typographie ── présentation -->
+    <div id="demo-typo">
+        {#if show(["presentation"])}
+            <Headline size="md" uppercase>{trans?.typo.title}</Headline>
+            <div class="demo-section typography-demo">
+                <h1>{trans?.typo.h1} - {placeholders.typography.h1_context}</h1>
+                <h2>{trans?.typo.h2} - {placeholders.typography.h2_context}</h2>
+                <h3>{trans?.typo.h3} - {placeholders.typography.h3_context}</h3>
+                <h4>{trans?.typo.h4} - {placeholders.typography.h4_context}</h4>
+                <h5>{trans?.typo.h5} - {placeholders.typography.h5_context}</h5>
+                <h6>{trans?.typo.h6} - {placeholders.typography.h6_context}</h6>
+                <p class="lead">{placeholders.typography.lead}</p>
+                <p>{placeholders.typography.body}</p>
+            </div>
+        {/if}
     </div>
 
-    <!-- Header -->
-    <HeaderDemo
-        trans={trans}
-        placeholders={placeholders}
-    />
+    <!-- Header ── structure -->
+    <div id="demo-header">
+        {#if show(["structure"])}
+            <HeaderDemo trans={trans} placeholders={placeholders} />
+        {/if}
+    </div>
 
-    <!-- Footer -->
-    <FooterDemo
-        trans={trans}
-        placeholders={placeholders}
-    />
+    <!-- Footer ── structure -->
+    <div id="demo-footer">
+        {#if show(["structure"])}
+            <FooterDemo trans={trans} placeholders={placeholders} />
+        {/if}
+    </div>
 
-    <!-- Callout -->
-    <CalloutDemo
-        trans={trans}
-        placeholders={placeholders}
-    />
+    <!-- Callout ── composants -->
+    <div id="demo-callout">
+        {#if show(["composants"])}
+            <CalloutDemo trans={trans} placeholders={placeholders} />
+        {/if}
+    </div>
 
-    <!-- Alert -->
-    <AlertDemo
-        trans={trans}
-        placeholders={placeholders}
-    />
+    <!-- Alert ── composants -->
+    <div id="demo-alert">
+        {#if show(["composants"])}
+            <AlertDemo trans={trans} placeholders={placeholders} />
+        {/if}
+    </div>
 
-    <!-- Buttons -->
-    <ButtonDemo
-        trans={trans}
-        placeholders={placeholders}
-    />
+    <!-- Button ── composants -->
+    <div id="demo-button">
+        {#if show(["composants"])}
+            <ButtonDemo trans={trans} placeholders={placeholders} />
+        {/if}
+    </div>
 
-    <!-- Badges -->
-    <BadgeDemo
-        trans={trans}
-        placeholders={placeholders}
-    />
+    <!-- Badge ── composants -->
+    <div id="demo-badge">
+        {#if show(["composants"])}
+            <BadgeDemo trans={trans} placeholders={placeholders} />
+        {/if}
+    </div>
 
-    <!-- List Items -->
-    <ListItemDemo
-        trans={trans}
-        placeholders={placeholders}
-    />
+    <!-- ListItem ── composants -->
+    <div id="demo-listitem">
+        {#if show(["composants"])}
+            <ListItemDemo trans={trans} placeholders={placeholders} />
+        {/if}
+    </div>
 
-    <!-- Tile Grid -->
-    <TileGridDemo
-        trans={trans}
-    />
+    <!-- Switch ── composants -->
+    <div id="demo-switch">
+        {#if show(["composants"])}
+            <SwitchDemo trans={trans} placeholders={placeholders} />
+        {/if}
+    </div>
 
-    <!-- Navs -->
-    <NavDemo 
-        trans={trans}
-        placeholders={placeholders}
-    />
+    <!-- ControlBar / Selector ── structure -->
+    <div id="demo-selector">
+        {#if show(["structure"])}
+            <SelectorDemo trans={trans} placeholders={placeholders} />
+        {/if}
+    </div>
 
-    <!-- Sidebar -->
-    <SidebarDemo
-        trans={trans}
-        placeholders={placeholders}
-    />
+    <!-- TileGrid ── structure -->
+    <div id="demo-tilegrid">
+        {#if show(["structure"])}
+            <TileGridDemo trans={trans} placeholders={placeholders} />
+        {/if}
+    </div>
 
-    <!-- Code blocks -->
-    <CodeBlockDemo
-        trans={trans}
-        placeholders={placeholders}
-    />
+    <!-- Nav ── structure -->
+    <div id="demo-nav">
+        {#if show(["structure"])}
+            <NavDemo trans={trans} placeholders={placeholders} />
+        {/if}
+    </div>
 
-    <!-- Cards -->
-    <div class="demo-section">
-        <h2 class="section-title">{trans?.cards.title}</h2>
-        <div class="demo-grid">
-            {#each placeholders.cards.provinces as province, index}
-                <div class="card">
-                    <div class="card-title">{province.name}</div>
-                    <div class="card-text">
-                        {province.description}
+    <!-- Sidebar ── structure -->
+    <div id="demo-sidebar">
+        {#if show(["structure"])}
+            <SidebarDemo trans={trans} placeholders={placeholders} />
+        {/if}
+    </div>
+
+    <!-- CodeBlock ── présentation -->
+    <div id="demo-codeblock">
+        {#if show(["presentation"])}
+            <CodeBlockDemo trans={trans} placeholders={placeholders} />
+        {/if}
+    </div>
+
+    <!-- Card ── composants -->
+    <div id="demo-card">
+        {#if show(["composants"])}
+            <CardDemo trans={trans} placeholders={placeholders} />
+        {/if}
+    </div>
+
+    <!-- Avatar ── composants -->
+    <div id="demo-avatar">
+        {#if show(["composants"])}
+            <AvatarDemo trans={trans} placeholders={placeholders} />
+        {/if}
+    </div>
+
+    <!-- Modal ── composants -->
+    <div id="demo-modal">
+        {#if show(["composants"])}
+            <ModalDemo trans={trans} placeholders={placeholders} />
+        {/if}
+    </div>
+
+    <!-- Forms ── présentation -->
+    <div id="demo-forms">
+        {#if show(["presentation"])}
+            <div class="demo-section">
+                <h2 class="section-title">{trans?.form.title}</h2>
+                <div class="form-wrapper">
+                    <div class="form-group">
+                        <label for="name-input" class="form-label">{trans?.form.name}</label>
+                        <input id="name-input" type="text" class="form-input" placeholder={placeholders.form.placeholder_name}>
                     </div>
-                    <div class="card-meta">
-                        <span class="badge">{province.badge}</span>
-                        <span style="margin-left: 10px;">{province.date}</span>
+                    <div class="form-group">
+                        <label for="email-input" class="form-label">{trans?.form.email}</label>
+                        <input id="email-input" type="email" class="form-input" placeholder={placeholders.form.placeholder_email}>
                     </div>
-                    <div style="margin-top: 15px;">
-                        {#if index === 2}
-                            <button class="button button-ghost">Explore</button>
-                        {:else}
-                            <button class="button button-primary">Explore</button>
-                        {/if}
+                    <div class="form-group">
+                        <label for="message-textarea" class="form-label">{trans?.form.message}</label>
+                        <textarea id="message-textarea" class="form-input" rows="4" placeholder={placeholders.form.placeholder_message}></textarea>
                     </div>
+                    <Button variant="flat">{trans?.form.send}</Button>
                 </div>
-            {/each}
-        </div>
-    </div>
-
-    <!-- Forms -->
-    <div class="demo-section">
-        <h2 class="section-title">{trans?.form.title}</h2>
-        <div class="card card-form">
-            <div class="form-group">
-                <label for="name-input" class="form-label">{trans?.form.name}</label>
-                <input id="name-input" type="text" class="form-input" placeholder={placeholders.form.placeholder_name}>
             </div>
-            <div class="form-group">
-                <label for="email-input" class="form-label">{trans?.form.email}</label>
-                <input id="email-input" type="email" class="form-input" placeholder={placeholders.form.placeholder_email}>
-            </div>
-            <div class="form-group">
-                <label for="message-textarea" class="form-label">{trans?.form.message}</label>
-                <textarea id="message-textarea" class="form-input" rows="4" placeholder={placeholders.form.placeholder_message}></textarea>
-            </div>
-            <button class="button button-primary">{trans?.form.send}</button>
-        </div>
+        {/if}
     </div>
 
 </div>
 
 <style>
-    /* Main Content */
     .content {
         max-width: 1400px;
         margin: 0 auto;
         padding: 10px 40px 40px;
     }
 
-    /* Demo Sections */
     .demo-section {
         margin-bottom: 40px;
     }
@@ -194,128 +231,46 @@
         color: var(--text);
     }
 
-    .demo-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-        gap: 20px;
-    }
-
-    /* Card Component */
-    .card {
-        background: var(--card);
-        padding: 25px;
-        border-radius: 12px;
-        box-shadow: 0 2px 8px var(--overlay);
-    }
-
-    .card-title {
-        font-size: 20px;
-        font-weight: 600;
-        margin-bottom: 12px;
-        color: var(--text);
-    }
-
-    .card-text {
-        font-size: 15px;
-        line-height: 1.6;
-        margin-bottom: 15px;
-        color: var(--text);
-    }
-
-    .card-meta {
-        font-size: 13px;
-        color: var(--text-muted);
-    }
-
-    .card-form {
-        display: flex;
+    .form-wrapper {
+        background:     var(--card);
+        padding:        1.5rem;
+        border-radius:  12px;
+        display:        flex;
         flex-direction: column;
-        align-items: flex-start;
-        width: 100%;
-        max-width: 600px;
+        align-items:    flex-start;
+        width:          100%;
+        max-width:      600px;
     }
 
-    /* Buttons */
-    .button {
-        display: inline-block;
-        padding: 12px 24px;
-        border-radius: 8px;
-        font-weight: 600;
-        cursor: pointer;
-        border: none;
-        font-size: 14px;
-        transition: all 0.2s;
-        text-decoration: none;
-    }
-
-    .button-primary {
-        background: var(--accent);
-        color: var(--text-accent);
-    }
-
-    .button-primary:hover {
-        background: var(--accent-invert);
-    }
-
-    .button-ghost {
-        background: var(--highlight);
-        color: var(--text);
-    }
-
-    .button-ghost:hover {
-        background: var(--accent);
-        color: var(--text-accent);
-    }
-
-    .badge {
-        display: inline-block;
-        width: fit-content;
-        padding: .35rem .75rem;
-        background: var(--accent);
-        color: var(--text-accent);
-        border-radius: 12px;
-        font-size: .75rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    /* Forms */
     .form-group {
-        margin-bottom: 20px;
-        display: flex;
+        margin-bottom:  20px;
+        display:        flex;
         flex-direction: column;
-        width: 100%;
+        width:          100%;
     }
 
     .form-label {
-        display: block;
+        display:       block;
         margin-bottom: 8px;
-        font-weight: 500;
-        color: var(--text);
+        font-weight:   500;
+        color:         var(--text);
     }
 
     .form-input {
-        padding: 12px;
-        border: 2px solid var(--highlight);
-        background: var(--bg);
-        color: var(--text);
+        padding:       12px;
+        border:        2px solid var(--highlight);
+        background:    var(--bg);
+        color:         var(--text);
         border-radius: 6px;
-        font-size: 14px;
+        font-size:     14px;
     }
 
     .form-input:focus {
-        outline: none;
+        outline:      none;
         border-color: var(--accent);
     }
 
     @media (max-width: 768px) {
-        .demo-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .content {
-            padding: 10px 20px 40px;
-        }
+        .content { padding: 10px 20px 40px; }
     }
 </style>

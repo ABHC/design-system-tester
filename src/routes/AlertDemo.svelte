@@ -232,22 +232,30 @@
 
     .trigger-info    { 
         background: color-mix(in srgb, var(--ctx-info) 12%, var(--highlight) 88%); 
-        color: var(--ctx-info);    border-left: 3px solid var(--ctx-info);    
+        color: var(--ctx-info);    
+        border-left: 3px solid var(--ctx-info);    
     }
 
     .trigger-success { 
         background: color-mix(in srgb, var(--ctx-success) 12%, var(--highlight) 88%); 
-        color: var(--ctx-success); border-left: 3px solid var(--ctx-success); 
+        color: var(--ctx-success); 
+        border-left: 3px solid var(--ctx-success); 
     }
 
     .trigger-warning { 
         background: color-mix(in srgb, var(--ctx-warning) 12%, var(--highlight) 88%); 
-        color: var(--ctx-warning); border-left: 3px solid var(--ctx-warning); 
+        color: var(--ctx-warning); 
+        border-left: 3px solid var(--ctx-warning); 
     }
     
     .trigger-error   {
         background: color-mix(in srgb, var(--ctx-error) 12%, var(--highlight) 88%);
-        color: var(--ctx-error);   border-left: 3px solid var(--ctx-error);
+        color: var(--ctx-error); 
+        border-left: 3px solid var(--ctx-error);
+    }
+
+    .trigger-meta {
+        color: var(--text);
     }
 
 

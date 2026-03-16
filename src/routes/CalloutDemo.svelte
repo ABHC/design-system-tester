@@ -31,13 +31,13 @@
     <p>La lex a été promulguée avec succès.</p>
 </Callout>
 
-<!-- Leading + following — Button variant="muted" hérite de --cb-color -->
+<!-- Leading + following — Button variant="ghost" palette="tone" hérite de --cb-color -->
 {#snippet warn_icon()}
     <span class="material-symbols-outlined">warning</span>
 {/snippet}
 
 {#snippet dismiss()}
-    <Button variant="muted" size="sm">Ignorer</Button>
+    <Button variant="ghost" palette="tone" size="sm">Ignorer</Button>
 {/snippet}
 
 <Callout variant="warning" leading={warn_icon} following={dismiss}>
@@ -52,7 +52,7 @@
 {/snippet}
 
 {#snippet action()}
-    <Button variant="muted" size="sm">En savoir plus</Button>
+    <Button variant="ghost" palette="tone" size="sm">En savoir plus</Button>
 {/snippet}
 
 <Callout variant="accent" align="start" rounded leading={tip_icon} following={action}>
@@ -98,11 +98,11 @@
             <span class="material-symbols-outlined">check_circle</span>
         {/snippet}
         {#snippet children()}
-            <strong>Success</strong>
+            <strong>{placeholders?.callout.success_label}</strong>
             <p>{placeholders.callout?.success ?? "The operation completed successfully."}</p>
         {/snippet}
         {#snippet following()}
-            <Button variant="muted" size="sm">View</Button>
+            <Button variant="ghost" palette="tone" size="sm">View</Button>
         {/snippet}
     </Callout>
 
@@ -115,7 +115,7 @@
             <p>{placeholders.callout?.warning ?? "Proceed with caution."}</p>
         {/snippet}
         {#snippet following()}
-            <Button variant="muted" size="sm">Dismiss</Button>
+            <Button variant="ghost" palette="tone" size="sm">Dismiss</Button>
         {/snippet}
     </Callout>
 
@@ -125,12 +125,29 @@
             <span class="material-symbols-outlined">error</span>
         {/snippet}
         {#snippet children()}
-            <strong>Error</strong>
-            <p>{placeholders.callout?.error ?? "Something went wrong."}</p>
+            <strong>{placeholders?.callout.error_label}</strong>
+            <p>{placeholders?.callout.error}</p>
         {/snippet}
     </Callout>
 
-    <!-- 5. accent — Tip, leading, align="start", <code>, rounded -->
+    <!-- 5. neutral — leading, align="center", not rounded -->
+    <Callout variant="neutral" align="center">
+        {#snippet leading()}
+            <span class="material-symbols-outlined">
+                chat_bubble
+            </span>
+        {/snippet}
+        {#snippet children()}
+            <strong>
+                {placeholders?.callout.note_label}
+            </strong>
+            <p>
+                {placeholders.callout?.neutral ?? "A neutral annotation."}
+            </p>
+        {/snippet}
+    </Callout>
+
+    <!-- 6. accent — Tip, leading, align="start", <code>, rounded -->
     <Callout variant="accent" align="start" rounded>
         {#snippet leading()}
             <span class="material-symbols-outlined">lightbulb</span>
@@ -141,28 +158,10 @@
                 Composez librement <code>leading</code>, <code>children</code> et <code>following</code>.
                 Le slot <code>leading</code> hérite de <code>--cb-color</code> automatiquement.
                 Préférez <code>align="start"</code> pour du contenu multi-lignes — l'icône s'ancre en haut.
-                Un <code>Button variant="muted"</code> placé en <code>following</code> adopte la couleur du callout parent.
+                Un <code>Button variant="ghost" palette="tone"</code> placé en <code>following</code> adopte la couleur du callout parent.
             </p>
         {/snippet}
     </Callout>
-
-    <!-- 6. neutral — leading, align="center", not rounded -->
-    <Callout variant="neutral" align="center">
-        {#snippet leading()}
-            <span class="material-symbols-outlined">
-                chat_bubble
-            </span>
-        {/snippet}
-        {#snippet children()}
-            <strong>
-                Note
-            </strong>
-            <p>
-                {placeholders.callout?.neutral ?? "A neutral annotation."}
-            </p>
-        {/snippet}
-    </Callout>
-
 
 </div>
 
