@@ -4,12 +4,14 @@
 
     type Palette  = "tone" | "accent";
     type Position = "left" | "right";
+    type Elevation = "none" | "subtle" | "hard";
 
     interface Props {
-        palette?:  Palette;
+        palette?: Palette;
         round?: boolean;
         outlined?: boolean;
         position?: Position;
+        elevation?: Elevation;
     }
 
     let {
@@ -17,12 +19,13 @@
         round = false,
         outlined = false,
         position = "right",
+        elevation = "none",
     }: Props = $props();
 
     const resolve = createVariant(backToTopConfig);
 
     const classes = $derived(
-        resolve({ palette, round, outlined, position })
+        resolve({ palette, round, outlined, position, elevation })
     );
 
     let visible: boolean = $state(false);
@@ -78,7 +81,13 @@
         z-index: 100;
         opacity: 0;
         pointer-events:  none;
-        transition: opacity 0.25s ease, transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+        transition: 
+            opacity 0.25s ease, 
+            transform 0.2s ease, 
+            box-shadow 0.2s ease, 
+            background 0.2s ease, 
+            color 0.2s ease, 
+            border-color 0.2s ease;
     }
 
     .btt-visible {
@@ -103,22 +112,12 @@
         color: var(--text);
     }
 
-    .btt-tone:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 4px 12px var(--muted-shadow);
-    }
-
     /* Palette accent ──────────────────────────────────── */
 
     .btt-accent {
         background: var(--accent);
         border-color: var(--accent);
         color: var(--text-accent);
-    }
-
-    .btt-accent:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 4px 12px var(--muted-shadow);
     }
 
     /*  Outlined modifier ───────────────────────────────── */
@@ -132,7 +131,6 @@
     .btt-outlined.btt-tone:hover {
         border-color: var(--accent);
         color: var(--accent);
-        transform: translateY(-3px);
         box-shadow: none;
     }
 
@@ -145,7 +143,28 @@
     .btt-outlined.btt-accent:hover {
         background: var(--accent);
         color: var(--text-accent);
-        transform: translateY(-3px);
         box-shadow: none;
+    }
+
+    /* Elevation — appears on hover ───────────────────────────────────── */
+
+    .btt-elevation-subtle:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px var(--shadow-subtle);
+    }
+
+    .btt-elevation-hard:hover {
+        transform: translateX(-2px) translateY(-2px);
+        box-shadow: 6px 6px var(--shadow);
+    }
+
+    .btt-outlined.btt-elevation-subtle:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px var(--shadow-subtle);
+    }
+
+    .btt-outlined.btt-elevation-hard:hover {
+        transform: translateX(-2px) translateY(-2px);
+        box-shadow: 6px 6px var(--shadow);
     }
 </style>

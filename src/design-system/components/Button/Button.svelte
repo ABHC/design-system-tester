@@ -7,16 +7,19 @@
     type Palette = "accent" | "tone" | "error" | "warning" | "success" | "info";
     type Size = "sm" | "md" | "lg";
     type Animate = "left" | "right" | "top" | "bottom";
+    type Elevation = "none" | "subtle" | "hard";
+    type Direction = "row" | "column"
 
     interface Props {
         variant?: Variant;
         palette?: Palette;
         size?: Size;
+        elevation?: Elevation;
         uppercase?: boolean;
         animate?: Animate;
         active?: boolean;
         rounded?: boolean;
-        squared?: boolean;
+        direction?: Direction;
         aria_label?: string;
         onclick?: () => void;
         children?: Snippet;
@@ -26,11 +29,12 @@
         variant = "flat",
         palette = "accent",
         size = "md",
+        elevation = "none",
         uppercase = false,
         animate = undefined,
         active = false,
         rounded = false,
-        squared = false,
+        direction = "row",
         aria_label = undefined,
         onclick = undefined,
         children,
@@ -39,7 +43,17 @@
     const resolve = createVariant(buttonConfig);
 
     const classes = $derived(
-        resolve({ variant, palette, size, animate, uppercase, active, rounded, squared }).trim()
+        resolve({
+            variant,
+            palette,
+            size,
+            elevation,
+            animate,
+            uppercase,
+            active,
+            rounded,
+            direction
+        }).trim()
     );
 </script>
 
@@ -98,7 +112,7 @@
     }
 
     .btn-ghost:hover {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 4px 12px var(--shadow-subtle);
     }
 
     .btn-ghost.btn-active.btn-rounded {
@@ -113,7 +127,7 @@
         border-bottom: 2px solid transparent;
     }
 
-    /* ── Palette × Variant colors ────────────────────────────────────────── */
+    /* Palette × Variant colors ────────────────────────────────────────── */
 
     /* accent */
     .btn-palette-accent.btn-flat {
@@ -125,7 +139,6 @@
     .btn-palette-accent.btn-flat:hover {
         background: var(--accent-invert);
         border-color: var(--accent-invert);
-        /*box-shadow: 0 4px 4px var(--muted-shadow);*/
     }
 
     .btn-palette-accent.btn-flat.btn-active {
@@ -185,7 +198,6 @@
 
     .btn-palette-tone.btn-flat:hover {
         background: var(--highlight);
-        /*box-shadow: 0 4px 4px var(--muted-shadow);*/
     }
 
     .btn-palette-tone.btn-flat.btn-active {
@@ -464,7 +476,17 @@
         border-color: var(--ctx-info);
     }
 
-    /* ── Sizes ───────────────────────────────────────────────────────────── */
+    /* Elevation — appears on hover ───────────────────────────────────── */
+
+    .btn-elevation-subtle:hover {
+        box-shadow: 0 4px 12px var(--shadow-subtle);
+    }
+
+    .btn-elevation-hard:hover {
+        box-shadow: 0.4rem 0.4rem var(--shadow);
+    }
+
+    /* Sizes ───────────────────────────────────────────────────────────── */
 
     .btn-lg {
         font-size: 1.125rem;
@@ -491,32 +513,47 @@
     .btn-textual.btn-md { padding: 0.25rem 0.5rem; }
     .btn-textual.btn-sm { font-size: 0.75rem; padding: 0.15rem 0.35rem; }
 
-    /* ── Squared ─────────────────────────────────────────────────────────── */
+    /* Rounded ─────────────────────────────────────────────────────────── */
 
     .btn-rounded {
         border-radius: 8px;
     }
 
-    /* ── Squared — icon + label stacked, fixed width ─────────────────────── */
+    /* Direction ────────────────────────────────────────────────────────── */
 
-    .btn-squared {
+    .btn-row {
+        flex-direction: row;
+    }
+
+    /* column — icon + label stacked, square aspect ratio */
+    .btn-column {
         flex-direction: column;
         aspect-ratio: 1;
         padding: 0.25rem;
+        overflow: hidden;
     }
 
-    .btn-squared.btn-sm { width: 46px; }
-    .btn-squared.btn-md { width: 62px; }
-    .btn-squared.btn-lg { width: 74px; }
+    .btn-column.btn-sm { 
+        width: 48px; 
+        font-size : 0.65rem
+    }
+    .btn-column.btn-md { 
+        width: 64px; 
+        font-size : 0.80rem
+    }
+    .btn-column.btn-lg { 
+        width: 76px; 
+        font-size : 1rem
+    }
 
-    /* ── Animate ─────────────────────────────────────────────────────────── */
+    /* Animate ─────────────────────────────────────────────────────────── */
 
     .btn-animate-left:hover  { transform: translateX(-4px); }
     .btn-animate-right:hover { transform: translateX(4px); }
     .btn-animate-top:hover { transform: translateY(-4px); }
     .btn-animate-bottom:hover { transform: translateY(4px); }
 
-    /* ── Uppercase ───────────────────────────────────────────────────────── */
+    /* Uppercase ───────────────────────────────────────────────────────── */
 
     .btn-uppercase {
         letter-spacing: 0.5px;

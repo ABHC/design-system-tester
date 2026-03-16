@@ -1,3 +1,4 @@
+
 export const buttonConfig = {
     base: "btn",
 
@@ -31,9 +32,27 @@ export const buttonConfig = {
             bottom: "btn-animate-bottom",
         },
 
-        uppercase: { true: "btn-uppercase" },
-        active: { true: "btn-active" },
-        rounded: { true: "btn-rounded" },
-        squared: { true: "btn-squared" },
+        elevation: {
+            none: "btn-elevation-none",
+            subtle: "btn-elevation-subtle",
+            hard: "btn-elevation-hard",
+        },
+
+        uppercase: { 
+            true: "btn-uppercase" 
+        },
+
+        active: { 
+            true: "btn-active" 
+        },
+
+        rounded: { 
+            true: "btn-rounded" 
+        },
+
+        direction: { 
+            row: "btn-row",
+            column: "btn-column"
+        },
     }
 };

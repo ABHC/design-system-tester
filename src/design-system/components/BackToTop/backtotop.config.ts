@@ -19,5 +19,11 @@ export const backToTopConfig = {
             left:  "btt-left",
             right: "btt-right",
         },
+
+        elevation: {
+            none: "btt-elevation-none",
+            subtle: "btt-elevation-subtle",
+            hard: "btt-elevation-hard",
+        },
     }
 };
