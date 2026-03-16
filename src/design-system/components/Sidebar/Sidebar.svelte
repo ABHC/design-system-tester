@@ -7,8 +7,8 @@
 
     type Position  = "fixed" | "floating";
     type Direction = "left" | "right";
-    type Palette   = "accent" | "tone";
-    type Layout    = "row" | "column";
+    type Palette = "accent" | "tone";
+    type Layout = "row" | "column";
 
     // ── Individual item data types ─────────────────────────────────────────────
 
@@ -79,6 +79,7 @@
         offset_bottom?: string;
         width?: string;
         rounded?: boolean;
+        roundedBtn?: boolean;
         items?: SidebarItem[];
         header?: Snippet;
         children?: Snippet;
@@ -96,6 +97,7 @@
         offset_bottom = "0px",
         width = "260px",
         rounded = true,
+        roundedBtn = false,
         items,
         header,
         children,
@@ -179,7 +181,10 @@
                         {#if group.type === "button"}
                             {#each group.items as item}
                                 <Button
-                                    variant="nav"
+                                    variant="ghost"
+                                    {palette}
+                                    rounded={roundedBtn}
+                                    direction="row"
                                     active={item.active ?? false}
                                     aria_label={item.aria_label ?? item.label}
                                     onclick={item.onclick}
@@ -200,8 +205,8 @@
                                     leading={item.leading}
                                     active={item.active ?? false}
                                     onclick={item.onclick}
-                                    palette={palette}
-                                    rounded
+                                    palette={palette === "tone" ? "highlight" : palette === "accent" ? "ghost" : palette}
+                                    rounded={roundedBtn}
                                 />
                             {/each}
                         {/if}
@@ -226,11 +231,11 @@
 <style>
     /* Base wrapper */
     .sidebar-component {
-        display:        flex;
+        display: flex;
         flex-direction: column;
-        width:          var(--sidebar-width, 260px);
-        overflow:       hidden;
-        z-index:        200;
+        width: var(--sidebar-width, 260px);
+        overflow: hidden;
+        z-index: 300;
         transition:
             background   0.3s ease,
             box-shadow   0.3s ease,
@@ -299,14 +304,6 @@
         --sidebar-item-active-bg: color-mix(in srgb, var(--text-accent) 25%, transparent);
         --sidebar-item-active-border: color-mix(in srgb, var(--text-accent) 45%, transparent);
 
-        --nav-btn-color: var(--text-accent);
-        --nav-btn-hover-bg: color-mix(in srgb, var(--text-accent) 15%, transparent);
-        --nav-btn-active-bg: color-mix(in srgb, var(--text-accent) 25%, transparent);
-        --nav-btn-active-border: color-mix(in srgb, var(--text-accent) 45%, transparent);
-
-        --listitem-bg: color-mix(in srgb, var(--text-accent) 15%, transparent);
-        --listitem-hover-bg: color-mix(in srgb, var(--text-accent) 25%, transparent);
-
         --dot-bg: var(--accent);
     }
 
@@ -321,14 +318,6 @@
         --sidebar-item-hover-bg: var(--highlight);
         --sidebar-item-active-bg: var(--accent);
         --sidebar-item-active-border: var(--accent);
-
-        --nav-btn-color: var(--text);
-        --nav-btn-hover-bg: var(--highlight);
-        --nav-btn-active-bg: var(--accent);
-        --nav-btn-active-border: var(--accent);
-
-        --listitem-bg: var(--highlight);
-        --listitem-hover-bg: color-mix(in srgb, var(--accent) 15%, var(--highlight));
 
         --dot-bg: var(--card);
     }
@@ -374,7 +363,7 @@
         flex-direction: column;
     }
 
-    .sidebar-group--column :global(.btn-nav) {
+    .sidebar-group--column :global(.btn-ghost) {
         width: 100%;
         justify-content: flex-start;
         gap: 0.6rem;
@@ -387,11 +376,27 @@
         flex-wrap:      wrap;
     }
 
-    .sidebar-group--row :global(.btn-nav) {
+    .sidebar-group--row :global(.btn-ghost) {
         flex: 1;
         justify-content: center;
         gap: 0.35rem;
         padding: 0.5rem 0.4rem;
+    }
+
+    /* nav-icon / nav-label layout inside ghost buttons */
+    .sidebar-group :global(.nav-icon) {
+        line-height: 1;
+    }
+
+    .sidebar-group :global(.nav-label) {
+        font-family: var(--font-heading);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        line-height: 1;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        max-width: 100%;
     }
 
     /* Separator */
@@ -423,7 +428,7 @@
         position: fixed;
         inset: 0;
         background: rgba(0, 0, 0, 0.35);
-        z-index: 199;
+        z-index: 299;
         cursor: pointer;
         animation: scrim-fade-in 0.3s ease forwards;
     }
