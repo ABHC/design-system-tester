@@ -2,8 +2,10 @@
     import Badge from "./Badge.svelte";
     import type { BadgeItem } from "./badge.config";
 
-    type Variant = "accent" | "outlined" | "flat" | "ctx";
+    type Variant = "flat" | "outlined";
+    type Palette = "accent" | "tone" | "error" | "warning" | "success" | "info";
     type Size = "sm" | "md" | "lg";
+    type Elevation = "none" | "subtle" | "hard";
 
     /*
         Props _________________________________________________________
@@ -24,7 +26,9 @@
         selected?: string[];
         multiple?: boolean;
         variant?: Variant;
+        palette?: Palette;
         size?: Size;
+        elevation?: Elevation;
         pill?: boolean;
         gap?: string;
     }
@@ -34,7 +38,9 @@
         selected = $bindable([]),
         multiple = true,
         variant = "flat",
+        palette = "accent",
         size = "md",
+        elevation = "none",
         pill = true,
         gap = "0.5rem",
     }: Props = $props();
@@ -58,8 +64,10 @@
     {#each badges as badge (badge.value)}
         <Badge
             {variant}
+            {palette}
             {size}
             {pill}
+            {elevation}
             selected={selected.includes(badge.value)}
             onclick={() => toggle(badge.value)}
         >

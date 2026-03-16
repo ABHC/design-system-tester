@@ -3,16 +3,18 @@
     import { createVariant } from "../../utils/builder";
     import { badgeConfig } from "./badge.config";
 
-    type Variant = "accent" | "outlined" | "flat" | "ctx";
+    type Variant = "flat" | "outlined";
+    type Palette = "accent" | "tone" | "error" | "warning" | "success" | "info";
     type Size = "sm" | "md" | "lg";
-    type State = "error" | "warning" | "success" | "info";
+    type Elevation = "none" | "subtle" | "hard";
 
     /*
         Props _________________________________________________________
-        variant : primary | secondary | ghost | ctx
+        variant : flat | outlined 
+        palette : color of the badge
         size : sm | md | lg
         uppercase : Text transform + letter-spacing
-        state : ctx variant only — error | warning | success | info
+        elevation : kind of shadow applied to the badge
         pill : true (default) → border-radius: 20px (capsule)
                false → border-radius: 6px (rounded rectangle)
         href : Renders as <a>
@@ -25,9 +27,10 @@
 
     interface Props {
         variant?: Variant;
+        palette?: Palette;
         size?: Size;
         uppercase?: boolean;
-        state?: State;
+        elevation?: Elevation;
         pill?: boolean;
         href?: string;
         onclick?: () => void;
@@ -39,10 +42,11 @@
     }
 
     let {
-        variant = "accent",
+        variant = "flat",
+        palette = "accent",
         size = "md",
         uppercase = false,
-        state = undefined,
+        elevation = "none",
         pill = true,
         href = undefined,
         onclick = undefined,
@@ -57,18 +61,14 @@
 
     const resolve = createVariant(badgeConfig);
 
-    const variant_classes = $derived(resolve({ variant, size, uppercase }));
-
-    const state_class = $derived(
-        variant === "ctx" && state ? `badge-ctx-${state}` : ""
-    );
+    const type_classes = $derived(resolve({ variant, palette, size, uppercase, elevation }));
 
     const shape_class = $derived(pill ? "badge-pill" : "badge-rect");
 
     const selected_class = $derived(selected ? "badge-selected" : "");
 
     const classes = $derived(
-        `${variant_classes} ${state_class} ${shape_class} ${selected_class}`.trim()
+        `${type_classes} ${shape_class} ${selected_class}`.trim()
     );
 
     // Root is interactive when onclick or href is provided (implicit)
@@ -134,6 +134,7 @@
         line-height: 1;
         font-family: var(--font-body);
         text-decoration: none;
+        border: 1px solid transparent;
     }
 
     /* Reset for button/link roots */
@@ -152,23 +153,116 @@
 
     /* Variants ─────────────────────────────────────────────────────────── */
 
-    .badge-accent {
+    .badge-flat {
         font-weight: 600;
-        border: 1px solid var(--accent);
-        background: var(--accent);
-        color: var(--text-accent);
     }
 
     .badge-outlined {
-        border: 1px solid var(--accent-more);
-        background: inherit;
+        background: transparent;
+    }
+
+    /* Palette ──────────────────────────────────────────────────────────── */
+
+    /* accent */
+    .badge-palette-accent.badge-flat {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: var(--text-accent);
+    }
+
+    .badge-palette-accent.badge-outlined {
+        border-color: var(--accent-more);
         color: var(--accent-more);
     }
 
-    .badge-flat {
-        border: 1px solid var(--highlight);
-        background: var(--highlight);
+    .badge-palette-accent.badge-ghost {
+        color: var(--text-accent);
+    }
+
+    /* tone */
+    .badge-palette-tone.badge-flat {
+        background: var(--card);
+        border-color: var(--highlight);
         color: var(--text);
+    }
+
+    .badge-palette-tone.badge-outlined {
+        border-color: var(--highlight);
+        color: var(--text-muted);
+    }
+
+    .badge-palette-tone.badge-ghost {
+        color: var(--text);
+    }
+
+    /* error */
+    .badge-palette-error.badge-flat {
+        background: var(--ctx-error-blend);
+        color: var(--text);
+    }
+
+    .badge-palette-error.badge-outlined {
+        border-color: var(--ctx-error);
+        color: var(--ctx-error);
+    }
+
+    .badge-palette-error.badge-ghost {
+        color: var(--ctx-error);
+    }
+
+    /* warning */
+    .badge-palette-warning.badge-flat {
+        background: var(--ctx-warning-blend);
+        color: var(--text);
+    }
+
+    .badge-palette-warning.badge-outlined {
+        border-color: var(--ctx-warning);
+        color: var(--ctx-warning);
+    }
+
+    .badge-palette-warning.badge-ghost {
+        color: var(--ctx-warning);
+    }
+
+    /* success */
+    .badge-palette-success.badge-flat {
+        background: var(--ctx-success-blend);
+        color: var(--text);
+    }
+
+    .badge-palette-success.badge-outlined {
+        border-color: var(--ctx-success);
+        color: var(--ctx-success);
+    }
+
+    .badge-palette-success.badge-ghost {
+        color: var(--ctx-success);
+    }
+
+    /* info */
+    .badge-palette-info.badge-flat {
+        background: var(--ctx-info-blend);
+        color: var(--text);
+    }
+
+    .badge-palette-info.badge-outlined {
+        border-color: var(--ctx-info);
+        color: var(--ctx-info);
+    }
+
+    .badge-palette-info.badge-ghost {
+        color: var(--ctx-info);
+    }
+
+    /* Elevation ─────────────────────────────────────────────────────────── */
+
+    .badge-elevation-subtle {
+        box-shadow: 0 4px 12px var(--shadow-subtle);
+    }
+
+    .badge-elevation-hard {
+        box-shadow: 0.4rem 0.4rem var(--shadow);
     }
 
     /* Uppercase ────────────────────────────────────────────────────────── */
@@ -198,92 +292,154 @@
 
     /* Hover — interactive roots only ──────────────────────────────────── */
 
-    button.badge-accent:hover,
-    a.badge-accent:hover {
+    /* accent */
+    button.badge-flat.badge-palette-accent:hover,
+    a.badge-flat.badge-palette-accent:hover {
         background: var(--accent-invert);
         border-color: var(--accent-invert);
     }
 
-    button.badge-outlined:hover,
-    a.badge-outlined:hover {
-        border-color: var(--accent);
+    button.badge-outlined.badge-palette-accent:hover,
+    a.badge-outlined.badge-palette-accent:hover {
         background: var(--accent);
+        border-color: var(--accent);
         color: var(--text-accent);
     }
 
-    button.badge-flat:hover,
-    a.badge-flat:hover {
+    /* Tone */
+    button.badge-flat.badge-palette-tone:hover,
+    a.badge-flat.badge-palette-tone:hover {
+        background: var(--highlight);
+    }
+
+    button.badge-outlined.badge-palette-tone:hover,
+    a.badge-outlined.badge-palette-tone:hover {
         border-color: var(--accent);
-        color: var(--accent-more);
+        color: var(--accent);
     }
 
-    button.badge-ctx-error:hover,
-    a.badge-ctx-error:hover {
-        background: color-mix(in srgb, var(--ctx-error) 65%, var(--highlight));
-        border-color: color-mix(in srgb, var(--ctx-error) 65%, var(--highlight));
+    /* Error */
+    button.badge-flat.badge-palette-error:hover,
+    a.badge-flat.badge-palette-error:hover {
+        background: color-mix(in srgb, var(--ctx-error) 60%, var(--highlight));
     }
 
-    button.badge-ctx-warning:hover,
-    a.badge-ctx-warning:hover {
-        background: color-mix(in srgb, var(--ctx-warning) 65%, var(--highlight));
-        border-color: color-mix(in srgb, var(--ctx-warning) 65%, var(--highlight));
+    button.badge-outlined.badge-palette-error:hover,
+    a.badge-outlined.badge-palette-error:hover {
+        background: var(--ctx-error);
+        color: var(--text-accent);
     }
 
-    button.badge-ctx-success:hover,
-    a.badge-ctx-success:hover {
-        background: color-mix(in srgb, var(--ctx-success) 65%, var(--highlight));
-        border-color: color-mix(in srgb, var(--ctx-success) 65%, var(--highlight));
+    /* Warning */
+    button.badge-flat.badge-palette-warning:hover,
+    a.badge-flat.badge-palette-warning:hover {
+        background: color-mix(in srgb, var(--ctx-warning) 60%, var(--highlight));
     }
 
-    button.badge-ctx-info:hover,
-    a.badge-ctx-info:hover {
-        background: color-mix(in srgb, var(--ctx-info) 65%, var(--highlight));
-        border-color: color-mix(in srgb, var(--ctx-info) 65%, var(--highlight));
+    button.badge-outlined.badge-palette-warning:hover,
+    a.badge-outlined.badge-palette-warning:hover {
+        background: var(--ctx-warning);
+        color: var(--text-accent);
+    }
+
+    /* Success */
+    button.badge-flat.badge-palette-success:hover,
+    a.badge-flat.badge-palette-success:hover {
+        background: color-mix(in srgb, var(--ctx-success) 60%, var(--highlight));
+    }
+
+    button.badge-outlined.badge-palette-success:hover,
+    a.badge-outlined.badge-palette-success:hover {
+        background: var(--ctx-success);
+        color: var(--text-accent);
+    }
+
+    /* Info */
+    button.badge-flat.badge-palette-info:hover,
+    a.badge-flat.badge-palette-info:hover {
+        background: color-mix(in srgb, var(--ctx-info) 60%, var(--highlight));
+    }
+
+    button.badge-outlined.badge-palette-info:hover,
+    a.badge-outlined.badge-palette-info:hover {
+        background: var(--ctx-info);
+        color: var(--text-accent);
     }
 
     /* Selected — mirrors hover styles ──────────────────────────────────── */
 
-    button.badge-accent.badge-selected,
-    a.badge-accent.badge-selected {
+    /* accent */
+    button.badge-flat.badge-palette-accent.badge-selected,
+    a.badge-flat.badge-palette-accent.badge-selected {
         background: var(--accent-invert);
         border-color: var(--accent-invert);
     }
 
-    button.badge-outlined.badge-selected,
-    a.badge-outlined.badge-selected {
-        border-color: var(--accent);
+    button.badge-outlined.badge-palette-accent.badge-selected,
+    a.badge-outlined.badge-palette-accent.badge-selected {
         background: var(--accent);
+        border-color: var(--accent);
         color: var(--text-accent);
     }
 
-    button.badge-flat.badge-selected,
-    a.badge-flat.badge-selected {
+    /* Tone */
+    button.badge-flat.badge-palette-tone.badge-selected,
+    a.badge-flat.badge-palette-tone.badge-selected {
+        background: var(--highlight);
+    }
+
+    button.badge-outlined.badge-palette-tone.badge-selected,
+    a.badge-outlined.badge-palette-tone.badge-selected {
         border-color: var(--accent);
-        color: var(--accent-more);
+        color: var(--accent);
     }
 
-    button.badge-ctx-error.badge-selected,
-    a.badge-ctx-error.badge-selected {
-        background: color-mix(in srgb, var(--ctx-error) 65%, var(--highlight));
-        border-color: color-mix(in srgb, var(--ctx-error) 65%, var(--highlight));
+    /* Error */
+    button.badge-flat.badge-palette-error.badge-selected,
+    a.badge-flat.badge-palette-error.badge-selected {
+        background: color-mix(in srgb, var(--ctx-error) 60%, var(--highlight));
     }
 
-    button.badge-ctx-warning.badge-selected,
-    a.badge-ctx-warning.badge-selected {
-        background: color-mix(in srgb, var(--ctx-warning) 65%, var(--highlight));
-        border-color: color-mix(in srgb, var(--ctx-warning) 65%, var(--highlight));
+    button.badge-outlined.badge-palette-error.badge-selected,
+    a.badge-outlined.badge-palette-error.badge-selected {
+        background: var(--ctx-error);
+        color: var(--text-accent);
     }
 
-    button.badge-ctx-success.badge-selected,
-    a.badge-ctx-success.badge-selected {
-        background: color-mix(in srgb, var(--ctx-success) 65%, var(--highlight));
-        border-color: color-mix(in srgb, var(--ctx-success) 65%, var(--highlight));
+    /* Warning */
+    button.badge-flat.badge-palette-warning.badge-selected,
+    a.badge-flat.badge-palette-warning:hover {
+        background: color-mix(in srgb, var(--ctx-warning) 60%, var(--highlight));
     }
 
-    button.badge-ctx-info.badge-selected,
-    a.badge-ctx-info.badge-selected {
-        background: color-mix(in srgb, var(--ctx-info) 65%, var(--highlight));
-        border-color: color-mix(in srgb, var(--ctx-info) 65%, var(--highlight));
+    button.badge-outlined.badge-palette-warning.badge-selected,
+    a.badge-outlined.badge-palette-warning.badge-selected {
+        background: var(--ctx-warning);
+        color: var(--text-accent);
+    }
+
+    /* Success */
+    button.badge-flat.badge-palette-success.badge-selected,
+    a.badge-flat.badge-palette-success.badge-selected {
+        background: color-mix(in srgb, var(--ctx-success) 60%, var(--highlight));
+    }
+
+    button.badge-outlined.badge-palette-success.badge-selected,
+    a.badge-outlined.badge-palette-success.badge-selected {
+        background: var(--ctx-success);
+        color: var(--text-accent);
+    }
+
+    /* Info */
+    button.badge-flat.badge-palette-info.badge-selected,
+    a.badge-flat.badge-palette-info.badge-selected {
+        background: color-mix(in srgb, var(--ctx-info) 60%, var(--highlight));
+    }
+
+    button.badge-outlined.badge-palette-info.badge-selected,
+    a.badge-outlined.badge-palette-info.badge-selected {
+        background: var(--ctx-info);
+        color: var(--text-accent);
     }
 
     /* Contextuals ──────────────────────────────────────────────────────── */

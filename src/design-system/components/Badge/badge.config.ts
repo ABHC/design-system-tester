@@ -9,10 +9,17 @@ export const badgeConfig = {
 
     variants: {
         variant: {
-            accent: "badge-accent",
-            outlined: "badge-outlined",
             flat: "badge-flat",
-            ctx: "badge-ctx"
+            outlined: "badge-outlined",
+        },
+
+        palette: {
+            accent: "badge-palette-accent",
+            tone: "badge-palette-tone",
+            error: "badge-palette-error",
+            warning: "badge-palette-warning",
+            success: "badge-palette-success",
+            info: "badge-palette-info",
         },
 
         size: {
@@ -23,6 +30,12 @@ export const badgeConfig = {
 
         uppercase: {
             true: "badge-uppercase"
-        }
+        },
+
+        elevation: {
+            none: "badge-elevation-none",
+            subtle: "badge-elevation-subtle",
+            hard: "badge-elevation-hard",
+        },
     }
 };
