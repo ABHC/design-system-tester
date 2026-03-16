@@ -19,6 +19,7 @@ export interface PaletteTokens {
     bg:         string;
     card:       string;
     highlight:  string;
+    shadow:     string;
     text:       string;
     text_muted: string;
 }
@@ -74,9 +75,9 @@ export function tokenValues(config: TokenConfig): Record<string, string> {
         tone,
         typography,
         contextual,
-        ctx_opacity    = 0.4,
+        ctx_opacity = 0.4,
         shadow_opacity = 0.3,
-        ctx_surface    = 'highlight',
+        ctx_surface = 'highlight',
     } = config;
 
     const is_dark = tone === 'dark';
@@ -91,6 +92,7 @@ export function tokenValues(config: TokenConfig): Record<string, string> {
         '--bg':         palette.bg,
         '--card':       palette.card,
         '--highlight':  palette.highlight,
+        '--shadow':     palette.shadow,
         '--text':       palette.text,
         '--text-muted': palette.text_muted,
 
@@ -121,12 +123,8 @@ export function tokenValues(config: TokenConfig): Record<string, string> {
         '--ctx-info-blend':    ctxBlend(contextual.info),
 
         // ── Shadows ──────────────────────────────────────────────────────────
-        '--tone-shadow':   hexToRgba(palette.text, shadow_opacity),
+        '--shadow-subtle': 'rgba(0, 0, 0, 0.2)',
         '--muted-shadow':   hexToRgba(palette.text_muted, shadow_opacity),
-        '--accent-shadow': hexToRgba(
-            is_dark ? accent.accent_light : accent.accent_dark,
-            shadow_opacity
-        ),
     };
 }
 

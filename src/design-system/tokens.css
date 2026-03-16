@@ -8,6 +8,7 @@
     --bg:         #252825;
     --card:       #1a1d1a;
     --highlight:  #2f342f;
+    --shadow:     #0a0a0a;
     --text:       #f5f5f4;
     --text-muted: #a8a29e;
 
@@ -38,6 +39,7 @@
     --ctx-info-blend:    linear-gradient(rgba(107, 114, 128, 0.4), rgba(107, 114, 128, 0.4)), var(--highlight);
 
     /* ── Shadows ── */
+    --shadow-subtle: rgba(0, 0, 0, 0.2);
     --tone-shadow:   rgba(245, 245, 244, 0.3);
     --accent-shadow: rgba(52, 211, 153, 0.3);
 }
