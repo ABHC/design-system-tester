@@ -14,14 +14,24 @@
 
     /*
         -- Props
-        title : "titled" / "terminal" → text displayed in header
-        filename : "filename" variant    → file icon + name in header
-        description : any non-simple variant → activates split layout with a side panel (supports basic markdown)
-        language : language badge (e.g. "TypeScript", "CSS")
-        tabs : "tabbed" variant → tab navigation
-        code : code content for non-tabbed variants
-        copyable : show copy button
-        line_numbers : show line numbers
+        title            : "titled" / "terminal" → text displayed in header
+        filename         : "filename" variant    → file icon + name in header
+        description      : markdown text for the description panel
+        description_src  : URL to a file whose content is used as description (fetched, not executed)
+        language         : language badge (e.g. "TypeScript", "CSS")
+        tabs             : "tabbed" variant → tab navigation
+        code             : code content for non-tabbed variants
+        code_src         : URL to a file whose content is used as code (fetched, not executed)
+        copyable         : show copy button
+        line_numbers     : show line numbers
+        rounded          : apply border-radius (default true)
+        width            : CSS width value — if omitted, takes full available width
+        max_height       : CSS max-height for the body area — enables scrolling when content overflows
+
+        -- Layout modes (derived automatically, no prop needed)
+        code + description  → split layout (description panel on left, code on right)
+        code only           → code fills the body (default)
+        description only    → description fills the full body width
     */
 
     interface Props {
@@ -30,11 +40,16 @@
         title?: string;
         filename?: string;
         description?: string;
+        description_src?: string;
         language?: string;
         tabs?: Tab[];
         code?: string;
+        code_src?: string;
         copyable?: boolean;
         line_numbers?: boolean;
+        rounded?: boolean;
+        width?: string;
+        max_height?: string;
     }
 
     let {
@@ -43,11 +58,16 @@
         title = undefined,
         filename = undefined,
         description = undefined,
+        description_src = undefined,
         language = undefined,
         tabs = undefined,
         code = undefined,
+        code_src = undefined,
         copyable = false,
         line_numbers = false,
+        rounded = true,
+        width = undefined,
+        max_height = undefined,
     }: Props = $props();
 
     // Renders basic markdown: **bold**, _italic_, `code`, newlines
@@ -74,11 +94,35 @@
     // Clipboard feedback state
     let copied = $state(false);
 
+    // File-loaded content (fetched at runtime, content displayed as-is — never executed)
+    let loaded_code = $state<string | undefined>(undefined);
+    let loaded_description = $state<string | undefined>(undefined);
+
+    $effect(() => {
+        if (code_src) {
+            fetch(code_src).then(r => r.text()).then(t => { loaded_code = t; });
+        } else {
+            loaded_code = undefined;
+        }
+    });
+
+    $effect(() => {
+        if (description_src) {
+            fetch(description_src).then(r => r.text()).then(t => { loaded_description = t; });
+        } else {
+            loaded_description = undefined;
+        }
+    });
+
+    // Effective content: src takes priority over inline prop
+    const effective_code = $derived(loaded_code ?? code ?? "");
+    const effective_description = $derived(loaded_description ?? description);
+
     // Current code to display (active tab or direct prop)
     const code_snippet = $derived(
         variant === "tabbed" && tabs
             ? (tabs[active_tab]?.code ?? "")
-            : (code ?? "")
+            : effective_code
     );
 
     // Current language (from active tab or direct prop)
@@ -94,8 +138,9 @@
     // Header is only rendered for variants other than "simple"
     const has_header = $derived(variant !== "simple");
 
-    // Split layout: any non-simple variant + description provided → left panel + right code
-    const is_split = $derived(variant !== "simple" && !!description);
+    // Layout modes — derived from content presence, no prop needed
+    const is_split = $derived(!!effective_description && !!code_snippet);
+    const is_description_only = $derived(!!effective_description && !code_snippet);
 
     async function handleCopy() {
         try {
@@ -108,7 +153,11 @@
     }
 </script>
 
-<div class={classes}>
+<div
+    class={classes}
+    style:border-radius={rounded ? undefined : '0'}
+    style:width={width}
+>
 
     <!-- Header -->
     {#if has_header}
@@ -123,15 +172,15 @@
 
                 {:else if variant === "filename" && filename}
                     <span class="codeblock-filename">
-                        <svg 
-                            width="13" 
-                            height="13" 
-                            viewBox="0 0 24 24" 
-                            fill="none" 
-                            stroke="currentColor" 
-                            stroke-width="2" 
-                            stroke-linecap="round" 
-                            stroke-linejoin="round" 
+                        <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
                             aria-hidden="true"
                         >
                             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
@@ -155,8 +204,8 @@
                     </div>
 
                 {:else if variant === "terminal"}
-                    <span 
-                        class="codeblock-terminal-prompt" 
+                    <span
+                        class="codeblock-terminal-prompt"
                         aria-hidden="true"
                     >
                         &gt;
@@ -176,8 +225,8 @@
                         {code_language}
                     </span>
                 {/if}
-                {#if copyable}
-                    <Button variant="muted" size="sm" onclick={handleCopy} aria_label="Copy code">
+                {#if copyable && !is_description_only}
+                    <Button variant="ghost" palette="tone" size="sm" onclick={handleCopy} aria_label="Copy code">
                         {#if copied}
                             <svg
                                 width="11"
@@ -215,12 +264,16 @@
     {/if}
 
     <!-- Code body -->
-    <div class="codeblock-body {is_split ? 'codeblock-body-split' : ''}">
+    <div
+        class="codeblock-body {is_split ? 'codeblock-body-split' : ''}"
+        style:max-height={max_height}
+        style:overflow-y={max_height ? 'auto' : undefined}
+    >
 
         <!-- Floating copy button for the "simple" variant (no header) -->
-        {#if copyable && variant === "simple"}
+        {#if copyable && variant === "simple" && !is_description_only}
             <div class="codeblock-copy-float">
-                <Button variant="muted" size="sm" onclick={handleCopy} aria_label="Copy code">
+                <Button variant="ghost" palette="tone" size="sm" onclick={handleCopy} aria_label="Copy code">
                     {#if copied}
                         <svg
                             width="13"
@@ -257,25 +310,27 @@
             </div>
         {/if}
 
-        <!-- Description panel (split layout only) — supports basic markdown -->
-        {#if is_split}
-            <div class="codeblock-description">
-                {@html md(description!)}
+        <!-- Description panel: left column in split layout, full width when description-only -->
+        {#if is_split || is_description_only}
+            <div class="codeblock-description {is_description_only ? 'codeblock-description-only' : ''}">
+                {@html md(effective_description!)}
             </div>
         {/if}
 
-        {#if line_numbers}
-            <pre class="codeblock-pre"
-            ><code class="codeblock-code codeblock-numbered"
-            >{#each lines as line
-            }<span class="codeblock-line">{line}</span
-            >{/each}</code
-            ></pre>
-        {:else}
-            <pre class="codeblock-pre"
-            ><code class="codeblock-code"
-            >{code_snippet.trim()}</code
-            ></pre>
+        {#if !is_description_only}
+            {#if line_numbers}
+                <pre class="codeblock-pre"
+                ><code class="codeblock-code codeblock-numbered"
+                >{#each lines as line
+                }<span class="codeblock-line">{line}</span
+                >{/each}</code
+                ></pre>
+            {:else}
+                <pre class="codeblock-pre"
+                ><code class="codeblock-code"
+                >{code_snippet.trim()}</code
+                ></pre>
+            {/if}
         {/if}
     </div>
 
@@ -327,6 +382,9 @@
         color: var(--accent);
         flex-shrink: 0;
         user-select: none;
+        padding: 1px 4px 2px 6px;
+        border-radius: 4px;
+        border: 1px solid var(--accent);
     }
 
     .codeblock-terminal-title {
@@ -427,6 +485,11 @@
         font-family: var(--font-body);
     }
 
+    /* Description-only: takes full width, no right border */
+    .codeblock-description-only {
+        border-right: none;
+    }
+
     /* Inline code rendered inside description markdown */
     :global(.codeblock-desc-inline) {
         font-family: monospace;
@@ -477,65 +540,65 @@
     }
 
     /* Sizes */
-    .codeblock-sm 
-    .codeblock-pre { 
-        padding: 0.75rem 1rem; 
+    .codeblock-sm
+    .codeblock-pre {
+        padding: 0.75rem 1rem;
     }
 
-    .codeblock-sm 
-    .codeblock-code { 
-        font-size: 0.75rem; 
+    .codeblock-sm
+    .codeblock-code {
+        font-size: 0.75rem;
     }
-    .codeblock-sm 
-    .codeblock-header { 
-        min-height: 2.25rem; 
-    }
-
-    .codeblock-sm 
-    .codeblock-tab { 
-        height: 2.25rem; font-size: 0.8rem; 
+    .codeblock-sm
+    .codeblock-header {
+        min-height: 2.25rem;
     }
 
-    .codeblock-sm 
-    .codeblock-header-left { 
-        min-height: 2.25rem; 
+    .codeblock-sm
+    .codeblock-tab {
+        height: 2.25rem; font-size: 0.8rem;
     }
 
-    .codeblock-sm 
-    .codeblock-description { 
-        padding: 0.75rem 1rem; 
-        font-size: 0.75rem; 
+    .codeblock-sm
+    .codeblock-header-left {
+        min-height: 2.25rem;
     }
 
-    .codeblock-lg 
-    .codeblock-pre { 
-        padding: 1.75rem 2rem; 
+    .codeblock-sm
+    .codeblock-description {
+        padding: 0.75rem 1rem;
+        font-size: 0.75rem;
     }
 
-    .codeblock-lg 
-    .codeblock-code { 
-        font-size: 1rem; 
+    .codeblock-lg
+    .codeblock-pre {
+        padding: 1.75rem 2rem;
     }
 
-    .codeblock-lg 
-    .codeblock-header { 
-        min-height: 3.25rem; 
+    .codeblock-lg
+    .codeblock-code {
+        font-size: 1rem;
     }
 
-    .codeblock-lg 
-    .codeblock-tab { 
-        height: 3.25rem; 
-        font-size: 1rem; 
+    .codeblock-lg
+    .codeblock-header {
+        min-height: 3.25rem;
     }
 
-    .codeblock-lg 
-    .codeblock-header-left { 
-        min-height: 3.25rem; 
+    .codeblock-lg
+    .codeblock-tab {
+        height: 3.25rem;
+        font-size: 1rem;
     }
 
-    .codeblock-lg 
-    .codeblock-description { 
-        padding: 1.75rem 2rem; 
-        font-size: 1rem; 
+    .codeblock-lg
+    .codeblock-header-left {
+        min-height: 3.25rem;
+    }
+
+    .codeblock-lg
+    .codeblock-description {
+        padding: 1.75rem 2rem;
+        font-size: 1rem;
     }
 </style>
