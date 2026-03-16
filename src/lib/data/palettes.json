@@ -143,6 +143,7 @@
             "bg": "#e8e4d8",
             "card": "#d0c9b8",
             "highlight": "#bdb6a4",
+            "shadow": "#8a8275",
             "text": "#1c1917",
             "text_muted": "#57534e"
         },
@@ -152,6 +153,7 @@
             "bg": "#f0ede5",
             "card": "#dcd9ce",
             "highlight": "#e5e2d9",
+            "shadow": "#9a9488",
             "text": "#1c1917",
             "text_muted": "#57534e"
         },
@@ -161,6 +163,7 @@
             "bg": "#f2f0eb",
             "card": "#dddad2",
             "highlight": "#e8e5de",
+            "shadow": "#9e988c",
             "text": "#1c1917",
             "text_muted": "#57534e"
         },
@@ -170,6 +173,7 @@
             "bg": "#ebe8e0",
             "card": "#d6d3c8",
             "highlight": "#e0ddd5",
+            "shadow": "#908a7e",
             "text": "#1c1917",
             "text_muted": "#57534e"
         },
@@ -179,6 +183,7 @@
             "bg": "#e8e4d8",
             "card": "#d3cfc0",
             "highlight": "#ddd9cd",
+            "shadow": "#7a7265",
             "text": "#1c1917",
             "text_muted": "#57534e"
         },
@@ -188,6 +193,7 @@
             "bg": "#f5f3f0",
             "card": "#e8e5e0",
             "highlight": "#ede9e4",
+            "shadow": "#a09a8e",
             "text": "#1c1917",
             "text_muted": "#57534e"
         }
@@ -199,6 +205,7 @@
             "bg": "#252825",
             "card": "#1a1d1a",
             "highlight": "#2f342f",
+            "shadow": "#0c0e0c",
             "text": "#f5f5f4",
             "text_muted": "#a8a29e"
         },
@@ -208,6 +215,7 @@
             "bg": "#1a1a1a",
             "card": "#282828",
             "highlight": "#3a3a3a",
+            "shadow": "#0a0a0a",
             "text": "#fafafa",
             "text_muted": "#b0b0b0"
         },
@@ -217,6 +225,7 @@
             "bg": "#1a1917",
             "card": "#2d2a25",
             "highlight": "#3a3732",
+            "shadow": "#0a0908",
             "text": "#f5f5f4",
             "text_muted": "#a8a29e"
         },
@@ -226,6 +235,7 @@
             "bg": "#0d0d0d",
             "card": "#1a1a1a",
             "highlight": "#2a2a2a",
+            "shadow": "#000000",
             "text": "#ffffff",
             "text_muted": "#b0b0b0"
         },
@@ -235,6 +245,7 @@
             "bg": "#0f1419",
             "card": "#1a1f2e",
             "highlight": "#252d3d",
+            "shadow": "#05080e",
             "text": "#f5f5f7",
             "text_muted": "#a8adb5"
         },
@@ -244,6 +255,7 @@
             "bg": "#11192b",
             "card": "#1a2544",
             "highlight": "#253047",
+            "shadow": "#060c18",
             "text": "#f2f4f8",
             "text_muted": "#a0aabb"
         },
@@ -253,6 +265,7 @@
             "bg": "#1e2a3a",
             "card": "#2a3a4a",
             "highlight": "#3a4a5a",
+            "shadow": "#0e1820",
             "text": "#f0f2f5",
             "text_muted": "#a8b0b8"
         },
@@ -262,15 +275,7 @@
             "bg": "#1a1a1a",
             "card": "#242424",
             "highlight": "#353535",
-            "text": "#fafafa",
-            "text_muted": "#b0b0b0"
-        },
-        {
-            "name": "Carbon +",
-            "display": true,
-            "bg": "#1a1a1a",
-            "card": "#282828",
-            "highlight": "#3a3a3a",
+            "shadow": "#0a0a0a",
             "text": "#fafafa",
             "text_muted": "#b0b0b0"
         },
@@ -280,6 +285,7 @@
             "bg": "#1a1a1a",
             "card": "#2d2d2d",
             "highlight": "#404040",
+            "shadow": "#0a0a0a",
             "text": "#fafafa",
             "text_muted": "#b0b0b0"
         },
@@ -289,6 +295,7 @@
             "bg": "#1a1a1a",
             "card": "#323232",
             "highlight": "#454545",
+            "shadow": "#0a0a0a",
             "text": "#fafafa",
             "text_muted": "#b0b0b0"
         },
@@ -298,6 +305,7 @@
             "bg": "#141414",
             "card": "#242424",
             "highlight": "#353535",
+            "shadow": "#080808",
             "text": "#fafafa",
             "text_muted": "#b0b0b0"
         },
@@ -307,6 +315,7 @@
             "bg": "#000000",
             "card": "#0f0f0f",
             "highlight": "#1f1f1f",
+            "shadow": "#000000",
             "text": "#ffffff",
             "text_muted": "#a0a0a0"
         }

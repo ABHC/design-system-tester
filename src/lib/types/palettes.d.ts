@@ -25,6 +25,7 @@ export interface ToneTheme {
     bg: string;
     card: string;
     highlight: string;
+    shadow: string;
     text: string;
     text_muted: string;
 }
