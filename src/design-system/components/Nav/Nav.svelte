@@ -6,9 +6,10 @@
 
     // Types
 
-    type Position  = "fixed" | "floating";
+    type Position = "fixed" | "floating";
     type Direction = "top" | "bottom" | "left" | "right";
-    type Palette   = "accent" | "tone";
+    type Palette = "accent" | "tone";
+    type DirectionBtn = "row" | "column";
 
     /*
         Props
@@ -33,7 +34,8 @@
         palette?: Palette;
         items: NavItem[];
         rounded?: boolean;
-        squared?: boolean;
+        directionBtn?: DirectionBtn;
+        roundedBtn?: boolean;
         offset?: string; // Shifts the nav away from its anchor edge in fixed mode (e.g. "100px" to sit below a header)
         header?: Snippet; // Optional header slot (logo, title, etc..)
         footer?: Snippet; // Optional footer slot (theme toggle, language selector, etc.. )
@@ -45,7 +47,8 @@
         palette = "accent",
         items,
         rounded = false,
-        squared = false,
+        directionBtn = "row",
+        roundedBtn = false,
         offset = "0px",
         header,
         footer,
@@ -66,11 +69,6 @@
     );
 </script>
 
-<!--
-    Nav wrapper
-    CSS custom properties injected here drive the Button "nav" variant colours,
-    so the colour logic stays in one place and Button.svelte stays agnostic.
--->
 <nav
     class="{wrapper_classes} {is_column ? 'nav-layout-column' : 'nav-layout-row'}"
     style="--nav-offset: {offset}"
@@ -85,8 +83,10 @@
     <div class="nav-items">
         {#each items as item}
             <Button
-                variant="nav"
-                {squared}
+                variant="ghost"
+                {palette}
+                direction={directionBtn}
+                rounded={roundedBtn}
                 active={item.active ?? false}
                 aria_label={item.aria_label ?? item.label}
                 onclick={item.onclick}
@@ -121,7 +121,7 @@
         align-items: center;
         justify-content: space-evenly;
         transition: background 0.3s ease, box-shadow 0.3s ease;
-        z-index: 100;
+        z-index: 200;
     }
 
     /* Rounded corners — only when rounded prop is passed */
@@ -165,14 +165,14 @@
     }
 
     /* In column mode, all buttons stretch to the width of the widest one */
-    .nav-layout-column .nav-items :global(.btn-nav) {
+    .nav-layout-column .nav-items :global(.btn-ghost) {
         width: 100%;
     }
 
     /* Column + rect only: space icon and label apart */
-    .nav-layout-column .nav-items :global(.btn-nav:not(.btn-squared)) {
-        justify-content: space-between;
-        gap:0.6rem;
+    .nav-layout-column .nav-items :global(.btn-ghost:not(.btn-column)) {
+        justify-content: flex-start;
+        gap: 1rem;
     }
 
     .nav-layout-row .nav-items {
@@ -181,8 +181,24 @@
         width: 100%;
     }
 
-    .nav-layout-row .nav-items :global(.btn-nav:not(.btn-squared)) {
-        gap:0.6rem;
+    .nav-layout-row .nav-items :global(.btn-ghost:not(.btn-column)) {
+        gap: 0.6rem;
+    }
+
+    /* nav-icon / nav-label layout inside ghost buttons */
+    .nav-items :global(.nav-icon) {
+        line-height: 1;
+    }
+
+    .nav-items :global(.nav-label) {
+        font-family: var(--font-heading);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        line-height: 1;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        max-width: 100%;
     }
 
     /* Padding zones — keep items off the edges */
@@ -255,21 +271,11 @@
     /*  Palette — accent (portfolio side-nav style)  */
     .nav-palette-accent {
         background: var(--accent);
-        /* Tokens consumed by Button variant="nav" */
-        --nav-btn-color: var(--text-accent);
-        --nav-btn-hover-bg: color-mix(in srgb, var(--text-accent) 15%, transparent);
-        --nav-btn-active-bg: color-mix(in srgb, var(--text-accent) 25%, transparent);
-        --nav-btn-active-border: color-mix(in srgb, var(--text-accent) 45%, transparent);
     }
 
     /*  Palette — tone (styleguide card/highlight style)*/
     .nav-palette-tone {
         background: var(--card);
-        /* Tokens consumed by Button variant="nav" */
-        --nav-btn-color: var(--text);
-        --nav-btn-hover-bg: var(--highlight);
-        --nav-btn-active-bg: var(--accent);
-        --nav-btn-active-border: var(--accent);
     }
 
 </style>
