@@ -132,7 +132,7 @@
     .avatar-circular {
         border-radius: 50%;
     }
-
+    
     /* Image */
     .avatar-img {
         width: 100%;
