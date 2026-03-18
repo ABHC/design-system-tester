@@ -20,7 +20,9 @@
     import CardDemo      from "./CardDemo.svelte";
     import AvatarDemo    from "./AvatarDemo.svelte";
     import ModalDemo     from "./ModalDemo.svelte";
+    import RadioGroupDemo from "./RadioGroupDemo.svelte";
     import SwitchDemo    from "./SwitchDemo.svelte";
+    import InputDemo     from "./InputDemo.svelte";
 
     // Props
     interface Props {
@@ -126,10 +128,24 @@
         {/if}
     </div>
 
+    <!-- RadioGroup ── composants -->
+    <div id="demo-radiogroup">
+        {#if show(["composants"])}
+            <RadioGroupDemo trans={trans} placeholders={placeholders} />
+        {/if}
+    </div>
+
     <!-- Switch ── composants -->
     <div id="demo-switch">
         {#if show(["composants"])}
             <SwitchDemo trans={trans} placeholders={placeholders} />
+        {/if}
+    </div>
+
+    <!-- Input & Textarea ── composants -->
+    <div id="demo-input">
+        {#if show(["composants"])}
+            <InputDemo trans={trans} placeholders={placeholders} />
         {/if}
     </div>
 
@@ -188,31 +204,6 @@
             <ModalDemo trans={trans} placeholders={placeholders} />
         {/if}
     </div>
-
-    <!-- Forms ── présentation -->
-    <div id="demo-forms">
-        {#if show(["presentation"])}
-            <div class="demo-section">
-                <h2 class="section-title">{trans?.form.title}</h2>
-                <div class="form-wrapper">
-                    <div class="form-group">
-                        <label for="name-input" class="form-label">{trans?.form.name}</label>
-                        <input id="name-input" type="text" class="form-input" placeholder={placeholders.form.placeholder_name}>
-                    </div>
-                    <div class="form-group">
-                        <label for="email-input" class="form-label">{trans?.form.email}</label>
-                        <input id="email-input" type="email" class="form-input" placeholder={placeholders.form.placeholder_email}>
-                    </div>
-                    <div class="form-group">
-                        <label for="message-textarea" class="form-label">{trans?.form.message}</label>
-                        <textarea id="message-textarea" class="form-input" rows="4" placeholder={placeholders.form.placeholder_message}></textarea>
-                    </div>
-                    <Button variant="flat">{trans?.form.send}</Button>
-                </div>
-            </div>
-        {/if}
-    </div>
-
 </div>
 
 <style>
@@ -224,50 +215,6 @@
 
     .demo-section {
         margin-bottom: 40px;
-    }
-
-    .section-title {
-        margin-bottom: 20px;
-        color: var(--text);
-    }
-
-    .form-wrapper {
-        background:     var(--card);
-        padding:        1.5rem;
-        border-radius:  12px;
-        display:        flex;
-        flex-direction: column;
-        align-items:    flex-start;
-        width:          100%;
-        max-width:      600px;
-    }
-
-    .form-group {
-        margin-bottom:  20px;
-        display:        flex;
-        flex-direction: column;
-        width:          100%;
-    }
-
-    .form-label {
-        display:       block;
-        margin-bottom: 8px;
-        font-weight:   500;
-        color:         var(--text);
-    }
-
-    .form-input {
-        padding:       12px;
-        border:        2px solid var(--highlight);
-        background:    var(--bg);
-        color:         var(--text);
-        border-radius: 6px;
-        font-size:     14px;
-    }
-
-    .form-input:focus {
-        outline:      none;
-        border-color: var(--accent);
     }
 
     @media (max-width: 768px) {

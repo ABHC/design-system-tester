@@ -37,12 +37,15 @@
             { id: "demo-selector", label: trans?.selector_demo.title },
         ],
         composants: [
-            { id: "demo-callout", label: trans?.callout.title },
-            { id: "demo-alert", label: trans?.alerts.title },
-            { id: "demo-button", label: trans?.buttons.title },
-            { id: "demo-badge", label: trans?.badges.title },
+            { id: "demo-callout",  label: trans?.callout.title },
+            { id: "demo-alert",    label: trans?.alerts.title },
+            { id: "demo-button",   label: trans?.buttons.title },
+            { id: "demo-badge",    label: trans?.badges.title },
             { id: "demo-listitem", label: trans?.list_items.title },
-            { id: "demo-card", label: trans?.cards.title },
+            { id: "demo-card",     label: trans?.cards.title },
+            { id: "demo-radiogroup", label: trans?.radio_demo.title },
+            { id: "demo-switch",   label: trans?.switch_demo.title },
+            { id: "demo-input",    label: trans?.input_demo.title },
         ],
     });
 
