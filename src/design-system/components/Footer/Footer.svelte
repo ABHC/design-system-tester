@@ -28,10 +28,25 @@
     const wrapper_classes = $derived(
         resolve({ palette, rounded }).trim()
     );
+
+    let footer_el: HTMLElement;
+    let is_wrapped = $state(false);
+
+    $effect(() => {
+        const observer = new ResizeObserver(() => {
+            const items = [...footer_el.children] as HTMLElement[];
+            if (items.length < 2) return;
+            is_wrapped = items[0].offsetTop !== items[items.length - 1].offsetTop;
+        });
+        observer.observe(footer_el);
+        return () => observer.disconnect();
+    });
 </script>
 
 <footer
+    bind:this={footer_el}
     class="footer-base {wrapper_classes}"
+    class:footer-wrapped={is_wrapped}
     {style}
 >
     {#if leading}
@@ -59,11 +74,19 @@
         width: 100%;
         padding: 10px 3%;
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
         align-items: center;
+        gap: 0.5rem;
         font-family: var(--font-body);
         margin-top: auto;
         z-index: 200;
+    }
+
+    .footer-wrapped {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 
     /* Rounded — top corners only */

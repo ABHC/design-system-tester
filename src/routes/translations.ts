@@ -4,7 +4,7 @@ export const translations = {
     fr: {
         language_name: "Français",
         header: {
-            project: "Styleguide",
+            project: "Spektral UI",
             name1: "Alexandre",
             name3: "Combe",
             logo_btn: "Retour à l'accueil"
@@ -153,6 +153,15 @@ export const translations = {
             lbl_size: "Taille",
             lbl_label_position: "Position du label",
             sect_states: "États",
+            lbl_enabled: "Activé",
+            lbl_disabled: "Désactivé",
+            lbl_individual: "Options individuelles désactivées",
+        },
+        checkbox_demo: {
+            title: "Checkbox",
+            lbl_palette: "Palette",
+            lbl_size: "Taille",
+            lbl_label_position: "Position du label",
             lbl_enabled: "Activé",
             lbl_disabled: "Désactivé",
             lbl_individual: "Options individuelles désactivées",
@@ -442,6 +451,15 @@ export const translations = {
             lbl_size: "Size",
             lbl_label_position: "Label position",
             sect_states: "States",
+            lbl_enabled: "Enabled",
+            lbl_disabled: "Disabled",
+            lbl_individual: "Individual disabled options",
+        },
+        checkbox_demo: {
+            title: "Checkbox",
+            lbl_palette: "Palette",
+            lbl_size: "Size",
+            lbl_label_position: "Label position",
             lbl_enabled: "Enabled",
             lbl_disabled: "Disabled",
             lbl_individual: "Individual disabled options",

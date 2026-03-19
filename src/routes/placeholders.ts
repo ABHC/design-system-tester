@@ -262,6 +262,14 @@ export const placeholders = {
                 { value: "ariane", label: "Ariane" },
             ],
         },
+        checkbox_demo: {
+            options: [
+                { value: "tgv", label: "TGV" },
+                { value: "concorde", label: "Concorde" },
+                { value: "minitel", label: "Minitel" },
+                { value: "ariane", label: "Ariane" },
+            ],
+        },
         modal: {
             // Tone palette — delete confirmation
             tone_title: "Supprimer le fichier",
@@ -547,6 +555,14 @@ export const placeholders = {
             success_ref: "Looks good!",
         },
         radio_demo: {
+            options: [
+                { value: "tgv", label: "TGV" },
+                { value: "concorde", label: "Concorde" },
+                { value: "minitel", label: "Minitel" },
+                { value: "ariane", label: "Ariane" },
+            ],
+        },
+        checkbox_demo: {
             options: [
                 { value: "tgv", label: "TGV" },
                 { value: "concorde", label: "Concorde" },

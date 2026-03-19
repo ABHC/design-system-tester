@@ -1,5 +1,4 @@
 <script lang="ts">
-    import type { Translation } from "$lib/types/translations";
     import LogoABHC from "./LogoABHC.svelte";
 </script>
 

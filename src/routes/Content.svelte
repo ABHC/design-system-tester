@@ -21,6 +21,7 @@
     import AvatarDemo    from "./AvatarDemo.svelte";
     import ModalDemo     from "./ModalDemo.svelte";
     import RadioGroupDemo from "./RadioGroupDemo.svelte";
+    import CheckboxDemo  from "./CheckboxDemo.svelte";
     import SwitchDemo    from "./SwitchDemo.svelte";
     import InputDemo     from "./InputDemo.svelte";
 
@@ -132,6 +133,13 @@
     <div id="demo-radiogroup">
         {#if show(["composants"])}
             <RadioGroupDemo trans={trans} placeholders={placeholders} />
+        {/if}
+    </div>
+
+    <!-- Checkbox ── composants -->
+    <div id="demo-checkbox">
+        {#if show(["composants"])}
+            <CheckboxDemo trans={trans} placeholders={placeholders} />
         {/if}
     </div>
 

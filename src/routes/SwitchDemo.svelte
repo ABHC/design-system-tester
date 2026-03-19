@@ -348,8 +348,9 @@
 
     .switch-columns {
         display: flex;
-        gap: 2.5rem;
         align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 2.5rem;
     }
 
     .switch-list {

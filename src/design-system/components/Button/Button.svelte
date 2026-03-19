@@ -85,7 +85,6 @@
         height: fit-content;
         line-height: 1;
         font-family: var(--font-body);
-        text-transform: capitalize;
     }
 
     /* Variant structure (style only, no color) ────────────────────────── */
