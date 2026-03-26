@@ -4,7 +4,7 @@
     import { buttonConfig } from './button.config';
 
     type Variant = "flat" | "outlined" | "ghost" | "textual";
-    type Palette = "accent" | "tone" | "error" | "warning" | "success" | "info";
+    type Palette = "accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info";
     type Size = "sm" | "md" | "lg";
     type Animate = "left" | "right" | "top" | "bottom";
     type Elevation = "none" | "subtle" | "hard";
@@ -110,20 +110,21 @@
         border-bottom: 2px solid transparent;
     }
 
-    .btn-ghost:hover {
-        box-shadow: 0 4px 12px var(--shadow-subtle);
-    }
-
-    .btn-ghost.btn-active.btn-rounded {
-        border-radius: 8px 8px 0 0;
-    }
-
     /* Textual — transparent, opacity-only hover */
     .btn-textual {
         border: none;
         background: transparent;
         padding: 0.25rem 0.5rem;
         border-bottom: 2px solid transparent;
+    }
+
+    .btn-ghost:hover {
+        box-shadow: 0 4px 12px var(--shadow-subtle);
+    }
+
+    .btn-ghost.btn-active.btn-rounded,
+    .btn-textual.btn-active.btn-rounded {
+        border-radius: 8px 8px 0 0;
     }
 
     /* Palette × Variant colors ────────────────────────────────────────── */
@@ -136,19 +137,19 @@
     }
 
     .btn-palette-accent.btn-flat:hover {
-        background: var(--accent-invert);
-        border-color: var(--accent-invert);
+        background: var(--accent-hover);
+        border-color: var(--accent-hover);
     }
 
     .btn-palette-accent.btn-flat.btn-active {
-        background: var(--accent-invert);
-        border-color: var(--accent-invert);
+        background: var(--accent-hover);
+        border-color: var(--accent-muted);
         color: var(--text-accent);
     }
 
     .btn-palette-accent.btn-outlined {
-        border-color: var(--accent-more);
-        color: var(--accent-more);
+        border-color: var(--accent-muted);
+        color: var(--accent-muted);
     }
 
     .btn-palette-accent.btn-outlined:hover {
@@ -158,8 +159,8 @@
     }
 
     .btn-palette-accent.btn-outlined.btn-active {
-        background: var(--accent-invert);
-        border-color: var(--accent-invert);
+        background: var(--accent-hover);
+        border-color: var(--accent-hover);
         color: var(--text-accent);
     }
 
@@ -168,56 +169,57 @@
     }
 
     .btn-palette-accent.btn-ghost:hover {
-        background: color-mix(in srgb, var(--text-accent) 15%, transparent);
+        background: var(--accent-ghost-hover);
     }
 
     .btn-palette-accent.btn-ghost.btn-active {
-        border-bottom-color: color-mix(in srgb, var(--text-accent) 45%, transparent);
+        border-bottom-color: var(--text-accent);
     }
 
     .btn-palette-accent.btn-textual {
-        color: color-mix(in srgb, var(--text-accent) 78%, transparent);
+        color: var(--accent-muted);
     }
 
     .btn-palette-accent.btn-textual:hover {
-        color: var(--text-accent);
+        color: var(--accent);
     }
 
     .btn-palette-accent.btn-textual.btn-active {
-        color: var(--text-accent);
-        border-color: var(--text-accent);
+        color: var(--accent-muted);
+        border-color: var(--accent);
     }
 
     /* tone */
     .btn-palette-tone.btn-flat {
-        background: var(--card);
-        border-color: var(--highlight);
+        background: var(--tone);
         color: var(--text);
     }
 
     .btn-palette-tone.btn-flat:hover {
-        background: var(--highlight);
+        background: var(--accent);
+        color: var(--text-accent);
     }
 
     .btn-palette-tone.btn-flat.btn-active {
-        background: var(--highlight);
-        border-color: var(--highlight);
-        color: var(--accent-more);
+        background: var(--accent);
+        border-color: var(--accent-bg);
+        color: var(--text-accent);
     }
 
     .btn-palette-tone.btn-outlined {
-        border-color: var(--highlight);
-        color: var(--text-muted);
+        border-color: var(--tone-muted);
+        color: var(--tone-muted);
     }
 
     .btn-palette-tone.btn-outlined:hover {
+        background: var(--accent);
         border-color: var(--accent);
-        color: var(--accent);
+        color: var(--text-accent);
     }
 
     .btn-palette-tone.btn-outlined.btn-active {
-        background: var(--accent);
-        border-color: var(--accent);
+        background: var(--accent-hover);
+        border-color: var(--accent-hover);
         color: var(--text-accent);
     }
 
@@ -226,7 +228,7 @@
     }
 
     .btn-palette-tone.btn-ghost:hover {
-        background: var(--highlight);
+        background: var(--tone-ghost);
     }
 
     .btn-palette-tone.btn-ghost.btn-active {
@@ -234,7 +236,7 @@
     }
 
     .btn-palette-tone.btn-textual {
-        color: color-mix(in srgb, var(--text) 78%, transparent);
+        color: var(--text-muted);
     }
 
     .btn-palette-tone.btn-textual:hover {
@@ -248,231 +250,307 @@
 
     /* error */
     .btn-palette-error.btn-flat {
-        background: var(--ctx-error-blend);
-        color: var(--text);
+        background: var(--error);
+        border-color: var(--error);
+        color: var(--text-error);
     }
 
     .btn-palette-error.btn-flat:hover {
-        background: color-mix(in srgb, var(--ctx-error) 30%, transparent);
+        background: var(--error-hover);
+        border-color: var(--error-hover);
     }
 
     .btn-palette-error.btn-flat.btn-active {
-        background: var(--ctx-error);
-        border-color: var(--ctx-error);
-        color: var(--text-accent);
+        background: var(--error-hover);
+        border-color: var(--error-muted);
+        color: var(--text-error);
     }
 
     .btn-palette-error.btn-outlined {
-        border-color: var(--ctx-error);
-        color: var(--ctx-error);
+        border-color: var(--error-muted);
+        color: var(--error-muted);
     }
 
     .btn-palette-error.btn-outlined:hover {
-        background: var(--ctx-error);
-        color: var(--text-accent);
+        background: var(--error);
+        border-color: var(--error);
+        color: var(--text-error);
     }
 
     .btn-palette-error.btn-outlined.btn-active {
-        background: var(--ctx-error);
-        border-color: var(--ctx-error);
-        color: var(--text-accent);
+        background: var(--error-hover);
+        border-color: var(--error-hover);
+        color: var(--text-error);
     }
 
     .btn-palette-error.btn-ghost {
-        color: var(--ctx-error);
+        color: var(--error-muted);
     }
 
     .btn-palette-error.btn-ghost:hover {
-        background: var(--ctx-error-blend);
+        background: var(--error-ghost-hover);
+        color: var(--error-muted);
     }
 
     .btn-palette-error.btn-ghost.btn-active {
-        border-bottom-color: var(--ctx-error);
+        border-bottom-color: var(--error-muted);
     }
 
     .btn-palette-error.btn-textual {
-        color: color-mix(in srgb, var(--ctx-error) 78%, transparent);
+        color: var(--error-muted);
     }
 
     .btn-palette-error.btn-textual:hover {
-        color: var(--ctx-error);
+        color: var(--error);
     }
 
     .btn-palette-error.btn-textual.btn-active {
-        color: var(--ctx-error);
-        border-color: var(--ctx-error);
+        color: var(--error-muted);
+        border-color: var(--error);
     }
 
     /* warning */
     .btn-palette-warning.btn-flat {
-        background: var(--ctx-warning-blend);
-        color: var(--text);
+        background: var(--warning);
+        border-color: var(--warning);
+        color: var(--text-warning);
     }
 
     .btn-palette-warning.btn-flat:hover {
-        background: color-mix(in srgb, var(--ctx-warning) 30%, transparent);
+        background: var(--warning-hover);
+        border-color: var(--warning-hover);
     }
 
     .btn-palette-warning.btn-flat.btn-active {
-        background: var(--ctx-warning);
-        border-color: var(--ctx-warning);
-        color: var(--text-accent);
+        background: var(--warning-hover);
+        border-color: var(--warning-muted);
+        color: var(--text-warning);
     }
 
     .btn-palette-warning.btn-outlined {
-        border-color: var(--ctx-warning);
-        color: var(--ctx-warning);
+        border-color: var(--warning-muted);
+        color: var(--warning-muted);
     }
 
     .btn-palette-warning.btn-outlined:hover {
-        background: var(--ctx-warning);
-        color: var(--text-accent);
+        background: var(--warning);
+        border-color: var(--warning);
+        color: var(--text-warning);
     }
 
     .btn-palette-warning.btn-outlined.btn-active {
-        background: var(--ctx-warning);
-        border-color: var(--ctx-warning);
-        color: var(--text-accent);
+        background: var(--warning-hover);
+        border-color: var(--warning-hover);
+        color: var(--text-warning);
     }
 
     .btn-palette-warning.btn-ghost {
-        color: var(--ctx-warning);
+        color: var(--warning-muted);
     }
 
     .btn-palette-warning.btn-ghost:hover {
-        background: var(--ctx-warning-blend);
+        background: var(--warning-ghost-hover);
+        color: var(--warning-muted);
     }
 
     .btn-palette-warning.btn-ghost.btn-active {
-        border-bottom-color: var(--ctx-warning);
+        border-bottom-color: var(--warning-muted);
     }
 
     .btn-palette-warning.btn-textual {
-        color: color-mix(in srgb, var(--ctx-warning) 78%, transparent);
+        color: var(--warning-muted);
     }
 
     .btn-palette-warning.btn-textual:hover {
-        color: var(--ctx-warning);
+        color: var(--warning);
     }
 
     .btn-palette-warning.btn-textual.btn-active {
-        color: var(--ctx-warning);
-        border-color: var(--ctx-warning);
+        color: var(--warning-muted);
+        border-color: var(--warning);
     }
 
     /* success */
     .btn-palette-success.btn-flat {
-        background: var(--ctx-success-blend);
-        color: var(--text);
+        background: var(--success);
+        border-color: var(--success);
+        color: var(--text-success);
     }
 
     .btn-palette-success.btn-flat:hover {
-        background: color-mix(in srgb, var(--ctx-success) 30%, transparent);
+        background: var(--success-hover);
+        border-color: var(--success-hover);
     }
 
     .btn-palette-success.btn-flat.btn-active {
-        background: var(--ctx-success);
-        border-color: var(--ctx-success);
-        color: var(--text-accent);
+        background: var(--success-hover);
+        border-color: var(--success-muted);
+        color: var(--text-success);
     }
 
     .btn-palette-success.btn-outlined {
-        border-color: var(--ctx-success);
-        color: var(--ctx-success);
+        border-color: var(--success-muted);
+        color: var(--success-muted);
     }
 
     .btn-palette-success.btn-outlined:hover {
-        background: var(--ctx-success);
-        color: var(--text-accent);
+        background: var(--success);
+        border-color: var(--success);
+        color: var(--text-success);
     }
 
     .btn-palette-success.btn-outlined.btn-active {
-        background: var(--ctx-success);
-        border-color: var(--ctx-success);
-        color: var(--text-accent);
+        background: var(--success-hover);
+        border-color: var(--success-hover);
+        color: var(--text-success);
     }
 
     .btn-palette-success.btn-ghost {
-        color: var(--ctx-success);
+        color: var(--success-muted);
     }
 
     .btn-palette-success.btn-ghost:hover {
-        background: var(--ctx-success-blend);
+        background: var(--success-ghost-hover);
+        color: var(--success-muted);
     }
 
     .btn-palette-success.btn-ghost.btn-active {
-        border-bottom-color: var(--ctx-success);
+        border-bottom-color: var(--success-muted);
     }
 
     .btn-palette-success.btn-textual {
-        color: color-mix(in srgb, var(--ctx-success) 78%, transparent);
+        color: var(--success-muted);
     }
 
     .btn-palette-success.btn-textual:hover {
-        color: var(--ctx-success);
+        color: var(--success);
     }
 
     .btn-palette-success.btn-textual.btn-active {
-        color: var(--ctx-success);
-        border-color: var(--ctx-success);
+        color: var(--success-muted);
+        border-color: var(--success);
     }
-
 
     /* info */
     .btn-palette-info.btn-flat {
-        background: var(--ctx-info-blend);
-        color: var(--text);
+        background: var(--info);
+        border-color: var(--info);
+        color: var(--text-info);
     }
 
     .btn-palette-info.btn-flat:hover {
-        background: color-mix(in srgb, var(--ctx-info) 30%, transparent);
-    }
-
-    .btn-palette-info.btn-outlined {
-        border-color: var(--ctx-info);
-        color: var(--ctx-info);
+        background: var(--info-hover);
+        border-color: var(--info-hover);
     }
 
     .btn-palette-info.btn-flat.btn-active {
-        background: var(--ctx-info);
-        border-color: var(--ctx-info);
-        color: var(--text-accent);
+        background: var(--info-hover);
+        border-color: var(--info-muted);
+        color: var(--text-info);
+    }
+
+    .btn-palette-info.btn-outlined {
+        border-color: var(--info-muted);
+        color: var(--info-muted);
     }
 
     .btn-palette-info.btn-outlined:hover {
-        background: var(--ctx-info);
-        color: var(--text-accent);
+        background: var(--info);
+        border-color: var(--info);
+        color: var(--text-info);
     }
 
     .btn-palette-info.btn-outlined.btn-active {
-        background: var(--ctx-info);
-        border-color: var(--ctx-info);
-        color: var(--text-accent);
+        background: var(--info-hover);
+        border-color: var(--info-hover);
+        color: var(--text-info);
     }
 
     .btn-palette-info.btn-ghost {
-        color: var(--ctx-info);
+        color: var(--info-muted);
     }
 
     .btn-palette-info.btn-ghost:hover {
-        background: var(--ctx-info-blend);
+        background: var(--info-ghost-hover);
+        color: var(--info-muted);
     }
 
     .btn-palette-info.btn-ghost.btn-active {
-        border-bottom-color: var(--ctx-info);
+        border-bottom-color: var(--info-muted);
     }
 
     .btn-palette-info.btn-textual {
-        color: color-mix(in srgb, var(--ctx-info) 78%, transparent);
+        color: var(--info-muted);
     }
 
     .btn-palette-info.btn-textual:hover {
-        color: var(--ctx-info);
+        color: var(--info);
     }
 
     .btn-palette-info.btn-textual.btn-active {
-        color: var(--ctx-info);
-        border-color: var(--ctx-info);
+        color: var(--info-muted);
+        border-color: var(--info);
+    }
+
+    /* neutral */
+    .btn-palette-neutral.btn-flat {
+        background: var(--neutral);
+        border-color: var(--neutral);
+        color: var(--text-neutral);
+    }
+
+    .btn-palette-neutral.btn-flat:hover {
+        background: var(--neutral-hover);
+        border-color: var(--neutral-hover);
+    }
+
+    .btn-palette-neutral.btn-flat.btn-active {
+        background: var(--neutral-hover);
+        border-color: var(--neutral-muted);
+        color: var(--text-neutral);
+    }
+
+    .btn-palette-neutral.btn-outlined {
+        border-color: var(--neutral-muted);
+        color: var(--neutral-muted);
+    }
+
+    .btn-palette-neutral.btn-outlined:hover {
+        background: var(--neutral);
+        border-color: var(--neutral);
+        color: var(--text-neutral);
+    }
+
+    .btn-palette-neutral.btn-outlined.btn-active {
+        background: var(--neutral-hover);
+        border-color: var(--neutral-hover);
+        color: var(--text-neutral);
+    }
+
+    .btn-palette-neutral.btn-ghost {
+        color: var(--neutral-muted);
+    }
+
+    .btn-palette-neutral.btn-ghost:hover {
+        background: var(--neutral-ghost-hover);
+        color: var(--neutral-muted);
+    }
+
+    .btn-palette-neutral.btn-ghost.btn-active {
+        border-bottom-color: var(--neutral-muted);
+    }
+
+    .btn-palette-neutral.btn-textual {
+        color: var(--neutral-muted);
+    }
+
+    .btn-palette-neutral.btn-textual:hover {
+        color: var(--neutral);
+    }
+
+    .btn-palette-neutral.btn-textual.btn-active {
+        color: var(--neutral-muted);
+        border-color: var(--neutral);
     }
 
     /* Elevation — appears on hover ───────────────────────────────────── */

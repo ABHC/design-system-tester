@@ -13,6 +13,7 @@ export const buttonConfig = {
         palette: {
             accent: "btn-palette-accent",
             tone: "btn-palette-tone",
+            neutral: "btn-palette-neutral",
             error: "btn-palette-error",
             warning: "btn-palette-warning",
             success: "btn-palette-success",
@@ -46,8 +47,8 @@ export const buttonConfig = {
             true: "btn-active" 
         },
 
-        rounded: { 
-            true: "btn-rounded" 
+        rounded: {
+            true: "btn-rounded"
         },
 
         direction: { 
