@@ -61,48 +61,48 @@ export function getContrastRatio(hex1: string, hex2: string): string {
 export function getWcagLevel(ratio: string, size: WcagSize = 'normal'): WcagResult {
     const r = parseFloat(ratio);
     if (size === 'normal') {
-        if (r >= 7)   return { 
-            level: 'AAA',      
-            pass: true,  
-            colour: 'var(--ctx-info)', 
-            bg: 'var(--ctx-info-blend)' 
+        if (r >= 7)   return {
+            level: 'AAA',
+            pass: true,
+            colour: 'var(--text-success)',
+            bg: 'var(--success-hover)'
         };
-        if (r >= 4.5) return { 
-            level: 'AA',       
-            pass: true,  
-            colour: 'var(--ctx-success)',
-            bg: 'var(--ctx-success-blend)'  
+        if (r >= 4.5) return {
+            level: 'AA',
+            pass: true,
+            colour: 'var(--text-success)',
+            bg: 'var(--success)'
         };
-        if (r >= 3)   return { 
-            level: 'AA Large', 
-            pass: true,  
-            colour: 'var(--ctx-warning)',
-            bg: 'var(--ctx-warning-blend)'  
+        if (r >= 3)   return {
+            level: 'AA Large',
+            pass: true,
+            colour: 'var(--text-warning)',
+            bg: 'var(--warning)'
         };
-        return { 
-            level: 'Fail',     
-            pass: false, 
-            colour: 'var(--ctx-error)', 
-            bg: 'var(--ctx-error-blend)' 
+        return {
+            level: 'Fail',
+            pass: false,
+            colour: 'var(--text-error)',
+            bg: 'var(--error)'
         };
     } else {
-        if (r >= 4.5) return { 
-            level: 'AAA',      
-            pass: true,  
-            colour: 'var(--ctx-info)',
-            bg: 'var(--ctx-info-blend)' 
+        if (r >= 4.5) return {
+            level: 'AAA',
+            pass: true,
+            colour: 'var(--text-success)',
+            bg: 'var(--success-hover)'
         };
-        if (r >= 3)   return { 
-            level: 'AA',       
-            pass: true,  
-            colour: 'var(--ctx-success)', 
-            bg: 'var(--ctx-success-blend)'
+        if (r >= 3)   return {
+            level: 'AA',
+            pass: true,
+            colour: 'var(--text-success)',
+            bg: 'var(--success)'
         };
-        return { 
-            level: 'Fail',     
-            pass: false, 
-            colour: 'var(--ctx-error)', 
-            bg: 'var(--ctx-error-blend)' 
+        return {
+            level: 'Fail',
+            pass: false,
+            colour: 'var(--text-error)',
+            bg: 'var(--error)'
         };
     }
 }

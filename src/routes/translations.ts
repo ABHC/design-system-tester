@@ -1,3 +1,4 @@
+import type { command } from "$app/server";
 import type { Translations, Locale, Translation } from "$lib/types/translations";
 
 export const translations = {
@@ -26,6 +27,7 @@ export const translations = {
             palette: "Palette",
             accent: "Couleur d'accent",
             ctx: "Couleurs contextuelles",
+            text: "Palette texte",
             fonts: "Polices",
             font_body: "Corps de texte",
             font_titles: "Titres",
@@ -175,14 +177,15 @@ export const translations = {
             lbl_on_accent: "Sur fond accent",
             lbl_enabled: "Activé",
             lbl_disabled: "Désactivé",
-            wifi: "Wi-Fi",
-            notifications: "Notifications",
-            light_mode: "Mode clair",
-            dark_mode: "Mode sombre",
-            airplane: "Mode avion",
-            bluetooth: "Bluetooth",
-            sync: "Synchronisation",
-            dnd: "Ne pas déranger",
+        },
+        search_field: {
+            title: "Searchfield"
+        },
+        select: {
+            title: "Select"
+        },
+        command: {
+            title: "Command"
         },
         form: {
             title: "📋 Formulaires",
@@ -237,7 +240,7 @@ export const translations = {
             cat_surfaces: "Séparation des surfaces",
             surface_badge: "Surface",
             surface_note: "Contraste de distinction visuelle — seuils WCAG non applicables",
-            reco_title: "Recommandations",
+            results_title: "Résultats des tests",
             reco_best_accent_per_surface: "Meilleur accent par surface",
             reco_best_surface_per_accent: "Meilleure surface par variante d'accent",
             reco_on: "sur",
@@ -252,7 +255,7 @@ export const translations = {
             export_accent: "Accent",
             detail_show: "Voir le détail par combinaison",
             detail_hide: "Masquer le détail",
-            suggest_title: "Suggestions d'ajustement (AA ≥ 4.5:1)",
+            suggest_title: "Ajustement",
             suggest_all_pass: "Toutes les combinaisons requises passent AA",
             suggest_scale_title: "Échelle suggérée",
             suggest_scale_step: "Pas",
@@ -275,8 +278,13 @@ export const translations = {
             ctx_success: "Succès",
             ctx_info: "Information",
             ctx_more: "Hover accent",
+            ctx_neutral: "Neutre",
             ctx_all_pass: "Toutes les couleurs contextuelles passent AA",
             ctx_suggest_title: "Suggestions contextuelles",
+            tone_hover: "Tone Hover",
+            text_muted_label: "Texte atténué",
+            cat_semantic: "Couleurs sémantiques",
+            semantic_note: "hover et muted sont calculés par thème : hover ajuste la luminosité OKLCH vers le contraste (+ clair sur fond sombre, + foncé sur fond clair), muted cible 5.5:1 contre card avec chroma réduite à 80%.",
         },
         colorblind: {
             title: "Simulation daltonisme",
@@ -302,6 +310,18 @@ export const translations = {
             linked_in_btn: "LinkedIn",
             copied: "Copié !",
             clipboard: "L'adresse e-mail a été copiée dans votre presse-papier"
+        },
+        palette_creator: {
+            title: "Palettes customisées",
+            tone_bg: "Ton (fond)",
+            tone_base: "Ton (base)",
+            accent: "Accent",
+            ctx: "Contextuelles",
+            text: "Texte",
+            light_text: "Texte clair",
+            dark_text: "Texte sombre",
+            save: "Sauvegarder",
+            slot_hint: "Chaque slot stocke une palette custom par catégorie (ton, accent, ctx, texte). Sauvegarder écrase le slot sélectionné."
         },
         seo: {
             meta: "",
@@ -338,6 +358,7 @@ export const translations = {
             palette: "Palette",
             accent: "Accent Color",
             ctx: "Contextual colors",
+            text: "Text Palette",
             fonts: "Fonts",
             font_body: "Body",
             font_titles: "Headings",
@@ -496,6 +517,15 @@ export const translations = {
             lbl_leading: "Leading icon",
             lbl_trailing: "Trailing icon",
         },
+        search_field: {
+            title: "Searchfield"
+        },
+        select: {
+            title: "Select"
+        },
+        command: {
+            title: "Command"
+        },
         form: {
             title: "📋 Forms",
             name: "Name",
@@ -549,7 +579,7 @@ export const translations = {
             cat_surfaces: "Surface separation",
             surface_badge: "Surface",
             surface_note: "Visual distinction contrast — WCAG thresholds do not apply",
-            reco_title: "Recommendations",
+            results_title: "Tests results",
             reco_best_accent_per_surface: "Best accent per surface",
             reco_best_surface_per_accent: "Best surface per accent variant",
             reco_on: "on",
@@ -564,7 +594,7 @@ export const translations = {
             export_accent: "Accent",
             detail_show: "Show detail per combination",
             detail_hide: "Hide detail",
-            suggest_title: "Adjustment suggestions (AA ≥ 4.5:1)",
+            suggest_title: "Adjustment",
             suggest_all_pass: "All required combinations pass AA",
             suggest_scale_title: "Suggested scale",
             suggest_scale_step: "Step",
@@ -588,8 +618,13 @@ export const translations = {
             ctx_success: "Success",
             ctx_info: "Info",
             ctx_more: "Hover accent",
+            ctx_neutral: "Neutral",
             ctx_all_pass: "All contextual colors pass AA",
             ctx_suggest_title: "Contextual suggestions",
+            tone_hover: "Tone Hover",
+            text_muted_label: "Text Muted",
+            cat_semantic: "Semantic colors",
+            semantic_note: "hover and muted are computed per-theme: hover shifts OKLCH lightness toward contrast (lighter on dark bg, darker on light bg), muted targets 5.5:1 against card with chroma reduced to 80%.",
         },
         colorblind: {
             title: "Color blindness simulation",
@@ -615,6 +650,18 @@ export const translations = {
             linked_in_btn: "LinkedIn",
             copied: "Copied !",
             clipboard: "The email address has been copied to your clipboard."
+        },
+        palette_creator: {
+            title: "Custom palettes",
+            tone_bg: "Tone (background)",
+            tone_base: "Tone (base)",
+            accent: "Accent",
+            ctx: "Contextuals",
+            text: "Text",
+            light_text: "Light text",
+            dark_text: "Dark text",
+            save: "Save",
+            slot_hint: "Each slot stores one custom palette per category (tone, accent, ctx, text). Saving overwrites the selected slot."
         },
         seo: {
             meta: "",

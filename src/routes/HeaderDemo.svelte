@@ -166,13 +166,31 @@ let header_visible = $state(true);
             <span class="mock-name">AppName</span>
         </div>
         <div class="demo-actions">
-            <Button variant="ghost" palette={demo_palette} squared aria_label="Search">
+            <Button 
+                variant="ghost" 
+                palette={demo_palette} 
+                direction="column" 
+                size="sm"
+                aria_label="Search"
+            >
                 <span class="material-symbols-outlined">search</span>
             </Button>
-            <Button variant="ghost" palette={demo_palette} squared aria_label="Notifications">
+            <Button 
+                variant="ghost" 
+                palette={demo_palette} 
+                direction="column" 
+                size="sm"
+                aria_label="Notifications"
+            >
                 <span class="material-symbols-outlined">notifications</span>
             </Button>
-            <Button variant="ghost" palette={demo_palette} squared aria_label="Account">
+            <Button 
+                variant="ghost" 
+                palette={demo_palette} 
+                direction="column" 
+                size="sm"
+                aria_label="Account"
+            >
                 <span class="material-symbols-outlined">account_circle</span>
             </Button>
         </div>
@@ -196,10 +214,22 @@ let header_visible = $state(true);
             {/each}
         </nav>
         <div class="demo-actions">
-            <Button variant="ghost" palette={demo_palette} squared aria_label="Settings">
+            <Button 
+                variant="ghost" 
+                palette={demo_palette} 
+                direction="column" 
+                size="sm"
+                aria_label="Settings"
+            >
                 <span class="material-symbols-outlined">settings</span>
             </Button>
-            <Button variant="flat" palette={demo_palette === "accent" ? "tone" : "accent"} size="sm">Sign up</Button>
+            <Button 
+                variant="flat" 
+                palette={demo_palette === "accent" ? "tone" : "accent"} 
+                size="sm"
+            >
+                Sign up
+            </Button>
         </div>
     </div>
 {/snippet}
@@ -342,11 +372,11 @@ let header_visible = $state(true);
 <style>
     /* ---- Preview ---- */
     .header-preview {
-        border: 1.5px solid var(--highlight);
+        border: 2px solid var(--tone-hover);
         border-radius: 12px;
         overflow: hidden;
         margin-bottom: 0.75rem;
-        background: var(--bg);
+        background: var(--tone-bg);
     }
 
     .demo-row {
@@ -380,7 +410,7 @@ let header_visible = $state(true);
 
     .mock-line {
         height: 10px;
-        background: var(--highlight);
+        background: var(--tone-hover);
         border-radius: 4px;
         width: 100%;
     }
@@ -430,10 +460,10 @@ let header_visible = $state(true);
     }
 
     .sim-preview {
-        border: 1.5px solid var(--highlight);
+        border: 2px solid var(--tone-hover);
         border-radius: 12px;
         overflow: hidden;
-        background: var(--bg);
+        background: var(--tone-bg);
     }
 
     /* Header area — collapses smoothly to simulate scroll */
@@ -454,9 +484,9 @@ let header_visible = $state(true);
         align-items: center;
         gap: 1rem;
         padding: 0.5rem 1.25rem;
-        background: var(--card);
-        border-top: 1.5px solid var(--highlight);
-        border-bottom: 1.5px solid var(--highlight);
+        background: var(--tone);
+        border-top: 1.5px solid var(--tone-hover);
+        border-bottom: 1.5px solid var(--tone-hover);
         min-height: 52px;
         transition: all 0.3s ease;
     }
@@ -498,7 +528,7 @@ let header_visible = $state(true);
     .sim-toggle {
         padding: 0.35rem 0.85rem;
         border-radius: 6px;
-        border: 1.5px solid var(--highlight);
+        border: 1.5px solid var(--tone-hover);
         background: transparent;
         color: var(--text);
         font-size: 0.75rem;
@@ -523,13 +553,13 @@ let header_visible = $state(true);
     }
 
     .badge-on {
-        background: color-mix(in srgb, var(--ctx-success, #4caf50) 15%, transparent);
-        color: var(--ctx-success, #4caf50);
+        background: var(--success-ghost-hover);
+        color: var(--success);
     }
 
     .badge-off {
-        background: color-mix(in srgb, var(--ctx-warning, #ff9800) 15%, transparent);
-        color: var(--ctx-warning, #ff9800);
+        background: var(--warning-ghost-hover);
+        color: var(--warning);
     }
 
     /* sim-logo inside sim-nav reuses mock-wordmark global styles */

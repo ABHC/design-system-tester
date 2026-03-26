@@ -79,6 +79,7 @@
                 <Button 
                     variant="ghost" 
                     palette={demo_palette} 
+                    direction="column" 
                     size="sm" 
                     rounded
                 >
@@ -125,9 +126,21 @@
 <!-- Controls -->
 
 <ControlBar palette="tone" rounded>
-    <Selector label="Palette" options={["accent", "tone"]} bind:value={demo_palette} />
-    <Selector label="Rounded" options={[{value: true, label: "yes"}, {value: false, label: "no"}]} bind:value={demo_rounded} />
-    <Selector label="Preset"  options={["social", "minimal", "brand"]} bind:value={demo_preset} />
+    <Selector 
+        label="Palette" 
+        options={["accent", "tone"]} 
+        bind:value={demo_palette} 
+    />
+    <Selector 
+        label="Rounded" 
+        options={[{value: true, label: "yes"}, {value: false, label: "no"}]} 
+        bind:value={demo_rounded} 
+    />
+    <Selector 
+        label="Preset"  
+        options={["social", "minimal", "brand"]} 
+        bind:value={demo_preset} 
+    />
 </ControlBar>
 
 <!-- Live preview -->
@@ -191,11 +204,11 @@
 <style>
     /* Preview */
     .footer-preview {
-        border: 1.5px solid var(--highlight);
+        border: 2px solid var(--tone-hover);
         border-radius: 12px;
         overflow: hidden;
         margin-bottom: 0.75rem;
-        background: var(--bg);
+        background: var(--tone-bg);
     }
 
     .preview-body {
@@ -207,7 +220,7 @@
 
     .mock-line {
         height: 10px;
-        background: var(--highlight);
+        background: var(--tone-hover);
         border-radius: 4px;
         width: 100%;
     }
@@ -246,7 +259,7 @@
 
     .mock-social-link:hover {
         opacity: 1;
-        background: color-mix(in srgb, currentColor 15%, transparent);
+        background: var(--tone-ghost);
     }
 
     .mock-copy {

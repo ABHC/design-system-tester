@@ -3,7 +3,7 @@
     import type { PlaceholdersType } from "./placeholders";
     import Headline from "../design-system/components/Headline/Headline.svelte";
     import Input from "../design-system/components/Input/Input.svelte";
-    import Textarea from "../design-system/components/Input/Textarea.svelte";
+    import Textarea from "../design-system/components/Textarea/Textarea.svelte";
     import Card from "../design-system/components/Card/Card.svelte";
     import Button from "../design-system/components/Button/Button.svelte";
     import CodeBlock from "../design-system/components/CodeBlock/CodeBlock.svelte";
@@ -192,12 +192,12 @@
 <!-- ── Markup ────────────────────────────────────────────────────────────── -->
 
 <Headline size="md" uppercase>
-    {trans?.input_demo?.title ?? "Input & Textarea"}
+    {trans?.input_demo?.title}
 </Headline>
 
 <ControlBar palette="tone" rounded>
     <Selector
-        label={trans?.input_demo?.lbl_size ?? "Size"}
+        label={trans?.input_demo?.lbl_size}
         options={["sm", "md", "lg"]}
         bind:value={demo_size}
     />
@@ -212,7 +212,7 @@
         {#snippet header()}
             <div class="card-form-header">
                 <span class="material-symbols-outlined">account_circle</span>
-                <span>{placeholders?.input_demo?.sect_signup ?? "Create an account"}</span>
+                <span>{placeholders?.input_demo?.sect_signup}</span>
             </div>
         {/snippet}
 
@@ -221,16 +221,16 @@
                 <Input
                     bind:value={first_name}
                     size={demo_size}
-                    label={placeholders?.input_demo?.lbl_first_name ?? "First name"}
-                    placeholder={placeholders?.input_demo?.ph_first_name ?? "John"}
+                    label={placeholders?.input_demo?.lbl_first_name}
+                    placeholder={placeholders?.input_demo?.ph_first_name}
                     leading={icon_person}
                     required
                 />
                 <Input
                     bind:value={last_name}
                     size={demo_size}
-                    label={placeholders?.input_demo?.lbl_last_name ?? "Last name"}
-                    placeholder={placeholders?.input_demo?.ph_last_name ?? "Doe"}
+                    label={placeholders?.input_demo?.lbl_last_name}
+                    placeholder={placeholders?.input_demo?.ph_last_name}
                     required
                 />
             </div>
@@ -239,8 +239,8 @@
                 bind:value={su_email}
                 size={demo_size}
                 type="email"
-                label={placeholders?.input_demo?.lbl_email ?? "Email"}
-                placeholder={placeholders?.input_demo?.ph_email ?? "you@example.com"}
+                label={placeholders?.input_demo?.lbl_email}
+                placeholder={placeholders?.input_demo?.ph_email}
                 leading={icon_email}
                 required
             />
@@ -249,10 +249,10 @@
                 bind:value={password}
                 size={demo_size}
                 type="password"
-                label={placeholders?.input_demo?.lbl_password ?? "Password"}
+                label={placeholders?.input_demo?.lbl_password}
                 placeholder="••••••••"
                 leading={icon_lock}
-                hint={placeholders?.input_demo?.hint_password ?? "Min 8 characters"}
+                hint={placeholders?.input_demo?.hint_password}
                 required
             />
 
@@ -260,14 +260,14 @@
                 bind:value={password_repeat}
                 size={demo_size}
                 type="password"
-                label={placeholders?.input_demo?.lbl_pw_repeat ?? "Repeat password"}
+                label={placeholders?.input_demo?.lbl_pw_repeat}
                 placeholder="••••••••"
                 leading={icon_lock}
                 success={
-                    password_match ? (placeholders?.input_demo?.success_pw ?? "Passwords match") : undefined
+                    password_match ? (placeholders?.input_demo?.success_pw) : undefined
                 }
                 error={
-                    password_mismatch ? (placeholders?.input_demo?.error_pw ?? "Passwords do not match") : undefined
+                    password_mismatch ? (placeholders?.input_demo?.error_pw) : undefined
                 }
                 required
             />
@@ -275,7 +275,7 @@
 
         {#snippet footer()}
             <Button variant="flat" size={demo_size}>
-                {placeholders?.input_demo?.btn_signup ?? "Create account"}
+                {placeholders?.input_demo?.btn_signup}
             </Button>
         {/snippet}
     </Card>
@@ -285,7 +285,7 @@
         {#snippet header()}
             <div class="card-form-header">
                 <span class="material-symbols-outlined">mail</span>
-                <span>{placeholders?.input_demo?.sect_contact ?? "Send a message"}</span>
+                <span>{placeholders?.input_demo?.sect_contact}</span>
             </div>
         {/snippet}
 
@@ -293,8 +293,8 @@
             <Input
                 bind:value={ct_name}
                 size={demo_size}
-                label={placeholders?.input_demo?.lbl_name ?? "Name"}
-                placeholder={placeholders?.input_demo?.ph_name ?? "Your name"}
+                label={placeholders?.input_demo?.lbl_name}
+                placeholder={placeholders?.input_demo?.ph_name}
                 leading={icon_person}
                 required
             />
@@ -303,8 +303,8 @@
                 bind:value={ct_email}
                 size={demo_size}
                 type="email"
-                label={placeholders?.input_demo?.lbl_email ?? "Email"}
-                placeholder={placeholders?.input_demo?.ph_email ?? "you@example.com"}
+                label={placeholders?.input_demo?.lbl_email}
+                placeholder={placeholders?.input_demo?.ph_email}
                 leading={icon_email}
                 required
             />
@@ -312,17 +312,17 @@
             <Input
                 bind:value={ct_subject}
                 size={demo_size}
-                label={placeholders?.input_demo?.lbl_subject ?? "Subject"}
-                placeholder={placeholders?.input_demo?.ph_subject ?? "What is this about?"}
+                label={placeholders?.input_demo?.lbl_subject}
+                placeholder={placeholders?.input_demo?.ph_subject}
                 leading={icon_subject}
             />
 
             <Textarea
                 bind:value={ct_message}
                 size={demo_size}
-                label={placeholders?.input_demo?.lbl_message ?? "Message"}
-                placeholder={placeholders?.input_demo?.ph_message ?? "Write your message here…"}
-                hint={placeholders?.input_demo?.hint_message ?? "Min 20 characters"}
+                label={placeholders?.input_demo?.lbl_message}
+                placeholder={placeholders?.input_demo?.ph_message}
+                hint={placeholders?.input_demo?.hint_message}
                 error={msg_error}
                 success={msg_success}
                 rows={6}
@@ -332,7 +332,7 @@
 
         {#snippet footer()}
             <Button variant="flat" size={demo_size}>
-                {placeholders?.input_demo?.btn_send ?? "Send message"}
+                {placeholders?.input_demo?.btn_send}
             </Button>
         {/snippet}
     </Card>
@@ -342,106 +342,133 @@
 <!-- States reference -->
 
 <div class="states-preview">
-    <span class="section-label">{trans?.input_demo?.sect_states ?? "Input states"}</span>
+    <span class="section-label">{trans?.input_demo?.sect_states}</span>
 
     <div class="states-grid">
-
         <div class="state-item">
-            <span class="state-label">{trans?.input_demo?.lbl_normal ?? "Normal"}</span>
-            <Input size={demo_size} placeholder="you@example.com" />
+            <span class="state-label">{trans?.input_demo?.lbl_normal}</span>
+            <Input 
+                size={demo_size} 
+                placeholder="you@example.com" 
+            />
         </div>
 
         <div class="state-item">
-            <span class="state-label">{trans?.input_demo?.lbl_hint ?? "Hint"}</span>
+            <span class="state-label">{trans?.input_demo?.lbl_hint}</span>
             <Input
                 size={demo_size}
                 placeholder="you@example.com"
-                hint={placeholders?.input_demo?.hint_email_ref ?? "We'll never share your email"}
+                hint={placeholders?.input_demo?.hint_email_ref}
             />
         </div>
 
         <div class="state-item">
-            <span class="state-label">{trans?.input_demo?.lbl_error ?? "Error"}</span>
+            <span class="state-label">{trans?.input_demo?.lbl_error}</span>
             <Input
                 size={demo_size}
                 value={ref_email_error}
-                error={placeholders?.input_demo?.error_ref ?? "Invalid email address"}
+                error={placeholders?.input_demo?.error_ref}
             />
         </div>
 
         <div class="state-item">
-            <span class="state-label">{trans?.input_demo?.lbl_success ?? "Success"}</span>
+            <span class="state-label">{trans?.input_demo?.lbl_success}</span>
             <Input
                 size={demo_size}
                 value={ref_email_success}
-                success={placeholders?.input_demo?.success_ref ?? "Email available"}
+                success={placeholders?.input_demo?.success_ref}
             />
         </div>
 
         <div class="state-item">
-            <span class="state-label">{trans?.input_demo?.lbl_disabled ?? "Disabled"}</span>
-            <Input size={demo_size} value={ref_disabled_val} disabled />
+            <span class="state-label">{trans?.input_demo?.lbl_disabled}</span>
+            <Input 
+                size={demo_size} 
+                value={ref_disabled_val} 
+                disabled 
+            />
         </div>
 
         <div class="state-item">
-            <span class="state-label">{trans?.input_demo?.lbl_readonly ?? "Readonly"}</span>
-            <Input size={demo_size} value={ref_readonly_val} readonly />
+            <span class="state-label">{trans?.input_demo?.lbl_readonly}</span>
+            <Input 
+                size={demo_size} 
+                value={ref_readonly_val} 
+                readonly 
+            />
         </div>
 
         <div class="state-item">
-            <span class="state-label">{trans?.input_demo?.lbl_leading ?? "Leading icon"}</span>
-            <Input size={demo_size} placeholder="you@example.com" leading={icon_email} />
+            <span class="state-label">{trans?.input_demo?.lbl_leading}</span>
+            <Input 
+                size={demo_size} 
+                placeholder="you@example.com" 
+                leading={icon_email} 
+            />
         </div>
 
         <div class="state-item">
-            <span class="state-label">{trans?.input_demo?.lbl_trailing ?? "Trailing icon"}</span>
-            <Input size={demo_size} type="password" placeholder="••••••••" leading={icon_lock} />
+            <span class="state-label">{trans?.input_demo?.lbl_trailing}</span>
+            <Input 
+                size={demo_size} 
+                type="password" 
+                placeholder="••••••••" 
+                leading={icon_lock} 
+            />
         </div>
-
     </div>
 
-    <span class="section-label">{trans?.input_demo?.sect_states_ta ?? "Textarea states"}</span>
+    <span class="section-label">{trans?.input_demo?.sect_states_ta}</span>
 
     <div class="states-grid">
 
         <div class="state-item">
-            <span class="state-label">{trans?.input_demo?.lbl_normal ?? "Normal"}</span>
-            <Textarea size={demo_size} rows={3} placeholder={placeholders?.input_demo?.ph_message ?? "Write something…"} />
-        </div>
-
-        <div class="state-item">
-            <span class="state-label">{trans?.input_demo?.lbl_hint ?? "Hint"}</span>
-            <Textarea
-                size={demo_size}
-                rows={3}
-                placeholder={placeholders?.input_demo?.ph_message ?? "Write something…"}
-                hint={placeholders?.input_demo?.hint_message ?? "Min 20 characters"}
+            <span class="state-label">{trans?.input_demo?.lbl_normal}</span>
+            <Textarea 
+                size={demo_size} 
+                rows={3} 
+                placeholder={placeholders?.input_demo?.ph_message} 
             />
         </div>
 
         <div class="state-item">
-            <span class="state-label">{trans?.input_demo?.lbl_error ?? "Error"}</span>
+            <span class="state-label">{trans?.input_demo?.lbl_hint}</span>
             <Textarea
                 size={demo_size}
                 rows={3}
-                value="Too short"
-                error={placeholders?.input_demo?.error_ref_ta ?? "Message too short"}
+                placeholder={placeholders?.input_demo?.ph_message}
+                hint={placeholders?.input_demo?.hint_message}
             />
         </div>
 
         <div class="state-item">
-            <span class="state-label">{trans?.input_demo?.lbl_success ?? "Success"}</span>
+            <span class="state-label">{trans?.input_demo?.lbl_error}</span>
             <Textarea
                 size={demo_size}
                 rows={3}
-                value="This message is long enough to be valid and will pass validation."
-                success={placeholders?.input_demo?.success_ref ?? "Looks good!"}
+                value={placeholders?.input_demo?.too_short}
+                error={placeholders?.input_demo?.error_ref_ta}
             />
         </div>
 
         <div class="state-item">
-            <span class="state-label">{trans?.input_demo?.lbl_disabled ?? "Disabled"}</span>
-            <Textarea size={demo_size} rows={3} value="Disabled content" disabled />
+            <span class="state-label">{trans?.input_demo?.lbl_success}</span>
+            <Textarea
+                size={demo_size}
+                rows={3}
+                value={placeholders?.input_demo?.long_enough}
+                success={placeholders?.input_demo?.success_ref}
+            />
+        </div>
+
+        <div class="state-item">
+            <span class="state-label">{trans?.input_demo?.lbl_disabled}</span>
+            <Textarea 
+                size={demo_size} 
+                rows={3} 
+                value={placeholders?.input_demo?.disabled}
+                disabled 
+            />
         </div>
 
     </div>
@@ -468,7 +495,7 @@
         display: flex;
         flex-direction: column;
         gap: 0.75rem;
-        border: 1.5px solid var(--highlight);
+        border: 2px solid var(--tone-hover);
         border-radius: 12px;
         padding: 1.5rem;
         margin-bottom: 0.75rem;
@@ -516,7 +543,6 @@
         padding: 1rem 1.25rem;
         font-size: 1rem;
         font-weight: 600;
-        border-bottom: 1px solid var(--highlight);
     }
 
     .form-row {

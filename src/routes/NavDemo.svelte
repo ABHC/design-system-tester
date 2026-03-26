@@ -303,8 +303,8 @@
         grid-template-columns: auto 1fr auto;
         grid-template-rows: auto 1fr auto;
         min-height: 320px;
-        background: var(--bg);
-        border: 1.5px solid var(--highlight);
+        background: var(--tone-bg);
+        border: 2px solid var(--tone-hover);
         border-radius: 12px;
         overflow: hidden;
         margin-bottom: 1.5rem;
@@ -324,7 +324,7 @@
 
     .mock-line {
         height: 10px;
-        background: var(--highlight);
+        background: var(--tone-hover);
         border-radius: 4px;
         width: 100%;
     }
@@ -385,9 +385,9 @@
         font-size:      0.7rem;
         color:          var(--text-muted);
         padding:        0.3rem 0.75rem;
-        background:     var(--card);
+        background:     var(--tone);
         border-radius:  6px;
-        border:         1px solid var(--highlight);
+        border:         1px solid var(--tone-hover);
         white-space:    nowrap;
         pointer-events: none;
         z-index:        10;
@@ -396,6 +396,6 @@
     .fixed-note code {
         font-size: 0.68rem;
         font-family: monospace;
-        color: var(--accent-more);
+        color: var(--accent-muted);
     }
 </style>

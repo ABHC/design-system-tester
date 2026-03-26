@@ -19,6 +19,7 @@
     let t_success = $state(0);
     let t_warning = $state(0);
     let t_error = $state(0);
+    let t_neutral = $state(0);
 
     // ── Code examples ─────────────────────────────────────────────────────
 
@@ -72,15 +73,28 @@
 
 <!-- Live alerts (fixed in viewport) ───────────────────────────────────── -->
 
-{#if t_info > 0}
-    {#key t_info}
-        <Alert variant="info" position="top-center" animate="bottom" duration={5} rounded>
+{#if t_error > 0}
+    {#key t_error}
+        <Alert variant="error" position="bottom-left" animate="right" duration={5} dismissable>
             {#snippet leading()}
-                <span class="material-symbols-outlined alert-demo-icon">info</span>
+                <span class="material-symbols-outlined alert-demo-icon">error</span>
             {/snippet}
             {#snippet children()}
-                <strong class="alert-demo-title">{trans?.alerts.info_title}</strong>
-                <p class="alert-demo-body">{placeholders.alerts.info}</p>
+                <strong class="alert-demo-title">{trans?.alerts.error_title}</strong>
+                <p class="alert-demo-body">{placeholders.alerts.error}</p>
+            {/snippet}
+        </Alert>
+    {/key}
+{/if}
+
+{#if t_warning > 0}
+    {#key t_warning}
+        <Alert variant="warning" position="top-right" animate="left" duration={6} dismissable>
+            {#snippet children()}
+                <p class="alert-demo-body">
+                    {placeholders.alerts.warning_pre}
+                    <a href="/session/renew">{placeholders.alerts.warning_link}</a>.
+                </p>
             {/snippet}
         </Alert>
     {/key}
@@ -102,33 +116,33 @@
     {/key}
 {/if}
 
-{#if t_warning > 0}
-    {#key t_warning}
-        <Alert variant="warning" position="top-right" animate="left" duration={6} dismissable>
-            {#snippet children()}
-                <p class="alert-demo-body">
-                    {placeholders.alerts.warning_pre}
-                    <a href="/session/renew">{placeholders.alerts.warning_link}</a>.
-                </p>
-            {/snippet}
-        </Alert>
-    {/key}
-{/if}
-
-{#if t_error > 0}
-    {#key t_error}
-        <Alert variant="error" position="bottom-left" animate="right" duration={5} dismissable>
+{#if t_info > 0}
+    {#key t_info}
+        <Alert variant="info" position="top-center" animate="bottom" duration={5} rounded>
             {#snippet leading()}
-                <span class="material-symbols-outlined alert-demo-icon">error</span>
+                <span class="material-symbols-outlined alert-demo-icon">info</span>
             {/snippet}
             {#snippet children()}
-                <strong class="alert-demo-title">{trans?.alerts.error_title}</strong>
-                <p class="alert-demo-body">{placeholders.alerts.error}</p>
+                <strong class="alert-demo-title">{trans?.alerts.info_title}</strong>
+                <p class="alert-demo-body">{placeholders.alerts.info}</p>
             {/snippet}
         </Alert>
     {/key}
 {/if}
 
+{#if t_neutral > 0}
+    {#key t_neutral}
+        <Alert variant="neutral" position="bottom-center" animate="top" rounded dismissable>
+            {#snippet leading()}
+                <span class="material-symbols-outlined alert-demo-icon">info</span>
+            {/snippet}
+            {#snippet children()}
+                <strong class="alert-demo-title">{trans?.alerts.info_title}</strong>
+                <p class="alert-demo-body">{placeholders.alerts.info}</p>
+            {/snippet}
+        </Alert>
+    {/key}
+{/if}
 
 <!-- Headline ──────────────────────────────────────────────────────────── -->
 
@@ -148,17 +162,10 @@
 <!-- Trigger grid ───────────────────────────────────────────────────────── -->
 
 <div class="alert-trigger-grid">
-
-    <button class="trigger-btn trigger-info" onclick={() => t_info++}>
-        <span class="material-symbols-outlined">info</span>
-        <span class="trigger-label">Info</span>
-        <span class="trigger-meta">top-center · bottom · 5s</span>
-    </button>
-
-    <button class="trigger-btn trigger-success" onclick={() => t_success++}>
-        <span class="material-symbols-outlined">check_circle</span>
-        <span class="trigger-label">Success</span>
-        <span class="trigger-meta">bottom-right · left · 4s · btn-text</span>
+    <button class="trigger-btn trigger-error" onclick={() => t_error++}>
+        <span class="material-symbols-outlined">error</span>
+        <span class="trigger-label">Error</span>
+        <span class="trigger-meta">bottom-left · right · 5s · ×</span>
     </button>
 
     <button class="trigger-btn trigger-warning" onclick={() => t_warning++}>
@@ -167,13 +174,23 @@
         <span class="trigger-meta">top-right · left · 6s · ×</span>
     </button>
 
-    <button class="trigger-btn trigger-error" onclick={() => t_error++}>
-        <span class="material-symbols-outlined">error</span>
-        <span class="trigger-label">Error</span>
-        <span class="trigger-meta">bottom-left · right · 5s · ×</span>
+    <button class="trigger-btn trigger-success" onclick={() => t_success++}>
+        <span class="material-symbols-outlined">check_circle</span>
+        <span class="trigger-label">Success</span>
+        <span class="trigger-meta">bottom-right · left · 4s · btn-text</span>
     </button>
 
+    <button class="trigger-btn trigger-info" onclick={() => t_info++}>
+        <span class="material-symbols-outlined">info</span>
+        <span class="trigger-label">Info</span>
+        <span class="trigger-meta">top-center · Top · 5s</span>
+    </button>
 
+    <button class="trigger-btn trigger-neutral" onclick={() => t_neutral++}>
+        <span class="material-symbols-outlined">sticky_note_2</span>
+        <span class="trigger-label">Neutral</span>
+        <span class="trigger-meta">bottom-center · bottom</span>
+    </button>
 </div>
 
 <!-- Code examples ─────────────────────────────────────────────────────── -->
@@ -230,28 +247,34 @@
         transform: translateY(-2px); 
     }
 
-    .trigger-info    { 
-        background: color-mix(in srgb, var(--ctx-info) 12%, var(--highlight) 88%); 
-        color: var(--ctx-info);    
-        border-left: 3px solid var(--ctx-info);    
+    .trigger-info {
+        background: var(--info-bg);
+        color: var(--info-muted);
+        border-left: 3px solid var(--info);
     }
 
-    .trigger-success { 
-        background: color-mix(in srgb, var(--ctx-success) 12%, var(--highlight) 88%); 
-        color: var(--ctx-success); 
-        border-left: 3px solid var(--ctx-success); 
+    .trigger-success {
+        background: var(--success-bg);
+        color: var(--success-muted);
+        border-left: 3px solid var(--success);
     }
 
-    .trigger-warning { 
-        background: color-mix(in srgb, var(--ctx-warning) 12%, var(--highlight) 88%); 
-        color: var(--ctx-warning); 
-        border-left: 3px solid var(--ctx-warning); 
+    .trigger-warning {
+        background: var(--warning-bg);
+        color: var(--warning-muted);
+        border-left: 3px solid var(--warning);
     }
-    
-    .trigger-error   {
-        background: color-mix(in srgb, var(--ctx-error) 12%, var(--highlight) 88%);
-        color: var(--ctx-error); 
-        border-left: 3px solid var(--ctx-error);
+
+    .trigger-error {
+        background: var(--error-bg);
+        color: var(--error-muted);
+        border-left: 3px solid var(--error);
+    }
+
+    .trigger-neutral {
+        background: var(--neutral-bg);
+        color: var(--neutral-muted);
+        border-left: 3px solid var(--neutral);
     }
 
     .trigger-meta {

@@ -3,7 +3,7 @@
     import type { PlaceholdersType } from "./placeholders";
     import Headline from "../design-system/components/Headline/Headline.svelte";
     import Button from "../design-system/components/Button/Button.svelte";
-    import BackToTop from "../design-system/components/BackToTop/BackToTop.svelte";
+    import BackToTop from "../design-system/components/Button/BackToTop.svelte";
     import CodeBlock from "../design-system/components/CodeBlock/CodeBlock.svelte";
     import Selector from "../design-system/components/Selector/Selector.svelte";
     import ControlBar from "../design-system/components/Selector/ControlBar.svelte";
@@ -108,8 +108,8 @@
 
     const code_back_to_top = `<!-- Fixed button — scrolls to top on click -->
 <BackToTop />
-<BackToTop palette="tone" round />
-<BackToTop palette="accent" outlined />`;
+<BackToTop palette="tone" rounded />
+<BackToTop palette="accent" variant="outlined" />`;
 </script>
 
 <!-- ── Markup ─────────────────────────────────────────────────────────────── -->
@@ -158,7 +158,7 @@
     />
     <Selector 
         label="Background" 
-        options={["bg", "card", "accent"]} 
+        options={["bg", "tone", "accent", "accent-bg"]} 
         bind:value={demo_bg} 
     />
 </ControlBar>
@@ -227,6 +227,11 @@
                 pal: "info",    
                 label: placeholders.buttons.info, 
                 icon: "info" 
+            },
+            { 
+                pal: "neutral",    
+                label: placeholders.buttons.neutral, 
+                icon: "sticky_note_2" 
             },
         ] as const) as item}
             <Button
@@ -310,17 +315,17 @@
 <p class="demo-label">{trans?.buttons.back_to_top2}</p>
 
 <div class="btt-preview">
-    <BackToTop palette="accent" elevation="hard"/>
-    <BackToTop palette="accent" elevation="hard" round />
-    <BackToTop palette="tone" elevation="subtle"/>
-    <BackToTop palette="tone" elevation="subtle" round />
-    <BackToTop palette="accent" outlined />
-    <BackToTop palette="tone" outlined />
+    <BackToTop palette="accent" elevation="hard" animate="top" />
+    <BackToTop palette="accent" elevation="hard" animate="top" rounded />
+    <BackToTop palette="tone" elevation="subtle" animate="top" />
+    <BackToTop palette="tone" elevation="subtle" animate="top" rounded />
+    <BackToTop palette="accent" variant="outlined" />
+    <BackToTop palette="tone" variant="outlined" />
 </div>
 
 <style>
     .btn-preview {
-        border: 1.5px solid var(--highlight);
+        border: 2px solid var(--tone-hover);
         border-radius: 12px;
         padding: 1.5rem;
         margin-bottom: 0.75rem;
@@ -345,7 +350,7 @@
     }
 
     /* Force static display for demo */
-    .btt-preview :global(.btt-btn) {
+    .btt-preview :global(.btt-wrapper) {
         position: static;
         opacity: 1;
         pointer-events: auto;
@@ -360,7 +365,7 @@
 
     .demo-label code {
         font-style: normal;
-        background: var(--highlight);
+        background: var(--tone-hover);
         padding: 0.1em 0.35em;
         border-radius: 4px;
         font-size: 0.9em;

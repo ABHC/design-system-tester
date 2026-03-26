@@ -41,8 +41,7 @@
 
     // ── Code examples ──────────────────────────────────────────────────────
 
-    const code_nav = `<!-- tone  → sur fond --bg  -->
-<!-- highlight → sur fond --card -->
+    const code_opaque = `
 <ListItem
     supporting_text={{ main: "TGV", extra: "Paris — Lyon" }}
     leading={icon_train}
@@ -60,8 +59,7 @@
     onclick={() => active = "minitel"}
 />`;
 
-    const code_ghost = `<!-- ghost — s'adapte au fond coloré via currentColor -->
-<!-- idéal dans une Sidebar palette="accent"         -->
+    const code_ghost = `
 <ListItem
     supporting_text={{ main: "TGV", extra: "Paris — Lyon" }}
     leading={icon_train}
@@ -71,7 +69,7 @@
     onclick={() => active = "tgv"}
 />
 
-<!-- Sidebar passe automatiquement ghost quand palette="accent" -->
+<!-- ListItems in a Drawer automatically take the value ghost -->
 <Sidebar palette="accent" items={navItems} />`;
 
     const code_contextual = `<!-- Contextual palettes — action menus, status lists -->
@@ -199,8 +197,8 @@
         {#each items.nav as item, i}
             <ListItem
                 supporting_text={{ main: item.main, extra: item.extra }}
-                leading={i === 0 ? icon_train : i === 1 ? icon_plane : i === 2 ? icon_rocket :icon_terminal}
-                palette={i === 0 ? "tone" : i === 1 ? "highlight" : i === 2 ? "accent" :"ghost"}
+                leading={i === 0 ? icon_train : i === 1 ? icon_plane : icon_rocket}
+                palette={i === 0 ? "tone" : i === 1 ? "accent" : "ghost"}
                 size={demo_size}
                 rounded={demo_rounded}
                 elevation={demo_elevation}
@@ -261,8 +259,8 @@
         {#each items.nav as item, i}
             <ListItem
                 supporting_text={{ main: item.main, extra: item.extra }}
-                leading={i === 0 ? icon_train : i === 1 ? icon_plane : i === 2 ? icon_rocket :icon_terminal}
-                palette={i === 0 ? "tone" : i === 1 ? "highlight" : i === 2 ? "accent" :"ghost"}
+                leading={i === 0 ? icon_train : i === 1 ? icon_plane : icon_rocket}
+                palette={i === 0 ? "tone" : i === 1 ? "accent" : "ghost"}
                 size={demo_size}
                 rounded={demo_rounded}
                 elevation={demo_elevation}
@@ -277,7 +275,7 @@
     variant="tabbed"
     copyable
     tabs={[
-        { label: "navigation", code: code_nav, language: "Svelte" },
+        { label: "opaque", code: code_opaque, language: "Svelte" },
         { label: "ghost", code: code_ghost, language: "Svelte" },
         { label: "contextual", code: code_contextual, language: "Svelte" },
         { label: "elevation", code: code_elevation, language: "Svelte" },
@@ -288,7 +286,7 @@
 
 <style>
     .list-preview {
-        border: 1.5px solid var(--highlight);
+        border: 2px solid var(--tone-hover);
         border-radius: 12px;
         padding: 1.5rem;
         margin-bottom: 0.75rem;

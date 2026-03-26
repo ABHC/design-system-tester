@@ -177,7 +177,7 @@
 
     <!-- Projects — header image + body + footer -->
     {#if demo_preset === "projects"}
-        <div class="card-row">
+        <div class="card-row hidden-border">
             {#each tiles as tile, i}
                 <Card
                     variant={demo_variant}
@@ -230,61 +230,63 @@
 
     <!-- Profile -->
     {#if demo_preset === "profile"}
-        <Card
-            variant={demo_variant}
-            elevation={demo_elevation}
-            rounded={demo_rounded}
-            width="100%"
-        >
-            {#snippet header()}
-                <div class="profile-header">
-                    <Avatar size="xlg" circular label={profile.initials} palette="accent" />
-                    <div class="profile-identity">
-                        <h2 class="profile-name">{profile.name}</h2>
-                        <p class="profile-role">{profile.role}</p>
-                        <div class="profile-langs">
-                            {#each profile.langs as lang}
-                                <Badge variant="flat" size="sm">{lang}</Badge>
+        <div class="hidden-border">
+            <Card
+                variant={demo_variant}
+                elevation={demo_elevation}
+                rounded={demo_rounded}
+                width="100%"
+            >
+                {#snippet header()}
+                    <div class="profile-header">
+                        <Avatar size="xlg" circular label={profile.initials} palette="accent" />
+                        <div class="profile-identity">
+                            <h2 class="profile-name">{profile.name}</h2>
+                            <p class="profile-role">{profile.role}</p>
+                            <div class="profile-langs">
+                                {#each profile.langs as lang}
+                                    <Badge variant="flat" size="sm">{lang}</Badge>
+                                {/each}
+                            </div>
+                        </div>
+                    </div>
+                {/snippet}
+                {#snippet children()}
+                    <p class="card-text">{profile.bio}</p>
+                    <div>
+                        <p class="section-label">{profile.skills_label}</p>
+                        <div class="tags-row">
+                            {#each profile.skills as skill}
+                                <Badge variant="outlined" size="sm">{skill.label}</Badge>
                             {/each}
                         </div>
                     </div>
-                </div>
-            {/snippet}
-            {#snippet children()}
-                <p class="card-text">{profile.bio}</p>
-                <div>
-                    <p class="section-label">{profile.skills_label}</p>
-                    <div class="tags-row">
-                        {#each profile.skills as skill}
-                            <Badge variant="outlined" size="sm">{skill.label}</Badge>
-                        {/each}
+                    <div>
+                        <p class="section-label">{profile.experience_label}</p>
+                        <div class="xp-list">
+                            {#each profile.experience as xp}
+                                <div class="xp-item">
+                                    <span class="xp-date">{xp.date}</span>
+                                    <span class="xp-role">{xp.role}</span>
+                                </div>
+                            {/each}
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <p class="section-label">{profile.experience_label}</p>
-                    <div class="xp-list">
-                        {#each profile.experience as xp}
-                            <div class="xp-item">
-                                <span class="xp-date">{xp.date}</span>
-                                <span class="xp-role">{xp.role}</span>
-                            </div>
-                        {/each}
-                    </div>
-                </div>
-            {/snippet}
-            {#snippet footer()}
-                <Button variant="flat" size="sm" animate="right" rounded>
-                    {profile.contact_btn}
-                </Button>
-                <Button variant="flat" palette="tone" size="sm" rounded>
-                    {profile.cv_btn}
-                </Button>
-                <div class="footer-spacer"></div>
-                <Badge variant="outlined" size="sm" href="#" trailing_icon={icon_mail}>
-                    {profile.contact_email}
-                </Badge>
-            {/snippet}
-        </Card>
+                {/snippet}
+                {#snippet footer()}
+                    <Button variant="flat" size="sm" animate="right" rounded>
+                        {profile.contact_btn}
+                    </Button>
+                    <Button variant="flat" palette="tone" size="sm" rounded>
+                        {profile.cv_btn}
+                    </Button>
+                    <div class="footer-spacer"></div>
+                    <Badge variant="outlined" size="sm" href="#" trailing_icon={icon_mail}>
+                        {profile.contact_email}
+                    </Badge>
+                {/snippet}
+            </Card>
+        </div>
     {/if}
 
     <!-- Testimonials — 3 cards -->
@@ -333,11 +335,11 @@
     /* ── Preview container ────────────────────────────────────────────────── */
 
     .card-preview {
-        border: 1.5px solid var(--highlight);
+        border: 2px solid var(--tone-hover);
         border-radius: 12px;
         padding: 1.5rem;
         margin-bottom: 0.75rem;
-        background: var(--bg);
+        background: var(--tone-bg);
     }
 
     .card-row {
@@ -366,7 +368,7 @@
 
     .demo-img-placeholder {
         height: 140px;
-        background: var(--highlight);
+        background: var(--tone-hover);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -374,12 +376,12 @@
     }
 
     .demo-img-placeholder.accent {
-        background: color-mix(in srgb, var(--accent) 20%, var(--card));
+        background: var(--accent-ghost-hover);
         color: var(--accent);
     }
 
     .demo-img-placeholder.muted {
-        background: color-mix(in srgb, var(--highlight) 60%, var(--card));
+        background: var(--tone-hover);
     }
 
     .demo-img-placeholder .material-symbols-outlined {
@@ -424,8 +426,7 @@
         align-items: center;
         gap: 1.5rem;
         padding: 1.5rem;
-        background: color-mix(in srgb, var(--accent) 10%, var(--card));
-        border-bottom: 1px solid var(--highlight);
+        background: var(--accent-ghost-hover);
     }
 
     .profile-identity {
@@ -500,7 +501,6 @@
         align-items: center;
         gap: 0.75rem;
         padding: 1rem 1.25rem;
-        border-bottom: 1px solid var(--highlight);
     }
 
     .testi-name {
@@ -522,5 +522,11 @@
         color: var(--text-muted);
         margin: 0;
         quotes: none;
+    }
+
+    /* ── Hidden Border ────────────────────────────────────────────────────── */
+
+    .hidden-border :global(.card-header) {
+        border-bottom-color: transparent
     }
 </style>

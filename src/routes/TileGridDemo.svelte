@@ -440,33 +440,15 @@
     /* Preview */
 
     .tg-preview {
-        background:    var(--bg);
-        border:        1.5px solid var(--highlight);
+        background: var(--tone-bg);
+        border: 2px solid var(--tone-hover);
         border-radius: 12px;
-        padding:       1rem;
+        padding: 1rem;
         margin-bottom: 1.5rem;
-        overflow:      hidden;
+        overflow: hidden;
     }
 
     /* ID note */
-
-    .tg-id-note {
-        display: flex;
-        gap: 0.75rem;
-        align-items: flex-start;
-        padding: 0.9rem 1.1rem;
-        margin-bottom: 1.5rem;
-        background: color-mix(in srgb, var(--accent) 10%, var(--card) 90%);
-        border: 1.5px solid color-mix(in srgb, var(--accent) 30%, transparent);
-        border-radius: 10px;
-    }
-
-    .tg-id-note-icon {
-        font-size: 1.2rem;
-        color: var(--accent);
-        flex-shrink: 0;
-        margin-top: 0.1rem;
-    }
 
     .tg-id-note-content {
         display: flex;

@@ -8,7 +8,7 @@
         tone_palettes: ToneTheme[];
         accent_palettes: AccentTheme[];
         available_fonts: FontConfig[];
-        selected_palette: ToneTheme;
+        selected_tone_palette: ToneTheme;
         selected_accent: AccentTheme;
         selected_body_font: FontConfig;
         selected_title_font: FontConfig;
@@ -24,7 +24,7 @@
         tone_palettes,
         accent_palettes,
         available_fonts,
-        selected_palette,
+        selected_tone_palette,
         selected_accent,
         selected_body_font,
         selected_title_font,
@@ -67,7 +67,7 @@
             <div class="control-label">{$trans?.control.palette.toUpperCase()}</div>
             <ItemsDisplay
                 items = {tone_palettes}
-                selected = {selected_palette}
+                selected = {selected_tone_palette}
                 on_item_change = {on_tone_index_change}
             />
         </div>
@@ -111,11 +111,11 @@
         top: 100px; 
         left: 0;
         right: 0;
-        background: var(--card);
+        background: var(--tone);
         padding: 20px 100px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         z-index: 149; 
-        border-bottom: 2px solid var(--accent-light);
+        border-bottom: 2px solid var(--accent);
         overflow-y: auto;
         max-height: calc(100vh - 100px);
     }

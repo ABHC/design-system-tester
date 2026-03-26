@@ -17,6 +17,10 @@
     // ── Demo state ─────────────────────────────────────────────────────────
 
     type Layout = "grid" | "list" | "tile";
+    type BtnPalette = "accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info";
+    type BtnVariant = "flat" | "outlined" | "ghost" | "textual";
+    type BtnSize = "sm" | "md" | "lg";
+
     const layouts: readonly Layout[] = ["grid", "list", "tile"];
 
     // Standalone
@@ -35,9 +39,22 @@
     let a_rounded: boolean = $state(true);
 
     // Borderless
-    let b_layout:  Layout  = $state("grid");
-    let b_cols:    number  = $state(3);
+    let b_layout: Layout = $state("grid");
+    let b_cols: number = $state(3);
     let b_rounded: boolean = $state(true);
+
+    // Interactive meta-demo
+    let bar_visible: boolean = $state(true);
+    let bar_palette: "tone" | "accent" | "accentbg" = $state("tone");
+    let bar_bordered: boolean = $state(true);
+    let bar_rounded: boolean = $state(false);
+    let sel_palette: BtnPalette = $state("accent");
+    let sel_variant: BtnVariant = $state("outlined");
+    let sel_size: BtnSize = $state("sm");
+    let sel_rounded: boolean = $state(true);
+    let sel_uppercase: boolean = $state(false);
+    let demo_layout: Layout = $state("grid");
+    let demo_cols: number = $state(3);
 
     // Swatches
     let color: string = $state("#4a90d9");
@@ -53,87 +70,108 @@
 
 <Headline size="md" uppercase>{trans?.selector_demo.title}</Headline>
 
-<!-- Standalone ─────────────────────────────────────────────────────────── -->
+<!-- Interactive meta-demo ───────────────────────────────────────────────── -->
 
-<p class="demo-label">{placeholders?.selector?.sect_standalone}</p>
-
-<div class="standalone-row">
-    <Selector 
-        label={placeholders?.selector?.lbl_layout}  
-        options={layouts}   
-        bind:value={s_layout}  
-    />
-    <Selector 
-        label={placeholders?.selector?.lbl_cols} 
-        options={[2, 3, 4]} 
-        bind:value={s_cols}    
-    />
-    <Selector 
-        label={placeholders?.selector?.lbl_rounded} 
-        options={bool_opts} 
-        bind:value={s_rounded} 
-    />
-</div>
-
-<!-- ControlBar tone ─────────────────────────────────────────────────────── -->
-
-<p class="demo-label">{placeholders?.selector?.sect_tone}</p>
+<p class="demo-label">{placeholders?.selector?.sect_interactive}</p>
 
 <ControlBar palette="tone">
-    <Selector 
-        label={placeholders?.selector?.lbl_layout}  
-        options={layouts}   
-        bind:value={t_layout}  
-    />
-    <Selector 
-        label={placeholders?.selector?.lbl_cols}
-        options={[2, 3, 4]} 
-        bind:value={t_cols}    
-        />
-    <Selector 
-        label={placeholders?.selector?.lbl_rounded} 
-        options={bool_opts} 
-        bind:value={t_rounded} 
-    />
-</ControlBar>
-
-<!-- ControlBar accent ───────────────────────────────────────────────────── -->
-
-<p class="demo-label">{placeholders?.selector?.sect_accent}</p>
-
-<ControlBar palette="accent">
     <Selector
-        palette="accent"
-        label={placeholders?.selector?.lbl_layout}
-        options={layouts}
-        bind:value={a_layout}
-    />
-    <Selector
-        palette="accent"
-        label={placeholders?.selector?.lbl_cols}
-        options={[2, 3, 4]}
-        bind:value={a_cols}
-    />
-    <Selector
-        palette="accent"
-        label={placeholders?.selector?.lbl_rounded}
+        label={placeholders?.selector?.lbl_bar_visible}
         options={bool_opts}
-        bind:value={a_rounded}
+        bind:value={bar_visible}
+    />
+    <Selector
+        label={placeholders?.selector?.lbl_bar_palette}
+        options={["tone", "accent", "accentbg"] as const}
+        bind:value={bar_palette}
+    />
+    <Selector
+        label={placeholders?.selector?.lbl_bar_bordered}
+        options={bool_opts}
+        bind:value={bar_bordered}
+    />
+    <Selector
+        label={placeholders?.selector?.lbl_bar_rounded}
+        options={bool_opts}
+        bind:value={bar_rounded}
+    />
+    <Selector
+        label={placeholders?.selector?.lbl_sel_palette}
+        options={["accent", "tone", "neutral", "error", "warning", "success", "info"] as const}
+        bind:value={sel_palette}
+    />
+    <Selector
+        label={placeholders?.selector?.lbl_sel_variant}
+        options={["flat", "outlined", "ghost", "textual"] as const}
+        bind:value={sel_variant}
+    />
+    <Selector
+        label={placeholders?.selector?.lbl_sel_size}
+        options={["sm", "md", "lg"] as const}
+        bind:value={sel_size}
+    />
+    <Selector
+        label={placeholders?.selector?.lbl_sel_rounded}
+        options={bool_opts}
+        bind:value={sel_rounded}
+    />
+    <Selector
+        label={placeholders?.selector?.lbl_sel_uppercase}
+        options={bool_opts}
+        bind:value={sel_uppercase}
     />
 </ControlBar>
 
-<!-- ControlBar bordered={false} ─────────────────────────────────────────── -->
-
-<p class="demo-label">{placeholders?.selector?.sect_borderless}</p>
-
-<ControlBar palette="tone" bordered={false}>
-    {#snippet header()}
-        {placeholders?.selector?.header_borderless}
-    {/snippet}
-    <Selector label={placeholders?.selector?.lbl_layout}  options={layouts}   bind:value={b_layout}  />
-    <Selector label={placeholders?.selector?.lbl_cols}    options={[2, 3, 4]} bind:value={b_cols}    />
-    <Selector label={placeholders?.selector?.lbl_rounded} options={bool_opts} bind:value={b_rounded} />
-</ControlBar>
+{#if bar_visible}
+    <ControlBar palette={bar_palette} bordered={bar_bordered} rounded={bar_rounded}>
+        {#snippet header()}
+            {placeholders?.selector?.header_interactive}
+        {/snippet}
+        <Selector
+            label={placeholders?.selector?.lbl_layout}
+            palette={sel_palette}
+            variant={sel_variant}
+            size={sel_size}
+            rounded={sel_rounded}
+            uppercase={sel_uppercase}
+            options={layouts}
+            bind:value={demo_layout}
+        />
+        <Selector
+            label={placeholders?.selector?.lbl_cols}
+            palette={sel_palette}
+            variant={sel_variant}
+            size={sel_size}
+            rounded={sel_rounded}
+            uppercase={sel_uppercase}
+            options={[2, 3, 4]}
+            bind:value={demo_cols}
+        />
+    </ControlBar>
+{:else}
+    <div class="standalone-row">
+        <Selector
+            label={placeholders?.selector?.lbl_layout}
+            palette={sel_palette}
+            variant={sel_variant}
+            size={sel_size}
+            rounded={sel_rounded}
+            uppercase={sel_uppercase}
+            options={layouts}
+            bind:value={demo_layout}
+        />
+        <Selector
+            label={placeholders?.selector?.lbl_cols}
+            palette={sel_palette}
+            variant={sel_variant}
+            size={sel_size}
+            rounded={sel_rounded}
+            uppercase={sel_uppercase}
+            options={[2, 3, 4]}
+            bind:value={demo_cols}
+        />
+    </div>
+{/if}
 
 <!-- Swatches ───────────────────────────────────────────────────────────── -->
 
@@ -151,7 +189,7 @@
             {#each swatch_colors as c}
                 <Button
                     variant={color === c ? "flat" : "outlined"}
-                    palette="tone"
+                    palette="neutral"
                     size="sm"
                     rounded
                     onclick={() => { color = c; }}

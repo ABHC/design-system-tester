@@ -71,8 +71,8 @@
 <Avatar size="lg" circular label="AB"  status="absent" />
 <Avatar size="lg" circular label="DND" status="do-not-disturb" />
 
-<!-- --dot-bg: border colour of the state dot, defaults to var(--bg) -->
-<div style="--dot-bg: var(--card)">
+<!-- --dot-bg: border colour of the state dot, defaults to var(--tone-bg) -->
+<div style="--dot-bg: var(--tone)">
     <Avatar size="lg" circular label="ON" status="online" />
 </div>`;
 
@@ -194,11 +194,11 @@
 
 <style>
     .avatar-preview {
-        border: 1.5px solid var(--highlight);
+        border: 2px solid var(--tone-hover);
         border-radius: 12px;
         padding: 1.5rem;
         margin-bottom: 0.75rem;
-        background: var(--bg);
+        background: var(--tone-bg);
         display: flex;
         flex-wrap: wrap;
         gap: 1.5rem;
@@ -233,7 +233,7 @@
 
     .demo-label :global(code) {
         font-style: normal;
-        background: var(--highlight);
+        background: var(--tone-hover);
         padding: 0.1em 0.35em;
         border-radius: 4px;
         font-size: 0.9em;

@@ -1,5 +1,3 @@
-// src/lib/types/palettes.ts
-
 export interface ContextualColors {
     name: string;
     display: boolean;
@@ -7,16 +5,13 @@ export interface ContextualColors {
     warning: string;
     success: string;
     info: string;
+    neutral: string;
 }
 
 export interface AccentTheme {
     name: string;
     display: boolean;
-    accent_lighter: string;
-    accent_light: string;
-    accent_dark: string;
-    accent_darker: string;
-    text_accent: string;
+    accent: string;
 }
 
 export interface ToneTheme {
@@ -24,10 +19,19 @@ export interface ToneTheme {
     display: boolean;
     bg: string;
     card: string;
-    highlight: string;
-    shadow: string;
-    text: string;
-    text_muted: string;
+}
+
+export interface CustomTone { name: string; bg: string; card: string }
+export interface CustomAccent { name: string; accent: string }
+export interface CustomCtx { name: string; error: string; warning: string; success: string; info: string; neutral: string }
+export interface CustomText { name: string; light: string; dark: string }
+export type CustomSlots<T> = [T | null, T | null, T | null];
+
+export interface TextTheme {
+    name: string;
+    display: boolean;
+    light: string;
+    dark: string;
 }
 
 export interface ThemeConfig {
@@ -35,4 +39,5 @@ export interface ThemeConfig {
     light: ToneTheme[];
     dark: ToneTheme[];
     ctx: ContextualColors[];
+    text: TextTheme[];
 }

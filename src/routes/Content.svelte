@@ -24,12 +24,16 @@
     import CheckboxDemo  from "./CheckboxDemo.svelte";
     import SwitchDemo    from "./SwitchDemo.svelte";
     import InputDemo     from "./InputDemo.svelte";
+    import SelectDemo    from "./SelectDemo.svelte";
+    import SearchFieldDemo from "./SearchFieldDemo.svelte";
+    import CommandDemo   from "./CommandDemo.svelte";
+    import AccentBgLab   from "./AccentBgLab.svelte";
 
     // Props
     interface Props {
         trans: Translation | null;
         placeholders: PlaceholdersType[keyof PlaceholdersType];
-        selected_palette: ToneTheme;
+        selected_tone_palette: ToneTheme;
         selected_accent: AccentTheme;
         light_palettes: ToneTheme[];
         dark_palettes: ToneTheme[];
@@ -39,7 +43,7 @@
     let {
         trans,
         placeholders,
-        selected_palette,
+        selected_tone_palette,
         selected_accent,
         light_palettes,
         dark_palettes,
@@ -157,6 +161,27 @@
         {/if}
     </div>
 
+    <!-- SearchField ── composants -->
+    <div id="demo-searchfield">
+        {#if show(["composants"])}
+            <SearchFieldDemo trans={trans} placeholders={placeholders} />
+        {/if}
+    </div>
+
+    <!-- Select ── composants -->
+    <div id="demo-select">
+        {#if show(["composants"])}
+            <SelectDemo trans={trans} placeholders={placeholders} />
+        {/if}
+    </div>
+
+    <!-- Command ── composants -->
+    <div id="demo-command">
+        {#if show(["composants"])}
+            <CommandDemo trans={trans} placeholders={placeholders} />
+        {/if}
+    </div>
+
     <!-- ControlBar / Selector ── structure -->
     <div id="demo-selector">
         {#if show(["structure"])}
@@ -212,6 +237,12 @@
             <ModalDemo trans={trans} placeholders={placeholders} />
         {/if}
     </div>
+
+    <!-- AccentBg Lab ── test -->
+    <!--<div id="demo-accent-bg-lab">
+        <Headline size="md" uppercase>Accent-Bg Lab</Headline>
+        <AccentBgLab />
+    </div>-->
 </div>
 
 <style>

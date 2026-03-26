@@ -112,7 +112,7 @@
             <span class="material-symbols-outlined">warning</span>
         {/snippet}
         {#snippet children()}
-            <p>{placeholders.callout?.warning ?? "Proceed with caution."}</p>
+            <p>{placeholders.callout?.warning}</p>
         {/snippet}
         {#snippet following()}
             <Button variant="ghost" palette="tone" size="sm">Dismiss</Button>
@@ -154,12 +154,7 @@
         {/snippet}
         {#snippet children()}
             <strong>Tip</strong>
-            <p>
-                Composez librement <code>leading</code>, <code>children</code> et <code>following</code>.
-                Le slot <code>leading</code> hérite de <code>--cb-color</code> automatiquement.
-                Préférez <code>align="start"</code> pour du contenu multi-lignes — l'icône s'ancre en haut.
-                Un <code>Button variant="ghost" palette="tone"</code> placé en <code>following</code> adopte la couleur du callout parent.
-            </p>
+            <p>{@html placeholders?.callout.tip}</p>
         {/snippet}
     </Callout>
 

@@ -51,15 +51,9 @@ export function simulatePalette(palette: ToneTheme, accent: AccentTheme, type: C
         palette: {
             bg: simulateColorblind(palette.bg, type),
             card: simulateColorblind(palette.card, type),
-            highlight: simulateColorblind(palette.highlight, type),
-            text: simulateColorblind(palette.text, type),
         },
         accent: {
-            accent_lighter: simulateColorblind(accent.accent_lighter, type),
-            accent_light: simulateColorblind(accent.accent_light, type),
-            accent_dark: simulateColorblind(accent.accent_dark, type),
-            accent_darker: simulateColorblind(accent.accent_darker, type),
-            text_accent: simulateColorblind(accent.text_accent, type),
+            accent: simulateColorblind(accent.accent, type),
         },
     };
 }

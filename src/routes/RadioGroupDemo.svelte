@@ -179,7 +179,7 @@
 
 <style>
     .radio-preview {
-        border: 1.5px solid var(--highlight);
+        border: 2px solid var(--tone-hover);
         border-radius: 12px;
         padding: 1.5rem;
         margin-bottom: 0.75rem;
@@ -200,7 +200,7 @@
 
     .preview-col + .preview-col {
         padding-left: 2rem;
-        border-left: 1.5px solid var(--highlight);
+        border-left: 2px solid var(--tone-hover);
     }
 
     .col-label {

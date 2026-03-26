@@ -62,6 +62,13 @@
             "family": "Source Sans 3",
             "weights": [400, 600, 700],
             "googleFontsName": "Source+Sans+3"
+        },
+        {
+            "name": "Recursive",
+            "display": true,
+            "family": "Recursive",
+            "weights": [400, 600, 700],
+            "googleFontsName": "Recursive"
         }
     ]
 }

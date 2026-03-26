@@ -282,7 +282,7 @@
                 trailing_icon={icon_check}
                 onclick={() => click_count++}
             >
-                {demo.validated}
+                {demo.confirm}
             </Badge>
             <Badge
                 variant={demo_variant}
@@ -295,6 +295,17 @@
                 onclick={() => click_count++}
             >
                 {demo.see_more}
+            </Badge>
+            <Badge
+                variant={demo_variant}
+                palette="neutral"
+                size={demo_size}
+                pill={demo_pill}
+                uppercase={demo_uppercase}
+                elevation={demo_elevation}
+                onclick={() => click_count++}
+            >
+                {demo.see_map}
             </Badge>
         </div>
     {:else}
@@ -347,8 +358,9 @@
                 pill={demo_pill}
                 uppercase={demo_uppercase}
                 elevation={demo_elevation}
+                trailing_icon={icon_check}
             >
-                {demo.confirm}
+                {demo.validated}
             </Badge>
             <Badge
                 variant={demo_variant}
@@ -359,6 +371,16 @@
                 elevation={demo_elevation}
             >
                 {demo.info}
+            </Badge>
+            <Badge
+                variant={demo_variant}
+                palette="neutral"
+                size={demo_size}
+                pill={demo_pill}
+                uppercase={demo_uppercase}
+                elevation={demo_elevation}
+            >
+                {demo.location}
             </Badge>
         </div>
     {/if}
@@ -418,10 +440,17 @@
     <BadgeGroup 
         badges={group_badges} 
         variant="outlined" 
-        palette="tone" bind:selected={group_selected} />
+        palette="tone" 
+        bind:selected={group_selected} 
+    />
 </div>
 <div class="row">
-    <BadgeGroup badges={group_badges} bind:selected={group_single} multiple={false}/>
+    <BadgeGroup 
+        badges={group_badges} 
+        palette="accent" 
+        bind:selected={group_single} 
+        multiple={false}
+    />
 </div>
 
 <!-- Code examples -->
@@ -440,11 +469,11 @@
 
 <style>
     .badge-preview {
-        border: 1.5px solid var(--highlight);
+        border: 2px solid var(--tone-hover);
         border-radius: 12px;
         padding: 1.5rem;
         margin-bottom: 0.75rem;
-        background: var(--bg);
+        background: var(--tone-bg);
         display: flex;
         flex-wrap: wrap;
         gap: 1.5rem;
@@ -475,7 +504,7 @@
 
     .demo-label code {
         font-style: normal;
-        background: var(--highlight);
+        background: var(--tone-hover);
         padding: 0.1em 0.35em;
         border-radius: 4px;
         font-size: 0.9em;

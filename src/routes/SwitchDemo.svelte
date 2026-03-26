@@ -12,7 +12,7 @@
         placeholders: PlaceholdersType[keyof PlaceholdersType];
     }
 
-    let { trans }: Props = $props();
+    let { trans, placeholders }: Props = $props();
 
     // ── Demo controls ───────────────────────────────────────────────────────
 
@@ -37,6 +37,7 @@
     let status_airplane: boolean = $state(true);
     let status_bluetooth: boolean = $state(true);
     let status_dnd: boolean = $state(true);
+    let status_eco: boolean = $state(true);
 
     const all_palettes: Palette[] = ["accent", "tone", "error", "warning", "success", "info"];
 
@@ -216,7 +217,7 @@
                     leading={wifi_icon}
                 />
                 <span class="switch-item-label">
-                    {trans?.switch_demo?.wifi}
+                    {placeholders?.switch_demo?.wifi}
                 </span>
             </div>
             <div class="switch-row">
@@ -230,8 +231,8 @@
                 />
                 <span class="switch-item-label">
                     {
-                        status_dark_mode ? trans?.switch_demo?.dark_mode : 
-                        trans?.switch_demo.light_mode
+                        status_dark_mode ? placeholders?.switch_demo?.dark_mode : 
+                        placeholders?.switch_demo.light_mode
                     }
                 </span>
             </div>
@@ -244,12 +245,12 @@
                     leading={dnd_icon}
                 />
                 <span class="switch-item-label">
-                    {trans?.switch_demo?.dnd}
+                    {placeholders?.switch_demo?.dnd}
                 </span>
             </div>
             <div class="switch-row">
                 <span class="switch-item-label">
-                    {trans?.switch_demo?.notifications}
+                    {placeholders?.switch_demo?.notifications}
                 </span>
                 <Switch
                     bind:checked={status_notifications}
@@ -261,7 +262,7 @@
             </div>
             <div class="switch-row">
                 <span class="switch-item-label">
-                    {trans?.switch_demo?.airplane}
+                    {placeholders?.switch_demo?.airplane}
                 </span>
                 <Switch
                     bind:checked={status_airplane}
@@ -281,6 +282,17 @@
                     trailing={trailing_bluetooth}
                 />
             </div>
+            <div class="switch-row">
+                <Switch
+                    bind:checked={status_eco}
+                    palette="neutral"
+                    size={demo_size}
+                    circle={demo_circle}
+                />
+                <span class="switch-item-label">
+                    {placeholders?.switch_demo?.eco}
+                </span>
+            </div>
         </div>
 
         <!-- Right: palette reference aligned per row -->
@@ -297,6 +309,7 @@
                 "warning",
                 "success",
                 "info",
+                "neutral"
             ] as const) as pal}
                 <div class="palette-row-item">
                     <Switch
@@ -340,7 +353,7 @@
 <style>
     /* Preview box */
     .switch-preview {
-        border: 1.5px solid var(--highlight);
+        border: 2px solid var(--tone-hover);
         border-radius: 12px;
         padding: 1.5rem;
         margin-bottom: 0.75rem;
@@ -375,7 +388,7 @@
         display: flex;
         flex-direction: column;
         gap: 0.85rem;
-        border-left: 1.5px solid var(--highlight);
+        border-left: 1.5px solid var(--tone-hover);
         padding-left: 2rem;
     }
 
@@ -436,7 +449,7 @@
         gap: 1.5rem;
         padding: 1rem 1.25rem;
         border-radius: 10px;
-        border: 1.5px solid var(--highlight);
+        border: 1.5px solid var(--tone-hover);
     }
 
     .palette-item {
@@ -454,6 +467,6 @@
     }
 
     .accent-text {
-        color: color-mix(in srgb, var(--text-accent) 70%, transparent);
+        color: var(--accent-muted);
     }
 </style>

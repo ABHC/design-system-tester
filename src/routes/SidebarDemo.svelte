@@ -368,13 +368,44 @@
 
 <!-- Controls -->
 <ControlBar palette="tone" rounded>
-    <Selector label="Direction" options={["left", "right"]} bind:value={demo_direction} />
-    <Selector label="Palette"   options={["accent", "tone"]} bind:value={demo_palette} />
-    <Selector label="Position"  options={["fixed", "floating"]} bind:value={demo_position} />
-    <Selector label="Rounded"   options={[{value: true, label: "on"}, {value: false, label: "off"}]} bind:value={demo_rounded} />
-    <Selector label="Rounded Btn" options={[{value: true, label: "on"}, {value: false, label: "off"}]} bind:value={demo_roundedBtn} />
-    <Selector label="Items"     options={["buttons", "listitems", "mixed"]} bind:value={demo_item_type} onchange={(t) => { active = t === "listitems" ? "Button.svelte" : "Dashboard"; }} />
-    <Selector label="Open"      options={[{value: true, label: "open"}, {value: false, label: "closed"}]} bind:value={demo_open} />
+    <Selector 
+        label="Direction" 
+        options={["left", "right"]} 
+        bind:value={demo_direction} 
+    />
+    <Selector 
+        label="Palette"
+        options={["accent", "tone"]} 
+        bind:value={demo_palette} 
+    />
+    <Selector 
+        label="Position" 
+        options={["fixed", "floating"]} 
+        bind:value={demo_position} 
+    />
+    <Selector 
+        label="Rounded" 
+        options={[{value: true, label: "on"}, 
+        {value: false, label: "off"}]} 
+        bind:value={demo_rounded}
+    />
+    <Selector 
+        label="Rounded Btn" 
+        options={[{value: true, label: "on"}, 
+        {value: false, label: "off"}]} 
+        bind:value={demo_roundedBtn} 
+    />
+    <Selector 
+        label="Items"
+        options={["buttons", "listitems", "mixed"]} 
+        bind:value={demo_item_type}
+        onchange={(t) => { active = t === "listitems" ? "Button.svelte" : "Dashboard"; }}
+    />
+    <Selector 
+        label="Open" 
+        options={[{value: true, label: "open"}, {value: false, label: "closed"}]} 
+        bind:value={demo_open}
+    />
 </ControlBar>
 
 <!-- Preview -->
@@ -408,7 +439,12 @@
             <!-- Footer slot: user profile -->
             {#snippet footer()}
                 <div class="preview-user">
-                    <Avatar size="sm" circular label="AB" status="online" />
+                    <Avatar 
+                        palette={demo_palette === "accent" ? "tone" : "accent"}
+                        size="sm" 
+                        circular label="AB" 
+                        status="online" 
+                    />
                     <div class="preview-user-info">
                         <span class="preview-user-name">Alice B.</span>
                     </div>
@@ -440,124 +476,124 @@
     variant="tabbed"
     copyable
     tabs={[
-        { label: "nav (column)",    code: usage_nav,          language: "Svelte" },
-        { label: "row buttons",     code: usage_row_buttons,  language: "Svelte" },
-        { label: "separator",       code: usage_separator,    language: "Svelte" },
-        { label: "list items",      code: usage_listitems,    language: "Svelte" },
-        { label: "fixed + scrim",   code: usage_fixed,        language: "Svelte" },
-        { label: "header & footer", code: usage_slots,        language: "Svelte" },
+        { label: "nav (column)", code: usage_nav, language: "Svelte" },
+        { label: "row buttons", code: usage_row_buttons, language: "Svelte" },
+        { label: "separator", code: usage_separator, language: "Svelte" },
+        { label: "list items", code: usage_listitems, language: "Svelte" },
+        { label: "fixed + scrim", code: usage_fixed, language: "Svelte" },
+        { label: "header & footer", code: usage_slots, language: "Svelte" },
     ]}
 />
 
 <style>
     /* Preview box */
     .sidebar-preview {
-        position:      relative;
-        display:       grid;
+        position: relative;
+        display: grid;
         grid-template-columns: auto 1fr;
-        grid-template-areas:   "sidebar main";
-        min-height:    340px;
-        background:    var(--bg);
-        border:        1.5px solid var(--highlight);
+        grid-template-areas: "sidebar main";
+        min-height: 340px;
+        background: var(--tone-bg);
+        border: 2px solid var(--tone-hover);
         border-radius: 12px;
-        overflow:      hidden;
+        overflow: hidden;
         margin-bottom: 1.5rem;
         z-index: 10;
     }
 
     .sidebar-preview--right {
         grid-template-columns: 1fr auto;
-        grid-template-areas:   "main sidebar";
+        grid-template-areas: "main sidebar";
     }
 
     .preview-sidebar-slot {
         grid-area: sidebar;
-        display:   flex;
+        display: flex;
     }
 
     .preview-main {
-        grid-area:      main;
-        display:        flex;
+        grid-area: main;
+        display: flex;
         flex-direction: column;
-        gap:            0.6rem;
-        padding:        1.25rem 1rem;
-        align-self:     center;
+        gap: 0.6rem;
+        padding: 1.25rem 1rem;
+        align-self: center;
     }
 
     .mock-heading {
-        height:        14px;
-        width:         40%;
-        background:    var(--text);
+        height: 14px;
+        width: 40%;
+        background: var(--text);
         border-radius: 4px;
         margin-bottom: 0.5rem;
-        opacity:       0.3;
+        opacity: 0.3;
     }
 
     .mock-line {
-        height:        10px;
-        background:    var(--text);
+        height: 10px;
+        background: var(--text);
         border-radius: 4px;
-        width:         100%;
-        opacity:       0.12;
+        width: 100%;
+        opacity: 0.12;
     }
 
     .mock-line.short { width: 55%; }
 
     .fixed-note {
-        position:       absolute;
-        bottom:         0.5rem;
-        left:           50%;
-        transform:      translateX(-50%);
-        font-size:      0.7rem;
-        color:          var(--text-muted);
-        padding:        0.3rem 0.75rem;
-        background:     var(--card);
-        border-radius:  6px;
-        border:         1px solid var(--highlight);
-        white-space:    nowrap;
+        position: absolute;
+        bottom: 0.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        padding: 0.3rem 0.75rem;
+        background: var(--tone);
+        border-radius: 6px;
+        border: 1px solid var(--tone-hover);
+        white-space: nowrap;
         pointer-events: none;
-        z-index:        10;
+        z-index: 10;
     }
 
     .fixed-note code {
-        font-size:   0.68rem;
+        font-size: 0.68rem;
         font-family: monospace;
-        color:       var(--accent);
+        color: var(--accent);
     }
 
     /* Preview sidebar content */
     .preview-brand {
-        display:     flex;
+        display: flex;
         align-items: center;
-        gap:         0.5rem;
-        width:       100%;
-        color:       var(--sidebar-text, currentColor);
+        gap: 0.5rem;
+        width: 100%;
+        color: var(--sidebar-text, currentColor);
     }
 
     .preview-brand-icon {
         font-size: 1.4rem;
-        opacity:   0.9;
+        opacity: 0.9;
     }
 
     .preview-brand-name {
-        font-weight:    700;
-        font-size:      1rem;
+        font-weight: 700;
+        font-size: 1rem;
         letter-spacing: -0.02em;
     }
 
     .preview-close-btn {
-        margin-left:   auto;
-        background:    transparent;
-        border:        none;
-        cursor:        pointer;
-        color:         var(--sidebar-text, currentColor);
-        opacity:       0.6;
-        padding:       0.15rem;
+        margin-left: auto;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        color: var(--sidebar-text, currentColor);
+        opacity: 0.6;
+        padding: 0.15rem;
         border-radius: 4px;
-        display:       flex;
-        align-items:   center;
-        transition:    opacity 0.2s ease;
-        flex-shrink:   0;
+        display: flex;
+        align-items: center;
+        transition: opacity 0.2s ease;
+        flex-shrink: 0;
     }
 
     .preview-close-btn:hover { opacity: 1; }
@@ -567,23 +603,23 @@
     }
 
     .preview-user {
-        display:     flex;
+        display: flex;
         align-items: center;
-        gap:         0.6rem;
-        width:       100%;
-        color:       var(--sidebar-text, currentColor);
+        gap: 0.6rem;
+        width: 100%;
+        color: var(--sidebar-text, currentColor);
     }
 
     .preview-user-info {
-        display:        flex;
+        display: flex;
         flex-direction: column;
-        gap:            0.15rem;
-        min-width:      0;
+        gap: 0.15rem;
+        min-width: 0;
     }
 
     .preview-user-name {
         font-weight: 600;
-        font-size:   0.8rem;
+        font-size: 0.8rem;
         line-height: 1;
     }
 

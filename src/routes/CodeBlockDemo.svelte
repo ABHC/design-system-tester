@@ -65,7 +65,7 @@
             language: "CSS",
             code: `.codeblock {
     border-radius: 10px;
-    border: 1px solid var(--highlight);
+    border: 1px solid var(--tone-hover);
     overflow: hidden;
     position: relative;
 }`,
@@ -343,7 +343,7 @@
 
     .demo-label code {
         font-style: normal;
-        background: var(--highlight);
+        background: var(--tone-hover);
         padding: 0.1em 0.35em;
         border-radius: 4px;
         font-size: 0.9em;

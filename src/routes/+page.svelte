@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
     import type { ToneTheme } from "$lib/types/palettes";
 
     import palettes from "$lib/data/palettes.json";
@@ -13,8 +12,7 @@
         trans,
         locale,
         selected_tone,
-        tone_index,
-        selected_palette,
+        selected_tone_palette,
         selected_accent,
         selected_ctx,
     } from './store';
@@ -26,16 +24,6 @@
     // ---------- Derived placeholder data based on current locale ----------
     let lang_placeholders = $derived(placeholders[$locale as PlaceholderLocale] || placeholders.en);
 
-    // ---------- Helper functions ----------
-    function setTone(tone: 'light' | 'dark'): void {
-        $selected_tone = tone;
-        $tone_index = 0;
-    }
-
-    // ---------- Lifecycle ----------
-    onMount(() => {
-        setTone($selected_tone);
-    });
 </script>
 
 <svelte:head>
@@ -46,7 +34,7 @@
     <Content
         trans={$trans}
         placeholders={lang_placeholders}
-        selected_palette={$selected_palette}
+        selected_tone_palette={$selected_tone_palette}
         selected_accent={$selected_accent}
         light_palettes={all_light_palettes}
         dark_palettes={all_dark_palettes}
@@ -57,7 +45,7 @@
 <style>
     .tester-container {
         font-family: var(--font-body);
-        background: var(--bg);
+        background: var(--tone-bg);
         color: var(--text);
         transition: background-color 0.3s, color 0.3s;
         font-size: 14px;

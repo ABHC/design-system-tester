@@ -86,7 +86,7 @@
 <style>
     .welcome {
         padding: 2rem 0 1.5rem;
-        border-bottom: 1px solid var(--highlight);
+        border-bottom: 1px solid var(--tone-hover);
         margin-bottom: 0.5rem;
     }
 
@@ -122,7 +122,7 @@
         flex-wrap: wrap;
         gap: 0.35rem;
         padding-top: 0.75rem;
-        border-top:1px solid var(--sel-btn-border, var(--highlight));
+        border-top:1px solid var(--sel-btn-border, var(--tone-hover));
     }
 
 </style>

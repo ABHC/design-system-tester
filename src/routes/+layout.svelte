@@ -6,11 +6,12 @@
     import favicon from '$lib/assets/favicon.svg';
     import BrandABHC from '$lib/brand/BrandABHC.svelte';
     import LogoABHC from '../lib/brand/LogoABHC.svelte';
-    import LogoSpektral from '../design-system/Support/LogoSpektral.svelte';
+    import LogoSpektral from '../design-system/components/Support/LogoSpektral.svelte';
     import Alert from '../design-system/components/Alert/Alert.svelte';
     import Header from '../design-system/components/Header/Header.svelte';
     import Footer from '../design-system/components/Footer/Footer.svelte';
-    import BackToTop from '../design-system/components/BackToTop/BackToTop.svelte';
+    import BackToTop from '../design-system/components/Button/BackToTop.svelte';
+    import ModeToggle from '../design-system/components/Button/ModeToggle.svelte';
     import Nav from '../design-system/components/Nav/Nav.svelte';
     import Sidebar from '../design-system/components/Sidebar/Sidebar.svelte';
     import type { SidebarItem } from '../design-system/components/Sidebar/Sidebar.svelte';
@@ -26,22 +27,24 @@
         sidebar_menu,
         selected_tone,
         tone_index,
+        setToneIndex,
         accent_index,
+        text_index,
         ctx_index,
         body_font_index,
         title_font_index,
         tone_palettes,
         accent_palettes,
+        text_palettes,
         available_fonts,
         ctx_colors,
-        selected_palette,
+        selected_tone_palette,
         selected_accent,
+        selected_text,
         selected_body_font,
         selected_title_font,
         selected_ctx,
         shadow_opacity,
-        ctx_opacity,
-        ctx_surface,
     } from './store';
 
     import { tokenValues } from '../design-system/token-schema';
@@ -68,35 +71,28 @@
 
     // ---------- CSS variables (global, shared across all routes) ----------
     const css_variables = $derived(tokenValues({
-        palette: {
-            bg:         $selected_palette.bg,
-            card:       $selected_palette.card,
-            highlight:  $selected_palette.highlight,
-            shadow:     $selected_palette.shadow,
-            text:       $selected_palette.text,
-            text_muted: $selected_palette.text_muted,
+        tone: {
+            bg: $selected_tone_palette.bg,
+            card: $selected_tone_palette.card,
         },
-        accent: {
-            accent_lighter: $selected_accent.accent_lighter,
-            accent_light:   $selected_accent.accent_light,
-            accent_dark:    $selected_accent.accent_dark,
-            accent_darker:  $selected_accent.accent_darker,
-            text_accent:    $selected_accent.text_accent,
-        },
-        tone: $selected_tone,
-        typography: {
-            body:    `'${$selected_body_font.family}', sans-serif`,
-            heading: `'${$selected_title_font.family}', sans-serif`,
-        },
-        contextual: {
-            error:   $selected_ctx.error,
+        semantic: {
+            accent: $selected_accent.accent,
+            error: $selected_ctx.error,
             warning: $selected_ctx.warning,
             success: $selected_ctx.success,
-            info:    $selected_ctx.info,
+            info: $selected_ctx.info,
+            neutral: $selected_ctx.neutral,
         },
-        ctx_opacity,
+        mode: $selected_tone,
+        typography: {
+            body: `'${$selected_body_font.family}', sans-serif`,
+            heading: `'${$selected_title_font.family}', sans-serif`,
+        },
+        text_palette: {
+            light: $selected_text.light,
+            dark: $selected_text.dark,
+        },
         shadow_opacity,
-        ctx_surface,
     }));
 
     $effect(() => {
@@ -145,9 +141,14 @@
                                 onclick: () => { $sidebar_menu = "theme:accent"; } 
                             },
                             {
-                                icon: icon_sb("palette"), 
-                                label: `${$trans?.control.ctx}`, 
-                                onclick: () => { $sidebar_menu = "theme:ctx"; } 
+                                icon: icon_sb("palette"),
+                                label: `${$trans?.control.ctx}`,
+                                onclick: () => { $sidebar_menu = "theme:ctx"; }
+                            },
+                            {
+                                icon: icon_sb("format_color_text"),
+                                label: `${$trans?.control.text ?? 'Text'}`,
+                                onclick: () => { $sidebar_menu = "theme:text"; }
                             }
                         ]
                     }
@@ -163,13 +164,13 @@
                                 icon: icon_sb("light_mode"),
                                 label: `${$trans?.control.light}`,
                                 active: $selected_tone === 'light', 
-                                onclick: () => { $selected_tone = 'light'; $tone_index = 0; } 
+                                onclick: () => { $selected_tone = 'light'; }
                             },
                             {
                                 icon: icon_sb("dark_mode"),
-                                label: `${$trans?.control.dark}`,  
-                                active: $selected_tone === 'dark',  
-                                onclick: () => { $selected_tone = 'dark';  $tone_index = 0; } 
+                                label: `${$trans?.control.dark}`,
+                                active: $selected_tone === 'dark',
+                                onclick: () => { $selected_tone = 'dark'; } 
                             }
                         ]
                     },
@@ -180,10 +181,10 @@
                         items: [
                             ...$tone_palettes.map((p, i) => ({
                                 main: p.name,
-                                extra: `${p.bg} ${p.card}\n${p.highlight}`,
-                                leading: swatches([p.bg, p.card, p.highlight]),
+                                extra: `${p.bg} ${p.card}`,
+                                leading: swatches([p.bg, p.card]),
                                 active: i === $tone_index,
-                                onclick: () => { $tone_index = i; },
+                                onclick: () => { setToneIndex(i); },
                             }))
                         ]
                     }
@@ -195,16 +196,10 @@
                         type: "listitem",
                         layout: "column",
                         items: [
-                            ...accent_palettes.map((p, i) => ({
+                            ...$accent_palettes.map((p, i) => ({
                                 main: p.name,
-                                extra: `${p.accent_lighter} ${p.accent_light} 
-                                    ${p.accent_dark} ${p.accent_darker}`,
-                                leading: swatches([
-                                    p.accent_lighter,
-                                    p.accent_light,
-                                    p.accent_dark,
-                                    p.accent_darker
-                                ]),
+                                extra: p.accent,
+                                leading: swatches([p.accent]),
                                 active: i === $accent_index,
                                 onclick: () => { $accent_index = i; },
                             })),
@@ -218,7 +213,7 @@
                         type: "listitem",
                         layout: "column",
                         items: [
-                            ...ctx_colors.map((c, i) => ({
+                            ...$ctx_colors.map((c, i) => ({
                                 main: c.name,
                                 extra: `${c.error} ${c.warning} 
                                     ${c.success} ${c.info}`,
@@ -230,6 +225,23 @@
                                 ]),
                                 active: i === $ctx_index,
                                 onclick: () => { $ctx_index = i; },
+                            })),
+                        ]
+                    }
+                ] satisfies SidebarItem[];
+
+            case "theme:text":
+                return [
+                    {
+                        type: "listitem",
+                        layout: "column",
+                        items: [
+                            ...$text_palettes.map((t, i) => ({
+                                main: t.name,
+                                extra: `${t.light} / ${t.dark}`,
+                                leading: swatches([t.light, t.dark]),
+                                active: i === $text_index,
+                                onclick: () => { $text_index = i; },
                             })),
                         ]
                     }
@@ -521,10 +533,11 @@
 <!-- SideBar snippets -->
 {#snippet sidebar_header()}
     <div class="sb-head">
-        {#if 
-            $sidebar_menu === "theme:tone" || 
-            $sidebar_menu === "theme:accent" || 
-            $sidebar_menu === "theme:ctx"
+        {#if
+            $sidebar_menu === "theme:tone" ||
+            $sidebar_menu === "theme:accent" ||
+            $sidebar_menu === "theme:ctx" ||
+            $sidebar_menu === "theme:text"
         }
             <button
                 class="sb-head-back"
@@ -538,8 +551,9 @@
             </button>
             <span class="sb-head-title">
                 {
-                    $sidebar_menu === "theme:tone" ? `${$trans?.control.tone}` : 
-                    $sidebar_menu === "theme:accent" ? `${$trans?.control.accent}` : 
+                    $sidebar_menu === "theme:tone" ? `${$trans?.control.tone}` :
+                    $sidebar_menu === "theme:accent" ? `${$trans?.control.accent}` :
+                    $sidebar_menu === "theme:text" ? `${$trans?.control.text ?? 'Text'}` :
                     `${$trans?.control.ctx}`
                 }
             </span>
@@ -713,7 +727,8 @@
 
 <!-- BackToTop ───────────────────────────────────────────────────────────────────────────────── -->
 
-<BackToTop elevation="hard"/>
+<BackToTop palette="neutral" size="sm" rounded/>
+<ModeToggle bind:mode={$selected_tone} palette="neutral" size="sm" rounded/>
 
 <!-- Copy Alert ──────────────────────────────────────────────────────────────────────────────── -->
 
@@ -752,7 +767,7 @@
 
 <style>
     :global(body) {
-        background: var(--bg);
+        background: var(--tone-bg);
         color: var(--text);
         font-family: var(--font-body);
         font-size: 14px;
@@ -827,7 +842,7 @@
     }
 
     .social-link:hover {
-        background-color: color-mix(in srgb, var(--text-accent) 20%, transparent);
+        background-color: var(--accent-ghost-hover);
         transform: scale(1.1);
     }
 
@@ -881,6 +896,6 @@
         height: 20px;
         border-radius: 20%;
         flex-shrink: 0;
-        border: 2px solid color-mix(in srgb, var(--text) 80%, transparent);
+        border: 2px solid var(--text-muted);
     }
 </style>
