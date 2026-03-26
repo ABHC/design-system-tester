@@ -7,6 +7,7 @@ export const listItemConfig = {
             highlight: "list-item-highlight",
             ghost: "list-item-ghost",
             accent: "list-item-accent",
+            neutral: "list-item-neutral",
             error: "list-item-error",
             warning: "list-item-warning",
             success: "list-item-success",

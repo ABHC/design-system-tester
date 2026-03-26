@@ -100,7 +100,7 @@
 
     /* Palette — tone */
     .footer-palette-tone {
-        background: var(--card);
+        background: var(--tone);
         color: var(--text);
         border-top: 4px solid var(--accent);
     }

@@ -4,8 +4,9 @@ export const controlConfig = {
 
     variants: {
         palette: {
-            accent: "control-palette-accent",
             tone: "control-palette-tone",
+            accent: "control-palette-accent",
+            accentbg: "control-palette-accent-bg",
         },
 
         rounded: {

@@ -88,7 +88,7 @@
 
     /* Palette — tone (default: card background) */
     .header-palette-tone {
-        background: var(--card);
+        background: var(--tone);
         color: var(--text);
     }
 
@@ -96,7 +96,7 @@
     .header-palette-accent {
         background: var(--accent);
         color: var(--text-accent);
-        border-bottom-color: var(--highlight);
+        border-bottom-color: var(--tone-hover);
     }
 
     /* Slots layout — flex-shrink: 0 prevents leading/following from compressing */

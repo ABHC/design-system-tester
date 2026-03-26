@@ -340,7 +340,7 @@
     /* Base */
     .codeblock {
         border-radius: 10px;
-        border: 1px solid var(--highlight);
+        border: 2px solid var(--tone-hover);
         overflow: hidden;
         position: relative;
         margin: 20px 0;
@@ -353,8 +353,8 @@
         justify-content: space-between;
         gap: 0.5rem;
         padding: 0 1rem;
-        background: var(--card);
-        border-bottom: 1px solid var(--highlight);
+        background: var(--tone);
+        border-bottom: 1px solid var(--tone-hover);
         min-height: 2.75rem;
     }
 
@@ -384,7 +384,7 @@
         user-select: none;
         padding: 1px 4px 2px 6px;
         border-radius: 4px;
-        border: 1px solid var(--accent);
+        border: 2px solid var(--accent);
     }
 
     .codeblock-terminal-title {
@@ -445,7 +445,7 @@
         font-size: 0.7rem;
         padding: 0.3rem 0.6rem;
         border-radius: 4px;
-        background: var(--highlight);
+        background: var(--tone-hover);
         color: var(--text-muted);
         text-transform: uppercase;
         letter-spacing: 0.6px;
@@ -466,7 +466,7 @@
     /* Code body */
     .codeblock-body {
         position: relative;
-        background: var(--bg);
+        background: var(--tone-bg);
     }
 
     /* Split layout: description panel on the left, code on the right */
@@ -477,8 +477,8 @@
 
     .codeblock-description {
         padding: 1.25rem 1.5rem;
-        background: var(--card);
-        border-right: 1px solid var(--highlight);
+        background: var(--tone);
+        border-right: 1px solid var(--tone-hover);
         color: var(--text-muted);
         font-size: 0.875rem;
         line-height: 1.7;
@@ -494,7 +494,7 @@
     :global(.codeblock-desc-inline) {
         font-family: monospace;
         font-size: 0.8em;
-        background: var(--highlight);
+        background: var(--tone-hover);
         padding: 0.1em 0.35em;
         border-radius: 3px;
         color: var(--text);
@@ -536,7 +536,7 @@
         opacity: 0.5;
         font-size: 0.8em;
         padding-right: 0.5rem;
-        border-right: 1px solid var(--highlight);
+        border-right: 1px solid var(--tone-hover);
     }
 
     /* Sizes */

@@ -3,7 +3,7 @@
     import { createVariant } from '../../utils/builder';
     import { switchConfig } from './switch.config';
 
-    type Palette = "accent" | "tone" | "error" | "warning" | "success" | "info";
+    type Palette = "accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info";
     type Size = "sm" | "md" | "lg";
 
     interface Props {
@@ -119,7 +119,7 @@
        Works automatically on any background (neutral or accent). */
     .switch-track:not(.switch-checked) {
         background: transparent;
-        box-shadow: 0 0 0 2px color-mix(in srgb, var(--text-muted) 60%, var(--text-accent));
+        box-shadow: 0 0 0 2px var(--text-muted);
     }
 
     /* Knob ──────────────────────────────────────────────────────────── */
@@ -136,7 +136,7 @@
         left: var(--switch-begin);
         top: 50%;
         transform:  translate(0, -50%);
-        background: color-mix(in srgb, var(--text-muted) 50%, var(--text-accent));
+        background: var(--text-muted);
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
         transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
                     background 0.2s ease;
@@ -201,12 +201,12 @@
     }
 
     .switch-palette-tone .switch-checked .switch-knob {
-        background: var(--highlight);
+        background: var(--tone-hover);
     }
 
     /* Error */
     .switch-palette-error .switch-checked {
-        background: var(--ctx-error);
+        background: var(--error);
         box-shadow: none;
     }
 
@@ -216,7 +216,7 @@
 
     /* Warning */
     .switch-palette-warning .switch-checked {
-        background: var(--ctx-warning);
+        background: var(--warning);
         box-shadow: none;
     }
 
@@ -226,7 +226,7 @@
 
     /* Success */
     .switch-palette-success .switch-checked {
-        background: var(--ctx-success);
+        background: var(--success);
         box-shadow: none;
     }
 
@@ -236,12 +236,22 @@
 
     /* Info */
     .switch-palette-info .switch-checked {
-        background: var(--ctx-info);
+        background: var(--info);
         box-shadow: none;
     }
 
     .switch-palette-info .switch-checked .switch-knob {
         background: var(--text-accent);
+    }
+
+    /* Neutral */
+    .switch-palette-neutral .switch-checked {
+        background: var(--neutral);
+        box-shadow: none;
+    }
+
+    .switch-palette-neutral .switch-checked .switch-knob {
+        background: var(--text-neutral);
     }
 
     /* Disabled ──────────────────────────────────────────────────────── */

@@ -151,7 +151,7 @@
     }
 
     .input-required {
-        color: var(--ctx-error);
+        color: var(--error);
     }
 
     /* Field wrapper ─────────────────────────────────────────────────── */
@@ -159,16 +159,16 @@
     .input-field {
         display: flex;
         align-items: center;
-        background: var(--card);
-        border: 2px solid var(--highlight);
+        background: var(--tone);
+        border: 2px solid var(--tone-hover);
         border-radius: 6px;
         overflow: hidden;
         transition: border-color 0.15s ease, box-shadow 0.15s ease;
     }
 
     .input-field:focus-within {
-        border-color: var(--accent-more);
-        box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-more) 18%, transparent);
+        border-color: var(--accent-muted);
+        box-shadow: 0 0 0 3px var(--accent-ghost-hover);
     }
 
     /* Native input ──────────────────────────────────────────────────── */
@@ -193,7 +193,7 @@
     .input-element:-webkit-autofill:hover,
     .input-element:-webkit-autofill:focus,
     .input-element:-webkit-autofill:active {
-        -webkit-box-shadow: 0 0 0 100px var(--card) inset !important;
+        -webkit-box-shadow: 0 0 0 100px var(--tone) inset !important;
         -webkit-text-fill-color: var(--text) !important;
         caret-color: var(--text);
     }
@@ -236,12 +236,12 @@
         line-height: 1.4;
     }
 
-    .input-message-error { 
-        color: var(--ctx-error);
+    .input-message-error {
+        color: var(--error);
     }
 
-    .input-message-success { 
-        color: var(--ctx-success); 
+    .input-message-success {
+        color: var(--success);
     }
 
     /* ── Sizes ───────────────────────────────────────────────────────── */
@@ -319,19 +319,19 @@
     /* ── Validation states ───────────────────────────────────────────── */
 
     .input-has-error .input-field {
-        border-color: var(--ctx-error);
+        border-color: var(--error);
     }
     .input-has-error .input-field:focus-within {
-        border-color: var(--ctx-error);
-        box-shadow: 0 0 0 3px color-mix(in srgb, var(--ctx-error) 18%, transparent);
+        border-color: var(--error);
+        box-shadow: 0 0 0 3px var(--error-ghost-hover);
     }
 
     .input-has-success .input-field {
-        border-color: var(--ctx-success);
+        border-color: var(--success);
     }
     .input-has-success .input-field:focus-within {
-        border-color: var(--ctx-success);
-        box-shadow: 0 0 0 3px color-mix(in srgb, var(--ctx-success) 18%, transparent);
+        border-color: var(--success);
+        box-shadow: 0 0 0 3px var(--success-ghost-hover);
     }
 
     /* ── Disabled ────────────────────────────────────────────────────── */

@@ -132,7 +132,7 @@
         width: var(--radio-size, 18px);
         height: var(--radio-size, 18px);
         border-radius: 50%;
-        border: 2px solid color-mix(in srgb, var(--text-muted) 60%, var(--text-accent));
+        border: 2px solid var(--text-muted);
         background: transparent;
         transition: border-color 0.2s ease;
     }

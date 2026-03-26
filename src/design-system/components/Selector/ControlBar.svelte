@@ -3,7 +3,7 @@
     import { createVariant } from "../../utils/builder";
     import { controlConfig } from './controlbar.config';
 
-    type Palette = "accent" | "tone";
+    type Palette = "accent" | "tone" | "accentbg";
 
     interface Props {
         header?:  Snippet;
@@ -46,6 +46,7 @@
         gap: 0.85rem;
         padding: 1rem 1.25rem;
         margin-bottom:  1.5rem;
+        border: 2px solid transparent;
     }
 
     .control-rounded {
@@ -55,7 +56,7 @@
     /* Header — separator only, no box border */
     .control-header {
         padding-bottom: 0.6rem;
-        border-bottom:  1px solid var(--highlight);
+        border-bottom:  2px solid var(--tone-hover);
         color: var(--text);
     }
 
@@ -68,11 +69,11 @@
     /* Palette — tone ──────────────────────────────────────────────── */
 
     .control-palette-tone {
-        background: var(--card);
+        background: var(--tone);
 
         --sel-label-color: var(--text-muted);
         --sel-btn-color: var(--text-muted);
-        --sel-btn-border: var(--highlight);
+        --sel-btn-border: var(--tone-hover);
         --sel-btn-hover-color: var(--accent);
         --sel-btn-active-bg: var(--accent);
         --sel-btn-active-border: var(--accent);
@@ -80,7 +81,7 @@
     }
 
     .control-palette-tone.control-bordered {
-        border: 1.5px solid var(--highlight);
+        border-color: var(--tone-hover);
     }
 
     /* Palette — accent ────────────────────────────────────────────── */
@@ -88,22 +89,45 @@
     .control-palette-accent {
         background: var(--accent);
 
-        --sel-label-color: color-mix(in srgb, var(--text-accent) 70%, transparent);
-        --sel-btn-color: color-mix(in srgb, var(--text-accent) 65%, transparent);
-        --sel-btn-border: color-mix(in srgb, var(--text-accent) 35%, transparent);
+        --sel-label-color: var(--text-accent);
+        --sel-btn-color: var(--accent-muted);
+        --sel-btn-border: var(--accent-hover);
         --sel-btn-hover-color: var(--text-accent);
-        --sel-btn-active-bg: color-mix(in srgb, var(--text-accent) 22%, transparent);
+        --sel-btn-active-bg: var(--accent-ghost-hover);
         --sel-btn-active-border: var(--text-accent);
         --sel-btn-active-color: var(--text-accent);
     }
 
     .control-palette-accent.control-bordered {
-        border: 1.5px solid var(--accent-more);
+        border-color: var(--accent-muted);
     }
 
     .control-palette-accent .control-header {
         color: var(--text-accent);
-        border-bottom-color: color-mix(in srgb, var(--text-accent) 30%, transparent);
+        border-bottom-color: var(--accent-muted);
+    }
+
+    /* Palette — accent-bg ─────────────────────────────────────────── */
+
+    .control-palette-accent-bg {
+        background: var(--accent-bg);
+
+        --sel-label-color: var(--text-accent);
+        --sel-btn-color: var(--accent-muted);
+        --sel-btn-border: var(--accent-hover);
+        --sel-btn-hover-color: var(--text-accent);
+        --sel-btn-active-bg: var(--accent-ghost-hover);
+        --sel-btn-active-border: var(--text-accent);
+        --sel-btn-active-color: var(--text-accent);
+    }
+
+    .control-palette-accent-bg.control-bordered {
+        border-color: var(--accent-hover);
+    }
+
+    .control-palette-accent-bg .control-header {
+        color: var(--text-accent);
+        border-bottom-color: var(--accent-hover);
     }
 
 </style>

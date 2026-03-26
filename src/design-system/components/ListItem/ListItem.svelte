@@ -4,7 +4,7 @@
     import { listItemConfig } from './listItem.config';
 
     type Size = "sm" | "md" | "lg";
-    type Palette = "tone" | "highlight" | "ghost" | "accent" | "error" | "warning" | "success" | "info";
+    type Palette = "tone" | "accent" | "ghost" | "neutral" | "error" | "warning" | "success" | "info";
     type Elevation = "none" | "subtle" | "hard";
 
     export interface SupportingText {
@@ -100,122 +100,121 @@
     /* Palette — tone ──────────────────────────────────────────────────── */
 
     .list-item-tone {
-        background: var(--listitem-bg, var(--card));
+        background: var(--tone);
         color: var(--text);
     }
 
     button.list-item-tone:hover {
-        background: var(--listitem-hover-bg, var(--highlight));
+        background: var(--tone-hover);
     }
 
     button.list-item-tone.list-item-active {
         border-color: var(--accent);
     }
 
-    /* Palette — highlight (pour usage sur fond card) ─────────────────── */
-
-    .list-item-highlight {
-        background: var(--highlight);
-        color: var(--text);
-    }
-
-    button.list-item-highlight:hover {
-        background: color-mix(in srgb, var(--accent) 15%, var(--highlight));
-    }
-
-    button.list-item-highlight.list-item-active {
-        border-color: var(--accent);
-    }
-
-    /* Palette — ghost (s'adapte au contexte via currentColor) ────────── */
-    /* Hérite de --listitem-bg / --listitem-hover-bg si définis            */
-
-    .list-item-ghost {
-        background: var(--listitem-bg, color-mix(in srgb, currentColor 12%, transparent));
-        color: inherit;
-    }
-
-    button.list-item-ghost:hover {
-        background: var(--listitem-hover-bg, color-mix(in srgb, currentColor 22%, transparent));
-    }
-
-    button.list-item-ghost.list-item-active {
-        border-color: color-mix(in srgb, currentColor 45%, transparent);
-    }
-
     /* Palette — accent ────────────────────────────────────────────────── */
 
     .list-item-accent {
-        background: var(--listitem-bg, var(--accent));
+        background: var(--accent);
         color: var(--text-accent);
     }
 
     button.list-item-accent:hover {
-        background: var(--listitem-hover-bg, var(--accent-more));
+        background: var(--accent-hover);
     }
 
     button.list-item-accent.list-item-active {
-        border-color: color-mix(in srgb, var(--text-accent) 45%, transparent);
+        border-color: var(--accent-muted);
+    }
+
+    /* Palette — ghost (adapts to context via currentColor) ────────────── */
+
+    .list-item-ghost {
+        background: color-mix(in srgb, currentColor 8%, transparent);
+        color: inherit;
+    }
+
+    button.list-item-ghost:hover {
+        background: color-mix(in srgb, currentColor 15%, transparent);
+    }
+
+    button.list-item-ghost.list-item-active {
+        border-color: color-mix(in srgb, currentColor 30%, transparent);
     }
 
     /* Palette — error ─────────────────────────────────────────────────── */
 
     .list-item-error {
-        background: var(--ctx-error-blend);
-        color: var(--text);
+        background: var(--error);
+        color: var(--text-error);
     }
 
     button.list-item-error:hover {
-        background: color-mix(in srgb, var(--ctx-error) 25%, var(--highlight));
+        background: var(--error-hover);
     }
 
     button.list-item-error.list-item-active {
-        border-color: var(--ctx-error);
+        border-color: var(--error-muted);
     }
 
     /* Palette — warning ───────────────────────────────────────────────── */
 
     .list-item-warning {
-        background: var(--ctx-warning-blend);
-        color: var(--text);
+        background: var(--warning);
+        color: var(--text-warning);
     }
 
     button.list-item-warning:hover {
-        background: color-mix(in srgb, var(--ctx-warning) 25%, var(--highlight));
+        background: var(--warning-hover);
     }
 
     button.list-item-warning.list-item-active {
-        border-color: var(--ctx-warning);
+        border-color: var(--warning-muted);
     }
 
     /* Palette — success ───────────────────────────────────────────────── */
 
     .list-item-success {
-        background: var(--ctx-success-blend);
-        color: var(--text);
+        background: var(--success);
+        color: var(--text-success);
     }
 
     button.list-item-success:hover {
-        background: color-mix(in srgb, var(--ctx-success) 25%, var(--highlight));
+        background: var(--success-hover);
     }
 
     button.list-item-success.list-item-active {
-        border-color: var(--ctx-success);
+        border-color: var(--success-muted);
     }
 
     /* Palette — info ──────────────────────────────────────────────────── */
 
     .list-item-info {
-        background: var(--ctx-info-blend);
-        color: var(--text);
+        background: var(--info);
+        color: var(--text-info);
     }
 
     button.list-item-info:hover {
-        background: color-mix(in srgb, var(--ctx-info) 25%, var(--highlight));
+        background: var(--info-hover);
     }
 
     button.list-item-info.list-item-active {
-        border-color: var(--ctx-info);
+        border-color: var(--info-muted);
+    }
+
+    /* Palette — neutral ───────────────────────────────────────────────── */
+
+    .list-item-neutral {
+        background: var(--neutral);
+        color: var(--text-neutral);
+    }
+
+    button.list-item-neutral:hover {
+        background: var(--neutral-hover);
+    }
+
+    button.list-item-neutral.list-item-active {
+        border-color: var(--neutral-muted);
     }
 
     /* Elevation ───────────────────────────────────────────────────────── */

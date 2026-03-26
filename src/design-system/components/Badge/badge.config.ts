@@ -16,6 +16,7 @@ export const badgeConfig = {
         palette: {
             accent: "badge-palette-accent",
             tone: "badge-palette-tone",
+            neutral: "badge-palette-neutral",
             error: "badge-palette-error",
             warning: "badge-palette-warning",
             success: "badge-palette-success",

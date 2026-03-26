@@ -3,7 +3,7 @@
     import { createVariant } from "../../utils/builder";
     import { modalConfig, defaultModalConfig, type Elevation } from "./modal.config";
 
-    type Palette = "tone" | "accent";
+    type Palette = "tone" | "accent" | "accentbg";
 
     /*
         open : Controls visibility.
@@ -13,10 +13,10 @@
         width : CSS width of the dialog. Default: "480px".
                 Max-width is always capped at calc(100vw - 2rem).
 
-        Slots
-        header : Top zone — padded, bottom border.
-        children : Body zone — padded, scrollable.
-        footer : Bottom zone — padded, top border, flex row.
+        Slots :
+            header : Top zone — padded, bottom border.
+            children : Body zone — padded, scrollable.
+            footer : Bottom zone — padded, top border, flex row.
 
         Note: the modal renders inline in the component tree.
         Ensure no ancestor has overflow:hidden or a conflicting z-index.
@@ -47,7 +47,7 @@
     }: Props = $props();
 
     const resolve = createVariant(modalConfig);
-    const dialog_classes = $derived(resolve({ palette, rounded, elevation }));
+    const modal_classes = $derived(resolve({ palette, rounded, elevation }));
     const style = $derived(`width: ${width};`);
 
     function handle_keydown(e: KeyboardEvent) {
@@ -67,7 +67,7 @@
 
     <!-- Dialog -->
     <div
-        class={dialog_classes}
+        class={modal_classes}
         {style}
         role="dialog"
         aria-modal="true"
@@ -130,9 +130,9 @@
 
     /* Palette — tone */
     .modal-palette-tone {
-        background: var(--card);
+        background: var(--tone);
         color: var(--text);
-        --modal-border: var(--highlight);
+        --modal-border: var(--tone-hover);
         --modal-muted:  var(--text-muted);
     }
 
@@ -140,9 +140,18 @@
     .modal-palette-accent {
         background: var(--accent);
         color: var(--text-accent);
-        --modal-border: color-mix(in srgb, var(--text-accent) 20%, transparent);
-        --modal-muted:  color-mix(in srgb, var(--text-accent) 75%, transparent);
+        --modal-border: var(--accent-hover);
+        --modal-muted: var(--text-accent);
     }
+
+    /* Palette — accentbg */
+    .modal-palette-accentbg {
+        background: var(--accent-bg);
+        color: var(--text-accent);
+        --modal-border: var(--accent-muted);
+        --modal-muted: var(--text-accent);
+    }
+
 
     /* Rounded */
     .modal-rounded {
@@ -159,7 +168,7 @@
     }
 
     .modal-elevation-hard {
-        box-shadow: 0.4rem 0.4rem var(--shadow);
+        box-shadow: 0.4rem 0.4rem var(--shadow-hard);
     }
 
     /* Header */

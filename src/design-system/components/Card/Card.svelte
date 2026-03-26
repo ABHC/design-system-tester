@@ -84,7 +84,6 @@
 
         display: flex;
         flex-direction: column;
-        overflow: hidden;
         box-sizing: border-box;
         color: var(--text);
         text-decoration: none; /* reset if <a> */
@@ -93,12 +92,12 @@
     /* ── Variants ─────────────────────────────────────────────────────────── */
 
     .card-flat {
-        background: var(--card);
+        background: var(--tone);
     }
 
     .card-outlined {
         background: transparent;
-        border: 1.5px solid var(--highlight);
+        border: 2px solid var(--tone-hover);
     }
 
     .card-ghost {
@@ -143,6 +142,7 @@
     .card-header {
         flex-shrink: 0;
         overflow: hidden;
+        border-bottom: 2px solid var(--tone-hover);
     }
 
     /* Rounded top corners on the header image */
@@ -160,7 +160,7 @@
 
     .card-footer {
         padding: calc(var(--card-padding) * 0.75) var(--card-padding);
-        border-top: 1px solid var(--highlight);
+        border-top: 2px solid var(--tone-hover);
         display: flex;
         align-items: center;
         gap: 0.75rem;

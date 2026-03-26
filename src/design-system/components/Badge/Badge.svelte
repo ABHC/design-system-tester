@@ -4,7 +4,7 @@
     import { badgeConfig } from "./badge.config";
 
     type Variant = "flat" | "outlined";
-    type Palette = "accent" | "tone" | "error" | "warning" | "success" | "info";
+    type Palette = "accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info";
     type Size = "sm" | "md" | "lg";
     type Elevation = "none" | "subtle" | "hard";
 
@@ -134,7 +134,7 @@
         line-height: 1;
         font-family: var(--font-body);
         text-decoration: none;
-        border: 1px solid transparent;
+        border: 2px solid transparent;
     }
 
     /* Reset for button/link roots */
@@ -171,88 +171,80 @@
     }
 
     .badge-palette-accent.badge-outlined {
-        border-color: var(--accent-more);
-        color: var(--accent-more);
-    }
-
-    .badge-palette-accent.badge-ghost {
-        color: var(--text-accent);
+        border-color: var(--accent-muted);
+        color: var(--accent-muted);
     }
 
     /* tone */
     .badge-palette-tone.badge-flat {
-        background: var(--card);
-        border-color: var(--highlight);
+        background: var(--tone);
+        border-color: var(--tone);
         color: var(--text);
     }
 
     .badge-palette-tone.badge-outlined {
-        border-color: var(--highlight);
+        border-color: var(--tone-muted);
         color: var(--text-muted);
-    }
-
-    .badge-palette-tone.badge-ghost {
-        color: var(--text);
     }
 
     /* error */
     .badge-palette-error.badge-flat {
-        background: var(--ctx-error-blend);
-        color: var(--text);
+        background: var(--error);
+        border-color: var(--error);
+        color: var(--text-error);
     }
 
     .badge-palette-error.badge-outlined {
-        border-color: var(--ctx-error);
-        color: var(--ctx-error);
-    }
-
-    .badge-palette-error.badge-ghost {
-        color: var(--ctx-error);
+        border-color: var(--error-muted);
+        color: var(--error-muted);
     }
 
     /* warning */
     .badge-palette-warning.badge-flat {
-        background: var(--ctx-warning-blend);
-        color: var(--text);
+        background: var(--warning);
+        border-color: var(--warning);
+        color: var(--text-warning);
     }
 
     .badge-palette-warning.badge-outlined {
-        border-color: var(--ctx-warning);
-        color: var(--ctx-warning);
-    }
-
-    .badge-palette-warning.badge-ghost {
-        color: var(--ctx-warning);
+        border-color: var(--warning-muted);
+        color: var(--warning-muted);
     }
 
     /* success */
     .badge-palette-success.badge-flat {
-        background: var(--ctx-success-blend);
-        color: var(--text);
+        background: var(--success);
+        border-color: var(--success);
+        color: var(--text-success);
     }
 
     .badge-palette-success.badge-outlined {
-        border-color: var(--ctx-success);
-        color: var(--ctx-success);
-    }
-
-    .badge-palette-success.badge-ghost {
-        color: var(--ctx-success);
+        border-color: var(--success-muted);
+        color: var(--success-muted);
     }
 
     /* info */
     .badge-palette-info.badge-flat {
-        background: var(--ctx-info-blend);
-        color: var(--text);
+        background: var(--info);
+        border-color: var(--info);
+        color: var(--text-info);
     }
 
     .badge-palette-info.badge-outlined {
-        border-color: var(--ctx-info);
-        color: var(--ctx-info);
+        border-color: var(--info-muted);
+        color: var(--info-muted);
     }
 
-    .badge-palette-info.badge-ghost {
-        color: var(--ctx-info);
+    /* neutral */
+    .badge-palette-neutral.badge-flat {
+        background: var(--neutral);
+        border-color: var(--neutral);
+        color: var(--text-neutral);
+    }
+
+    .badge-palette-neutral.badge-outlined {
+        border-color: var(--neutral-muted);
+        color: var(--neutral-muted);
     }
 
     /* Elevation ─────────────────────────────────────────────────────────── */
@@ -295,8 +287,9 @@
     /* accent */
     button.badge-flat.badge-palette-accent:hover,
     a.badge-flat.badge-palette-accent:hover {
-        background: var(--accent-invert);
-        border-color: var(--accent-invert);
+        /*background: var(--accent-hover);*/
+        background: var(--accent-hover);
+        border-color: var(--accent-hover);
     }
 
     button.badge-outlined.badge-palette-accent:hover,
@@ -309,61 +302,85 @@
     /* Tone */
     button.badge-flat.badge-palette-tone:hover,
     a.badge-flat.badge-palette-tone:hover {
-        background: var(--highlight);
+        background: var(--tone-hover);
+        border-color: var(--tone-hover);
     }
 
     button.badge-outlined.badge-palette-tone:hover,
     a.badge-outlined.badge-palette-tone:hover {
-        border-color: var(--accent);
-        color: var(--accent);
+        background: var(--tone-hover);
+        border-color: var(--tone-hover);
+        color: var(--text);
     }
 
     /* Error */
     button.badge-flat.badge-palette-error:hover,
     a.badge-flat.badge-palette-error:hover {
-        background: color-mix(in srgb, var(--ctx-error) 60%, var(--highlight));
+        background: var(--error-hover);
+        border-color: var(--error-hover);
     }
 
     button.badge-outlined.badge-palette-error:hover,
     a.badge-outlined.badge-palette-error:hover {
-        background: var(--ctx-error);
-        color: var(--text-accent);
+        background: var(--error);
+        border-color: var(--error);
+        color: var(--text-error);
     }
 
     /* Warning */
     button.badge-flat.badge-palette-warning:hover,
     a.badge-flat.badge-palette-warning:hover {
-        background: color-mix(in srgb, var(--ctx-warning) 60%, var(--highlight));
+        background: var(--warning-hover);
+        border-color: var(--warning-hover);
     }
 
     button.badge-outlined.badge-palette-warning:hover,
     a.badge-outlined.badge-palette-warning:hover {
-        background: var(--ctx-warning);
-        color: var(--text-accent);
+        background: var(--warning);
+        border-color: var(--warning);
+        color: var(--text-warning);
     }
 
     /* Success */
     button.badge-flat.badge-palette-success:hover,
     a.badge-flat.badge-palette-success:hover {
-        background: color-mix(in srgb, var(--ctx-success) 60%, var(--highlight));
+        background: var(--success-hover);
+        border-color: var(--success-hover);
     }
 
     button.badge-outlined.badge-palette-success:hover,
     a.badge-outlined.badge-palette-success:hover {
-        background: var(--ctx-success);
-        color: var(--text-accent);
+        background: var(--success);
+        border-color: var(--success);
+        color: var(--text-success);
     }
 
     /* Info */
     button.badge-flat.badge-palette-info:hover,
     a.badge-flat.badge-palette-info:hover {
-        background: color-mix(in srgb, var(--ctx-info) 60%, var(--highlight));
+        background: var(--info-hover);
+        border-color: var(--info-hover);
     }
 
     button.badge-outlined.badge-palette-info:hover,
     a.badge-outlined.badge-palette-info:hover {
-        background: var(--ctx-info);
-        color: var(--text-accent);
+        background: var(--info);
+        border-color: var(--info);
+        color: var(--text-info);
+    }
+
+    /* Neutral */
+    button.badge-flat.badge-palette-neutral:hover,
+    a.badge-flat.badge-palette-neutral:hover {
+        background: var(--neutral-hover);
+        border-color: var(--neutral-hover);
+    }
+
+    button.badge-outlined.badge-palette-neutral:hover,
+    a.badge-outlined.badge-palette-neutral:hover {
+        background: var(--neutral);
+        border-color: var(--neutral);
+        color: var(--text-neutral);
     }
 
     /* Selected — mirrors hover styles ──────────────────────────────────── */
@@ -371,8 +388,8 @@
     /* accent */
     button.badge-flat.badge-palette-accent.badge-selected,
     a.badge-flat.badge-palette-accent.badge-selected {
-        background: var(--accent-invert);
-        border-color: var(--accent-invert);
+        background: var(--accent-hover);
+        border-color: var(--accent-muted);
     }
 
     button.badge-outlined.badge-palette-accent.badge-selected,
@@ -385,75 +402,86 @@
     /* Tone */
     button.badge-flat.badge-palette-tone.badge-selected,
     a.badge-flat.badge-palette-tone.badge-selected {
-        background: var(--highlight);
+        background: var(--tone-hover);
+        border-color: var(--tone-muted);
     }
 
     button.badge-outlined.badge-palette-tone.badge-selected,
     a.badge-outlined.badge-palette-tone.badge-selected {
+        background: var(--tone-hover);
         border-color: var(--accent);
-        color: var(--accent);
+        color: var(--text);
     }
 
     /* Error */
     button.badge-flat.badge-palette-error.badge-selected,
     a.badge-flat.badge-palette-error.badge-selected {
-        background: color-mix(in srgb, var(--ctx-error) 60%, var(--highlight));
+        background: var(--error-hover);
+        border-color: var(--error-muted);
     }
 
     button.badge-outlined.badge-palette-error.badge-selected,
     a.badge-outlined.badge-palette-error.badge-selected {
-        background: var(--ctx-error);
-        color: var(--text-accent);
+        background: var(--error);
+        border-color: var(--error);
+        color: var(--text-error);
     }
 
     /* Warning */
     button.badge-flat.badge-palette-warning.badge-selected,
-    a.badge-flat.badge-palette-warning:hover {
-        background: color-mix(in srgb, var(--ctx-warning) 60%, var(--highlight));
+    a.badge-flat.badge-palette-warning.badge-selected {
+        background: var(--warning-hover);
+        border-color: var(--warning-muted);
     }
 
     button.badge-outlined.badge-palette-warning.badge-selected,
     a.badge-outlined.badge-palette-warning.badge-selected {
-        background: var(--ctx-warning);
-        color: var(--text-accent);
+        background: var(--warning);
+        border-color: var(--warning);
+        color: var(--text-warning);
     }
 
     /* Success */
     button.badge-flat.badge-palette-success.badge-selected,
     a.badge-flat.badge-palette-success.badge-selected {
-        background: color-mix(in srgb, var(--ctx-success) 60%, var(--highlight));
+        background: var(--success-hover);
+        border-color: var(--success-muted);
     }
 
     button.badge-outlined.badge-palette-success.badge-selected,
     a.badge-outlined.badge-palette-success.badge-selected {
-        background: var(--ctx-success);
-        color: var(--text-accent);
+        background: var(--success);
+        border-color: var(--success);
+        color: var(--text-success);
     }
 
     /* Info */
     button.badge-flat.badge-palette-info.badge-selected,
     a.badge-flat.badge-palette-info.badge-selected {
-        background: color-mix(in srgb, var(--ctx-info) 60%, var(--highlight));
+        background: var(--info-hover);
+        border-color: var(--info-muted);
     }
 
     button.badge-outlined.badge-palette-info.badge-selected,
     a.badge-outlined.badge-palette-info.badge-selected {
-        background: var(--ctx-info);
-        color: var(--text-accent);
+        background: var(--info);
+        border-color: var(--info);
+        color: var(--text-info);
     }
 
-    /* Contextuals ──────────────────────────────────────────────────────── */
-
-    .badge-ctx {
-        font-weight: 600;
-        color: var(--text);
-        border: 2px solid transparent;
+    /* Neutral */
+    button.badge-flat.badge-palette-neutral.badge-selected,
+    a.badge-flat.badge-palette-neutral.badge-selected {
+        background: var(--neutral-hover);
+        border-color: var(--neutral-muted);
     }
 
-    .badge-ctx-error   { background: var(--ctx-error-blend); }
-    .badge-ctx-warning { background: var(--ctx-warning-blend); }
-    .badge-ctx-success { background: var(--ctx-success-blend); }
-    .badge-ctx-info    { background: var(--ctx-info-blend); }
+    button.badge-outlined.badge-palette-neutral.badge-selected,
+    a.badge-outlined.badge-palette-neutral.badge-selected {
+        background: var(--neutral);
+        border-color: var(--neutral);
+        color: var(--text-neutral);
+    }
 
     /* Trailing icon ────────────────────────────────────────────────────── */
 

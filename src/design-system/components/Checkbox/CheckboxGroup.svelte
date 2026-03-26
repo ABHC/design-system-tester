@@ -132,7 +132,7 @@
         width: var(--checkbox-size, 18px);
         height: var(--checkbox-size, 18px);
         border-radius: 4px;
-        border: 2px solid color-mix(in srgb, var(--text-muted) 60%, var(--text-accent));
+        border: 2px solid var(--text-muted);
         background: transparent;
         transition: border-color 0.2s ease, background 0.2s ease;
     }
@@ -205,7 +205,7 @@
 
     .checkbox-palette-tone {
         --checkbox-checked-color: var(--text);
-        --checkbox-check-color: var(--bg);
+        --checkbox-check-color: var(--tone-bg);
     }
 
     /* Disabled ──────────────────────────────────────────────────────────── */

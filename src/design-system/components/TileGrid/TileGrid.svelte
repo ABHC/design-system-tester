@@ -348,7 +348,7 @@
     .tg-tile-flat {
         aspect-ratio: 4 / 3;
         border-left: 4px solid transparent;
-        background: var(--card);
+        background: var(--tone);
     }
 
     .tg-tile-flat.tg-tile-hero-border {
@@ -357,13 +357,12 @@
 
     .tg-tile-flat.tg-tile-hero {
         border-left-color: var(--accent);
-        /* Subtle accent tint on the card surface */
-        background: color-mix(in srgb, var(--card) 88%, var(--accent) 12%);
+        background: var(--accent-ghost-hover);
     }
 
     .tg-tile-flat:hover {
         border-left-color: var(--accent);
-        background: var(--highlight);
+        background: var(--tone-hover);
     }
 
     @media (min-width: 640px) {
@@ -384,7 +383,7 @@
     .tg-tile-deco {
         aspect-ratio: 4 / 3;
         /*border-left: 4px solid transparent;*/
-        background: var(--card);
+        background: var(--tone);
     }
 
     .tg-tile-deco.tg-tile-hero-border {
@@ -393,12 +392,12 @@
 
     .tg-tile-deco.tg-tile-hero {
         border-left-color: var(--accent);
-        background: color-mix(in srgb, var(--card) 88%, var(--accent) 12%);
+        background: var(--accent-ghost-hover);
     }
 
     .tg-tile-deco:hover {
         border-left: 4px solid var(--accent);
-        background: var(--highlight);
+        background: var(--tone-hover);
     }
 
     @media (min-width: 640px) {

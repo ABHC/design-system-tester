@@ -205,7 +205,7 @@
                                     leading={item.leading}
                                     active={item.active ?? false}
                                     onclick={item.onclick}
-                                    palette={palette === "tone" ? "highlight" : palette === "accent" ? "ghost" : palette}
+                                    palette="ghost"
                                     rounded={roundedBtn}
                                 />
                             {/each}
@@ -298,28 +298,28 @@
         color: var(--text-accent);
 
         --sidebar-text: var(--text-accent);
-        --sidebar-muted: color-mix(in srgb, var(--text-accent) 80%, transparent);
-        --sidebar-separator: color-mix(in srgb, var(--text-accent) 45%, transparent);
-        --sidebar-item-hover-bg: color-mix(in srgb, var(--text-accent) 15%, transparent);
-        --sidebar-item-active-bg: color-mix(in srgb, var(--text-accent) 25%, transparent);
-        --sidebar-item-active-border: color-mix(in srgb, var(--text-accent) 45%, transparent);
+        --sidebar-muted: var(--text-accent);
+        --sidebar-separator: var(--accent-hover);
+        --sidebar-item-hover-bg: var(--accent-ghost-hover);
+        --sidebar-item-active-bg: var(--accent-ghost-hover);
+        --sidebar-item-active-border: var(--accent-hover);
 
         --dot-bg: var(--accent);
     }
 
     /* Palette — tone */
     .sidebar-palette-tone {
-        background: var(--card);
+        background: var(--tone);
         color: var(--text);
 
         --sidebar-text: var(--text);
         --sidebar-muted: var(--text-muted);
-        --sidebar-separator: var(--highlight);
-        --sidebar-item-hover-bg: var(--highlight);
+        --sidebar-separator: var(--tone-hover);
+        --sidebar-item-hover-bg: var(--tone-hover);
         --sidebar-item-active-bg: var(--accent);
         --sidebar-item-active-border: var(--accent);
 
-        --dot-bg: var(--card);
+        --dot-bg: var(--tone);
     }
 
     /* Slots */

@@ -3,7 +3,7 @@
     import type { BadgeItem } from "./badge.config";
 
     type Variant = "flat" | "outlined";
-    type Palette = "accent" | "tone" | "error" | "warning" | "success" | "info";
+    type Palette = "accent" | "tone" | "error" | "warning" | "success" | "info" | "neutral";
     type Size = "sm" | "md" | "lg";
     type Elevation = "none" | "subtle" | "hard";
 

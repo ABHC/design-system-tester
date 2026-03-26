@@ -2,6 +2,7 @@
 export const headlineConfig = {
     variants: {
         size: {
+            xs: "headline-xs",
             sm: "headline-sm",
             md: "headline-md",
             lg: "headline-lg"

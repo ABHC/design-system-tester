@@ -5,7 +5,7 @@
     import { alertConfig } from './alert.config';
     import Button from '../Button/Button.svelte';
 
-    type Variant  = "info" | "success" | "warning" | "error";
+    type Variant  = "neutral" | "info" | "success" | "warning" | "error";
     type Position = "top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right";
     type AnimDir  = "top" | "bottom" | "left" | "right" | false;
 
@@ -144,18 +144,38 @@
         min-width: 260px;
         max-width: 460px;
         width: fit-content;
-        background: color-mix(in srgb, var(--al-color) 12%, var(--highlight) 88%);
+        background: var(--al-bg);
         border-left: 4px solid var(--al-color);
         color: var(--text);
         font-family: var(--font-body);
         box-shadow: 0 4px 12px var(--shadow-subtle);
     }
 
-    /* Variants — set --al-color, everything derives from it */
-    .alert-variant-info { --al-color: var(--ctx-info);    }
-    .alert-variant-success { --al-color: var(--ctx-success); }
-    .alert-variant-warning { --al-color: var(--ctx-warning); }
-    .alert-variant-error { --al-color: var(--ctx-error);   }
+    /* Variants — set --al-color and --al-bg */
+    .alert-variant-neutral { 
+        --al-color: var(--neutral); 
+        --al-bg: var(--neutral-bg); 
+    }
+
+    .alert-variant-info { 
+        --al-color: var(--info); 
+        --al-bg: var(--info-bg); 
+    }
+
+    .alert-variant-success { 
+        --al-color: var(--success); 
+        --al-bg: var(--success-bg); 
+    }
+
+    .alert-variant-warning { 
+        --al-color: var(--warning); 
+        --al-bg: var(--warning-bg); 
+    }
+
+    .alert-variant-error { 
+        --al-color: var(--error); 
+        --al-bg: var(--error-bg); 
+    }
 
     /*
         Positions
@@ -200,7 +220,7 @@
         font-family: monospace;
         font-weight: 600;
         color: var(--al-color);
-        background: color-mix(in srgb, var(--al-color) 12%, transparent);
+        background: var(--al-bg);
         padding: 0.1em 0.35em;
         border-radius: 4px;
     }
@@ -219,7 +239,7 @@
 
     /* Button overrides — textual buttons inside an alert inherit --al-color */
     .alert-base :global(.btn.btn-textual) {
-        color: color-mix(in srgb, var(--al-color) 70%, var(--text) 30%);
+        color: var(--al-color);
     }
 
     .alert-base :global(.btn.btn-textual:hover) {

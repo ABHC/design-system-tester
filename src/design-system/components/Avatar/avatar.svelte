@@ -88,14 +88,14 @@
 
     /* Palette — accent */
     .avatar-palette-accent {
-        background: color-mix(in srgb, var(--accent) 80%, var(--card));
-        color: color-mix(in srgb, var(--text-accent) 65%, transparent);
+        background: var(--accent);
+        color: var(--text-accent);
     }
 
     /* Palette — tone */
     .avatar-palette-tone {
-        background: var(--highlight);
-        color: color-mix(in srgb, var(--text) 65%, transparent);
+        background: var(--tone-hover);
+        color: var(--text-muted);
     }
 
     /* Sizes */
@@ -150,7 +150,7 @@
         width: 22%;
         height: 22%;
         border-radius: 50%;
-        border: 2px solid var(--dot-bg, var(--bg));
+        border: 2px solid var(--dot-bg, var(--tone-bg));
     }
 
     /* State dot — position 85%/85% = edge of the circle 45° */
@@ -165,19 +165,19 @@
 
     /* State */
     .avatar-online {
-        background: var(--ctx-success);
+        background: var(--success);
     }
 
     .avatar-offline {
-        background: var(--ctx-error);
+        background: var(--error);
     }
 
     .avatar-absent {
-        background: var(--ctx-warning);
+        background: var(--warning);
     }
 
     .avatar-do-not-disturb {
-        background: var(--dot-bg, var(--bg));
-        box-shadow: inset 0 0 0 2px var(--ctx-info);
+        background: var(--dot-bg, var(--tone-bg));
+        box-shadow: inset 0 0 0 2px var(--neutral);
     }
 </style>

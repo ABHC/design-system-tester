@@ -4,12 +4,20 @@
 
     // Types ─────────────────────────────────────────────────────────────────
 
-    type Palette = "accent" | "tone";
+    type Palette = "accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info";
+    type Variant = "flat" | "outlined" | "ghost" | "textual";
+    type Size = "sm" | "md" | "lg";
+    type Direction = "row" | "column";
     type OptionEntry = { value: T; label?: string };
 
     interface Props {
         label?: string;
         palette?: Palette;
+        variant?: Variant;
+        size?: Size;
+        rounded?: boolean;
+        uppercase?: boolean;
+        direction?: Direction;
         options: readonly (T | OptionEntry)[];
         value: T;
         onchange?: (value: T) => void;
@@ -19,7 +27,12 @@
 
     let {
         label,
-        palette = "tone",
+        palette = "accent",
+        variant = "outlined",
+        size = "sm",
+        rounded = true,
+        uppercase = false,
+        direction = "row",
         options,
         value = $bindable(),
         onchange
@@ -33,9 +46,6 @@
     }
 
     const entries = $derived(options.map(to_entry));
-
-    // Button variant depends on context: outlined on tone, flat on accent
-    const btn_variant = $derived(palette === "accent" ? "flat" as const : "outlined" as const);
 
     // Interaction ───────────────────────────────────────────────────────────
 
@@ -53,10 +63,12 @@
     <div class="selector-options">
         {#each entries as entry (entry.value)}
             <Button
-                variant={btn_variant}
-                palette="tone"
-                size="sm"
-                rounded
+                variant={variant}
+                palette={palette}
+                size={size}
+                rounded={rounded}
+                uppercase={uppercase}
+                direction={direction}
                 active={value === entry.value}
                 onclick={() => select(entry.value)}
             >

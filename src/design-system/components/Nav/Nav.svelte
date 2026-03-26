@@ -275,7 +275,7 @@
 
     /*  Palette — tone (styleguide card/highlight style)*/
     .nav-palette-tone {
-        background: var(--card);
+        background: var(--tone);
     }
 
 </style>

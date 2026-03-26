@@ -3,7 +3,7 @@
     import { createVariant } from '../../utils/builder';
     import { headlineConfig } from './headline.config';
 
-    type Size = "sm" | "md" | "lg";
+    type Size = "xs" | "sm" | "md" | "lg";
 
     interface Props {
         size?: Size;
@@ -41,6 +41,10 @@
         <h3 id="profile-section" class={classes}>
             {@render children?.()}
         </h3>
+    {:else if size == "xs"}
+        <span id="profile-section" class={classes}>
+            {@render children?.()}
+        </span>
     {/if}
     <hr>
 </div>
@@ -62,5 +66,10 @@
     .headline hr {
         flex: 1;
         border: 1px solid var(--text);
+    }
+
+    .headline-xs {
+        font-weight: 600;
+        text-transform: uppercase;
     }
 </style>

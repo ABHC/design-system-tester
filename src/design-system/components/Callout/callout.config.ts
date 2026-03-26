@@ -23,5 +23,10 @@ export const calloutConfig = {
         rounded: {
             true: "callout-rounded",
         },
+
+        // Border radius.
+        bordered: {
+            true: "callout-bordered",
+        },
     }
 };

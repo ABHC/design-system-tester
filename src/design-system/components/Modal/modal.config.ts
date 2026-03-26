@@ -45,6 +45,7 @@ export const modalConfig = {
         palette: {
             tone:   "modal-palette-tone",
             accent: "modal-palette-accent",
+            accentbg: "modal-palette-accentbg",
         },
         rounded: {
             true: "modal-rounded",
