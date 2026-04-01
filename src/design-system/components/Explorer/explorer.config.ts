@@ -30,5 +30,9 @@ export const explorerLinkConfig = {
         active: {
             true: "explorer-link-active",
         },
+
+        naked: {
+            true: "explorer-link-naked"
+        },
     },
 };

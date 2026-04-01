@@ -311,7 +311,7 @@
     }
 
     .tg-elevation-hard:hover {
-        box-shadow: 0.4rem 0.4rem var(--shadow);
+        box-shadow: 0.4rem 0.4rem var(--shadow-hard);
     }
 
     /* ---- Hero badge ---- */
@@ -382,7 +382,6 @@
 
     .tg-tile-deco {
         aspect-ratio: 4 / 3;
-        /*border-left: 4px solid transparent;*/
         background: var(--tone);
     }
 
@@ -552,5 +551,16 @@
         .tg-flat-title {
             display: none;
         }
+    }
+
+    .tg-deco-back {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        user-select: none;
+        z-index: 0;
+        background-repeat: repeat;
+        background-size: auto;
+        opacity: 0.5;
     }
 </style>

@@ -505,7 +505,7 @@
     }
 
     .color-picker-elevation-hard {
-        box-shadow: 0.4rem 0.4rem var(--shadow);
+        box-shadow: 0.4rem 0.4rem var(--shadow-hard);
     }
 
     /* ── Zones ────────────────────────────────────────────────────────────── */

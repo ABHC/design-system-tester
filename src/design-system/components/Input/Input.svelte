@@ -20,6 +20,9 @@
         required?: boolean;
         name?: string;
         id?: string;
+        min?: number;
+        max?: number;
+        step?: number;
         leading?: Snippet;
         trailing?: Snippet;
     }
@@ -38,6 +41,9 @@
         required = false,
         name,
         id,
+        min = undefined,
+        max = undefined,
+        step = 1,
         leading,
         trailing,
     }: Props = $props();
@@ -48,8 +54,27 @@
 
     // Password reveal toggle
     let show_password: boolean = $state(false);
-    const effective_type = $derived(type === "password" && show_password ? "text" : type);
+    const effective_type = $derived(
+        type === "password" && show_password ? "text" :
+        type === "number" ? "text" :
+        type
+    );
     const has_pw_toggle = $derived(type === "password" && !trailing);
+    const has_num_spinners = $derived(type === "number" && !trailing);
+
+    function increment() {
+        const n = parseFloat(value) || 0;
+        const next = n + step;
+        if (max !== undefined && next > max) return;
+        value = String(next);
+    }
+
+    function decrement() {
+        const n = parseFloat(value) || 0;
+        const next = n - step;
+        if (min !== undefined && next < min) return;
+        value = String(next);
+    }
 
     const root_classes = $derived(
         resolve({
@@ -81,8 +106,9 @@
         <input
             class="input-element"
             class:has-leading={!!leading}
-            class:has-trailing={!!trailing || has_pw_toggle}
+            class:has-trailing={!!trailing || has_pw_toggle || has_num_spinners}
             type={effective_type}
+            inputmode={type === "number" ? "numeric" : undefined}
             {placeholder}
             {disabled}
             {readonly}
@@ -96,6 +122,31 @@
             <span class="input-addon input-trailing" aria-hidden="true">
                 {@render trailing()}
             </span>
+        {:else if has_num_spinners}
+            <div class="input-spinners">
+                <button
+                    class="input-spinner"
+                    type="button"
+                    tabindex="-1"
+                    aria-label="Increment"
+                    onclick={increment}
+                >
+                    <svg viewBox="0 0 10 6" aria-hidden="true">
+                        <path d="M5 0L10 6H0Z" fill="currentColor"/>
+                    </svg>
+                </button>
+                <button
+                    class="input-spinner"
+                    type="button"
+                    tabindex="-1"
+                    aria-label="Decrement"
+                    onclick={decrement}
+                >
+                    <svg viewBox="0 0 10 6" aria-hidden="true">
+                        <path d="M5 6L0 0H10Z" fill="currentColor"/>
+                    </svg>
+                </button>
+            </div>
         {:else if has_pw_toggle}
             <button
                 class="input-addon input-trailing input-pw-toggle"
@@ -332,6 +383,41 @@
     .input-has-success .input-field:focus-within {
         border-color: var(--success);
         box-shadow: 0 0 0 3px var(--success-ghost-hover);
+    }
+
+    /* ── Number spinners ────────────────────────────────────────────── */
+
+    .input-spinners {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        flex-shrink: 0;
+        margin-right: 0.25rem;
+    }
+
+    .input-spinner {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--text-muted);
+        padding: 0.2rem 0.4rem;
+        transition: background 0.15s ease, color 0.15s ease;
+        line-height: 0;
+    }
+
+    .input-spinner:hover {
+        background: var(--tone-hover);
+        color: var(--text);
+    }
+
+    .input-spinner svg {
+        width: 8px;
+        height: 5px;
+        display: block;
     }
 
     /* ── Disabled ────────────────────────────────────────────────────── */

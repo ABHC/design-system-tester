@@ -8,6 +8,7 @@
         href?: string;
         icon?: Snippet;
         active?: boolean;
+        naked?: boolean;
         onclick?: () => void;
     }
 
@@ -16,21 +17,23 @@
         href,
         icon,
         active = false,
+        naked = false,
         onclick,
     }: Props = $props();
 
     const resolve = createVariant(explorerLinkConfig);
 
-    const link_classes = $derived(
+    const container_classes = $derived(
         resolve({
             active: active ? true : undefined,
+            naked: naked ? true : undefined,
         }).trim()
     );
 </script>
 
 {#if href}
-    <div class="link-container {active ? "link-container-active" : ""}">
-        <a class={link_classes} {href} onclick={onclick}>
+    <div class={container_classes}>
+        <a class="explorer-link-item" {href} onclick={onclick}>
             {#if icon}
                 <span class="explorer-link-icon" aria-hidden="true">
                     {@render icon()}
@@ -40,8 +43,8 @@
         </a>
     </div>
 {:else}
-    <div class="link-container">
-        <button class={link_classes} onclick={onclick} type="button">
+    <div class={container_classes}>
+        <button class="explorer-link-item" onclick={onclick} type="button">
             {#if icon}
                 <span class="explorer-link-icon" aria-hidden="true">
                     {@render icon()}
@@ -53,12 +56,22 @@
 {/if}
 
 <style>
-    .link-container {
+    /* Container — carries the left border indicator */
+    .explorer-link {
         margin-left: 0.35rem;
-        border-left: 2px solid var(--explorer-muted);
+        border-left: 2px solid var(--explorer-hover-bg);
     }
 
-    .explorer-link {
+    .explorer-link-active {
+        border-left-color: var(--explorer-active, currentColor);
+    }
+
+    .explorer-link-naked {
+        border-left-color: transparent;
+    }
+
+    /* Item — the interactive a/button inside the container */
+    .explorer-link-item {
         display: flex;
         align-items: center;
         gap: 0.5rem;
@@ -70,26 +83,20 @@
         border-radius: 6px;
         text-decoration: none;
         transition: background 0.15s;
-        /*width: 100%;*/
         text-align: left;
         font-family: inherit;
         font-size: 0.82rem;
         line-height: 1.3;
-        /*border-left: 2px solid var(--explorer-muted);*/
         margin-left: 0.3rem;
     }
 
-    .explorer-link:hover {
+    .explorer-link-item:hover {
         background: var(--explorer-hover-bg, rgba(128, 128, 128, 0.1));
     }
 
-    .link-container-active {
-        border-left-color: var(--explorer-active-border, currentColor);
-    }
-
-    .explorer-link-active {
-        color: var(--explorer-active-text);
-        /*background: var(--explorer-active-bg, rgba(128, 128, 128, 0.15));*/
+    /* Active state cascades from container to item */
+    .explorer-link-active .explorer-link-item {
+        color: var(--explorer-active);
         font-weight: 600;
     }
 

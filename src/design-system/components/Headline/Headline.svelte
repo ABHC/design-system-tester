@@ -8,19 +8,21 @@
     interface Props {
         size?: Size;
         uppercase?: boolean;
+        muted?: boolean;
         children?: Snippet;
     }
 
     let {
         size = "md",
         uppercase = false,
+        muted = false,
         children
     }: Props = $props();
 
     const resolve = createVariant(headlineConfig);
 
     const variant_classes = $derived(
-        resolve({ size, uppercase })
+        resolve({ size, uppercase, muted })
     );
 
     const classes = $derived(
@@ -28,21 +30,21 @@
     );
 </script>
 
-<div class="headline">
+<div class="headline {muted ? 'hr-muted' : ''}">
     {#if size == "lg"}
-        <h1 id="profile-section" class={classes}>
+        <h1 class={classes}>
             {@render children?.()}
         </h1>
     {:else if size == "md"}
-        <h2 id="profile-section" class={classes}>
+        <h2 class={classes}>
             {@render children?.()}
         </h2>
     {:else if size == "sm"}
-        <h3 id="profile-section" class={classes}>
+        <h3 class={classes}>
             {@render children?.()}
         </h3>
     {:else if size == "xs"}
-        <span id="profile-section" class={classes}>
+        <span class={classes}>
             {@render children?.()}
         </span>
     {/if}
@@ -55,8 +57,7 @@
         display: flex;
         align-items: baseline;
         gap: 10px;
-        /*margin-bottom: 1rem ;*/
-        color: var(--text);
+        color: var(--color, var(--text));
     }
 
     .headline-uppercase {
@@ -65,11 +66,19 @@
 
     .headline hr {
         flex: 1;
-        border: 1px solid var(--text);
+        border: 1px solid var(--color, var(--text));
     }
 
     .headline-xs {
         font-weight: 600;
         text-transform: uppercase;
+    }
+
+    .headline-muted {
+        color: var(--text-muted);
+    }
+
+    .hr-muted hr {
+        border-color: var(--text-muted);
     }
 </style>

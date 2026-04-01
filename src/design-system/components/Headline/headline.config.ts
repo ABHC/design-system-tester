@@ -10,6 +10,10 @@ export const headlineConfig = {
 
         uppercase: {
             true: "headline-uppercase"
+        },
+
+        muted: {
+            true: "headline-muted"
         }
     }
 };

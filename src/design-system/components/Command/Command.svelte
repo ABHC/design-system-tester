@@ -157,33 +157,35 @@
                 <div class="command-empty">{empty_placeholder}</div>
             {/if}
         {:else}
-            {#each visible_groups as group}
-                {#if group.label}
-                    <div style="--color: var(--cmd-txt);">
-                        <Headline size="xs">{group.label}</Headline>
-                    </div>
-                {/if}
-                {#each group.items as entry}
-                    <button
-                        class="command-item {cmd_classes}"
-                        class:command-item-active={flat_items[active_index]?.id === entry.id}
-                        type="button"
-                        onclick={() => select_item(entry)}
-                        onmouseenter={() => {
-                            active_index = flat_items.findIndex(i => i.id === entry.id);
-                        }}
-                    >
-                        {#if item}
-                            {@render item(entry)}
-                        {:else}
-                            <span class="command-item-label">{entry.label}</span>
-                            {#if entry.hint}
-                                <span class="command-item-hint">{entry.hint}</span>
+            <div class={cmd_classes}>
+                {#each visible_groups as group}
+                    {#if group.label}
+                        <div class="group-label" style="--color: var(--cmd-txt);">
+                            <Headline size="xs">{group.label}</Headline>
+                        </div>
+                    {/if}
+                    {#each group.items as entry}
+                        <button
+                            class="command-item {cmd_classes}"
+                            class:command-item-active={flat_items[active_index]?.id === entry.id}
+                            type="button"
+                            onclick={() => select_item(entry)}
+                            onmouseenter={() => {
+                                active_index = flat_items.findIndex(i => i.id === entry.id);
+                            }}
+                        >
+                            {#if item}
+                                {@render item(entry)}
+                            {:else}
+                                <span class="command-item-label">{entry.label}</span>
+                                {#if entry.hint}
+                                    <span class="command-item-hint">{entry.hint}</span>
+                                {/if}
                             {/if}
-                        {/if}
-                    </button>
+                        </button>
+                    {/each}
                 {/each}
-            {/each}
+            </div>
         {/if}
     {/snippet}
 </Modal>
@@ -208,6 +210,11 @@
         color: var(--text-muted);
         padding: 0.75rem 0.75rem 0.35rem;
     }
+
+    .command-item ~ .group-label {                                                                                                                                                                                                      
+        margin-top: 10px;                                                                                                                                                                                                               
+    }
+
 
     /* ── Item ──────────────────────────────────────────────────────────── */
 

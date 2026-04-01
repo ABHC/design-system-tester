@@ -121,7 +121,7 @@
     }
 
     .card-elevation-hard {
-        box-shadow: 0.4rem 0.4rem var(--shadow);
+        box-shadow: 0.4rem 0.4rem var(--shadow-hard);
         transition: box-shadow 0.15s ease, transform 0.15s ease;
     }
 

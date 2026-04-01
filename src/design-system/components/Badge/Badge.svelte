@@ -254,7 +254,7 @@
     }
 
     .badge-elevation-hard {
-        box-shadow: 0.4rem 0.4rem var(--shadow);
+        box-shadow: 0.3rem 0.3rem var(--shadow-hard);
     }
 
     /* Uppercase ────────────────────────────────────────────────────────── */

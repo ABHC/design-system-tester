@@ -76,7 +76,7 @@
 
     /* Bordered */ 
     .callout-bordered {
-        border-color: var(--cb-border);
+        border-color: var(--cb-muted);
     }
 
     /* Align */
@@ -89,14 +89,15 @@
         --cb-bg: var(--accent-bg); 
         --cb-muted: var(--accent-muted);
         --cb-hover: var(--accent-hover);
-        --cb-border: var(--accent-ghost-hover); 
+        --cb-ghost: var(--accent-ghost-hover);
     }
     .callout-variant-neutral { 
         --cb-color: var(--neutral); 
         --cb-bg: var(--neutral-bg); 
         --cb-muted: var(--neutral-muted);
         --cb-hover: var(--neutral-hover);
-        --cb-border: var(--neutral-ghost-hover); 
+        --cb-ghost: var(--neutral-ghost-hover);
+        --cb-text: var(--text-neutral);  
     }
 
     .callout-variant-error { 
@@ -104,7 +105,7 @@
         --cb-bg: var(--error-bg); 
         --cb-muted: var(--error-muted);
         --cb-hover: var(--error-hover);
-        --cb-border: var(--error-ghost-hover); 
+        --cb-ghost: var(--error-ghost-hover);
     }
 
     .callout-variant-warning { 
@@ -112,7 +113,8 @@
         --cb-bg: var(--warning-bg); 
         --cb-muted: var(--warning-muted);
         --cb-hover: var(--warning-hover);
-        --cb-border: var(--warning-ghost-hover); 
+        --cb-ghost: var(--warning-ghost-hover);
+        --cb-text: var(--text-warning);  
     }
 
     .callout-variant-success { 
@@ -120,7 +122,7 @@
         --cb-bg: var(--success-bg); 
         --cb-muted: var(--success-muted);
         --cb-hover: var(--success-hover);
-        --cb-border: var(--success-ghost-hover); 
+        --cb-ghost: var(--success-ghost-hover);
     }
 
     .callout-variant-info { 
@@ -128,7 +130,7 @@
         --cb-bg: var(--info-bg); 
         --cb-muted: var(--info-muted);
         --cb-hover: var(--info-hover);
-        --cb-border: var(--info-ghost-hover); 
+        --cb-ghost: var(--info-ghost-hover);
     }
 
     /* Slots */
@@ -173,8 +175,8 @@
         font-size: 0.85em;
         font-family: monospace;
         font-weight: 600;
-        color: var(--cb-muted);
-        background: var(--cb-border);
+        color: var(--text);
+        background: var(--cb-ghost);
         padding: 0.1em 0.35em;
         border-radius: 4px;
     }
@@ -182,27 +184,5 @@
     /* Icon in leading slot */
     .callout-leading :global(.material-symbols-outlined) {
         font-size: 1.2rem;
-    }
-
-    /*
-        Buttons inside callout — ghost and textual variants inherit --cb-color.
-        Three-class specificity (.callout-base + .btn + .btn-ghost) beats
-        Button's own scoped rules.
-    */
-    .callout-base :global(.btn.btn-ghost) {
-        color: var(--cb-color);
-    }
-
-    .callout-base :global(.btn.btn-ghost:hover) {
-        background: var(--cb-border);
-        box-shadow: none;
-    }
-
-    .callout-base :global(.btn.btn-textual) {
-        color: var(--cb-color);
-    }
-
-    .callout-base :global(.btn.btn-textual:hover) {
-        color: var(--cb-hover);
     }
 </style>

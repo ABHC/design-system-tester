@@ -50,6 +50,7 @@
         --explorer-text: var(--text-accent);
         --explorer-muted: var(--text-accent);
         --explorer-hover-bg: var(--accent-ghost-hover);
+        --explorer-active: var(--tone-muted);
         --explorer-active-bg: var(--accent-ghost-hover);
         --explorer-active-text: var(--text);
         --explorer-active-border: var(--accent-hover);
@@ -61,8 +62,9 @@
         --explorer-text: var(--text);
         --explorer-muted: var(--text-muted);
         --explorer-hover-bg: var(--tone-hover);
+        --explorer-active: var(--accent-muted);
         --explorer-active-bg: var(--accent);
-        --explorer-active-text: var(--accent-muted);
+        --explorer-active-text: var(--text-accent);
         --explorer-active-border: var(--accent);
         --explorer-separator: var(--tone-hover);
     }

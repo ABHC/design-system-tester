@@ -1,15 +1,29 @@
 <script lang="ts">
     import Button from "./Button.svelte";
 
+    type Variant = "ghost" | "outlined";
+    type Palette = "accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info";
+    type Size = "sm" | "md" | "lg";
+    type Elevation = "none" | "subtle" | "hard";
+
+
     interface Props {
+        variant?: Variant;
+        palette?: Palette;
+        size? : Size;
         to_copy: string | undefined;
         rounded?: boolean;
     }
 
     let {
+        variant = "ghost",
+        palette = "tone",
+        size = "sm",
         to_copy = undefined,
         rounded = false
     }: Props = $props();
+
+    const icon_size = $derived(size === "lg" ? 16 : size === "md" ? 13 : 11);
 
     // Clipboard feedback state
     let copied = $state(false);
@@ -28,17 +42,17 @@
 </script>
 
 <Button 
-    variant="ghost" 
-    palette="tone" 
-    size="sm" 
+    variant={variant} 
+    palette={palette}
+    size={size}
     rounded={rounded}
     onclick={handleCopy} 
     aria_label="Copy elements"
 >
     {#if copied}
         <svg
-            width="11"
-            height="11"
+            width={icon_size}
+            height={icon_size}
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -51,8 +65,8 @@
         </svg>
     {:else}
         <svg
-            width="11"
-            height="11"
+            width={icon_size}
+            height={icon_size}
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
