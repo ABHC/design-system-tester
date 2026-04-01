@@ -1,53 +1,63 @@
 <script lang="ts">
-    import type { ToneTheme } from "$lib/types/palettes";
-
-    import palettes from "$lib/data/palettes.json";
-
-    import { placeholders } from './placeholders';
-    import type { PlaceholderLocale } from './placeholders';
-
-    import Content from './Content.svelte';
-
-    import {
-        trans,
-        locale,
-        selected_tone,
-        selected_tone_palette,
-        selected_accent,
-        selected_ctx,
-    } from './store';
-
-    // Static data for dual-theme finder (palettes.json is static, no reactivity needed)
-    const all_light_palettes: ToneTheme[] = palettes.light.filter(t => t.display);
-    const all_dark_palettes: ToneTheme[]  = palettes.dark.filter(t => t.display);
-
-    // ---------- Derived placeholder data based on current locale ----------
-    let lang_placeholders = $derived(placeholders[$locale as PlaceholderLocale] || placeholders.en);
-
+    import { trans } from "./store";
+    import Headline from "../design-system/components/Headline/Headline.svelte";
+    import Button from "../design-system/components/Button/Button.svelte";
 </script>
 
 <svelte:head>
-    <title>Design System Tester - Épinard</title>
+    <title>Spektral UI - Design System</title>
 </svelte:head>
 
-<div class="tester-container">
-    <Content
-        trans={$trans}
-        placeholders={lang_placeholders}
-        selected_tone_palette={$selected_tone_palette}
-        selected_accent={$selected_accent}
-        light_palettes={all_light_palettes}
-        dark_palettes={all_dark_palettes}
-        selected_ctx={$selected_ctx}
-    />
+<div class="landing">
+    <section class="hero">
+        <Headline size="lg" uppercase>Spektral UI</Headline>
+        <p class="hero-subtitle">{$trans?.welcome.intro ?? "Explore the design system components. Test variants, adjust settings and copy code directly from the page."}</p>
+        <div class="hero-actions">
+            <a href="/docs">
+                <Button palette="accent" rounded>
+                    {$trans?.welcome.cat_composants ?? "Components"}
+                </Button>
+            </a>
+            <a href="/customizer">
+                <Button variant="outlined" palette="accent" rounded>
+                    {$trans?.control.contrast ?? "Customizer"}
+                </Button>
+            </a>
+        </div>
+    </section>
 </div>
 
 <style>
-    .tester-container {
+    .landing {
+        min-height: 80dvh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         font-family: var(--font-body);
-        background: var(--tone-bg);
-        color: var(--text);
-        transition: background-color 0.3s, color 0.3s;
-        font-size: 14px;
+    }
+
+    .hero {
+        text-align: center;
+        max-width: 700px;
+        padding: 2rem;
+    }
+
+    .hero-subtitle {
+        margin-top: 1rem;
+        font-size: 1.15rem;
+        line-height: 1.6;
+        color: var(--text-muted);
+    }
+
+    .hero-actions {
+        margin-top: 2rem;
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .hero-actions a {
+        text-decoration: none;
     }
 </style>

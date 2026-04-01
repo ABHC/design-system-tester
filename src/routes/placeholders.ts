@@ -82,7 +82,8 @@ export const placeholders = {
             error:   "Échec du lancement de la fusée Ariane",
             accent:  "Astuce : vous pouvez composer librement les slots leading, children et following pour adapter le callout à votre usage.",
             neutral: "Ce composant est un message à caractère informatif et n'implique aucune action obligatoire de la part de l'utilisateur.",
-            tip: "Composez librement <code>leading</code>, <code>children</code> et <code>following</code>. Le slot <code>leading</code> hérite de <code>--cb-color</code> automatiquement. Préférez <code>align='start'</code> pour du contenu multi-lignes — l'icône s'ancre en haut. Un <code>Button variant='ghost' palette='tone'</code> placé en <code>following</code> adopte la couleur du callout parent."
+            tip: "Composez librement <code>leading</code>, <code>children</code> et <code>following</code>. Le slot <code>leading</code> hérite de <code>--cb-color</code> automatiquement. Préférez <code>align='start'</code> pour du contenu multi-lignes — l'icône s'ancre en haut. Un <code>Button variant='ghost' palette='tone'</code> placé en <code>following</code> adopte la couleur du callout parent.",
+            view: "Voir"
         },
         grid: {
             hero_text: "En vedette",
@@ -398,7 +399,7 @@ export const placeholders = {
                 find: "Rechercher",
                 replace: "Rechercher et remplacer",
                 theme: "Changer de thème",
-                sidebar: "Afficher/masquer la barre latérale",
+                drawer: "Afficher/masquer le tiroir",
                 terminal: "Afficher/masquer le terminal",
                 zoom_in: "Zoom avant",
                 zoom_out: "Zoom arrière",
@@ -458,6 +459,16 @@ export const placeholders = {
             wide_body: "En accédant au réseau Minitel, vous acceptez les conditions générales d'utilisation établies par la Direction Générale des Télécommunications. L'utilisation des services 3615 est soumise à facturation à la minute. La COGIP décline toute responsabilité en cas de surtension électrique lors de la consultation du catalogue en ligne. Les données personnelles collectées seront conservées sur bande magnétique pendant une durée de 7 ans conformément à la réglementation en vigueur.",
             wide_accept: "J'accepte",
             wide_decline: "Je refuse",
+        },
+        accordion: {
+            q1_label: "Qu'est-ce que ce design system ?",
+            q1_body: "Une collection de composants Svelte 5 réutilisables construits avec un système de tokens. Chaque composant supporte la personnalisation par palette et par variante.",
+            q2_label: "Comment personnaliser le thème ?",
+            q2_body: "Utilisez la page de personnalisation pour ajuster les couleurs, polices et espacements. Tous les changements sont répercutés en temps réel via les propriétés CSS.",
+            q3_label: "Quelles palettes sont disponibles ?",
+            q3_body: "Le système fournit sept palettes sémantiques : accent, tone, neutral, error, warning, success et info. Chaque palette génère automatiquement des variantes hover, muted et background.",
+            q4_label: "Élément désactivé",
+            q4_body: "Ce contenu n'est pas accessible.",
         },
     },
     en: {
@@ -544,7 +555,8 @@ export const placeholders = {
             error:   "Failure of the Ariane rocket launch",
             accent:  "Tip: you can freely compose the leading, children and following slots to adapt the callout to your use.",
             neutral: "Note: this component is an informative message and does not imply any mandatory action on the part of the user.",
-            tip: "Freely combine <code>leading</code>, <code>children</code>, and <code>following</code>. The <code>leading</code> slot automatically inherits <code>--cb-color</code>. Prefer <code>align='start'</code> for multi-line content — the icon anchors to the top. A <code>Button variant='ghost' palette='tone'</code> placed in <code>following</code> adopts the parent callout's color."
+            tip: "Freely combine <code>leading</code>, <code>children</code>, and <code>following</code>. The <code>leading</code> slot automatically inherits <code>--cb-color</code>. Prefer <code>align='start'</code> for multi-line content — the icon anchors to the top. A <code>Button variant='ghost' palette='tone'</code> placed in <code>following</code> adopts the parent callout's color.",
+            view: "View"
         },
         grid: {
             hero_text: "Featured",
@@ -858,7 +870,7 @@ export const placeholders = {
                 find: "Find",
                 replace: "Find and Replace",
                 theme: "Toggle Theme",
-                sidebar: "Toggle Sidebar",
+                drawer: "Toggle Drawer",
                 terminal: "Toggle Terminal",
                 zoom_in: "Zoom In",
                 zoom_out: "Zoom Out",
@@ -913,6 +925,16 @@ export const placeholders = {
             wide_body: "By accessing the Minitel network, you agree to the general terms of use established by the Direction Générale des Télécommunications. Use of 3615 services is billed by the minute. COGIP accepts no liability for electrical surges during online catalogue browsing. Personal data collected will be stored on magnetic tape for 7 years in accordance with applicable regulations.",
             wide_accept: "I accept",
             wide_decline: "I decline",
+        },
+        accordion: {
+            q1_label: "What is this design system?",
+            q1_body: "A collection of reusable Svelte 5 components built with a token-based theming system. Every component supports palette and variant customization.",
+            q2_label: "How do I customize the theme?",
+            q2_body: "Use the customizer page to adjust colors, fonts, and spacing. All changes are reflected in real time through CSS custom properties.",
+            q3_label: "Which palettes are available?",
+            q3_body: "The system provides seven semantic palettes: accent, tone, neutral, error, warning, success, and info. Each palette generates hover, muted, and background variants automatically.",
+            q4_label: "Disabled item",
+            q4_body: "This content is not reachable.",
         },
     }
 };

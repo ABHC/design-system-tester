@@ -128,8 +128,8 @@ export const translations = {
             tab_decorative: "Décoratif",
             tab_hero_full: "Héro plein",
         },
-        sidebar: {
-            title: "Menu latéral",
+        drawer: {
+            title: "Tiroir",
             test: "Philippe ! Je sais où tu te caches !",
         },
         list_items: {
@@ -204,6 +204,9 @@ export const translations = {
         },
         callout:{
             title: "Callout"
+        },
+        progress_demo:{
+            title: "Progress"
         },
         header_demo: {
             title: "Header",
@@ -331,6 +334,20 @@ export const translations = {
             return: "Retour",
             close: "Fermer",
             back_to_top: "Retour en haut de page"
+        },
+        doc: {
+            title: "Sur cette page",
+            demo: "Demo",
+            usage: "Usage",
+            api: "API",
+            avatar_dots: "Statut",
+            avatar_clickable: "Interactif",
+            filter: "Filtrer...",
+            back_to_top: "BackToTop",
+            ModeToggle: "ModeToggle",
+            CopyButton: "CopyButton",
+            states: "États",
+            swatches: "Swatches"
         }
     },
     en: {
@@ -459,8 +476,8 @@ export const translations = {
             code: "position='fixed'",
             fixed: "overlays the real viewport - preview uses floating for layout safety",
         },
-        sidebar: {
-            title: "Sidebar",
+        drawer: {
+            title: "Drawer",
             test: "The quick brown fox"
         },
         list_items: {
@@ -543,6 +560,9 @@ export const translations = {
         },
         callout:{
             title: "Callout"
+        },
+        progress_demo:{
+            title: "Progress"
         },
         header_demo: {
             title : "Header",
@@ -671,6 +691,20 @@ export const translations = {
             return: "Return",
             close: "Close",
             back_to_top: "Back to top"
+        },
+        doc: {
+            title: "On this page",
+            demo: "Demo",
+            usage: "Usage",
+            api: "API",
+            avatar_dots: "Status dots",
+            avatar_clickable: "Interactive",
+            filter: "Filter...",
+            back_to_top: "BackToTop",
+            ModeToggle: "ModeToggle",
+            CopyButton: "CopyButton",
+            states: "States",
+            swatches: "Swatches"
         }
     }
 };

@@ -13,8 +13,9 @@
     import BackToTop from '../design-system/components/Button/BackToTop.svelte';
     import ModeToggle from '../design-system/components/Button/ModeToggle.svelte';
     import Nav from '../design-system/components/Nav/Nav.svelte';
-    import Sidebar from '../design-system/components/Sidebar/Sidebar.svelte';
-    import type { SidebarItem } from '../design-system/components/Sidebar/Sidebar.svelte';
+    import Drawer from '../design-system/components/Drawer/Drawer.svelte';
+    import Button from '../design-system/components/Button/Button.svelte';
+    import ListItem from '../design-system/components/ListItem/ListItem.svelte';
 
     import {
         locale,
@@ -23,8 +24,8 @@
         window_width,
         window_height,
         responsive,
-        sidebar_open,
-        sidebar_menu,
+        drawer_open,
+        drawer_menu,
         selected_tone,
         tone_index,
         setToneIndex,
@@ -113,230 +114,9 @@
         };
     });
 
-    const icon_sb = (name: string) => createRawSnippet(() => ({
-        render: () => `<span class="material-symbols-outlined">${name}</span>`,
-    }));
-
     const font_sample = (family: string) => createRawSnippet(() => ({
-        render: () => `<span style="font-family: '${family}', sans-serif;">${$trans?.sidebar.test}</span>`,
+        render: () => `<span style="font-family: '${family}', sans-serif;">${$trans?.drawer.test}</span>`,
     }));
-
-    // ---------- Sidebar items (reactive, driven by sidebar_menu store) ----------
-    const sidebar_items: SidebarItem[] = $derived.by(() => {
-        switch ($sidebar_menu) {
-            case "theme":
-                return [
-                    {
-                        type: "button",
-                        layout: "column",
-                        items: [
-                            {
-                                icon: icon_sb("routine"),
-                                label: `${$trans?.control.tone}`,    
-                                onclick: () => { $sidebar_menu = "theme:tone"; } 
-                            },
-                            {
-                                icon: icon_sb("style"), 
-                                label: `${$trans?.control.accent}`, 
-                                onclick: () => { $sidebar_menu = "theme:accent"; } 
-                            },
-                            {
-                                icon: icon_sb("palette"),
-                                label: `${$trans?.control.ctx}`,
-                                onclick: () => { $sidebar_menu = "theme:ctx"; }
-                            },
-                            {
-                                icon: icon_sb("format_color_text"),
-                                label: `${$trans?.control.text ?? 'Text'}`,
-                                onclick: () => { $sidebar_menu = "theme:text"; }
-                            }
-                        ]
-                    }
-                ] satisfies SidebarItem[];
-
-            case "theme:tone":
-                return [
-                    {
-                        type: "button",
-                        layout: "row",
-                        items: [
-                            {
-                                icon: icon_sb("light_mode"),
-                                label: `${$trans?.control.light}`,
-                                active: $selected_tone === 'light', 
-                                onclick: () => { $selected_tone = 'light'; }
-                            },
-                            {
-                                icon: icon_sb("dark_mode"),
-                                label: `${$trans?.control.dark}`,
-                                active: $selected_tone === 'dark',
-                                onclick: () => { $selected_tone = 'dark'; } 
-                            }
-                        ]
-                    },
-                    { type: "separator" },
-                    {
-                        type: "listitem",
-                        layout: "column",
-                        items: [
-                            ...$tone_palettes.map((p, i) => ({
-                                main: p.name,
-                                extra: `${p.bg} ${p.card}`,
-                                leading: swatches([p.bg, p.card]),
-                                active: i === $tone_index,
-                                onclick: () => { setToneIndex(i); },
-                            }))
-                        ]
-                    }
-                ] satisfies SidebarItem[];
-
-            case "theme:accent":
-                return [
-                    {
-                        type: "listitem",
-                        layout: "column",
-                        items: [
-                            ...$accent_palettes.map((p, i) => ({
-                                main: p.name,
-                                extra: p.accent,
-                                leading: swatches([p.accent]),
-                                active: i === $accent_index,
-                                onclick: () => { $accent_index = i; },
-                            })),
-                        ]
-                    }
-                ] satisfies SidebarItem[];
-
-            case "theme:ctx":
-                return [
-                    {
-                        type: "listitem",
-                        layout: "column",
-                        items: [
-                            ...$ctx_colors.map((c, i) => ({
-                                main: c.name,
-                                extra: `${c.error} ${c.warning} 
-                                    ${c.success} ${c.info}`,
-                                leading: swatches([
-                                    c.error,
-                                    c.warning,
-                                    c.success,
-                                    c.info
-                                ]),
-                                active: i === $ctx_index,
-                                onclick: () => { $ctx_index = i; },
-                            })),
-                        ]
-                    }
-                ] satisfies SidebarItem[];
-
-            case "theme:text":
-                return [
-                    {
-                        type: "listitem",
-                        layout: "column",
-                        items: [
-                            ...$text_palettes.map((t, i) => ({
-                                main: t.name,
-                                extra: `${t.light} / ${t.dark}`,
-                                leading: swatches([t.light, t.dark]),
-                                active: i === $text_index,
-                                onclick: () => { $text_index = i; },
-                            })),
-                        ]
-                    }
-                ] satisfies SidebarItem[];
-
-            case "fonts":
-                return [
-                    {
-                        type: "button",
-                        layout: "row",
-                        items: [
-                            {
-                                icon: icon_sb("text_format"),
-                                label: `${$trans?.control.font_body}`,
-                                active: font_role === 'body', 
-                                onclick: () => { font_role = 'body'; } 
-                            },
-                            {
-                                icon: icon_sb("format_h1"),
-                                label: `${$trans?.control.font_titles}`,  
-                                active: font_role === 'title',  
-                                onclick: () => { font_role = 'title'; } 
-                            }
-                        ]
-                    },
-                    { type: "separator" },
-                    {
-                        type: "listitem",
-                        layout: "column",
-                        items: [
-                            ...available_fonts.map((f, i) => ({
-                                main: f.family,
-                                extra: font_sample(f.family),
-                                active: font_role === 'body' ?
-                                    i === $body_font_index :
-                                    i === $title_font_index,
-                                onclick: () => {
-                                    if (font_role === 'body') $body_font_index = i;
-                                    else $title_font_index = i;
-                                },
-                            }))
-                        ]
-                    }
-                ] satisfies SidebarItem[];
-
-            case "settings":
-                return [
-                    {
-                        type: "button",
-                        layout: "column",
-                        items: [
-                            {
-                                icon: icon_sb("routine"),
-                                label: `${$trans?.control.tone}`,    
-                                onclick: () => { $sidebar_menu = "theme:tone"; } 
-                            },
-                            {
-                                icon: icon_sb("style"), 
-                                label: `${$trans?.control.accent}`, 
-                                onclick: () => { $sidebar_menu = "theme:accent"; } 
-                            },
-                            {
-                                icon: icon_sb("palette"), 
-                                label: `${$trans?.control.ctx}`, 
-                                onclick: () => { $sidebar_menu = "theme:ctx"; } 
-                            },
-                            {
-                                icon: icon_sb("brand_family"), 
-                                label: `${$trans?.control.fonts}`, 
-                                onclick: () => { $sidebar_menu = "fonts"; } 
-                            },
-                            {
-                                icon: page.url.pathname.startsWith('/contrast') ? 
-                                    icon_sb("grid_view") : icon_sb("contrast_square"), 
-                                label: page.url.pathname.startsWith('/contrast') ?
-                                    `${$trans?.control.demo}` : `${$trans?.control.contrast}`, 
-                                onclick: () => {
-                                    goto(
-                                        page.url.pathname.startsWith('/contrast') ? '/' : '/contrast'
-                                    ) 
-                                } 
-                            },
-                            {
-                                icon: icon_sb("file_export"), 
-                                label: `${$trans?.control.export}`, 
-                                onclick: () => { } 
-                            }
-                        ]
-                    }
-                ] satisfies SidebarItem[];
-
-            default:
-                return [];
-        }
-    });
 
 	// ---------- Lifecycle ----------
 	onMount(async (): Promise<void> => {
@@ -446,6 +226,36 @@
         observer.observe(headerElement);
         return () => observer.disconnect();
     });
+
+    onMount(() => {
+        const navEl = document.querySelector('.nav-component');
+        if (!navEl) return;
+        const ro = new ResizeObserver(([entry]) => {
+            document.documentElement.style.setProperty(
+                '--nav-height',
+                `${entry.borderBoxSize[0].blockSize}px`
+            );
+        });
+        ro.observe(navEl);
+        return () => ro.disconnect();
+    });
+
+    onMount(() => {
+        if (!headerElement) return;
+        const ro = new ResizeObserver(([entry]) => {
+            document.documentElement.style.setProperty(
+                '--header-height',
+                `${entry.borderBoxSize[0].blockSize}px`
+            );
+        });
+        ro.observe(headerElement);
+        return () => ro.disconnect();
+    });
+
+    $effect(() => {
+        const h = header_visible ? (headerElement?.offsetHeight ?? 0) : 0;
+        document.documentElement.style.setProperty('--header-offset', `${h}px`);
+    });
 </script>
 
 <!-- HTML ─────────────────────────────────────────────────────────────── -->
@@ -530,39 +340,39 @@
     </select>
 {/snippet}
 
-<!-- SideBar snippets -->
-{#snippet sidebar_header()}
+<!-- Drawer snippets -->
+{#snippet drawer_header()}
     <div class="sb-head">
         {#if
-            $sidebar_menu === "theme:tone" ||
-            $sidebar_menu === "theme:accent" ||
-            $sidebar_menu === "theme:ctx" ||
-            $sidebar_menu === "theme:text"
+            $drawer_menu === "theme:tone" ||
+            $drawer_menu === "theme:accent" ||
+            $drawer_menu === "theme:ctx" ||
+            $drawer_menu === "theme:text"
         }
             <button
                 class="sb-head-back"
                 aria-label="{$trans?.aria.return}"
-                onclick={() => { 
-                    $responsive.isBelow(1024) ? $sidebar_menu = "settings" : 
-                    $sidebar_menu = "theme"; 
+                onclick={() => {
+                    $responsive.isBelow(1024) ? $drawer_menu = "settings" :
+                    $drawer_menu = "theme";
                 }}
             >
                 <span class="material-symbols-outlined">arrow_back</span>
             </button>
             <span class="sb-head-title">
                 {
-                    $sidebar_menu === "theme:tone" ? `${$trans?.control.tone}` :
-                    $sidebar_menu === "theme:accent" ? `${$trans?.control.accent}` :
-                    $sidebar_menu === "theme:text" ? `${$trans?.control.text ?? 'Text'}` :
+                    $drawer_menu === "theme:tone" ? `${$trans?.control.tone}` :
+                    $drawer_menu === "theme:accent" ? `${$trans?.control.accent}` :
+                    $drawer_menu === "theme:text" ? `${$trans?.control.text ?? 'Text'}` :
                     `${$trans?.control.ctx}`
                 }
             </span>
         {:else}
-            {#if $responsive.isBelow(1024) && $sidebar_menu != "settings"}
+            {#if $responsive.isBelow(1024) && $drawer_menu != "settings"}
                 <button
                     class="sb-head-back"
                     aria-label="{$trans?.aria.return}"
-                    onclick={() => { $sidebar_menu = "settings" }}
+                    onclick={() => { $drawer_menu = "settings" }}
                 >
                     <span class="material-symbols-outlined">arrow_back</span>
                 </button>
@@ -570,15 +380,15 @@
                 <button
                     class="sb-head-close"
                     aria-label="{$trans?.aria.close}"
-                    onclick={() => { $sidebar_open = false; $sidebar_menu = null; }}
+                    onclick={() => { $drawer_open = false; $drawer_menu = null; }}
                 >
                     <span class="material-symbols-outlined">close</span>
                 </button>
             {/if}
             <span class="sb-head-title">
                 {
-                    $sidebar_menu === "settings" ? `${$trans?.control.settings}` : 
-                    $sidebar_menu === "theme" ? `${$trans?.control.theme}` : 
+                    $drawer_menu === "settings" ? `${$trans?.control.settings}` :
+                    $drawer_menu === "theme" ? `${$trans?.control.theme}` :
                     `${$trans?.control.fonts}`
                 }
             </span>
@@ -629,6 +439,7 @@
 
 <!-- Header ─────────────────────────────────────────────────────────────────────────────────── -->
 
+<div bind:this={headerElement}>
 {#if $responsive.isBelow(1024)}
     <Header
         palette="tone"
@@ -644,6 +455,7 @@
         bind:visible={header_visible}
     />
 {/if}
+</div>
 
 <!-- Nav ─────────────────────────────────────────────────────────────────────────────────── -->
 
@@ -658,7 +470,7 @@
             {
                 icon: icon_settings,
                 label: `${$trans?.control.settings}`,
-                onclick: () => { $sidebar_menu = "settings"; $sidebar_open = true; }
+                onclick: () => { $drawer_menu = "settings"; $drawer_open = true; }
             },
         ]}
     />
@@ -674,22 +486,22 @@
             {
                 icon: icon_colors,
                 label: `${$trans?.control.theme}`,
-                onclick: () => { $sidebar_menu = "theme"; $sidebar_open = true; }
+                onclick: () => { $drawer_menu = "theme"; $drawer_open = true; }
             },
             {
                 icon: icon_fonts,
                 label: `${$trans?.control.fonts}`,
-                onclick: () => { $sidebar_menu = "fonts"; $sidebar_open = true; }
+                onclick: () => { $drawer_menu = "fonts"; $drawer_open = true; }
             },
             {
-                icon: 
-                    page.url.pathname.startsWith('/contrast') ? 
+                icon:
+                    page.url.pathname.startsWith('/customizer') ?
                     icon_demo : icon_contrast,
-                label: 
-                    page.url.pathname.startsWith('/contrast') ? 
+                label:
+                    page.url.pathname.startsWith('/customizer') ?
                     `${$trans?.control.demo}` : `${$trans?.control.contrast}`,
-                onclick: () => { 
-                    goto(page.url.pathname.startsWith('/contrast') ? '/' : '/contrast') 
+                onclick: () => {
+                    goto(page.url.pathname.startsWith('/customizer') ? '/docs' : '/customizer')
                 }
             },
             {
@@ -701,20 +513,176 @@
     />
 {/if}
 
-<!-- Sidebar ─────────────────────────────────────────────────────────────────────────────────── -->
+<!-- Drawer ──────────────────────────────────────────────────────────────────────────────────── -->
 
-<Sidebar
-    position="fixed"
+<Drawer
     direction="left"
     palette="tone"
-    width=300px
+    width="300px"
     rounded
-    open={$sidebar_open}
-    items={sidebar_items}
-    roundedBtn
-    header={sidebar_header}
-    onclose={() => { $sidebar_open = false; $sidebar_menu = null; }}
-/>
+    open={$drawer_open}
+    header={drawer_header}
+    onclose={() => { $drawer_open = false; $drawer_menu = null; }}
+>
+    {#if $drawer_menu === "theme"}
+        <div class="drawer-group drawer-group--column">
+            <Button variant="ghost" palette="tone" rounded direction="row"
+                onclick={() => { $drawer_menu = "theme:tone"; }}>
+                <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">routine</span></span>
+                <span class="nav-label">{$trans?.control.tone}</span>
+            </Button>
+            <Button variant="ghost" palette="tone" rounded direction="row"
+                onclick={() => { $drawer_menu = "theme:accent"; }}>
+                <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">style</span></span>
+                <span class="nav-label">{$trans?.control.accent}</span>
+            </Button>
+            <Button variant="ghost" palette="tone" rounded direction="row"
+                onclick={() => { $drawer_menu = "theme:ctx"; }}>
+                <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">palette</span></span>
+                <span class="nav-label">{$trans?.control.ctx}</span>
+            </Button>
+            <Button variant="ghost" palette="tone" rounded direction="row"
+                onclick={() => { $drawer_menu = "theme:text"; }}>
+                <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">format_color_text</span></span>
+                <span class="nav-label">{$trans?.control.text ?? 'Text'}</span>
+            </Button>
+        </div>
+
+    {:else if $drawer_menu === "theme:tone"}
+        <div class="drawer-group drawer-group--row">
+            <Button variant="ghost" palette="tone" rounded direction="row"
+                active={$selected_tone === 'light'}
+                onclick={() => { $selected_tone = 'light'; }}>
+                <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">light_mode</span></span>
+                <span class="nav-label">{$trans?.control.light}</span>
+            </Button>
+            <Button variant="ghost" palette="tone" rounded direction="row"
+                active={$selected_tone === 'dark'}
+                onclick={() => { $selected_tone = 'dark'; }}>
+                <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">dark_mode</span></span>
+                <span class="nav-label">{$trans?.control.dark}</span>
+            </Button>
+        </div>
+        <hr class="drawer-sep" />
+        {#each $tone_palettes as p, i}
+            <ListItem
+                supporting_text={{ main: p.name, extra: `${p.bg} ${p.card}` }}
+                leading={swatches([p.bg, p.card])}
+                active={i === $tone_index}
+                onclick={() => { setToneIndex(i); }}
+                palette="ghost"
+                rounded
+            />
+        {/each}
+
+    {:else if $drawer_menu === "theme:accent"}
+        {#each $accent_palettes as p, i}
+            <ListItem
+                supporting_text={{ main: p.name, extra: p.accent }}
+                leading={swatches([p.accent])}
+                active={i === $accent_index}
+                onclick={() => { $accent_index = i; }}
+                palette="ghost"
+                rounded
+            />
+        {/each}
+
+    {:else if $drawer_menu === "theme:ctx"}
+        {#each $ctx_colors as c, i}
+            <ListItem
+                supporting_text={{ main: c.name, extra: `${c.error} ${c.warning} ${c.success} ${c.info}` }}
+                leading={swatches([c.error, c.warning, c.success, c.info])}
+                active={i === $ctx_index}
+                onclick={() => { $ctx_index = i; }}
+                palette="ghost"
+                rounded
+            />
+        {/each}
+
+    {:else if $drawer_menu === "theme:text"}
+        {#each $text_palettes as t, i}
+            <ListItem
+                supporting_text={{ main: t.name, extra: `${t.light} / ${t.dark}` }}
+                leading={swatches([t.light, t.dark])}
+                active={i === $text_index}
+                onclick={() => { $text_index = i; }}
+                palette="ghost"
+                rounded
+            />
+        {/each}
+
+    {:else if $drawer_menu === "fonts"}
+        <div class="drawer-group drawer-group--row">
+            <Button variant="ghost" palette="tone" rounded direction="row"
+                active={font_role === 'body'}
+                onclick={() => { font_role = 'body'; }}>
+                <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">text_format</span></span>
+                <span class="nav-label">{$trans?.control.font_body}</span>
+            </Button>
+            <Button variant="ghost" palette="tone" rounded direction="row"
+                active={font_role === 'title'}
+                onclick={() => { font_role = 'title'; }}>
+                <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">format_h1</span></span>
+                <span class="nav-label">{$trans?.control.font_titles}</span>
+            </Button>
+        </div>
+        <hr class="drawer-sep" />
+        {#each available_fonts as f, i}
+            <ListItem
+                supporting_text={{ main: f.family, extra: font_sample(f.family) }}
+                active={font_role === 'body' ? i === $body_font_index : i === $title_font_index}
+                onclick={() => {
+                    if (font_role === 'body') $body_font_index = i;
+                    else $title_font_index = i;
+                }}
+                palette="ghost"
+                rounded
+            />
+        {/each}
+
+    {:else if $drawer_menu === "settings"}
+        <div class="drawer-group drawer-group--column">
+            <Button variant="ghost" palette="tone" rounded direction="row"
+                onclick={() => { $drawer_menu = "theme:tone"; }}>
+                <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">routine</span></span>
+                <span class="nav-label">{$trans?.control.tone}</span>
+            </Button>
+            <Button variant="ghost" palette="tone" rounded direction="row"
+                onclick={() => { $drawer_menu = "theme:accent"; }}>
+                <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">style</span></span>
+                <span class="nav-label">{$trans?.control.accent}</span>
+            </Button>
+            <Button variant="ghost" palette="tone" rounded direction="row"
+                onclick={() => { $drawer_menu = "theme:ctx"; }}>
+                <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">palette</span></span>
+                <span class="nav-label">{$trans?.control.ctx}</span>
+            </Button>
+            <Button variant="ghost" palette="tone" rounded direction="row"
+                onclick={() => { $drawer_menu = "fonts"; }}>
+                <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">brand_family</span></span>
+                <span class="nav-label">{$trans?.control.fonts}</span>
+            </Button>
+            <Button variant="ghost" palette="tone" rounded direction="row"
+                onclick={() => {
+                    goto(page.url.pathname.startsWith('/customizer') ? '/docs' : '/customizer')
+                }}>
+                <span class="nav-icon" aria-hidden="true">
+                    <span class="material-symbols-outlined">
+                        {page.url.pathname.startsWith('/customizer') ? 'grid_view' : 'contrast_square'}
+                    </span>
+                </span>
+                <span class="nav-label">
+                    {page.url.pathname.startsWith('/customizer') ? $trans?.control.demo : $trans?.control.contrast}
+                </span>
+            </Button>
+            <Button variant="ghost" palette="tone" rounded direction="row"
+                onclick={() => {}}>
+                <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">file_export</span></span>
+                <span class="nav-label">{$trans?.control.export}</span>
+            </Button>
+        </div>
+    {/if}
+</Drawer>
 
 <!-- Content ────────────────────────────────────────────────────────────────────────────────── -->
 <main>
@@ -846,9 +814,9 @@
         transform: scale(1.1);
     }
 
-    /* Sidebar header */
+    /* Drawer header */
     :global(.sb-head) {
-        display:flex;
+        display: flex;
         align-items: center;
         gap: 1rem;
         width: 100%;
@@ -880,7 +848,57 @@
 
     :global(.sb-head-back:hover),
     :global(.sb-head-close:hover) {
-        background: var(--sidebar-item-hover-bg, rgba(128,128,128,0.15));
+        background: var(--drawer-item-hover-bg, rgba(128, 128, 128, 0.15));
+    }
+
+    /* Drawer content groups */
+    :global(.drawer-group) {
+        display: flex;
+        gap: 6px;
+    }
+
+    :global(.drawer-group--column) {
+        flex-direction: column;
+    }
+
+    :global(.drawer-group--column) :global(.btn-ghost) {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 0.6rem;
+        padding: 0.5rem 0.75rem;
+    }
+
+    :global(.drawer-group--row) {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    :global(.drawer-group--row) :global(.btn-ghost) {
+        flex: 1;
+        justify-content: center;
+        gap: 0.35rem;
+        padding: 0.5rem 0.4rem;
+    }
+
+    :global(.drawer-group) :global(.nav-icon) {
+        line-height: 1;
+    }
+
+    :global(.drawer-group) :global(.nav-label) {
+        font-family: var(--font-heading);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        line-height: 1;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        max-width: 100%;
+    }
+
+    :global(.drawer-sep) {
+        border: none;
+        border-top: 2px solid var(--drawer-separator, rgba(128, 128, 128, 0.2));
+        margin: 0.15rem 0;
     }
 
     /* Palette swatch */

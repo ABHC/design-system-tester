@@ -36,10 +36,10 @@ export const responsive = derived(window_width, ($width) => ({
     isAbove: (breakpoint: number) => $width !== null && $width >= breakpoint
 }));
 
-// ── Sidebar navigation ───────────────────────────────────────────────────────
-export type SidebarMenu = "theme" | "theme:tone" | "theme:accent" | "theme:ctx" | "theme:text" | "fonts" | "settings" | null;
-export const sidebar_open: Writable<boolean>     = writable(false);
-export const sidebar_menu: Writable<SidebarMenu> = writable(null);
+// ── Drawer navigation ────────────────────────────────────────────────────────
+export type DrawerMenu = "theme" | "theme:tone" | "theme:accent" | "theme:ctx" | "theme:text" | "fonts" | "settings" | null;
+export const drawer_open: Writable<boolean> = writable(false);
+export const drawer_menu: Writable<DrawerMenu> = writable(null);
 
 // ── Theme/font control (defined after persistStore — see below) ──────────────
 
