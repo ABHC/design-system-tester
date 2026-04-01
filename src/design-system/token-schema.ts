@@ -195,8 +195,8 @@ export function tokenValues(config: TokenConfig): Record<string, string> {
     const hoverDelta = isDark ? HOVER_DELTA : -HOVER_DELTA;
 
     const text = isDark ? text_palette.light : text_palette.dark;
-    const textMuted = computeTextMuted(text, tone.card);
-    const shadow = shiftLightness(tone.bg, isDark ? -0.08 : -0.15);
+    const text_muted = computeTextMuted(text, tone.card);
+    const shadow_hard = shiftLightness(tone.bg, isDark ? -0.08 : -0.25);
 
     const tokens: Record<string, string> = {
         // Tone surface
@@ -208,17 +208,18 @@ export function tokenValues(config: TokenConfig): Record<string, string> {
         '--tone-ghost-hover': hexToRgba(text, 0.15),
 
         // Global
-        '--shadow': shadow,
+        /*'--shadow': shadow,*/
         '--text': text,
-        '--text-muted': textMuted,
+        '--text-muted': text_muted,
 
         // Typography
         '--font-body': typography.body,
         '--font-heading': typography.heading,
 
         // Shadows
+        '--shadow-hard' : shadow_hard,
         '--shadow-subtle': 'rgba(0, 0, 0, 0.2)',
-        '--muted-shadow': hexToRgba(textMuted, shadow_opacity),
+        '--muted-shadow': hexToRgba(text_muted, shadow_opacity),
     };
 
     const names = ['accent', 'error', 'warning', 'success', 'info', 'neutral'] as const;
