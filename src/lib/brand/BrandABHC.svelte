@@ -44,4 +44,9 @@
         gap: 20px;
         color: var(--accent);
     }
+
+    #pipe {
+        margin-bottom: 3px;
+        margin-top: 0;
+    }
 </style>
