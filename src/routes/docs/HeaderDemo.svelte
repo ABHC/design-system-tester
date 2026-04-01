@@ -1,14 +1,15 @@
 <script lang="ts">
     import type { Translation } from "$lib/types/translations";
-    import type { PlaceholdersType } from "./placeholders";
+    import type { PlaceholdersType } from "../placeholders";
 
-    import Headline from "../design-system/components/Headline/Headline.svelte";
-    import Header  from "../design-system/components/Header/Header.svelte";
-    import Button  from "../design-system/components/Button/Button.svelte";
-    import Callout from "../design-system/components/Callout/Callout.svelte";
-    import Selector from "../design-system/components/Selector/Selector.svelte";
-    import ControlBar from "../design-system/components/Selector/ControlBar.svelte";
-    import CodeBlock from "../design-system/components/CodeBlock/CodeBlock.svelte";
+    import Headline from "../../design-system/components/Headline/Headline.svelte";
+    import Header  from "../../design-system/components/Header/Header.svelte";
+    import Button  from "../../design-system/components/Button/Button.svelte";
+    import Callout from "../../design-system/components/Callout/Callout.svelte";
+    import Selector from "../../design-system/components/Selector/Selector.svelte";
+    import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
+    import CodeBlock from "../../design-system/components/CodeBlock/CodeBlock.svelte";
+    import DataTable from "../../design-system/components/DataTable/DataTable.svelte";
 
     interface Props {
         trans: Translation | null;
@@ -119,6 +120,8 @@ let header_visible = $state(true);
     items={navItems}
 />`;
 </script>
+
+{#snippet codeCell(value: string)}<code>{value}</code>{/snippet}
 
 <!-- ── Snippets ──────────────────────────────────────────────────────────── -->
 
@@ -244,7 +247,9 @@ let header_visible = $state(true);
 
 <!-- Headline ──────────────────────────────────────────────────────────── -->
 
-<Headline size="md" uppercase>{trans?.header_demo.title}</Headline>
+<div data-summary="demo" data-summary-label={trans?.doc.demo}>
+    <Headline size="md" uppercase>{trans?.header_demo.title}</Headline>
+</div>
 
 <!-- Controls ─────────────────────────────────────────────────────────── -->
 
@@ -358,6 +363,10 @@ let header_visible = $state(true);
 
 <!-- Code examples ────────────────────────────────────────────────────── -->
 
+<div data-summary="usage" data-summary-label={trans?.doc.usage ?? "Usage"}>
+<Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
+</div>
+
 <CodeBlock
     variant="tabbed"
     copyable
@@ -366,6 +375,29 @@ let header_visible = $state(true);
         { label: "app", code: code_app, language: "Svelte" },
         { label: "mixed", code: code_mixed, language: "Svelte" },
         { label: "scroll-aware", code: code_scroll_aware, language: "Svelte" },
+    ]}
+/>
+
+
+<div data-summary="api" data-summary-label={trans?.doc.api ?? "API"}>
+<Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
+</div>
+
+<DataTable
+    variant="ghost" palette="tone" size="sm"
+    columns={[
+        { key: "prop", label: "Prop" },
+        { key: "type", label: "Type", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell },
+    ]}
+    rows={[
+        { prop: "palette", type: '"accent" | "tone"', default: '"tone"' },
+        { prop: "rounded", type: "boolean", default: "false" },
+        { prop: "visible", type: "boolean", default: "true" },
+        { prop: "style", type: "string", default: "\u2014" },
+        { prop: "leading", type: "Snippet", default: "\u2014" },
+        { prop: "children", type: "Snippet", default: "\u2014" },
+        { prop: "following", type: "Snippet", default: "\u2014" },
     ]}
 />
 

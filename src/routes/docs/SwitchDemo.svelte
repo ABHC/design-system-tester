@@ -1,11 +1,12 @@
 <script lang="ts">
     import type { Translation } from "$lib/types/translations";
-    import type { PlaceholdersType } from "./placeholders";
-    import Headline from "../design-system/components/Headline/Headline.svelte";
-    import Switch from "../design-system/components/Switch/Switch.svelte";
-    import CodeBlock from "../design-system/components/CodeBlock/CodeBlock.svelte";
-    import Selector from "../design-system/components/Selector/Selector.svelte";
-    import ControlBar from "../design-system/components/Selector/ControlBar.svelte";
+    import type { PlaceholdersType } from "../placeholders";
+    import Headline from "../../design-system/components/Headline/Headline.svelte";
+    import Switch from "../../design-system/components/Switch/Switch.svelte";
+    import CodeBlock from "../../design-system/components/CodeBlock/CodeBlock.svelte";
+    import DataTable from "../../design-system/components/DataTable/DataTable.svelte";
+    import Selector from "../../design-system/components/Selector/Selector.svelte";
+    import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
 
     interface Props {
         trans: Translation | null;
@@ -130,6 +131,8 @@
 <Switch palette="accent" checked={true}  disabled />`;
 </script>
 
+{#snippet codeCell(value: string)}<code>{value}</code>{/snippet}
+
 <!-- Snippets utils ─────────────────────────────────────────────────────────── -->
 
 <!-- Leading -->
@@ -170,9 +173,9 @@
 
 <!-- ── Markup ──────────────────────────────────────────────────────────────── -->
 
-<Headline size="md" uppercase>
-    {trans?.switch_demo?.title ?? "Switch"}
-</Headline>
+<div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
+    <Headline size="md" uppercase>{trans?.switch_demo?.title ?? "Switch"}</Headline>
+</div>
 
 <!-- Controls -->
 
@@ -336,6 +339,9 @@
 
 <!-- Code examples -->
 
+<div data-summary="usage" data-summary-label={trans?.doc.usage ?? "Usage"}>
+<Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
+</div>
 <CodeBlock
     variant="tabbed"
     copyable
@@ -349,6 +355,29 @@
         { label: "disabled", code: code_disabled, language: "Svelte" },
     ]}
 />
+
+
+<div data-summary="api" data-summary-label={trans?.doc.api ?? "API"}>
+<Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
+<DataTable
+    variant="ghost" palette="tone" size="sm"
+    columns={[
+        { key: "prop", label: "Prop" },
+        { key: "type", label: "Type", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell },
+    ]}
+    rows={[
+        { prop: "checked", type: "boolean", default: "false" },
+        { prop: "palette", type: '"accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info"', default: '"accent"' },
+        { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"' },
+        { prop: "circle", type: "boolean", default: "true" },
+        { prop: "leading", type: "Snippet", default: "\u2014" },
+        { prop: "trailing", type: "Snippet", default: "\u2014" },
+        { prop: "disabled", type: "boolean", default: "false" },
+        { prop: "aria_label", type: "string", default: "\u2014" },
+    ]}
+/>
+</div>
 
 <style>
     /* Preview box */

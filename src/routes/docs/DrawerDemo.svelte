@@ -1,16 +1,17 @@
 <script lang="ts">
     import { createRawSnippet } from "svelte";
     import type { Translation } from "$lib/types/translations";
-    import type { PlaceholdersType } from "./placeholders";
-    import Headline from "../design-system/components/Headline/Headline.svelte";
-    import Avatar from "../design-system/components/Avatar/avatar.svelte";
-    import Drawer from "../design-system/components/Drawer/Drawer.svelte";
-    import Button from "../design-system/components/Button/Button.svelte";
-    import ListItem from "../design-system/components/ListItem/ListItem.svelte";
-    import SearchField from "../design-system/components/SearchField/SearchField.svelte";
-    import Selector from "../design-system/components/Selector/Selector.svelte";
-    import ControlBar from "../design-system/components/Selector/ControlBar.svelte";
-    import CodeBlock from "../design-system/components/CodeBlock/CodeBlock.svelte";
+    import type { PlaceholdersType } from "../placeholders";
+    import Headline from "../../design-system/components/Headline/Headline.svelte";
+    import Avatar from "../../design-system/components/Avatar/avatar.svelte";
+    import Drawer from "../../design-system/components/Drawer/Drawer.svelte";
+    import Button from "../../design-system/components/Button/Button.svelte";
+    import ListItem from "../../design-system/components/ListItem/ListItem.svelte";
+    import SearchField from "../../design-system/components/SearchField/SearchField.svelte";
+    import Selector from "../../design-system/components/Selector/Selector.svelte";
+    import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
+    import CodeBlock from "../../design-system/components/CodeBlock/CodeBlock.svelte";
+    import DataTable from "../../design-system/components/DataTable/DataTable.svelte";
 
     interface Props {
         trans: Translation | null;
@@ -144,10 +145,12 @@
     );
 </script>
 
+{#snippet codeCell(value: string)}<code>{value}</code>{/snippet}
+
 <!-- Section headline -->
-<Headline size="md" uppercase>
-    {trans?.drawer.title}
-</Headline>
+<div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
+    <Headline size="md" uppercase>{trans?.drawer.title}</Headline>
+</div>
 
 <!-- Controls -->
 <ControlBar palette="tone" rounded>
@@ -331,6 +334,10 @@
 {/if}
 
 <!-- Code examples -->
+
+<div data-summary="usage" data-summary-label={trans?.doc.usage ?? "Usage"}>
+<Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
+</div>
 <CodeBlock
     variant="tabbed"
     copyable
@@ -342,6 +349,34 @@
         { label: "header & footer", code: code_header_footer, language: "Svelte" },
     ]}
 />
+
+
+<div data-summary="api" data-summary-label={trans?.doc.api ?? "API"}>
+<Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
+<DataTable
+    variant="ghost" palette="tone" size="sm"
+    columns={[
+        { key: "prop", label: "Prop" },
+        { key: "type", label: "Type", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell },
+    ]}
+    rows={[
+        { prop: "direction", type: '"left" | "right" | "top" | "bottom"', default: '"left"' },
+        { prop: "palette", type: '"accent" | "tone"', default: '"accent"' },
+        { prop: "open", type: "boolean", default: "false" },
+        { prop: "offset_top", type: "string", default: '"0px"' },
+        { prop: "offset_bottom", type: "string", default: '"0px"' },
+        { prop: "width", type: "string", default: '"260px"' },
+        { prop: "height", type: "string", default: '"300px"' },
+        { prop: "rounded", type: "boolean", default: "true" },
+        { prop: "header", type: "Snippet", default: "\u2014" },
+        { prop: "children", type: "Snippet", default: "\u2014" },
+        { prop: "footer", type: "Snippet", default: "\u2014" },
+        { prop: "onclose", type: "() => void", default: "\u2014" },
+        { prop: "aria_label", type: "string", default: '"Drawer"' },
+    ]}
+/>
+</div>
 
 <style>
     .open-row {

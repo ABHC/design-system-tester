@@ -1,12 +1,13 @@
 <script lang="ts">
     import type { Translation } from "$lib/types/translations";
-    import type { PlaceholdersType } from "./placeholders";
-    import Headline from "../design-system/components/Headline/Headline.svelte";
-    import SearchField from "../design-system/components/SearchField/SearchField.svelte";
-    import Card from "../design-system/components/Card/Card.svelte";
-    import CodeBlock from "../design-system/components/CodeBlock/CodeBlock.svelte";
-    import Selector from "../design-system/components/Selector/Selector.svelte";
-    import ControlBar from "../design-system/components/Selector/ControlBar.svelte";
+    import type { PlaceholdersType } from "../placeholders";
+    import Headline from "../../design-system/components/Headline/Headline.svelte";
+    import SearchField from "../../design-system/components/SearchField/SearchField.svelte";
+    import Card from "../../design-system/components/Card/Card.svelte";
+    import CodeBlock from "../../design-system/components/CodeBlock/CodeBlock.svelte";
+    import DataTable from "../../design-system/components/DataTable/DataTable.svelte";
+    import Selector from "../../design-system/components/Selector/Selector.svelte";
+    import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
 
     interface Props {
         trans: Translation | null;
@@ -57,9 +58,13 @@
 <SearchField bind:value={search} palette="accentbg" />`;
 </script>
 
+{#snippet codeCell(value: string)}<code>{value}</code>{/snippet}
+
 <!-- ── Markup ────────────────────────────────────────────────────────────── -->
 
-<Headline size="md" uppercase>{trans?.search_field.title}</Headline>
+<div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
+    <Headline size="md" uppercase>{trans?.search_field.title}</Headline>
+</div>
 
 <ControlBar palette="tone" rounded>
     <Selector
@@ -119,6 +124,9 @@
 
 <!-- Code examples -->
 
+<div data-summary="usage" data-summary-label={trans?.doc.usage ?? "Usage"}>
+<Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
+</div>
 <CodeBlock
     variant="tabbed"
     copyable
@@ -129,6 +137,30 @@
         { label: "palettes", code: code_palettes, language: "Svelte" },
     ]}
 />
+
+
+<div data-summary="api" data-summary-label={trans?.doc.api ?? "API"}>
+<Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
+<DataTable
+    variant="ghost" palette="tone" size="sm"
+    columns={[
+        { key: "prop", label: "Prop" },
+        { key: "type", label: "Type", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell },
+    ]}
+    rows={[
+        { prop: "value", type: "string", default: '""' },
+        { prop: "placeholder", type: "string", default: '"Search..."' },
+        { prop: "clearable", type: "boolean", default: "true" },
+        { prop: "disabled", type: "boolean", default: "false" },
+        { prop: "autofocus", type: "boolean", default: "false" },
+        { prop: "naked", type: "boolean", default: "false" },
+        { prop: "size", type: "SearchFieldSize", default: '"md"' },
+        { prop: "rounded", type: "boolean", default: "false" },
+        { prop: "palette", type: "SearchFieldPalette", default: '"tone"' },
+    ]}
+/>
+</div>
 
 <style>
     .demo-grid {

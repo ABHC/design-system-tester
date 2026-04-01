@@ -1,14 +1,15 @@
 <script lang="ts">
-    import Card from "../design-system/components/Card/Card.svelte";
-    import Badge from "../design-system/components/Badge/Badge.svelte";
-    import Button from "../design-system/components/Button/Button.svelte";
-    import Avatar from "../design-system/components/Avatar/avatar.svelte";
-    import Headline from "../design-system/components/Headline/Headline.svelte";
-    import CodeBlock from "../design-system/components/CodeBlock/CodeBlock.svelte";
-    import Selector from "../design-system/components/Selector/Selector.svelte";
-    import ControlBar from "../design-system/components/Selector/ControlBar.svelte";
+    import Card from "../../design-system/components/Card/Card.svelte";
+    import Badge from "../../design-system/components/Badge/Badge.svelte";
+    import Button from "../../design-system/components/Button/Button.svelte";
+    import DataTable from "../../design-system/components/DataTable/DataTable.svelte";
+    import Avatar from "../../design-system/components/Avatar/avatar.svelte";
+    import Headline from "../../design-system/components/Headline/Headline.svelte";
+    import CodeBlock from "../../design-system/components/CodeBlock/CodeBlock.svelte";
+    import Selector from "../../design-system/components/Selector/Selector.svelte";
+    import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
     import type { Translation } from "$lib/types/translations";
-    import type { PlaceholdersType } from "./placeholders";
+    import type { PlaceholdersType } from "../placeholders";
 	import { goto } from "$app/navigation";
 
     interface Props {
@@ -114,6 +115,8 @@
 <Card elevation="hard">...</Card>     <!-- neo-brutalist offset -->`;
 </script>
 
+{#snippet codeCell(value: string)}<code>{value}</code>{/snippet}
+
 <!-- ── Utils Snippets ────────────────────────────────────────────────────── -->
 
 {#snippet icon_mail()}
@@ -126,7 +129,9 @@
 
 <!-- ── Markup ─────────────────────────────────────────────────────────────── -->
 
-<Headline size="md" uppercase>{trans?.cards.title}</Headline>
+<div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
+    <Headline size="md" uppercase>{trans?.cards.title}</Headline>
+</div>
 
 <!-- Controls -->
 
@@ -193,7 +198,7 @@
                                 </span>
                             {:else}
                                 <img 
-                                    src="assets/aerotrain.jpeg" 
+                                    src="../assets/aerotrain.jpeg" 
                                     alt="Aérotrain"
                                     style="object-fit: cover; width: 100%"
                                 >
@@ -319,6 +324,9 @@
 
 <!-- Code examples -->
 
+<div data-summary="usage" data-summary-label={trans?.doc.usage ?? "Usage"}>
+<Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
+</div>
 <CodeBlock
     variant="tabbed"
     copyable
@@ -330,6 +338,29 @@
         { label: "Elevation", code: code_elevation, language: "Svelte" },
     ]}
 />
+
+
+<div data-summary="api" data-summary-label={trans?.doc.api ?? "API"}>
+<Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
+<DataTable
+    variant="ghost" palette="tone" size="sm"
+    columns={[
+        { key: "prop", label: "Prop" },
+        { key: "type", label: "Type", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell },
+    ]}
+    rows={[
+        { prop: "variant", type: '"flat" | "outlined" | "ghost"', default: '"flat"' },
+        { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"hard"' },
+        { prop: "width", type: "string", default: "undefined" },
+        { prop: "rounded", type: "boolean", default: "true" },
+        { prop: "href", type: "string", default: "undefined" },
+        { prop: "header", type: "Snippet", default: "\u2014" },
+        { prop: "children", type: "Snippet", default: "\u2014" },
+        { prop: "footer", type: "Snippet", default: "\u2014" },
+    ]}
+/>
+</div>
 
 <style>
     /* ── Preview container ────────────────────────────────────────────────── */

@@ -1,14 +1,15 @@
 <script lang="ts">
-    import Headline from "../design-system/components/Headline/Headline.svelte";
-    import CodeBlock from "../design-system/components/CodeBlock/CodeBlock.svelte";
-    import TileGrid from "../design-system/components/TileGrid/TileGrid.svelte";
-    import Callout from "../design-system/components/Callout/Callout.svelte";
-    import Selector from "../design-system/components/Selector/Selector.svelte";
-    import ControlBar from "../design-system/components/Selector/ControlBar.svelte";
+    import Headline from "../../design-system/components/Headline/Headline.svelte";
+    import CodeBlock from "../../design-system/components/CodeBlock/CodeBlock.svelte";
+    import DataTable from "../../design-system/components/DataTable/DataTable.svelte";
+    import TileGrid from "../../design-system/components/TileGrid/TileGrid.svelte";
+    import Callout from "../../design-system/components/Callout/Callout.svelte";
+    import Selector from "../../design-system/components/Selector/Selector.svelte";
+    import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
 
-    import type { Tile, Columns, HeroSpan, Elevation } from "../design-system/components/TileGrid/tilegrid.config";
+    import type { Tile, Columns, HeroSpan, Elevation } from "../../design-system/components/TileGrid/tilegrid.config";
     import type { Translation } from "$lib/types/translations";
-    import type { PlaceholdersType } from "./placeholders";
+    import type { PlaceholdersType } from "../placeholders";
 
     // -- Props 
 
@@ -53,7 +54,7 @@
     const tiles = $derived([
         {
             ...placeholders.grid.tgv,
-            display:    true,
+            display: true,
             hero: true,
             hero_text: { en: placeholders.grid.hero_text },
             hero_icon: "star",
@@ -83,7 +84,7 @@
         },
         {
             ...placeholders.grid.renault,
-            display:  true,
+            display: true,
             hero: false,
             media: [{ src: tile_media[4], type: "image" }],
             abstract: { en: placeholders.grid.renault.abstract },
@@ -252,11 +253,13 @@
 />`;
 </script>
 
+{#snippet codeCell(value: string)}<code>{value}</code>{/snippet}
+
 <!-- Headline -->
 
-<Headline size="md" uppercase>
-    {trans?.tile_grid?.title ?? "Tile Grid"}
-</Headline>
+<div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
+    <Headline size="md" uppercase>{trans?.tile_grid?.title ?? "Tile Grid"}</Headline>
+</div>
 
 <!-- Controls -->
 
@@ -407,6 +410,10 @@
 
 <!-- Code examples — split layout -->
 
+<div data-summary="usage" data-summary-label={trans?.doc.usage}>
+    <Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
+</div>
+
 <CodeBlock
     variant="tabbed"
     copyable
@@ -432,6 +439,35 @@
             code: code_hero_full,  
             language: "Svelte" 
         },
+    ]}
+/>
+
+<div data-summary="api" data-summary-label={trans?.doc.api}>
+    <Headline size="sm" uppercase muted>{trans?.doc.api}</Headline>
+</div>
+
+<DataTable
+    variant="ghost" palette="tone" size="sm"
+    columns={[
+        { key: "prop", label: "Prop" },
+        { key: "type", label: "Type", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell },
+    ]}
+    rows={[
+        { prop: "tiles", type: "readonly Tile[]", default: "\u2014" },
+        { prop: "locale", type: "string", default: '"en"' },
+        { prop: "image_mode", type: "ImageMode", default: '"background"' },
+        { prop: "image_position", type: "ImagePosition", default: '"center"' },
+        { prop: "image_size", type: "string", default: "undefined" },
+        { prop: "columns", type: "Columns", default: "3" },
+        { prop: "hero_span", type: "HeroSpan", default: '"half"' },
+        { prop: "gap", type: "string", default: '"1.5rem"' },
+        { prop: "show_hero_badge", type: "boolean", default: "true" },
+        { prop: "show_hero_border", type: "boolean", default: "true" },
+        { prop: "excerpt_length", type: "number", default: "52" },
+        { prop: "href_base", type: "string", default: '"/projects"' },
+        { prop: "rounded", type: "boolean", default: "true" },
+        { prop: "elevation", type: "Elevation", default: '"hard"' },
     ]}
 />
 

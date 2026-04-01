@@ -1,11 +1,14 @@
 <script lang="ts">
     import type { Translation } from "$lib/types/translations";
-    import type { PlaceholdersType } from "./placeholders";
+    import type { PlaceholdersType } from "../placeholders";
 
-    import Headline from "../design-system/components/Headline/Headline.svelte";
-    import Callout from "../design-system/components/Callout/Callout.svelte";
-    import Button from "../design-system/components/Button/Button.svelte";
-    import CodeBlock from "../design-system/components/CodeBlock/CodeBlock.svelte";
+    import Headline from "../../design-system/components/Headline/Headline.svelte";
+    import Callout from "../../design-system/components/Callout/Callout.svelte";
+    import Button from "../../design-system/components/Button/Button.svelte";
+    import CodeBlock from "../../design-system/components/CodeBlock/CodeBlock.svelte";
+    import DataTable from "../../design-system/components/DataTable/DataTable.svelte";
+    import Selector from "../../design-system/components/Selector/Selector.svelte";
+    import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
 
     interface Props {
         trans: Translation | null;
@@ -13,6 +16,18 @@
     }
 
     let { trans, placeholders }: Props = $props();
+
+    // -- Demo state -----------------------------------------------------------
+
+    type Variant = "accent" | "neutral" | "error" | "warning" | "success" | "info";
+    type Align = "center" | "start";
+
+    let demo_variant: Variant = $state("accent");
+    let demo_align: Align = $state("center");
+    let demo_rounded: boolean = $state(false);
+    let demo_bordered: boolean = $state(false);
+
+    const bool_opts = [{ value: true, label: "yes" }, { value: false, label: "no" }] as const;
 
     // ── Code examples ───────────────────────────────────────────────────────
 
@@ -77,78 +92,48 @@
 </Callout>`;
 </script>
 
+{#snippet codeCell(value: string)}<code>{value}</code>{/snippet}
+
 <!-- Headline -->
 
-<Headline size="md" uppercase>{trans?.callout.title}</Headline>
+<div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
+    <Headline size="md" uppercase>{trans?.callout.title}</Headline>
+</div>
+
+<!-- Controls -->
+
+<ControlBar palette="tone" rounded>
+    <Selector
+        label="Variant"
+        options={["accent", "neutral", "info", "success", "warning", "error"]}
+        bind:value={demo_variant}
+    />
+    <Selector
+        label="Align"
+        options={["center", "start"]}
+        bind:value={demo_align}
+    />
+    <Selector
+        label="Rounded"
+        options={bool_opts}
+        bind:value={demo_rounded}
+    />
+    <Selector
+        label="Bordered"
+        options={bool_opts}
+        bind:value={demo_bordered}
+    />
+</ControlBar>
 
 <!-- Live preview -->
 
 <div class="callout-preview">
-
-    <!-- 1. info — minimal, no leading, rounded -->
-    <Callout variant="info" align="center" rounded>
-        {#snippet children()}
-            <p>{placeholders.callout?.info ?? "An informational message."}</p>
-        {/snippet}
-    </Callout>
-
-    <!-- 2. success — leading + following Button, rounded -->
-    <Callout variant="success" align="center" rounded>
-        {#snippet leading()}
-            <span class="material-symbols-outlined">check_circle</span>
-        {/snippet}
-        {#snippet children()}
-            <strong>{placeholders?.callout.success_label}</strong>
-            <p>{placeholders.callout?.success ?? "The operation completed successfully."}</p>
-        {/snippet}
-        {#snippet following()}
-            <Button variant="ghost" palette="tone" size="sm">View</Button>
-        {/snippet}
-    </Callout>
-
-    <!-- 3. warning — leading + following Button, not rounded -->
-    <Callout variant="warning" align="center">
-        {#snippet leading()}
-            <span class="material-symbols-outlined">warning</span>
-        {/snippet}
-        {#snippet children()}
-            <p>{placeholders.callout?.warning}</p>
-        {/snippet}
-        {#snippet following()}
-            <Button variant="ghost" palette="tone" size="sm">Dismiss</Button>
-        {/snippet}
-    </Callout>
-
-    <!-- 4. error — leading, align="start", not rounded -->
-    <Callout variant="error" align="start">
-        {#snippet leading()}
-            <span class="material-symbols-outlined">error</span>
-        {/snippet}
-        {#snippet children()}
-            <strong>{placeholders?.callout.error_label}</strong>
-            <p>{placeholders?.callout.error}</p>
-        {/snippet}
-    </Callout>
-
-    <!-- 5. neutral — leading, align="center", not rounded -->
-    <Callout variant="neutral" align="center">
-        {#snippet leading()}
-            <span class="material-symbols-outlined">
-                chat_bubble
-            </span>
-        {/snippet}
-        {#snippet children()}
-            <strong>
-                {placeholders?.callout.note_label}
-            </strong>
-            <p>
-                {placeholders.callout?.neutral ?? "A neutral annotation."}
-            </p>
-        {/snippet}
-    </Callout>
-
-    <!-- 6. accent — Tip, leading, align="start", <code>, rounded -->
-    <Callout variant="accent" align="start" rounded>
+    <Callout 
+        variant={demo_variant} 
+        align={demo_align} 
+        rounded={demo_rounded} 
+        bordered={demo_bordered}
+    >
         {#snippet leading()}
             <span class="material-symbols-outlined">lightbulb</span>
         {/snippet}
@@ -156,12 +141,24 @@
             <strong>Tip</strong>
             <p>{@html placeholders?.callout.tip}</p>
         {/snippet}
+        {#snippet following()}
+            <Button 
+                variant="ghost" 
+                palette={demo_variant} 
+                size="sm"
+            >
+                {placeholders?.callout.view}
+            </Button>
+        {/snippet}
     </Callout>
 
 </div>
 
 <!-- Code examples -->
 
+<div data-summary="usage" data-summary-label={trans?.doc.usage ?? "Usage"}>
+<Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
+</div>
 <CodeBlock
     variant="tabbed"
     copyable
@@ -178,6 +175,29 @@
         },
     ]}
 />
+
+
+<div data-summary="api" data-summary-label={trans?.doc.api ?? "API"}>
+<Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
+<DataTable
+    variant="ghost" palette="tone" size="sm"
+    columns={[
+        { key: "prop", label: "Prop" },
+        { key: "type", label: "Type", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell },
+    ]}
+    rows={[
+        { prop: "variant", type: '"accent" | "neutral" | "error" | "warning" | "success" | "info"', default: '"info"' },
+        { prop: "align", type: '"center" | "start"', default: '"center"' },
+        { prop: "rounded", type: "boolean", default: "false" },
+        { prop: "bordered", type: "boolean", default: "false" },
+        { prop: "style", type: "string", default: "\u2014" },
+        { prop: "leading", type: "Snippet", default: "\u2014" },
+        { prop: "children", type: "Snippet", default: "\u2014" },
+        { prop: "following", type: "Snippet", default: "\u2014" },
+    ]}
+/>
+</div>
 
 <style>
     /* Preview */

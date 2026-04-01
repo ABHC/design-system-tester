@@ -1,10 +1,11 @@
 <script lang="ts">
     import type { Translation } from "$lib/types/translations";
-    import type { PlaceholdersType } from "./placeholders";
-    import Headline from "../design-system/components/Headline/Headline.svelte";
-    import CodeBlock from "../design-system/components/CodeBlock/CodeBlock.svelte";
-    import Selector from "../design-system/components/Selector/Selector.svelte";
-    import ControlBar from "../design-system/components/Selector/ControlBar.svelte";
+    import type { PlaceholdersType } from "../placeholders";
+    import Headline from "../../design-system/components/Headline/Headline.svelte";
+    import CodeBlock from "../../design-system/components/CodeBlock/CodeBlock.svelte";
+    import Selector from "../../design-system/components/Selector/Selector.svelte";
+    import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
+    import DataTable from "../../design-system/components/DataTable/DataTable.svelte";
 
     interface Props {
         trans: Translation | null;
@@ -203,9 +204,11 @@
 />`;
 </script>
 
-<Headline size="md" uppercase>
-    {trans?.codeblocks.title}
-</Headline>
+{#snippet codeCell(value: string)}<code>{value}</code>{/snippet}
+
+<div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
+    <Headline size="md" uppercase>{trans?.codeblocks.title}</Headline>
+</div>
 
 <!-- Controls ──────────────────────────────────────────────────────────── -->
 
@@ -305,20 +308,54 @@
 
 <!-- Usage code ────────────────────────────────────────────────────────── -->
 
+<div data-summary="usage" data-summary-label={trans?.doc.usage ?? "Usage"}>
+    <Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
+</div>
 <CodeBlock
     variant="tabbed"
     copyable
     tabs={[
-        { label: "simple",       code: usage_simple,    language: "Svelte"     },
-        { label: "titled",       code: usage_titled,    language: "Svelte"     },
-        { label: "filename",     code: usage_filename,  language: "Svelte"     },
-        { label: "tabbed",       code: usage_tabbed,    language: "Svelte"     },
-        { label: "terminal",     code: usage_terminal,  language: "Svelte"     },
-        { label: "split",        code: usage_split,     language: "Svelte"     },
-        { label: "desc-only",    code: usage_desc_only, language: "Svelte"     },
-        { label: "mini",         code: usage_mini,      language: "Svelte"     },
-        { label: "src",          code: usage_src,       language: "Svelte"     },
-        { label: "max_height",   code: usage_max_height, language: "Svelte"   },
+        { label: "simple", code: usage_simple, language: "Svelte" },
+        { label: "titled", code: usage_titled, language: "Svelte" },
+        { label: "filename", code: usage_filename, language: "Svelte" },
+        { label: "tabbed", code: usage_tabbed, language: "Svelte" },
+        { label: "terminal", code: usage_terminal,  language: "Svelte" },
+        { label: "split", code: usage_split, language: "Svelte" },
+        { label: "desc-only", code: usage_desc_only, language: "Svelte" },
+        { label: "mini", code: usage_mini, language: "Svelte" },
+        { label: "src", code: usage_src, language: "Svelte" },
+        { label: "max_height",   code: usage_max_height, language: "Svelte" },
+    ]}
+/>
+
+<!-- API ─────────────────────────────────────────────────────────────── -->
+
+<div data-summary="api" data-summary-label={trans?.doc.api ?? "API"}>
+    <Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
+</div>
+<DataTable
+    variant="ghost" palette="tone" size="sm"
+    columns={[
+        { key: "prop", label: "Prop" },
+        { key: "type", label: "Type", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell },
+    ]}
+    rows={[
+        { prop: "variant", type: '"simple" | "titled" | "filename" | "tabbed" | "terminal"', default: '"simple"' },
+        { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"' },
+        { prop: "title", type: "string", default: "undefined" },
+        { prop: "filename", type: "string", default: "undefined" },
+        { prop: "description", type: "string", default: "undefined" },
+        { prop: "description_src", type: "string", default: "undefined" },
+        { prop: "language", type: "string", default: "undefined" },
+        { prop: "tabs", type: "Tab[]", default: "undefined" },
+        { prop: "code", type: "string", default: "undefined" },
+        { prop: "code_src", type: "string", default: "undefined" },
+        { prop: "copyable", type: "boolean", default: "false" },
+        { prop: "line_numbers", type: "boolean", default: "false" },
+        { prop: "rounded", type: "boolean", default: "true" },
+        { prop: "width", type: "string", default: "undefined" },
+        { prop: "max_height", type: "string", default: "undefined" },
     ]}
 />
 

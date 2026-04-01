@@ -1,14 +1,15 @@
 <script lang="ts">
     import type { Translation } from "$lib/types/translations";
-    import type { PlaceholdersType } from "./placeholders";
-    import Headline from "../design-system/components/Headline/Headline.svelte";
-    import Input from "../design-system/components/Input/Input.svelte";
-    import Textarea from "../design-system/components/Textarea/Textarea.svelte";
-    import Card from "../design-system/components/Card/Card.svelte";
-    import Button from "../design-system/components/Button/Button.svelte";
-    import CodeBlock from "../design-system/components/CodeBlock/CodeBlock.svelte";
-    import Selector from "../design-system/components/Selector/Selector.svelte";
-    import ControlBar from "../design-system/components/Selector/ControlBar.svelte";
+    import type { PlaceholdersType } from "../placeholders";
+    import Headline from "../../design-system/components/Headline/Headline.svelte";
+    import Input from "../../design-system/components/Input/Input.svelte";
+    import Textarea from "../../design-system/components/Textarea/Textarea.svelte";
+    import Card from "../../design-system/components/Card/Card.svelte";
+    import Button from "../../design-system/components/Button/Button.svelte";
+    import CodeBlock from "../../design-system/components/CodeBlock/CodeBlock.svelte";
+    import Selector from "../../design-system/components/Selector/Selector.svelte";
+    import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
+    import DataTable from "../../design-system/components/DataTable/DataTable.svelte";
 
     interface Props {
         trans: Translation | null;
@@ -171,6 +172,8 @@
 />`;
 </script>
 
+{#snippet codeCell(value: string)}<code>{value}</code>{/snippet}
+
 <!-- Snippets ─────────────────────────────────────────────────────────────── -->
 
 {#snippet icon_person()}
@@ -191,9 +194,9 @@
 
 <!-- ── Markup ────────────────────────────────────────────────────────────── -->
 
-<Headline size="md" uppercase>
-    {trans?.input_demo?.title}
-</Headline>
+<div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
+    <Headline size="md" uppercase>{trans?.input_demo?.title}</Headline>
+</div>
 
 <ControlBar palette="tone" rounded>
     <Selector
@@ -341,6 +344,9 @@
 
 <!-- States reference -->
 
+<div data-summary="states" data-summary-label={trans?.doc.states ?? "States"}>
+<Headline size="sm" uppercase muted>{trans?.doc.states ?? "States"}</Headline>
+</div>
 <div class="states-preview">
     <span class="section-label">{trans?.input_demo?.sect_states}</span>
 
@@ -476,6 +482,9 @@
 
 <!-- Code examples -->
 
+<div data-summary="usage" data-summary-label={trans?.doc.usage ?? "Usage"}>
+<Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
+</div>
 <CodeBlock
     variant="tabbed"
     copyable
@@ -488,6 +497,36 @@
         { label: "password toggle", code: code_pw_toggle, language: "Svelte" },
     ]}
 />
+
+
+<div data-summary="api" data-summary-label={trans?.doc.api ?? "API"}>
+<Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
+<DataTable
+    variant="ghost" palette="tone" size="sm"
+    columns={[
+        { key: "prop", label: "Prop" },
+        { key: "type", label: "Type", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell },
+    ]}
+    rows={[
+        { prop: "value", type: "string", default: '""' },
+        { prop: "type", type: '"text" | "email" | "password" | "number" | "search" | "tel" | "url"', default: '"text"' },
+        { prop: "placeholder", type: "string", default: '""' },
+        { prop: "label", type: "string", default: "\u2014" },
+        { prop: "hint", type: "string", default: "\u2014" },
+        { prop: "error", type: "string", default: "\u2014" },
+        { prop: "success", type: "string", default: "\u2014" },
+        { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"' },
+        { prop: "disabled", type: "boolean", default: "false" },
+        { prop: "readonly", type: "boolean", default: "false" },
+        { prop: "required", type: "boolean", default: "false" },
+        { prop: "name", type: "string", default: "\u2014" },
+        { prop: "id", type: "string", default: "\u2014" },
+        { prop: "leading", type: "Snippet", default: "\u2014" },
+        { prop: "trailing", type: "Snippet", default: "\u2014" },
+    ]}
+/>
+</div>
 
 <style>
     /* States reference */

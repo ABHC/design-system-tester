@@ -1,11 +1,12 @@
 <script lang="ts">
     import type { Translation } from "$lib/types/translations";
-    import type { PlaceholdersType } from "./placeholders";
-    import Headline from "../design-system/components/Headline/Headline.svelte";
-    import Selector from "../design-system/components/Selector/Selector.svelte";
-    import ControlBar from "../design-system/components/Selector/ControlBar.svelte";
-    import Button from "../design-system/components/Button/Button.svelte";
-    import CodeBlock from "../design-system/components/CodeBlock/CodeBlock.svelte";
+    import type { PlaceholdersType } from "../placeholders";
+    import Headline from "../../design-system/components/Headline/Headline.svelte";
+    import Selector from "../../design-system/components/Selector/Selector.svelte";
+    import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
+    import Button from "../../design-system/components/Button/Button.svelte";
+    import CodeBlock from "../../design-system/components/CodeBlock/CodeBlock.svelte";
+    import DataTable from "../../design-system/components/DataTable/DataTable.svelte";
 
     interface Props {
         trans: Translation | null;
@@ -68,7 +69,11 @@
 
 </script>
 
-<Headline size="md" uppercase>{trans?.selector_demo.title}</Headline>
+{#snippet codeCell(value: string)}<code>{value}</code>{/snippet}
+
+<div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
+    <Headline size="md" uppercase>{trans?.selector_demo.title}</Headline>
+</div>
 
 <!-- Interactive meta-demo ───────────────────────────────────────────────── -->
 
@@ -175,6 +180,9 @@
 
 <!-- Swatches ───────────────────────────────────────────────────────────── -->
 
+<div data-summary="swatches" data-summary-label={trans?.doc.swatches ?? "Swatches"}>
+<Headline size="sm" uppercase muted>{trans?.doc.swatches ?? "Swatches"}</Headline>
+</div>
 <p class="demo-label">{placeholders?.selector?.sect_swatches}</p>
 
 <ControlBar palette="tone" rounded>
@@ -203,6 +211,9 @@
 
 <!-- CodeBlock ───────────────────────────────────────────────────────────── -->
 
+<div data-summary="usage" data-summary-label={trans?.doc.usage ?? "Usage"}>
+    <Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
+</div>
 <CodeBlock
     variant="tabbed"
     copyable
@@ -296,6 +307,50 @@
     ]}
 />
 
+<div data-summary="api" data-summary-label={trans?.doc.api ?? "API"}>
+    <Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
+</div>
+
+<h4 class="api-subtitle">Selector</h4>
+<DataTable
+    variant="ghost" palette="tone" size="sm"
+    columns={[
+        { key: "prop", label: "Prop" },
+        { key: "type", label: "Type", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell },
+    ]}
+    rows={[
+        { prop: "label", type: "string", default: "\u2014" },
+        { prop: "palette", type: '"accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info"', default: '"accent"' },
+        { prop: "variant", type: '"flat" | "outlined" | "ghost" | "textual"', default: '"outlined"' },
+        { prop: "size", type: '"sm" | "md" | "lg"', default: '"sm"' },
+        { prop: "rounded", type: "boolean", default: "true" },
+        { prop: "uppercase", type: "boolean", default: "false" },
+        { prop: "direction", type: '"row" | "column"', default: '"row"' },
+        { prop: "options", type: "readonly (T | OptionEntry)[]", default: "\u2014" },
+        { prop: "value", type: "T", default: "\u2014" },
+        { prop: "onchange", type: "(value: T) => void", default: "\u2014" },
+    ]}
+/>
+
+<h4 class="api-subtitle">ControlBar</h4>
+<DataTable
+    variant="ghost" palette="tone" size="sm"
+    columns={[
+        { key: "prop", label: "Prop" },
+        { key: "type", label: "Type", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell },
+    ]}
+    rows={[
+        { prop: "header", type: "Snippet", default: "\u2014" },
+        { prop: "children", type: "Snippet", default: "\u2014" },
+        { prop: "palette", type: '"accent" | "tone" | "accentbg"', default: "\u2014" },
+        { prop: "rounded", type: "boolean", default: "false" },
+        { prop: "bordered", type: "boolean", default: "true" },
+    ]}
+/>
+
+
 <style>
     .demo-label {
         font-size:  0.8rem;
@@ -342,5 +397,12 @@
         height: 12px;
         border-radius: 3px;
         flex-shrink: 0;
+    }
+
+    .api-subtitle {
+        font-size: 0.9rem;
+        font-weight: 700;
+        margin: 1rem 0 0.5rem;
+        color: var(--text-muted);
     }
 </style>

@@ -1,11 +1,12 @@
 <script lang="ts">
-    import Avatar from "../design-system/components/Avatar/avatar.svelte";
-    import Headline from "../design-system/components/Headline/Headline.svelte";
-    import CodeBlock from "../design-system/components/CodeBlock/CodeBlock.svelte";
-    import Selector from "../design-system/components/Selector/Selector.svelte";
-    import ControlBar from "../design-system/components/Selector/ControlBar.svelte";
+    import Avatar from "../../design-system/components/Avatar/avatar.svelte";
+    import Headline from "../../design-system/components/Headline/Headline.svelte";
+    import CodeBlock from "../../design-system/components/CodeBlock/CodeBlock.svelte";
+    import DataTable from "../../design-system/components/DataTable/DataTable.svelte";
+    import Selector from "../../design-system/components/Selector/Selector.svelte";
+    import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
     import type { Translation } from "$lib/types/translations";
-    import type { PlaceholdersType } from "./placeholders";
+    import type { PlaceholdersType } from "../placeholders";
 
     interface Props {
         trans: Translation | null;
@@ -31,8 +32,8 @@
 
     const status_prop = $derived(demo_status === "none" ? undefined : demo_status);
 
-    const vge_avatar = "assets/vge.jpeg";
-    const jc_avatar = "assets/jc.jpeg";
+    const vge_avatar = "../assets/vge.jpeg";
+    const jc_avatar = "../assets/jc.jpeg";
 
     // ── Interactive state ────────────────────────────────────────────────────
 
@@ -86,9 +87,13 @@
 />`;
 </script>
 
+{#snippet codeCell(value: string)}<code>{value}</code>{/snippet}
+
 <!-- ── Markup ─────────────────────────────────────────────────────────────── -->
 
-<Headline size="md" uppercase>{trans?.avatar.title}</Headline>
+<div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
+    <Headline size="md" uppercase>{trans?.avatar.title}</Headline>
+</div>
 
 <!-- Controls -->
 
@@ -135,6 +140,10 @@
 
 <!-- Status dots -->
 
+<div data-summary="status" data-summary-label={trans?.doc.avatar_dots}>
+    <Headline size="sm" uppercase muted>{trans?.doc.avatar_dots}</Headline>
+</div>
+
 <p class="demo-label">{@html trans?.avatar.sect_status}</p>
 <div class="row align-center">
     <div class="status-item">
@@ -156,6 +165,10 @@
 </div>
 
 <!-- Interactive -->
+
+<div data-summary="interactive" data-summary-label={trans?.doc.avatar_clickable}>
+    <Headline size="sm" uppercase muted>{trans?.doc.avatar_clickable}</Headline>
+</div>
 
 <p class="demo-label">{@html trans?.avatar.sect_interactive}</p>
 <div class="row align-center">
@@ -179,6 +192,9 @@
 </div>
 
 <!-- Code examples -->
+<div data-summary="usage" data-summary-label={trans?.doc.usage ?? "Usage"}>
+<Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
+</div>
 
 <CodeBlock
     variant="tabbed"
@@ -189,6 +205,29 @@
         { label: "label vs src", code: code_content, language: "Svelte" },
         { label: "Status", code: code_status,  language: "Svelte" },
         { label: "onclick", code: code_onclick, language: "Svelte" },
+    ]}
+/>
+
+<div data-summary="api" data-summary-label={trans?.doc.api ?? "API"}>
+<Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
+</div>
+
+<DataTable
+    variant="ghost" palette="tone" size="sm"
+    columns={[
+        { key: "prop", label: "Prop" },
+        { key: "type", label: "Type", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell },
+    ]}
+    rows={[
+        { prop: "size", type: '"xsm" | "sm" | "md" | "lg" | "xlg"', default: '"md"' },
+        { prop: "status", type: '"online" | "offline" | "absent" | "do-not-disturb"', default: "undefined" },
+        { prop: "palette", type: '"accent" | "tone"', default: '"accent"' },
+        { prop: "circular", type: "boolean", default: "false" },
+        { prop: "src", type: "string", default: "undefined" },
+        { prop: "alt", type: "string", default: '""' },
+        { prop: "label", type: "string", default: "undefined" },
+        { prop: "onclick", type: "() => void", default: "undefined" },
     ]}
 />
 

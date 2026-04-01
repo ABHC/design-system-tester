@@ -1,11 +1,12 @@
 <script lang="ts">
     import type { Translation } from "$lib/types/translations";
-    import type { PlaceholdersType } from "./placeholders";
-    import Headline from "../design-system/components/Headline/Headline.svelte";
-    import ListItem from "../design-system/components/ListItem/ListItem.svelte";
-    import CodeBlock from "../design-system/components/CodeBlock/CodeBlock.svelte";
-    import Selector from "../design-system/components/Selector/Selector.svelte";
-    import ControlBar from "../design-system/components/Selector/ControlBar.svelte";
+    import type { PlaceholdersType } from "../placeholders";
+    import Headline from "../../design-system/components/Headline/Headline.svelte";
+    import ListItem from "../../design-system/components/ListItem/ListItem.svelte";
+    import CodeBlock from "../../design-system/components/CodeBlock/CodeBlock.svelte";
+    import Selector from "../../design-system/components/Selector/Selector.svelte";
+    import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
+    import DataTable from "../../design-system/components/DataTable/DataTable.svelte";
 
     interface Props {
         trans: Translation | null;
@@ -70,7 +71,10 @@
 />
 
 <!-- ListItems in a Drawer automatically take the value ghost -->
-<Sidebar palette="accent" items={navItems} />`;
+<Drawer palette="accent">
+    <ListItem supporting_text={{ main: "Dashboard" }} palette="ghost" />
+    <ListItem supporting_text={{ main: "Settings" }} palette="ghost" />
+</Drawer>`;
 
     const code_contextual = `<!-- Contextual palettes — action menus, status lists -->
 <ListItem
@@ -127,6 +131,8 @@
 />`;
 </script>
 
+{#snippet codeCell(value: string)}<code>{value}</code>{/snippet}
+
 <!-- ── Icon snippets ──────────────────────────────────────────────────────── -->
 
 {#snippet icon_train()}
@@ -156,9 +162,9 @@
 
 <!-- ── Markup ─────────────────────────────────────────────────────────────── -->
 
-<Headline size="md" uppercase>
-    {trans?.list_items?.title ?? "List Items"}
-</Headline>
+<div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
+    <Headline size="md" uppercase>{trans?.list_items?.title ?? "List Items"}</Headline>
+</div>
 
 <!-- Controls -->
 
@@ -271,6 +277,9 @@
 
 <!-- Code examples -->
 
+<div data-summary="usage" data-summary-label={trans?.doc.usage ?? "Usage"}>
+<Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
+</div>
 <CodeBlock
     variant="tabbed"
     copyable
@@ -283,6 +292,29 @@
         { label: "static", code: code_static, language: "Svelte" },
     ]}
 />
+
+
+<div data-summary="api" data-summary-label={trans?.doc.api ?? "API"}>
+<Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
+<DataTable
+    variant="ghost" palette="tone" size="sm"
+    columns={[
+        { key: "prop", label: "Prop" },
+        { key: "type", label: "Type", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell },
+    ]}
+    rows={[
+        { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"' },
+        { prop: "palette", type: '"tone" | "accent" | "ghost" | "neutral" | "error" | "warning" | "success" | "info"', default: '"tone"' },
+        { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
+        { prop: "rounded", type: "boolean", default: "false" },
+        { prop: "active", type: "boolean", default: "false" },
+        { prop: "leading", type: "Snippet", default: "\u2014" },
+        { prop: "supporting_text", type: "SupportingText", default: "\u2014" },
+        { prop: "onclick", type: "() => void", default: "\u2014" },
+    ]}
+/>
+</div>
 
 <style>
     .list-preview {

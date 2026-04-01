@@ -1,16 +1,17 @@
 <script lang="ts">
     import type { Translation } from "$lib/types/translations";
-    import type { PlaceholdersType } from "./placeholders";
-    import type { CommandItem, CommandGroup } from "../design-system/components/Command/command.config";
+    import type { PlaceholdersType } from "../placeholders";
+    import type { CommandItem, CommandGroup } from "../../design-system/components/Command/command.config";
 
-    import Headline from "../design-system/components/Headline/Headline.svelte";
-    import Command from "../design-system/components/Command/Command.svelte";
-    import Button from "../design-system/components/Button/Button.svelte";
-    import Badge from "../design-system/components/Badge/Badge.svelte";
-    import Card from "../design-system/components/Card/Card.svelte";
-    import CodeBlock from "../design-system/components/CodeBlock/CodeBlock.svelte";
-    import Selector from "../design-system/components/Selector/Selector.svelte";
-    import ControlBar from "../design-system/components/Selector/ControlBar.svelte";
+    import Headline from "../../design-system/components/Headline/Headline.svelte";
+    import Command from "../../design-system/components/Command/Command.svelte";
+    import Button from "../../design-system/components/Button/Button.svelte";
+    import Badge from "../../design-system/components/Badge/Badge.svelte";
+    import Card from "../../design-system/components/Card/Card.svelte";
+    import CodeBlock from "../../design-system/components/CodeBlock/CodeBlock.svelte";
+    import Selector from "../../design-system/components/Selector/Selector.svelte";
+    import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
+    import DataTable from "../../design-system/components/DataTable/DataTable.svelte";
 
     interface Props {
         trans: Translation | null;
@@ -44,7 +45,7 @@
         { id: "find", label: ph.items.find, hint: "Ctrl+F", group: "edit", keywords: ["search"] },
         { id: "replace", label: ph.items.replace, hint: "Ctrl+H", group: "edit" },
         { id: "theme", label: ph.items.theme, group: "view", keywords: ["dark", "light", "mode"] },
-        { id: "sidebar", label: ph.items.sidebar, hint: "Ctrl+B", group: "view" },
+        { id: "drawer", label: ph.items.drawer, hint: "Ctrl+B", group: "view" },
         { id: "terminal", label: ph.items.terminal, hint: "Ctrl+`", group: "view" },
         { id: "zoom-in", label: ph.items.zoom_in, hint: "Ctrl++", group: "view" },
         { id: "zoom-out", label: ph.items.zoom_out, hint: "Ctrl+-", group: "view" },
@@ -148,9 +149,13 @@
 />`;
 </script>
 
+{#snippet codeCell(value: string)}<code>{value}</code>{/snippet}
+
 <!-- ── Markup ────────────────────────────────────────────────────────────── -->
 
-<Headline size="md" uppercase>{trans?.command.title}</Headline>
+<div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
+    <Headline size="md" uppercase>{trans?.command.title}</Headline>
+</div>
 
 <ControlBar palette="tone" rounded>
     <Selector
@@ -309,6 +314,9 @@
 
 <!-- Code examples -->
 
+<div data-summary="usage" data-summary-label={trans?.doc.usage ?? "Usage"}>
+<Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
+</div>
 <CodeBlock
     variant="tabbed"
     copyable
@@ -318,6 +326,34 @@
         { label: "flat", code: code_flat, language: "Svelte" },
     ]}
 />
+
+
+<div data-summary="api" data-summary-label={trans?.doc.api ?? "API"}>
+<Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
+<DataTable
+    variant="ghost" palette="tone" size="sm"
+    columns={[
+        { key: "prop", label: "Prop" },
+        { key: "type", label: "Type", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell },
+    ]}
+    rows={[
+        { prop: "open", type: "boolean", default: "false" },
+        { prop: "items", type: "CommandItem[]", default: "\u2014" },
+        { prop: "groups", type: "CommandGroup[]", default: "[]" },
+        { prop: "placeholder", type: "string", default: '"Search..."' },
+        { prop: "empty_placeholder", type: "string", default: '"No results"' },
+        { prop: "onselect", type: "(item: CommandItem) => void", default: "\u2014" },
+        { prop: "onclose", type: "() => void", default: "\u2014" },
+        { prop: "item", type: "Snippet<[CommandItem]>", default: "\u2014" },
+        { prop: "empty", type: "Snippet", default: "\u2014" },
+        { prop: "palette", type: "CommandPalette", default: '"tone"' },
+        { prop: "rounded", type: "boolean", default: "true" },
+        { prop: "elevation", type: "CommandElevation", default: '"subtle"' },
+        { prop: "width", type: "string", default: '"560px"' },
+    ]}
+/>
+</div>
 
 <style>
     .demo-grid {

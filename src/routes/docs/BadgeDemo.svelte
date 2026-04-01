@@ -1,12 +1,13 @@
 <script lang="ts">
     import type { Translation } from "$lib/types/translations";
-    import type { PlaceholdersType } from "./placeholders";
-    import Badge from "../design-system/components/Badge/Badge.svelte";
-    import BadgeGroup from "../design-system/components/Badge/BadgeGroup.svelte";
-    import Headline from "../design-system/components/Headline/Headline.svelte";
-    import CodeBlock from "../design-system/components/CodeBlock/CodeBlock.svelte";
-    import Selector from "../design-system/components/Selector/Selector.svelte";
-    import ControlBar from "../design-system/components/Selector/ControlBar.svelte";
+    import type { PlaceholdersType } from "../placeholders";
+    import Badge from "../../design-system/components/Badge/Badge.svelte";
+    import BadgeGroup from "../../design-system/components/Badge/BadgeGroup.svelte";
+    import Headline from "../../design-system/components/Headline/Headline.svelte";
+    import CodeBlock from "../../design-system/components/CodeBlock/CodeBlock.svelte";
+    import DataTable from "../../design-system/components/DataTable/DataTable.svelte";
+    import Selector from "../../design-system/components/Selector/Selector.svelte";
+    import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
 
     interface Props {
         trans: Translation | null;
@@ -146,6 +147,8 @@
 />`;
 </script>
 
+{#snippet codeCell(value: string)}<code>{value}</code>{/snippet}
+
 <!-- ── Utils Snippets ────────────────────────────────────────────────────── -->
 
 {#snippet icon_close()}
@@ -174,7 +177,9 @@
 
 <!-- ── Markup ─────────────────────────────────────────────────────────────── -->
 
-<Headline size="md" uppercase>{trans?.badges.title}</Headline>
+<div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
+    <Headline size="md" uppercase>{trans?.badges.title}</Headline>
+</div>
 
 <!-- Controls -->
 
@@ -455,6 +460,9 @@
 
 <!-- Code examples -->
 
+<div data-summary="usage" data-summary-label={trans?.doc.usage ?? "Usage"}>
+<Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
+</div>
 <CodeBlock
     variant="tabbed"
     copyable
@@ -466,6 +474,57 @@
         { label: "BadgeGroup",  code: code_group,       language: "Svelte" },
     ]}
 />
+
+
+<div data-summary="api" data-summary-label={trans?.doc.api ?? "API"}>
+<Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
+
+<h4 class="api-subtitle">Badge</h4>
+<DataTable
+    variant="ghost" palette="tone" size="sm"
+    columns={[
+        { key: "prop", label: "Prop" },
+        { key: "type", label: "Type", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell },
+    ]}
+    rows={[
+        { prop: "variant", type: '"flat" | "outlined"', default: '"flat"' },
+        { prop: "palette", type: '"accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info"', default: '"accent"' },
+        { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"' },
+        { prop: "uppercase", type: "boolean", default: "false" },
+        { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
+        { prop: "pill", type: "boolean", default: "true" },
+        { prop: "href", type: "string", default: "undefined" },
+        { prop: "onclick", type: "() => void", default: "undefined" },
+        { prop: "selected", type: "boolean", default: "false" },
+        { prop: "trailing_icon", type: "Snippet", default: "undefined" },
+        { prop: "on_trailing_click", type: "() => void", default: "undefined" },
+        { prop: "trailing_icon_label", type: "string", default: "undefined" },
+        { prop: "children", type: "Snippet", default: "\u2014" },
+    ]}
+/>
+
+<h4 class="api-subtitle">BadgeGroup</h4>
+<DataTable
+    variant="ghost" palette="tone" size="sm"
+    columns={[
+        { key: "prop", label: "Prop" },
+        { key: "type", label: "Type", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell },
+    ]}
+    rows={[
+        { prop: "badges", type: "BadgeItem[]", default: "\u2014" },
+        { prop: "selected", type: "string[]", default: "[]" },
+        { prop: "multiple", type: "boolean", default: "true" },
+        { prop: "variant", type: '"flat" | "outlined"', default: '"flat"' },
+        { prop: "palette", type: '"accent" | "tone" | "error" | "warning" | "success" | "info" | "neutral"', default: '"accent"' },
+        { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"' },
+        { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
+        { prop: "pill", type: "boolean", default: "true" },
+        { prop: "gap", type: "string", default: '"0.5rem"' },
+    ]}
+/>
+</div>
 
 <style>
     .badge-preview {
@@ -510,11 +569,6 @@
         font-size: 0.9em;
     }
 
-    .badge-icon {
-        font-size: 1em;
-        line-height: 1;
-    }
-
     .click-result {
         font-size: 0.8rem;
         color: var(--text-muted);
@@ -525,5 +579,12 @@
         font-size: 0.85rem;
         color: var(--text-muted);
         font-style: italic;
+    }
+
+    .api-subtitle {
+        font-size: 0.9rem;
+        font-weight: 700;
+        margin: 1rem 0 0.5rem;
+        color: var(--text-muted);
     }
 </style>

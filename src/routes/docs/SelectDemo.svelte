@@ -1,12 +1,13 @@
 <script lang="ts">
     import type { Translation } from "$lib/types/translations";
-    import type { PlaceholdersType } from "./placeholders";
-    import Headline from "../design-system/components/Headline/Headline.svelte";
-    import Select from "../design-system/components/Select/Select.svelte";
-    import Card from "../design-system/components/Card/Card.svelte";
-    import CodeBlock from "../design-system/components/CodeBlock/CodeBlock.svelte";
-    import Selector from "../design-system/components/Selector/Selector.svelte";
-    import ControlBar from "../design-system/components/Selector/ControlBar.svelte";
+    import type { PlaceholdersType } from "../placeholders";
+    import Headline from "../../design-system/components/Headline/Headline.svelte";
+    import Select from "../../design-system/components/Select/Select.svelte";
+    import Card from "../../design-system/components/Card/Card.svelte";
+    import CodeBlock from "../../design-system/components/CodeBlock/CodeBlock.svelte";
+    import DataTable from "../../design-system/components/DataTable/DataTable.svelte";
+    import Selector from "../../design-system/components/Selector/Selector.svelte";
+    import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
 
     interface Props {
         trans: Translation | null;
@@ -104,9 +105,13 @@
 />`;
 </script>
 
+{#snippet codeCell(value: string)}<code>{value}</code>{/snippet}
+
 <!-- ── Markup ────────────────────────────────────────────────────────────── -->
 
-<Headline size="md" uppercase>{trans?.select.title}</Headline>
+<div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
+    <Headline size="md" uppercase>{trans?.select.title}</Headline>
+</div>
 
 <ControlBar palette="tone" rounded>
     <Selector
@@ -277,6 +282,9 @@
 
 <!-- States reference -->
 
+<div data-summary="states" data-summary-label={trans?.doc.states ?? "States"}>
+<Headline size="sm" uppercase muted>{trans?.doc.states ?? "States"}</Headline>
+</div>
 <div class="states-preview">
     <span class="section-label">Select states</span>
 
@@ -362,6 +370,9 @@
 
 <!-- Code examples -->
 
+<div data-summary="usage" data-summary-label={trans?.doc.usage ?? "Usage"}>
+<Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
+</div>
 <CodeBlock
     variant="tabbed"
     copyable
@@ -372,6 +383,41 @@
         { label: "validation", code: code_validation, language: "Svelte" },
     ]}
 />
+
+
+<div data-summary="api" data-summary-label={trans?.doc.api ?? "API"}>
+<Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
+<DataTable
+    variant="ghost" palette="tone" size="sm"
+    columns={[
+        { key: "prop", label: "Prop" },
+        { key: "type", label: "Type", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell },
+    ]}
+    rows={[
+        { prop: "value", type: "T", default: "\u2014" },
+        { prop: "options", type: "readonly (T | OptionEntry)[]", default: "\u2014" },
+        { prop: "placeholder", type: "string", default: '"Select an option"' },
+        { prop: "label", type: "string", default: "\u2014" },
+        { prop: "hint", type: "string", default: "\u2014" },
+        { prop: "error", type: "string", default: "\u2014" },
+        { prop: "success", type: "string", default: "\u2014" },
+        { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"' },
+        { prop: "disabled", type: "boolean", default: "false" },
+        { prop: "required", type: "boolean", default: "false" },
+        { prop: "searchable", type: "boolean", default: "false" },
+        { prop: "searchPlaceholder", type: "string", default: '"Search..."' },
+        { prop: "name", type: "string", default: "\u2014" },
+        { prop: "id", type: "string", default: "\u2014" },
+        { prop: "onchange", type: "(value: T) => void", default: "\u2014" },
+        { prop: "header", type: "Snippet", default: "\u2014" },
+        { prop: "footer", type: "Snippet", default: "\u2014" },
+        { prop: "palette", type: "PopoverPalette", default: '"tone"' },
+        { prop: "rounded", type: "boolean", default: "false" },
+        { prop: "elevation", type: "PopoverElevation", default: '"none"' },
+    ]}
+/>
+</div>
 
 <style>
     .select-demo-grid {

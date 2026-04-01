@@ -1,11 +1,12 @@
 <script lang="ts">
     import type { Translation } from "$lib/types/translations";
-    import type { PlaceholdersType } from "./placeholders";
+    import type { PlaceholdersType } from "../placeholders";
 
-    import Headline from "../design-system/components/Headline/Headline.svelte";
-    import Callout from "../design-system/components/Callout/Callout.svelte";
-    import Alert from "../design-system/components/Alert/Alert.svelte";
-    import CodeBlock from "../design-system/components/CodeBlock/CodeBlock.svelte";
+    import Headline from "../../design-system/components/Headline/Headline.svelte";
+    import Callout from "../../design-system/components/Callout/Callout.svelte";
+    import Alert from "../../design-system/components/Alert/Alert.svelte";
+    import CodeBlock from "../../design-system/components/CodeBlock/CodeBlock.svelte";
+    import DataTable from "../../design-system/components/DataTable/DataTable.svelte";
 
     interface Props {
         trans: Translation | null;
@@ -70,6 +71,8 @@
 </Alert>`;
 
 </script>
+
+{#snippet codeCell(value: string)}<code>{value}</code>{/snippet}
 
 <!-- Live alerts (fixed in viewport) ───────────────────────────────────── -->
 
@@ -146,7 +149,9 @@
 
 <!-- Headline ──────────────────────────────────────────────────────────── -->
 
-<Headline size="md" uppercase>{trans?.alerts.title}</Headline>
+<div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
+    <Headline size="md" uppercase>{trans?.alerts.title}</Headline>
+</div>
 
 <!-- Instruction callout ───────────────────────────────────────────────── -->
 
@@ -195,6 +200,10 @@
 
 <!-- Code examples ─────────────────────────────────────────────────────── -->
 
+<div data-summary="usage" data-summary-label={trans?.doc.usage ?? "Usage"}>
+<Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
+</div>
+
 <CodeBlock
     variant="tabbed"
     copyable
@@ -203,6 +212,34 @@
         { label: "success", code: code_success, language: "Svelte" },
         { label: "warning", code: code_warning, language: "Svelte" },
         { label: "error", code: code_error, language: "Svelte" },
+    ]}
+/>
+
+
+<div data-summary="api" data-summary-label={trans?.doc.api ?? "API"}>
+<Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
+</div>
+
+<DataTable
+    variant="ghost" palette="tone" size="sm"
+    columns={[
+        { key: "prop", label: "Prop" },
+        { key: "type", label: "Type", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell },
+    ]}
+    rows={[
+        { prop: "variant", type: '"neutral" | "info" | "success" | "warning" | "error"', default: '"info"' },
+        { prop: "position", type: '"top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right"', default: '"bottom-right"' },
+        { prop: "rounded", type: "boolean", default: "false" },
+        { prop: "animate", type: '"top" | "bottom" | "left" | "right" | false', default: "false" },
+        { prop: "duration", type: "number", default: "undefined" },
+        { prop: "dismissable", type: "boolean", default: "false" },
+        { prop: "dismiss_label", type: "string", default: "undefined" },
+        { prop: "style", type: "string", default: "\u2014" },
+        { prop: "leading", type: "Snippet", default: "\u2014" },
+        { prop: "children", type: "Snippet", default: "\u2014" },
+        { prop: "following", type: "Snippet", default: "\u2014" },
+        { prop: "ondismiss", type: "() => void", default: "\u2014" },
     ]}
 />
 

@@ -1,11 +1,12 @@
 <script lang="ts">
     import type { Translation } from "$lib/types/translations";
-    import type { PlaceholdersType } from "./placeholders";
-    import Headline from "../design-system/components/Headline/Headline.svelte";
-    import Nav from "../design-system/components/Nav/Nav.svelte";
-    import Selector from "../design-system/components/Selector/Selector.svelte";
-    import ControlBar from "../design-system/components/Selector/ControlBar.svelte";
-    import CodeBlock from "../design-system/components/CodeBlock/CodeBlock.svelte";
+    import type { PlaceholdersType } from "../placeholders";
+    import Headline from "../../design-system/components/Headline/Headline.svelte";
+    import Nav from "../../design-system/components/Nav/Nav.svelte";
+    import Selector from "../../design-system/components/Selector/Selector.svelte";
+    import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
+    import CodeBlock from "../../design-system/components/CodeBlock/CodeBlock.svelte";
+    import DataTable from "../../design-system/components/DataTable/DataTable.svelte";
 
     // Props ────────────────────────────────────────────────────────────────
 
@@ -135,6 +136,8 @@
 
 <!-- Icon Snippets — agnostic to icon system: Material Symbols here, but can be
      any SVG, Simple Icons, img, or custom markup. -->
+{#snippet codeCell(value: string)}<code>{value}</code>{/snippet}
+
 {#snippet icon1()}
     <span class="material-symbols-outlined">train</span>
 {/snippet}
@@ -148,9 +151,9 @@
     <span class="material-symbols-outlined">Monitor</span>
 {/snippet}
 
-<Headline size="md" uppercase>
-    {trans?.nav?.title}
-</Headline>
+<div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
+    <Headline size="md" uppercase>{trans?.nav?.title}</Headline>
+</div>
 
 <!-- Interactive controls -->
 <ControlBar palette="tone" rounded>
@@ -264,6 +267,10 @@
 </div>
 
 <!-- ── Code examples ──────────────────────────────────────────────────────── -->
+
+<div data-summary="usage" data-summary-label={trans?.doc.usage ?? "Usage"}>
+<Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
+</div>
 <CodeBlock
     variant="tabbed"
     copyable
@@ -290,6 +297,31 @@
         },
     ]}
 />
+
+
+<div data-summary="api" data-summary-label={trans?.doc.api ?? "API"}>
+<Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
+<DataTable
+    variant="ghost" palette="tone" size="sm"
+    columns={[
+        { key: "prop", label: "Prop" },
+        { key: "type", label: "Type", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell },
+    ]}
+    rows={[
+        { prop: "position", type: '"fixed" | "floating"', default: '"fixed"' },
+        { prop: "direction", type: '"top" | "bottom" | "left" | "right"', default: '"left"' },
+        { prop: "palette", type: '"accent" | "tone"', default: '"accent"' },
+        { prop: "items", type: "NavItem[]", default: "\u2014" },
+        { prop: "rounded", type: "boolean", default: "false" },
+        { prop: "directionBtn", type: '"row" | "column"', default: '"row"' },
+        { prop: "roundedBtn", type: "boolean", default: "false" },
+        { prop: "offset", type: "string", default: '"0px"' },
+        { prop: "header", type: "Snippet", default: "\u2014" },
+        { prop: "footer", type: "Snippet", default: "\u2014" },
+    ]}
+/>
+</div>
 
 <style>
     /* ── Preview grid ─────────────────────────────────────────────────────── */

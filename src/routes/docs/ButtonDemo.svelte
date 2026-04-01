@@ -1,12 +1,15 @@
 <script lang="ts">
     import type { Translation } from "$lib/types/translations";
-    import type { PlaceholdersType } from "./placeholders";
-    import Headline from "../design-system/components/Headline/Headline.svelte";
-    import Button from "../design-system/components/Button/Button.svelte";
-    import BackToTop from "../design-system/components/Button/BackToTop.svelte";
-    import CodeBlock from "../design-system/components/CodeBlock/CodeBlock.svelte";
-    import Selector from "../design-system/components/Selector/Selector.svelte";
-    import ControlBar from "../design-system/components/Selector/ControlBar.svelte";
+    import type { PlaceholdersType } from "../placeholders";
+    import Headline from "../../design-system/components/Headline/Headline.svelte";
+    import Button from "../../design-system/components/Button/Button.svelte";
+    import DataTable from "../../design-system/components/DataTable/DataTable.svelte";
+    import BackToTop from "../../design-system/components/Button/BackToTop.svelte";
+    import CodeBlock from "../../design-system/components/CodeBlock/CodeBlock.svelte";
+    import Selector from "../../design-system/components/Selector/Selector.svelte";
+    import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
+	import ModeToggle from "../../design-system/components/Button/ModeToggle.svelte";
+    import CopyButton from "../../design-system/components/Button/CopyButton.svelte";
 
     interface Props {
         trans: Translation | null;
@@ -112,11 +115,13 @@
 <BackToTop palette="accent" variant="outlined" />`;
 </script>
 
+{#snippet codeCell(value: string)}<code>{value}</code>{/snippet}
+
 <!-- ── Markup ─────────────────────────────────────────────────────────────── -->
 
-<Headline size="md" uppercase>
-    {trans?.buttons.title}
-</Headline>
+<div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
+    <Headline size="md" uppercase>{trans?.buttons.title}</Headline>
+</div>
 
 <!-- Controls -->
 
@@ -255,7 +260,71 @@
     </div>
 </div>
 
+<!-- BackToTop ────────────────────────────────────────────────────────────────── -->
+
+<div data-summary="back-to-top" data-summary-label={trans?.doc.back_to_top ?? "BackToTop"}>
+    <Headline size="sm" uppercase muted>{trans?.doc.back_to_top ?? "BackToTop"}</Headline>
+</div>
+
+<p class="demo-label">{trans?.buttons.back_to_top1} — <code>BackToTop</code></p>
+<p class="demo-label">{trans?.buttons.back_to_top2}</p>
+
+<div class="btt-preview">
+    <BackToTop palette="accent" elevation="hard" animate="top" />
+    <BackToTop palette="accent" elevation="hard" animate="top" rounded />
+    <BackToTop palette="tone" elevation="subtle" animate="top" />
+    <BackToTop palette="tone" elevation="subtle" animate="top" rounded />
+    <BackToTop palette="accent" variant="outlined" />
+    <BackToTop palette="tone" variant="outlined" />
+    <BackToTop palette="neutral" variant="flat" />
+    <BackToTop palette="neutral" variant="outlined" />
+</div>
+
+<!-- ModeToogle ────────────────────────────────────────────────────────────────── -->
+
+<div data-summary="mode-toggle" data-summary-label={trans?.doc.ModeToggle}>
+    <Headline size="sm" uppercase muted>{trans?.doc.ModeToggle}</Headline>
+</div>
+
+<p class="demo-label">{trans?.buttons.back_to_top1} — <code>BackToTop</code></p>
+<p class="demo-label">{trans?.buttons.back_to_top2}</p>
+
+<div class="btt-preview">
+    <ModeToggle palette="accent" elevation="hard" animate="top" />
+    <ModeToggle palette="accent" elevation="hard" animate="top" rounded />
+    <ModeToggle palette="tone" elevation="subtle" animate="top" />
+    <ModeToggle palette="tone" elevation="subtle" animate="top" rounded />
+    <ModeToggle palette="accent" variant="outlined" />
+    <ModeToggle palette="tone" variant="outlined" />
+    <ModeToggle palette="neutral" variant="flat" />
+    <ModeToggle palette="neutral" variant="outlined" />
+</div>
+
+<!-- CopyButton ────────────────────────────────────────────────────────────────── -->
+
+<div data-summary="copy-button" data-summary-label={trans?.doc.CopyButton}>
+    <Headline size="sm" uppercase muted>{trans?.doc.CopyButton}</Headline>
+</div>
+
+<p class="demo-label">{trans?.buttons.back_to_top1} — <code>BackToTop</code></p>
+<p class="demo-label">{trans?.buttons.back_to_top2}</p>
+
+<div class="btt-preview">
+    <CopyButton palette="accent" rounded />
+    <CopyButton palette="tone" size="md" />
+    <CopyButton palette="neutral" size="lg" rounded/>
+    <CopyButton palette="info" size="lg"/>
+    <CopyButton variant="outlined" palette="accent" rounded />
+    <CopyButton variant="outlined" palette="tone" size="md" />
+    <CopyButton variant="outlined" palette="neutral" size="lg" rounded/>
+    <CopyButton variant="outlined" palette="info" size="lg"/>
+</div>
+
 <!-- Code examples -->
+
+<div data-summary="usage" data-summary-label={trans?.doc.usage ?? "Usage"}>
+    <Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
+</div>
 
 <CodeBlock
     variant="tabbed"
@@ -309,19 +378,33 @@
     ]}
 />
 
-<!-- BackToTop -->
-
-<p class="demo-label">{trans?.buttons.back_to_top1} — <code>BackToTop</code></p>
-<p class="demo-label">{trans?.buttons.back_to_top2}</p>
-
-<div class="btt-preview">
-    <BackToTop palette="accent" elevation="hard" animate="top" />
-    <BackToTop palette="accent" elevation="hard" animate="top" rounded />
-    <BackToTop palette="tone" elevation="subtle" animate="top" />
-    <BackToTop palette="tone" elevation="subtle" animate="top" rounded />
-    <BackToTop palette="accent" variant="outlined" />
-    <BackToTop palette="tone" variant="outlined" />
+<!-- API ────────────────────────────────────────────────────────────────── -->
+<div data-summary="api" data-summary-label={trans?.doc.api ?? "API"}>
+    <Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
 </div>
+
+<DataTable
+    variant="ghost" palette="tone" size="sm"
+    columns={[
+        { key: "prop", label: "Prop" },
+        { key: "type", label: "Type", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell },
+    ]}
+    rows={[
+        { prop: "variant", type: '"flat" | "outlined" | "ghost" | "textual"', default: '"flat"' },
+        { prop: "palette", type: '"accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info"', default: '"accent"' },
+        { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"' },
+        { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
+        { prop: "uppercase", type: "boolean", default: "false" },
+        { prop: "animate", type: '"left" | "right" | "top" | "bottom"', default: "undefined" },
+        { prop: "active", type: "boolean", default: "false" },
+        { prop: "rounded", type: "boolean", default: "false" },
+        { prop: "direction", type: '"row" | "column"', default: '"row"' },
+        { prop: "aria_label", type: "string", default: "undefined" },
+        { prop: "onclick", type: "() => void", default: "undefined" },
+        { prop: "children", type: "Snippet", default: "\u2014" },
+    ]}
+/>
 
 <style>
     .btn-preview {
@@ -350,7 +433,8 @@
     }
 
     /* Force static display for demo */
-    .btt-preview :global(.btt-wrapper) {
+    .btt-preview :global(.btt-wrapper),
+    .btt-preview :global(.bmt-wrapper) {
         position: static;
         opacity: 1;
         pointer-events: auto;
