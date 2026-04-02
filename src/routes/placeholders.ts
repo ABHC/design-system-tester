@@ -379,6 +379,13 @@ export const placeholders = {
             sect_validation: "États de validation",
             sect_states: "États du Select",
         },
+        popover: {
+            open: "Ouvrir",
+            close: "Fermer",
+            match: "S'étend pour atteindre la largeur de l'ancre",
+            settings: "Options",
+            profile: "Profil"
+        },
         command: {
             groups: {
                 file: "Fichier",
@@ -849,6 +856,13 @@ export const placeholders = {
             sect_slots: "Header & Footer slots",
             sect_validation: "Validation states",
             sect_states: "Select states",
+        },
+        popover: {
+            open: "Open",
+            close: "Close",
+            match: "Stretches to trigger width",
+            settings: "Settings",
+            profile: "Profile"
         },
         command: {
             groups: {

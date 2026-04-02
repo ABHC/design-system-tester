@@ -3,6 +3,9 @@
     import type { PlaceholdersType } from "../placeholders";
     import Headline from "../../design-system/components/Headline/Headline.svelte";
     import Nav from "../../design-system/components/Nav/Nav.svelte";
+    import Button from "../../design-system/components/Button/Button.svelte";
+    import Badge from "../../design-system/components/Badge/Badge.svelte";
+    import Switch from "../../design-system/components/Switch/Switch.svelte";
     import Selector from "../../design-system/components/Selector/Selector.svelte";
     import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
     import CodeBlock from "../../design-system/components/CodeBlock/CodeBlock.svelte";
@@ -22,134 +25,104 @@
     type Direction = "top" | "bottom" | "left" | "right";
     type Palette = "accent" | "tone";
     type Position = "fixed" | "floating";
-    type DirectionBtn = "row" | "column";
 
     let demo_direction: Direction = $state("left");
     let demo_palette: Palette = $state("accent");
     let demo_position: Position = $state("floating");
     let demo_rounded: boolean = $state(true);
-    let demo_squared: boolean = $state(true);
-    let demo_directionBtn: DirectionBtn = $state("column");
-    let demo_roundedBtn: boolean = $state(true);
 
     // Active item tracking
     let active_index = $state(0);
 
-    // Labels ─────────────────────────────────────────────────────────
+    // Labels
     const label1 = $derived(placeholders.navigation.label1);
     const label2 = $derived(placeholders.navigation.label2);
     const label3 = $derived(placeholders.navigation.label3);
     const label4 = $derived(placeholders.navigation.label4);
 
+    // Preset selector
+    type Preset = "row" | "column" | "rounded" | "mixed";
+    let demo_preset: Preset = $state("row");
+
+    // Switch state for mixed preset
+    let switch_on = $state(false);
+
     // Code examples ─────────────────────────────────────────────────────────
 
-    const usage_basic = `<!-- Floating side nav — core usage pattern -->
-{#snippet icon_design()}
-    <span class="material-symbols-outlined">design_services</span>
-{/snippet}
-{#snippet icon_code()}
-    <span class="material-symbols-outlined">code</span>
-{/snippet}
+    const usage_basic = `<!-- Floating side nav with Button children -->
+<Nav position="floating" direction="left" palette="accent" rounded>
+    <Button variant="ghost" palette="accent" direction="row"
+        active onclick={() => {}}>
+        <span class="material-symbols-outlined">design_services</span>
+        Design
+    </Button>
+    <Button variant="ghost" palette="accent" direction="row"
+        onclick={() => {}}>
+        <span class="material-symbols-outlined">code</span>
+        Code
+    </Button>
+</Nav>`;
 
-<Nav
-    position="floating"
-    direction="left"
-    palette="accent"
-    rounded
-    squared
-    items={[
-        { icon: icon_design, label: "Design", active: true, onclick: () => {} },
-        { icon: icon_code,   label: "Code",   onclick: () => {} },
-    ]}
-/>`;
+    const usage_rounded = `<!-- Rounded buttons in a top bar -->
+<Nav position="floating" direction="top" palette="tone">
+    <Button variant="ghost" palette="tone" rounded direction="column"
+        active onclick={() => {}}>
+        <span class="material-symbols-outlined">home</span>
+        Home
+    </Button>
+    <Button variant="ghost" palette="tone" rounded direction="column"
+        onclick={() => {}}>
+        <span class="material-symbols-outlined">settings</span>
+        Settings
+    </Button>
+</Nav>`;
 
-    const usage_offset = `<!-- Fixed top bar sitting below a header via offset -->
-<!-- offset shifts the nav away from its anchor edge    -->
-<header style="height: 64px">…</header>
-
-<Nav
-    position="fixed"
-    direction="top"
-    palette="tone"
-    offset="64px"
-    items={navItems}
-/>`;
-
-    const usage_header_footer = `<!-- Logo in header slot, language selector in footer slot -->
-<!-- Snippets are passed as props — no child slot syntax  -->
-{#snippet logo_snippet()}
+    const usage_header_footer = `<!-- Header, footer, and free composition -->
+{#snippet logo()}
     <Logo size={32} />
 {/snippet}
 
 {#snippet lang_select()}
     <select bind:value={locale}>
-        <option value="en">🇬🇧 EN</option>
-        <option value="fr">🇫🇷 FR</option>
+        <option value="en">EN</option>
+        <option value="fr">FR</option>
     </select>
 {/snippet}
 
-<Nav
-    position="floating"
-    direction="left"
-    palette="accent"
-    header={logo_snippet}
-    footer={lang_select}
-    items={navItems}
-/>`;
+<Nav position="floating" direction="left" palette="accent"
+    header={logo} footer={lang_select}>
+    <Button variant="ghost" palette="accent" rounded
+        onclick={() => {}}>
+        <span class="material-symbols-outlined">colors</span>
+        Theme
+    </Button>
+    <Button variant="ghost" palette="accent" rounded
+        onclick={() => {}}>
+        <span class="material-symbols-outlined">brand_family</span>
+        Fonts
+    </Button>
+</Nav>`;
 
-    const usage_scroll_aware = `<!-- Logo appears in the nav once the page header scrolls out of view -->
-
-<!-- In your layout script block: ─────────────────────────────
-    let headerEl;
-    let headerVisible = $state(true);
-
-    onMount(() => {
-        const obs = new IntersectionObserver(
-            ([e]) => { headerVisible = e.isIntersecting; },
-            { threshold: 0 }
-        );
-        obs.observe(headerEl);
-        return () => obs.disconnect();
-    });
-────────────────────────────────────────────────────────────── -->
-
-{#snippet logo_in_nav()}
-    <Logo size={32} />
-{/snippet}
-
-<header bind:this={headerEl}>…</header>
-
-<Nav
-    position="floating"
-    direction="top"
-    palette="tone"
-    header={headerVisible ? undefined : logo_in_nav}
-    items={navItems}
-/>`;
+    const usage_mixed = `<!-- Mix any component — not limited to Button -->
+<Nav position="floating" direction="left" palette="tone" rounded>
+    <Button variant="ghost" palette="tone" direction="row"
+        onclick={() => {}}>
+        <span class="material-symbols-outlined">inbox</span>
+        Inbox
+        <Badge palette="accent" size="sm">3</Badge>
+    </Button>
+    <Switch palette="tone" bind:checked={dark}>
+        {#snippet trailing()}Dark mode{/snippet}
+    </Switch>
+    <Button variant="ghost" palette="tone" direction="row"
+        onclick={() => {}}>
+        <span class="material-symbols-outlined">settings</span>
+        Settings
+    </Button>
+</Nav>`;
 </script>
 
-<!-- Svelte 5 note on icon Snippets -----------------------------------------
-    Snippets are template-only constructs in Svelte 5. They cannot be defined
-    in <script> and then referenced in data arrays. The correct pattern is:
-    define {#snippet} blocks in the template, then pass them as NavItem.icon
-    directly in the Nav items prop — which is what we do below. -->
-
-<!-- Icon Snippets — agnostic to icon system: Material Symbols here, but can be
-     any SVG, Simple Icons, img, or custom markup. -->
 {#snippet codeCell(value: string)}<code>{value}</code>{/snippet}
-
-{#snippet icon1()}
-    <span class="material-symbols-outlined">train</span>
-{/snippet}
-{#snippet icon2()}
-    <span class="material-symbols-outlined">airlines</span>
-{/snippet}
-{#snippet icon3()}
-    <span class="material-symbols-outlined">rocket_launch</span>
-{/snippet}
-{#snippet icon4()}
-    <span class="material-symbols-outlined">Monitor</span>
-{/snippet}
 
 <div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
     <Headline size="md" uppercase>{trans?.nav?.title}</Headline>
@@ -157,57 +130,41 @@
 
 <!-- Interactive controls -->
 <ControlBar palette="tone" rounded>
-    <Selector 
-        label="Position" 
-        options={["floating", "fixed"]} 
-        bind:value={demo_position} 
+    <Selector
+        label="Preset"
+        options={[
+            { value: "row", label: "Row" },
+            { value: "column", label: "Column" },
+            { value: "rounded", label: "Rounded" },
+            { value: "mixed", label: "Mixed" },
+        ]}
+        bind:value={demo_preset}
     />
-    <Selector 
-        label="Direction" 
-        options={["top", "bottom", "left", "right"]} 
-        bind:value={demo_direction} 
+    <Selector
+        label="Position"
+        options={["floating", "fixed"]}
+        bind:value={demo_position}
     />
-    <Selector 
-        label="Palette"  
-        options={["accent", "tone"]} 
-        bind:value={demo_palette} 
+    <Selector
+        label="Direction"
+        options={["top", "bottom", "left", "right"]}
+        bind:value={demo_direction}
     />
-    <Selector 
-        label="Rounded"   
-        options={[{value: true, label: "yes"}, 
-        {value: false, label: "no"}]} 
-        bind:value={demo_rounded} 
+    <Selector
+        label="Palette"
+        options={["accent", "tone"]}
+        bind:value={demo_palette}
     />
-    <Selector 
-        label="Buttons Direction"   
-        options={["row", "column"]} 
-        bind:value={demo_directionBtn} 
-    />
-    <Selector 
-        label="Rounded Btn" 
-        options={[{value: true, label: "on"}, 
-        {value: false, label: "off"}]} 
-        bind:value={demo_roundedBtn} 
+    <Selector
+        label="Rounded"
+        options={[{value: true, label: "yes"},
+        {value: false, label: "no"}]}
+        bind:value={demo_rounded}
     />
 </ControlBar>
 
-<!-- Live preview — 5-area CSS Grid simulating a mini-viewport.
-
-    ┌─────────────────────┐
-    │         top         │
-    ├──────┬──────┬───────┤
-    │ left │ main │ right │
-    ├──────┴──────┴───────┤
-    │        bottom       │
-    └─────────────────────┘
-
-    The Nav is placed in a slot div that maps to the correct grid area
-    via class="nav-slot-{demo_direction}".
-    Always rendered as position="floating" (sticky) inside the preview
-    to prevent viewport bleed. A note explains the fixed behaviour. -->
+<!-- Live preview -->
 <div class="nav-preview">
-
-    <!-- Central mock content — always in the "main" grid area -->
     <div class="preview-main">
         <div class="mock-line"></div>
         <div class="mock-line short"></div>
@@ -216,57 +173,144 @@
         <div class="mock-line"></div>
     </div>
 
-    <!-- Nav positioned by direction via grid area class -->
     <div class="nav-slot nav-slot-{demo_direction}">
-        <!--
-            Icons passed as Snippets directly in the items prop.
-            This is the canonical Svelte 5 usage pattern.
-        -->
-        <Nav
-            position="floating"
-            direction={demo_direction}
-            palette={demo_palette}
-            rounded={demo_rounded}
-            directionBtn={demo_directionBtn}
-            roundedBtn={demo_roundedBtn}
-            items={[
-                {
-                    icon: icon1,
-                    label: label1,
-                    active: active_index === 0,
-                    onclick: () => { active_index = 0; },
-                },
-                {
-                    icon: icon2,
-                    label: label2,
-                    active: active_index === 1,
-                    onclick: () => { active_index = 1; },
-                },
-                {
-                    icon: icon3,
-                    label: label3,
-                    active: active_index === 2,
-                    onclick: () => { active_index = 2; },
-                },
-                {
-                    icon: icon4,
-                    label: label4,
-                    active: active_index === 3,
-                    onclick: () => { active_index = 3; },
-                },
-            ]}
-        />
+        {#if demo_preset === "row"}
+            <Nav
+                position="floating"
+                direction={demo_direction}
+                palette={demo_palette}
+                rounded={demo_rounded}
+            >
+                <Button variant="ghost" palette={demo_palette} direction="row"
+                    active={active_index === 0}
+                    onclick={() => { active_index = 0; }}>
+                    <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">train</span></span>
+                    <span class="nav-label">{label1}</span>
+                </Button>
+                <Button variant="ghost" palette={demo_palette} direction="row"
+                    active={active_index === 1}
+                    onclick={() => { active_index = 1; }}>
+                    <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">airlines</span></span>
+                    <span class="nav-label">{label2}</span>
+                </Button>
+                <Button variant="ghost" palette={demo_palette} direction="row"
+                    active={active_index === 2}
+                    onclick={() => { active_index = 2; }}>
+                    <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">rocket_launch</span></span>
+                    <span class="nav-label">{label3}</span>
+                </Button>
+                <Button variant="ghost" palette={demo_palette} direction="row"
+                    active={active_index === 3}
+                    onclick={() => { active_index = 3; }}>
+                    <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">Monitor</span></span>
+                    <span class="nav-label">{label4}</span>
+                </Button>
+            </Nav>
+
+        {:else if demo_preset === "column"}
+            <Nav
+                position="floating"
+                direction={demo_direction}
+                palette={demo_palette}
+                rounded={demo_rounded}
+            >
+                <Button variant="ghost" palette={demo_palette} direction="column"
+                    active={active_index === 0}
+                    onclick={() => { active_index = 0; }}>
+                    <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">train</span></span>
+                    <span class="nav-label">{label1}</span>
+                </Button>
+                <Button variant="ghost" palette={demo_palette} direction="column"
+                    active={active_index === 1}
+                    onclick={() => { active_index = 1; }}>
+                    <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">airlines</span></span>
+                    <span class="nav-label">{label2}</span>
+                </Button>
+                <Button variant="ghost" palette={demo_palette} direction="column"
+                    active={active_index === 2}
+                    onclick={() => { active_index = 2; }}>
+                    <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">rocket_launch</span></span>
+                    <span class="nav-label">{label3}</span>
+                </Button>
+                <Button variant="ghost" palette={demo_palette} direction="column"
+                    active={active_index === 3}
+                    onclick={() => { active_index = 3; }}>
+                    <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">Monitor</span></span>
+                    <span class="nav-label">{label4}</span>
+                </Button>
+            </Nav>
+
+        {:else if demo_preset === "rounded"}
+            <Nav
+                position="floating"
+                direction={demo_direction}
+                palette={demo_palette}
+                rounded={demo_rounded}
+            >
+                <Button variant="ghost" palette={demo_palette} rounded direction="column"
+                    active={active_index === 0}
+                    onclick={() => { active_index = 0; }}>
+                    <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">train</span></span>
+                    <span class="nav-label">{label1}</span>
+                </Button>
+                <Button variant="ghost" palette={demo_palette} rounded direction="column"
+                    active={active_index === 1}
+                    onclick={() => { active_index = 1; }}>
+                    <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">airlines</span></span>
+                    <span class="nav-label">{label2}</span>
+                </Button>
+                <Button variant="ghost" palette={demo_palette} rounded direction="column"
+                    active={active_index === 2}
+                    onclick={() => { active_index = 2; }}>
+                    <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">rocket_launch</span></span>
+                    <span class="nav-label">{label3}</span>
+                </Button>
+                <Button variant="ghost" palette={demo_palette} rounded direction="column"
+                    active={active_index === 3}
+                    onclick={() => { active_index = 3; }}>
+                    <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">Monitor</span></span>
+                    <span class="nav-label">{label4}</span>
+                </Button>
+            </Nav>
+
+        {:else if demo_preset === "mixed"}
+            <Nav
+                position="floating"
+                direction={demo_direction}
+                palette={demo_palette}
+                rounded={demo_rounded}
+            >
+                <Button variant="ghost" palette={demo_palette} direction="row"
+                    active={active_index === 0}
+                    onclick={() => { active_index = 0; }}>
+                    <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">inbox</span></span>
+                    <span class="nav-label">{label1}</span>
+                    <Badge palette="accent" size="sm">3</Badge>
+                </Button>
+                <Switch palette={demo_palette} bind:checked={switch_on}>
+                    {#snippet trailing()}
+                        <span class="nav-label">{label2}</span>
+                    {/snippet}
+                </Switch>
+                <Button variant="ghost" palette={demo_palette} direction="row"
+                    active={active_index === 2}
+                    onclick={() => { active_index = 2; }}>
+                    <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">settings</span></span>
+                    <span class="nav-label">{label3}</span>
+                </Button>
+            </Nav>
+        {/if}
     </div>
 
     {#if demo_position === "fixed"}
         <div class="fixed-note">
-            ℹ️ <code>{trans?.nav.code}</code>
+            <code>{trans?.nav.code}</code>
             {trans?.nav.fixed}
         </div>
     {/if}
 </div>
 
-<!-- ── Code examples ──────────────────────────────────────────────────────── -->
+<!-- Code examples -->
 
 <div data-summary="usage" data-summary-label={trans?.doc.usage ?? "Usage"}>
 <Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
@@ -275,25 +319,25 @@
     variant="tabbed"
     copyable
     tabs={[
-        { 
-            label: "floating side nav", 
-            code: usage_basic, 
-            language: "Svelte" 
+        {
+            label: "row buttons",
+            code: usage_basic,
+            language: "Svelte"
         },
-        { 
-            label: "fixed + offset", 
-            code: usage_offset, 
-            language: "Svelte" 
+        {
+            label: "rounded buttons",
+            code: usage_rounded,
+            language: "Svelte"
         },
-        { 
-            label: "header & footer", 
-            code: usage_header_footer, 
-            language: "Svelte" 
+        {
+            label: "header & footer",
+            code: usage_header_footer,
+            language: "Svelte"
         },
-        { 
-            label: "scroll-aware logo", 
-            code: usage_scroll_aware,  
-            language: "Svelte" 
+        {
+            label: "mixed components",
+            code: usage_mixed,
+            language: "Svelte"
         },
     ]}
 />
@@ -312,19 +356,17 @@
         { prop: "position", type: '"fixed" | "floating"', default: '"fixed"' },
         { prop: "direction", type: '"top" | "bottom" | "left" | "right"', default: '"left"' },
         { prop: "palette", type: '"accent" | "tone"', default: '"accent"' },
-        { prop: "items", type: "NavItem[]", default: "\u2014" },
         { prop: "rounded", type: "boolean", default: "false" },
-        { prop: "directionBtn", type: '"row" | "column"', default: '"row"' },
-        { prop: "roundedBtn", type: "boolean", default: "false" },
         { prop: "offset", type: "string", default: '"0px"' },
         { prop: "header", type: "Snippet", default: "\u2014" },
         { prop: "footer", type: "Snippet", default: "\u2014" },
+        { prop: "children", type: "Snippet", default: "\u2014" },
     ]}
 />
 </div>
 
 <style>
-    /* ── Preview grid ─────────────────────────────────────────────────────── */
+    /* Preview grid */
     .nav-preview {
         position: relative;
         display: grid;
@@ -344,7 +386,6 @@
         z-index: 10;
     }
 
-    /* Central content skeleton */
     .preview-main {
         grid-area: main;
         display: flex;
@@ -363,7 +404,6 @@
 
     .mock-line.short { width: 60%; }
 
-    /* Nav slot containers — one per grid area */
     .nav-slot {
         display: flex;
         align-items: stretch;
@@ -380,13 +420,13 @@
         align-items: flex-end;
     }
 
-    .nav-slot-left   {
+    .nav-slot-left {
         grid-area: left;
         justify-content: flex-start;
         align-items: center;
     }
 
-    .nav-slot-right  {
+    .nav-slot-right {
         grid-area: right;
         justify-content: flex-end;
         align-items: center;
@@ -397,32 +437,31 @@
         width: 100%;
     }
 
-    .nav-slot-left  :global(.nav-component),
+    .nav-slot-left :global(.nav-component),
     .nav-slot-right :global(.nav-component) {
         justify-content: center;
     }
 
-    .nav-slot-left  :global(.nav-direction-left.nav-floating),
+    .nav-slot-left :global(.nav-direction-left.nav-floating),
     .nav-slot-right :global(.nav-direction-right.nav-floating) {
         align-self: center;
         top: 0;
     }
 
-    /* Fixed mode notice */
     .fixed-note {
-        position:       absolute;
-        bottom:         0.5rem;
-        left:           50%;
-        transform:      translateX(-50%);
-        font-size:      0.7rem;
-        color:          var(--text-muted);
-        padding:        0.3rem 0.75rem;
-        background:     var(--tone);
-        border-radius:  6px;
-        border:         1px solid var(--tone-hover);
-        white-space:    nowrap;
+        position: absolute;
+        bottom: 0.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        padding: 0.3rem 0.75rem;
+        background: var(--tone);
+        border-radius: 6px;
+        border: 1px solid var(--tone-hover);
+        white-space: nowrap;
         pointer-events: none;
-        z-index:        10;
+        z-index: 10;
     }
 
     .fixed-note code {

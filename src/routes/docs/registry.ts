@@ -18,6 +18,7 @@ import CheckboxDemo from "./CheckboxDemo.svelte";
 import SwitchDemo from "./SwitchDemo.svelte";
 import InputDemo from "./InputDemo.svelte";
 import SelectDemo from "./SelectDemo.svelte";
+import PopoverDemo from "./PopoverDemo.svelte";
 import SearchFieldDemo from "./SearchFieldDemo.svelte";
 import CommandDemo from "./CommandDemo.svelte";
 import AvatarDemo from "./AvatarDemo.svelte";
@@ -64,6 +65,7 @@ export const docs: DocEntry[] = [
     { slug: "switch", label: "Switch", category: "components", component: SwitchDemo, get_label: (t) => t?.switch_demo.title ?? "Switch" },
     { slug: "input", label: "Input", category: "components", component: InputDemo, get_label: (t) => t?.input_demo.title ?? "Input" },
     { slug: "select", label: "Select", category: "components", component: SelectDemo, get_label: (t) => t?.select.title ?? "Select" },
+    { slug: "popover", label: "Popover", category: "components", component: PopoverDemo, get_label: (t) => t?.popover?.title ?? "Popover" },
     { slug: "searchfield", label: "SearchField", category: "components", component: SearchFieldDemo, get_label: (t) => t?.search_field.title ?? "SearchField" },
     { slug: "command", label: "Command", category: "components", component: CommandDemo, get_label: (t) => t?.command.title ?? "Command" },
     { slug: "avatar", label: "Avatar", category: "components", component: AvatarDemo, get_label: (t) => t?.avatar.title ?? "Avatar" },

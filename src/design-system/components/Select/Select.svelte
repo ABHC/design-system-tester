@@ -8,6 +8,7 @@
 
     type Size = "sm" | "md" | "lg";
     type OptionEntry = { value: T; label?: string };
+    type Direction = "bottom" | "top" | "left" | "right"
 
     interface Props {
         value?: T;
@@ -30,6 +31,7 @@
         palette?: PopoverPalette;
         rounded?: boolean;
         elevation?: PopoverElevation;
+        direction?: Direction;
     }
 
     let {
@@ -53,6 +55,7 @@
         palette = "tone",
         rounded = false,
         elevation = "none",
+        direction = "bottom",
     }: Props = $props();
 
     const uid = id ?? `select-${Math.random().toString(36).slice(2, 7)}`;
@@ -136,9 +139,11 @@
     <Popover
         bind:open
         onclose={close}
+        matchWidth
         {palette}
         {rounded}
         {elevation}
+        {direction}
     >
         {#snippet trigger()}
             <button

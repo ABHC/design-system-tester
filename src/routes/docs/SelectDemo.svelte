@@ -415,6 +415,7 @@
         { prop: "palette", type: "PopoverPalette", default: '"tone"' },
         { prop: "rounded", type: "boolean", default: "false" },
         { prop: "elevation", type: "PopoverElevation", default: '"none"' },
+        { prop: "direction", type: '"bottom" | "top" | "left" | "right"', default: '"bottom"' },
     ]}
 />
 </div>

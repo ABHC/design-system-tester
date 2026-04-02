@@ -2,12 +2,17 @@
     import type { Snippet } from "svelte";
     import { createVariant } from "../../utils/builder";
     import { popoverConfig, defaultPopoverConfig } from "./popover.config";
-    import type { PopoverPalette, PopoverElevation } from "./popover.config";
+    import type { PopoverPalette, PopoverElevation, PopoverDirection, PopoverAlign } from "./popover.config";
 
     interface Props {
         open?: boolean;
         onclose?: () => void;
         maxHeight?: string;
+        width?: string;
+        matchWidth?: boolean;
+        direction?: PopoverDirection;
+        align?: PopoverAlign;
+        gap?: string;
         palette?: PopoverPalette;
         rounded?: boolean;
         elevation?: PopoverElevation;
@@ -19,6 +24,11 @@
         open = $bindable(false),
         onclose,
         maxHeight = "320px",
+        width,
+        matchWidth = false,
+        direction = defaultPopoverConfig.direction,
+        align = defaultPopoverConfig.align,
+        gap = "6px",
         palette = defaultPopoverConfig.palette,
         rounded = defaultPopoverConfig.rounded,
         elevation = defaultPopoverConfig.elevation,
@@ -30,10 +40,18 @@
 
     const panel_classes = $derived(resolve({ palette, rounded, elevation }));
 
-    const panel_style = $derived(`max-height: ${maxHeight};`);
+    const panel_style = $derived(
+        `max-height: ${maxHeight};` +
+        (width ? ` width: ${width};` : '') +
+        ` --popover-gap: ${gap};`
+    );
 
-    function handle_outside() {
-        if (open) onclose?.();
+    let anchor_el: HTMLDivElement;
+
+    function handle_outside(e: MouseEvent) {
+        if (open && anchor_el && !anchor_el.contains(e.target as Node)) {
+            onclose?.();
+        }
     }
 
     function handle_keydown(e: KeyboardEvent) {
@@ -46,12 +64,15 @@
     onkeydown={open ? handle_keydown : undefined}
 />
 
-<!-- svelte-ignore a11y_no_static_element_interactions -->
-<div class="popover-anchor" onclick={(e) => e.stopPropagation()}>
+<div class="popover-anchor" bind:this={anchor_el}>
     {@render trigger()}
 
     {#if open}
-        <div class={panel_classes} style={panel_style}>
+        <div
+            class="{panel_classes} popover-direction-{direction} popover-align-{align}"
+            class:popover-match-width={matchWidth}
+            style={panel_style}
+        >
             {@render children()}
         </div>
     {/if}
@@ -68,20 +89,99 @@
 
     .popover {
         position: absolute;
-        top: calc(100% + 6px);
-        left: 0;
-        right: 0;
         z-index: 100;
         display: flex;
         flex-direction: column;
         overflow-y: auto;
         box-sizing: border-box;
-        animation: popover-in 0.12s ease;
     }
 
-    @keyframes popover-in {
+    /* Direction — main axis ─────────────────────────────────────────── */
+
+    .popover-direction-bottom {
+        top: calc(100% + var(--popover-gap, 6px));
+        animation: popover-in-bottom 0.12s ease;
+    }
+
+    .popover-direction-top {
+        bottom: calc(100% + var(--popover-gap, 6px));
+        animation: popover-in-top 0.12s ease;
+    }
+
+    .popover-direction-left {
+        right: calc(100% + var(--popover-gap, 6px));
+        animation: popover-in-left 0.12s ease;
+    }
+
+    .popover-direction-right {
+        left: calc(100% + var(--popover-gap, 6px));
+        animation: popover-in-right 0.12s ease;
+    }
+
+    /* Align — cross axis for top/bottom ────────────────────────────── */
+
+    .popover-direction-top.popover-align-start,
+    .popover-direction-bottom.popover-align-start {
+        left: 0;
+    }
+
+    .popover-direction-top.popover-align-center,
+    .popover-direction-bottom.popover-align-center {
+        left: 50%;
+        translate: -50% 0;
+    }
+
+    .popover-direction-top.popover-align-end,
+    .popover-direction-bottom.popover-align-end {
+        right: 0;
+    }
+
+    /* Align — cross axis for left/right ────────────────────────────── */
+
+    .popover-direction-left.popover-align-start,
+    .popover-direction-right.popover-align-start {
+        top: 0;
+    }
+
+    .popover-direction-left.popover-align-center,
+    .popover-direction-right.popover-align-center {
+        top: 50%;
+        translate: 0 -50%;
+    }
+
+    .popover-direction-left.popover-align-end,
+    .popover-direction-right.popover-align-end {
+        bottom: 0;
+    }
+
+    /* Match width — panel stretches to anchor width ──────────────────── */
+
+    .popover-match-width {
+        left: 0;
+        right: 0;
+        translate: none;
+    }
+
+    /* Animations ────────────────────────────────────────────────────── */
+
+    @keyframes popover-in-bottom {
         from { opacity: 0; transform: translateY(-4px); }
         to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes popover-in-top {
+        from { opacity: 0; transform: translateY(4px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes popover-in-left {
+        from { opacity: 0; transform: translateX(4px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes popover-in-right {
+        from { opacity: 0; transform: translateX(-4px); }
+        to { opacity: 1; transform: translateX(0); }
     }
 
     /* Palette — tone ───────────────────────────────────────────────── */

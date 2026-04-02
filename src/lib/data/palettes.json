@@ -6,14 +6,14 @@
             "accent": "#366336"
         },
         {
-            "name": "Emerald",
-            "display": true,
-            "accent": "#168570"
-        },
-        {
             "name": "Viridian",
             "display": true,
             "accent": "#1d8660"
+        },
+        {
+            "name": "Emerald",
+            "display": false,
+            "accent": "#168570"
         },
         {
             "name": "Fern Old",
@@ -51,29 +51,34 @@
             "accent": "#9771f9"
         },
         {
-            "name": "Cyan Techno",
+            "name": "Cyan",
             "display": true,
             "accent": "#4ddfff"
         },
         {
-            "name": "Azure Pro",
+            "name": "Azure",
             "display": true,
             "accent": "#38bdf8"
         },
         {
-            "name": "Solar Yellow",
+            "name": "Solar",
             "display": true,
             "accent": "#fcd34d"
         },
         {
-            "name": "Gold Warm",
+            "name": "Gold",
             "display": true,
             "accent": "#fbbf24"
         },
         {
             "name": "Sunset Orange",
-            "display": true,
+            "display": false,
             "accent": "#ea580c"
+        },
+        {
+            "name": "Tangerine",
+            "display": true,
+            "accent": "#F08000"
         }
     ],
     "light": [
@@ -116,13 +121,7 @@
     ],
     "dark": [
         {
-            "name": "Old Deep",
-            "display": false,
-            "bg": "#252825",
-            "card": "#1a1d1a"
-        },
-        {
-            "name": "Carbon +",
+            "name": "Carbon",
             "display": true,
             "bg": "#1a1a1a",
             "card": "#282828"
@@ -134,38 +133,38 @@
             "card": "#2d2a25"
         },
         {
-            "name": "Pure Black",
+            "name": "Pure",
             "display": true,
             "bg": "#0d0d0d",
             "card": "#1a1a1a"
         },
         {
-            "name": "Midnight Blue",
+            "name": "Midnight",
             "display": true,
             "bg": "#0f1419",
             "card": "#1a1f2e"
         },
         {
-            "name": "Navy Deep",
+            "name": "Navy",
             "display": true,
             "bg": "#11192b",
             "card": "#1a2544"
         },
         {
-            "name": "Slate Stone",
+            "name": "Slate",
             "display": true,
             "bg": "#1e2a3a",
             "card": "#2a3a4a"
         },
         {
-            "name": "Carbon",
-            "display": true,
+            "name": "Carbon I",
+            "display": false,
             "bg": "#1a1a1a",
             "card": "#242424"
         },
         {
             "name": "Carbon Strong",
-            "display": true,
+            "display": false,
             "bg": "#1a1a1a",
             "card": "#2d2d2d"
         },
@@ -183,9 +182,15 @@
         },
         {
             "name": "Void",
-            "display": true,
+            "display": false,
             "bg": "#000000",
             "card": "#0f0f0f"
+        },
+        {
+            "name": "Old Deep",
+            "display": false,
+            "bg": "#252825",
+            "card": "#1a1d1a"
         }
     ],
     "ctx": [

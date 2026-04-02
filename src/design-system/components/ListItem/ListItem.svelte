@@ -19,6 +19,7 @@
         rounded?: boolean;
         active?: boolean;
         leading?: Snippet;
+        trailing?: Snippet;
         supporting_text: SupportingText;
         onclick?: () => void;
     }
@@ -31,6 +32,7 @@
         active = false,
         supporting_text,
         leading,
+        trailing,
         onclick,
     }: Props = $props();
 
@@ -67,6 +69,12 @@
             </div>
         {/if}
     </div>
+
+    {#if trailing}
+        <div class="trailing">
+            {@render trailing()}
+        </div>
+    {/if}
 {/snippet}
 
 {#if onclick}
@@ -227,22 +235,6 @@
         box-shadow: 0.4rem 0.4rem var(--shadow-hard);
     }
 
-    /* Sizes ───────────────────────────────────────────────────────────── */
-
-    .list-item-sm {
-        padding: 0.35rem 0.6rem;
-        font-size: 0.85rem;
-    }
-
-    .list-item-md {
-        padding: 0.6rem 0.9rem;
-    }
-
-    .list-item-lg {
-        padding: 0.9rem 1.25rem;
-        font-size: 1.05rem;
-    }
-
     /* Rounded ─────────────────────────────────────────────────────────── */
 
     .list-item-rounded {
@@ -255,6 +247,13 @@
         display: flex;
         align-items: center;
         flex-shrink: 0;
+    }
+
+    .trailing {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+        margin-left: auto;
     }
 
     .supporting-text {
@@ -272,5 +271,49 @@
         opacity: 0.7;
         margin-top: 0.1rem;
         white-space: pre-line;
+    }
+
+    /* Sizes ───────────────────────────────────────────────────────────── */
+
+    /* small */
+    .list-item-sm {
+        padding: 0.35rem 0.6rem;
+    }
+
+    .list-item-sm .main-supporting {
+        font-weight: 500;
+        font-size: 0.8rem;
+    }
+
+    .list-item-sm .extra-supporting {
+        font-size: 0.7rem;
+    }
+
+    /* medium */
+    .list-item-md {
+        padding: 0.6rem 0.9rem;
+    }
+
+    .list-item-md .main-supporting {
+        font-weight: 600;
+    }
+
+    .list-item-md .extra-supporting {
+        font-size: 0.8em;
+    }
+
+    /* large */
+    .list-item-lg {
+        padding: 0.9rem 1.25rem;
+        font-size: 1.05rem;
+    }
+
+    .list-item-lg .main-supporting {
+        font-weight: 700;
+        font-size: 1.1rem;
+    }
+
+    .list-item-lg .extra-supporting {
+        font-size: 0.9em;
     }
 </style>

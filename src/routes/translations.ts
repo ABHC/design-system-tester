@@ -36,7 +36,8 @@ export const translations = {
             export: "Export",
             settings: "Options",
             more: "Voir plus",
-            less: "Voir moins"
+            less: "Voir moins",
+            bigger: "Voir en grand", 
         },
         typo: {
             title: "Typographie",
@@ -183,6 +184,10 @@ export const translations = {
         },
         select: {
             title: "Select"
+        },
+        popover: {
+            title: "Popover",
+            anchor_note: "L'élément d'ancrage (bouton, input…) doit être placé dans le snippet <code>trigger</code>. Le panneau s'ouvre alors relativement à cet élément. <code>direction</code> définit le côté d'ouverture (top, bottom, left, right) et <code>align</code> l'alignement sur l'axe transversal (start, center, end). Le positionnement est en CSS absolu — il ne se recalcule pas au scroll.",
         },
         command: {
             title: "Command"
@@ -384,7 +389,8 @@ export const translations = {
             export: "Export",
             settings: "Settings",
             more: "See more",
-            less: "See less"
+            less: "See less",
+            bigger: "View larger", 
         },
         typo: {
             title: "Typography",
@@ -539,6 +545,10 @@ export const translations = {
         },
         select: {
             title: "Select"
+        },
+        popover: {
+            title: "Popover",
+            anchor_note: "The anchor element (button, input…) must be placed inside the <code>trigger</code> snippet. The panel then opens relative to that element. <code>direction</code> sets which side it opens on (top, bottom, left, right) and <code>align</code> controls cross-axis alignment (start, center, end). Positioning is CSS absolute — it does not reposition on scroll.",
         },
         command: {
             title: "Command"

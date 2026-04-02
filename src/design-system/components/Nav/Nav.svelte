@@ -2,56 +2,31 @@
     import type { Snippet } from 'svelte';
     import { createVariant } from "../../utils/builder";
     import { navConfig } from "./nav.config";
-    import Button from "../Button/Button.svelte";
-
-    // Types
 
     type Position = "fixed" | "floating";
     type Direction = "top" | "bottom" | "left" | "right";
     type Palette = "accent" | "tone";
-    type DirectionBtn = "row" | "column";
-
-    /*
-        Props
-        Icon slot accepts any HTML snippet: Material Symbols, SVG, Simple Icons… (rendered inside a wrapper)
-        Short label displayed below the icon.
-        Marks this item as the currently active route/section
-        Click handler — navigation, scroll, route change, etc
-        Optional accessible label override (defaults to label)
-    */
-
-    export interface NavItem {
-        icon: Snippet;
-        label: string;
-        active?: boolean;
-        onclick?: () => void;
-        aria_label?: string;
-    }
 
     interface Props {
         position?: Position;
         direction?: Direction;
         palette?: Palette;
-        items: NavItem[];
         rounded?: boolean;
-        directionBtn?: DirectionBtn;
-        roundedBtn?: boolean;
-        offset?: string; // Shifts the nav away from its anchor edge in fixed mode (e.g. "100px" to sit below a header)
-        header?: Snippet; // Optional header slot (logo, title, etc..)
-        footer?: Snippet; // Optional footer slot (theme toggle, language selector, etc.. )
+        offset?: string;
+        header?: Snippet;
+        footer?: Snippet;
+        children: Snippet;
     }
 
     let {
         position = "fixed",
         direction = "left",
         palette = "accent",
-        items,
         rounded = false,
-        directionBtn = "row",
-        roundedBtn = false,
         offset = "0px",
         header,
         footer,
+        children,
     }: Props = $props();
 
     // Layout helper
@@ -81,30 +56,7 @@
     {/if}
 
     <div class="nav-items">
-        {#each items as item}
-            <Button
-                variant="ghost"
-                {palette}
-                direction={directionBtn}
-                rounded={roundedBtn}
-                active={item.active ?? false}
-                aria_label={item.aria_label ?? item.label}
-                onclick={item.onclick}
-            >
-                <!--
-                    Icon wrapper — agnostic to icon system.
-                    User passes a Snippet, which can be:
-                    • <span class="material-symbols-outlined">code</span>
-                    • <svg>…</svg>
-                    • <img src="…" />
-                    • Any Simple Icons markup, etc.
-                -->
-                <span class="nav-icon" aria-hidden="true">
-                    {@render item.icon()}
-                </span>
-                <span class="nav-label">{item.label}</span>
-            </Button>
-        {/each}
+        {@render children()}
     </div>
 
     {#if footer}

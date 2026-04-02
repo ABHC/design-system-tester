@@ -310,6 +310,7 @@
         { prop: "rounded", type: "boolean", default: "false" },
         { prop: "active", type: "boolean", default: "false" },
         { prop: "leading", type: "Snippet", default: "\u2014" },
+        { prop: "trailing", type: "Snippet", default: "\u2014" },
         { prop: "supporting_text", type: "SupportingText", default: "\u2014" },
         { prop: "onclick", type: "() => void", default: "\u2014" },
     ]}
