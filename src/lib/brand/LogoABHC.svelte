@@ -22,6 +22,6 @@
     svg {
         height: 64px;
         width: auto;
-        margin: 8px;
+        margin: 1px;
     }
 </style>
