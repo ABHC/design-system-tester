@@ -90,8 +90,8 @@
     /* Wrapper ─────────────────────────────────────────── */
 
     .btt-wrapper {
-        position: fixed;
-        bottom: 5.5rem;
+        /*position: fixed;
+        bottom: 5.5rem;*/
         z-index: 100;
         transition: 
             opacity 0.25s ease, 
@@ -110,6 +110,6 @@
 
     /* Position ───────────────────────────────────────── */
 
-    .btt-left  { left: 1.5rem; }
-    .btt-right { right: 1.5rem; }
+    /*.btt-left  { left: 1.5rem; }
+    .btt-right { right: 1.5rem; }*/
 </style>

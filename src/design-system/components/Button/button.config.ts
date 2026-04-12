@@ -7,7 +7,7 @@ export const buttonConfig = {
             flat: "btn-flat",
             outlined: "btn-outlined",
             ghost: "btn-ghost",
-            textual: "btn-textual",
+            naked: "btn-naked",
         },
 
         palette: {
@@ -37,6 +37,10 @@ export const buttonConfig = {
             none: "btn-elevation-none",
             subtle: "btn-elevation-subtle",
             hard: "btn-elevation-hard",
+        },
+
+        raised: {
+            true: "btn-raised"
         },
 
         uppercase: { 

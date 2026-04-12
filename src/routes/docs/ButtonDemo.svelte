@@ -20,7 +20,7 @@
 
     // Demo state ──────────────────────────────────────────────────────────
 
-    type Variant = "flat" | "outlined" | "ghost" | "textual";
+    type Variant = "flat" | "outlined" | "ghost" | "naked";
     type Size = "sm" | "md" | "lg";
     type Elevation = "none" | "subtle" | "hard";
     type Animate = "none" | "left" | "right" | "top" | "bottom";
@@ -30,6 +30,7 @@
     let demo_variant: Variant = $state("flat");
     let demo_size: Size = $state("md");
     let demo_elevation: Elevation = $state("none");
+    let demo_raised: boolean = $state(false);
     let demo_rounded: boolean = $state(false);
     let demo_uppercase: boolean = $state(false);
     let demo_animate: Animate = $state("none");
@@ -68,9 +69,9 @@
 <!-- on neutral bg: palette="tone" → dark text + highlight hover -->
 <Button variant="ghost" palette="tone">Nav item</Button>`;
 
-    const code_textual = `<Button variant="textual">Link-style</Button>
-<Button variant="textual" palette="tone">Neutral</Button>
-<Button variant="textual" palette="error">Error</Button>`;
+    const code_naked = `<Button variant="naked">Link-style</Button>
+<Button variant="naked" palette="tone">Neutral</Button>
+<Button variant="naked" palette="error">Error</Button>`;
 
     const code_active =
 "<!-- Track active state per variant group -->\n" +
@@ -128,7 +129,7 @@
 <ControlBar palette="tone" rounded>
     <Selector 
         label="Variant"
-        options={["flat", "outlined", "ghost", "textual"]}
+        options={["flat", "outlined", "ghost", "naked"]}
         bind:value={demo_variant} 
     />
     <Selector 
@@ -140,6 +141,11 @@
         label="Elevation" 
         options={["none", "subtle", "hard"]} 
         bind:value={demo_elevation} 
+    />
+    <Selector 
+        label="Elevation Raised" 
+        options={bool_opts} 
+        bind:value={demo_raised} 
     />
     <Selector 
         label="Rounded" 
@@ -181,6 +187,7 @@
             palette="accent"
             size={demo_size}
             elevation={demo_elevation}
+            raised={demo_raised}
             rounded={demo_rounded}
             direction={demo_direction}
             uppercase={demo_uppercase}
@@ -199,6 +206,7 @@
             palette="tone"
             size={demo_size}
             elevation={demo_elevation}
+            raised={demo_raised}
             rounded={demo_rounded}
             direction={demo_direction}
             uppercase={demo_uppercase}
@@ -210,7 +218,7 @@
         </Button>
     </div>
 
-    <!-- Contextual palette buttons -->
+    <!-- Connaked palette buttons -->
     <div class="btn-group">
         {#each ([
             { 
@@ -244,6 +252,7 @@
                 palette={item.pal}
                 size={demo_size}
                 elevation={demo_elevation}
+                raised={demo_raised}
                 rounded={demo_rounded}
                 direction={demo_direction}
                 uppercase={demo_uppercase}
@@ -346,8 +355,8 @@
             language: "Svelte" 
         },
         { 
-            label: "textual",    
-            code: code_textual,     
+            label: "naked",    
+            code: code_naked,     
             language: "Svelte" 
         },
         { 
@@ -391,7 +400,7 @@
         { key: "default", label: "Default", cell: codeCell },
     ]}
     rows={[
-        { prop: "variant", type: '"flat" | "outlined" | "ghost" | "textual"', default: '"flat"' },
+        { prop: "variant", type: '"flat" | "outlined" | "ghost" | "naked"', default: '"flat"' },
         { prop: "palette", type: '"accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info"', default: '"accent"' },
         { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"' },
         { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
@@ -401,6 +410,7 @@
         { prop: "rounded", type: "boolean", default: "false" },
         { prop: "direction", type: '"row" | "column"', default: '"row"' },
         { prop: "aria_label", type: "string", default: "undefined" },
+        { prop: "href", type: "string", default: "undefined" },
         { prop: "onclick", type: "() => void", default: "undefined" },
         { prop: "children", type: "Snippet", default: "\u2014" },
     ]}

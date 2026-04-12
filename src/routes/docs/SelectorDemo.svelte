@@ -19,7 +19,7 @@
 
     type Layout = "grid" | "list" | "tile";
     type BtnPalette = "accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info";
-    type BtnVariant = "flat" | "outlined" | "ghost" | "textual";
+    type BtnVariant = "flat" | "outlined" | "ghost" | "naked";
     type BtnSize = "sm" | "md" | "lg";
 
     const layouts: readonly Layout[] = ["grid", "list", "tile"];
@@ -52,7 +52,7 @@
     let sel_palette: BtnPalette = $state("accent");
     let sel_variant: BtnVariant = $state("outlined");
     let sel_size: BtnSize = $state("sm");
-    let sel_rounded: boolean = $state(true);
+    let sel_rounded: boolean = $state(false);
     let sel_uppercase: boolean = $state(false);
     let demo_layout: Layout = $state("grid");
     let demo_cols: number = $state(3);
@@ -107,7 +107,7 @@
     />
     <Selector
         label={placeholders?.selector?.lbl_sel_variant}
-        options={["flat", "outlined", "ghost", "textual"] as const}
+        options={["flat", "outlined", "ghost", "naked"] as const}
         bind:value={sel_variant}
     />
     <Selector
@@ -128,7 +128,11 @@
 </ControlBar>
 
 {#if bar_visible}
-    <ControlBar palette={bar_palette} bordered={bar_bordered} rounded={bar_rounded}>
+    <ControlBar 
+        palette={bar_palette} 
+        bordered={bar_bordered} 
+        rounded={bar_rounded}
+    >
         {#snippet header()}
             {placeholders?.selector?.header_interactive}
         {/snippet}
@@ -180,12 +184,12 @@
 
 <!-- Swatches ───────────────────────────────────────────────────────────── -->
 
-<div data-summary="swatches" data-summary-label={trans?.doc.swatches ?? "Swatches"}>
-<Headline size="sm" uppercase muted>{trans?.doc.swatches ?? "Swatches"}</Headline>
+<div data-summary="swatches" data-summary-label={trans?.doc.swatches}>
+    <Headline size="sm" uppercase muted>{trans?.doc.swatches}</Headline>
 </div>
 <p class="demo-label">{placeholders?.selector?.sect_swatches}</p>
 
-<ControlBar palette="tone" rounded>
+<ControlBar palette="tone">
     {#snippet header()}
         <h4 class="header-demo">
             {placeholders?.selector?.selected_color}&nbsp;{color}
@@ -211,7 +215,7 @@
 
 <!-- CodeBlock ───────────────────────────────────────────────────────────── -->
 
-<div data-summary="usage" data-summary-label={trans?.doc.usage ?? "Usage"}>
+<div data-summary="usage" data-summary-label={trans?.doc.usage}>
     <Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
 </div>
 <CodeBlock
@@ -307,8 +311,8 @@
     ]}
 />
 
-<div data-summary="api" data-summary-label={trans?.doc.api ?? "API"}>
-    <Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
+<div data-summary="api" data-summary-label={trans?.doc.api}>
+    <Headline size="sm" uppercase muted>{trans?.doc.api}</Headline>
 </div>
 
 <h4 class="api-subtitle">Selector</h4>
@@ -322,9 +326,9 @@
     rows={[
         { prop: "label", type: "string", default: "\u2014" },
         { prop: "palette", type: '"accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info"', default: '"accent"' },
-        { prop: "variant", type: '"flat" | "outlined" | "ghost" | "textual"', default: '"outlined"' },
+        { prop: "variant", type: '"flat" | "outlined" | "ghost" | "naked"', default: '"outlined"' },
         { prop: "size", type: '"sm" | "md" | "lg"', default: '"sm"' },
-        { prop: "rounded", type: "boolean", default: "true" },
+        { prop: "rounded", type: "boolean", default: "false" },
         { prop: "uppercase", type: "boolean", default: "false" },
         { prop: "direction", type: '"row" | "column"', default: '"row"' },
         { prop: "options", type: "readonly (T | OptionEntry)[]", default: "\u2014" },
@@ -353,16 +357,16 @@
 
 <style>
     .demo-label {
-        font-size:  0.8rem;
-        color:      var(--text-muted);
-        margin:     0.75rem 0 0.4rem;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin: 0.75rem 0 0.4rem;
         font-style: italic;
     }
 
     .standalone-row {
-        display:       flex;
-        flex-wrap:     wrap;
-        gap:           1rem 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem 2rem;
         margin-bottom: 1.5rem;
     }
 

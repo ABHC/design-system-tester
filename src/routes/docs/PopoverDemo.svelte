@@ -178,19 +178,19 @@
             {#snippet children()}
                 <div class="preview-content">
                     <ListItem
-                        supporting_text={{ main: "Option A" }}
+                        label="Option A"
                         palette="ghost"
                         size="sm"
                         onclick={() => { open_basic = false; }}
                     />
                     <ListItem
-                        supporting_text={{ main: "Option B" }}
+                        label="Option B"
                         palette="ghost"
                         size="sm"
                         onclick={() => { open_basic = false; }}
                     />
                     <ListItem
-                        supporting_text={{ main: "Option C" }}
+                        label="Option C"
                         palette="ghost"
                         size="sm"
                         onclick={() => { open_basic = false; }}
@@ -224,7 +224,7 @@
 
             {#snippet children()}
                 <ListItem
-                    supporting_text={{ main: placeholders?.popover.match }}
+                    label={placeholders?.popover.match}
                     palette="ghost"
                     size="sm"
                     onclick={() => { open_match = false; }}
@@ -259,13 +259,13 @@
             {#snippet children()}
                 <div class="preview-content">
                     <ListItem
-                        supporting_text={{ main: placeholders?.popover.settings }}
+                        label={placeholders?.popover.settings}
                         palette="ghost"
                         size="sm"
                         onclick={() => { open_menu = false; }}
                     />
                     <ListItem
-                        supporting_text={{ main: placeholders?.popover.profile }}
+                        label={placeholders?.popover.profile}
                         palette="ghost"
                         size="sm"
                         onclick={() => { open_menu = false; }}

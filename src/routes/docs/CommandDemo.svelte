@@ -347,9 +347,9 @@
         { prop: "onclose", type: "() => void", default: "\u2014" },
         { prop: "item", type: "Snippet<[CommandItem]>", default: "\u2014" },
         { prop: "empty", type: "Snippet", default: "\u2014" },
-        { prop: "palette", type: "CommandPalette", default: '"tone"' },
+        { prop: "palette", type: '"tone" | "accent" | "accentbg"', default: '"tone"' },
         { prop: "rounded", type: "boolean", default: "true" },
-        { prop: "elevation", type: "CommandElevation", default: '"subtle"' },
+        { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"subtle"' },
         { prop: "width", type: "string", default: '"560px"' },
     ]}
 />

@@ -105,8 +105,8 @@
     /* Wrapper ─────────────────────────────────────────── */
 
     .bmt-wrapper {
-        position: fixed;
-        bottom: 1.5rem;
+        /*position: fixed;
+        bottom: 1.5rem;*/
         z-index: 100;
         transition: 
             opacity 0.25s ease, 
@@ -119,6 +119,6 @@
 
     /* Position ───────────────────────────────────────── */
 
-    .bmt-left  { left: 1.5rem; }
-    .bmt-right { right: 1.5rem; }
+    /*.bmt-left  { left: 1.5rem; }
+    .bmt-right { right: 1.5rem; }*/
 </style>

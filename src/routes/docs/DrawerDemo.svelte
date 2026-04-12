@@ -66,18 +66,15 @@
     const code_listitems = `<!-- File browser with ListItems -->
 <Drawer direction="left" palette="tone" rounded open={open}
     onclose={() => { open = false; }}>
-    <ListItem
-        supporting_text={{ main: "Button.svelte", extra: "src/components" }}
-        active palette="ghost" rounded
-    />
-    <ListItem
-        supporting_text={{ main: "tokens.css", extra: "design-system" }}
-        palette="ghost" rounded
-    />
-    <ListItem
-        supporting_text={{ main: "App.svelte", extra: "src/routes" }}
-        palette="ghost" rounded
-    />
+    <ListItem label="Button.svelte" active palette="ghost" rounded>
+        src/components
+    </ListItem>
+    <ListItem label="tokens.css" palette="ghost" rounded>
+        design-system
+    </ListItem>
+    <ListItem label="App.svelte" palette="ghost" rounded>
+        src/routes
+    </ListItem>
 <\/Drawer>`;
 
     const code_mixed = `<!-- Mixed: SearchField + ListItems -->
@@ -90,11 +87,13 @@
     />
     {#each filtered_files as f}
         <ListItem
-            supporting_text={{ main: f.name, extra: f.path }}
+            label={f.name}
             active={active === f.name}
             onclick={() => { active = f.name; }}
             palette="ghost" rounded
-        />
+        >
+            {f.path}
+        </ListItem>
     {/each}
 <\/Drawer>`;
 
@@ -153,7 +152,7 @@
 </div>
 
 <!-- Controls -->
-<ControlBar palette="tone" rounded>
+<ControlBar palette="tone">
     <Selector
         label="Preset"
         options={["buttons", "listitems", "mixed"]}
@@ -269,29 +268,29 @@
         {/snippet}
 
         <ListItem
-            supporting_text={{ main: "Button.svelte", extra: "src/components" }}
+            label="Button.svelte"
             active={active === "Button.svelte"}
             onclick={() => { active = "Button.svelte"; }}
             palette="ghost" rounded
-        />
+        >src/components</ListItem>
         <ListItem
-            supporting_text={{ main: "tokens.css", extra: "design-system" }}
+            label="tokens.css"
             active={active === "tokens.css"}
             onclick={() => { active = "tokens.css"; }}
             palette="ghost" rounded
-        />
+        >design-system</ListItem>
         <ListItem
-            supporting_text={{ main: "App.svelte", extra: "src/routes" }}
+            label="App.svelte"
             active={active === "App.svelte"}
             onclick={() => { active = "App.svelte"; }}
             palette="ghost" rounded
-        />
+        >src/routes</ListItem>
         <ListItem
-            supporting_text={{ main: "+layout.svelte", extra: "src/routes" }}
+            label="+layout.svelte"
             active={active === "+layout.svelte"}
             onclick={() => { active = "+layout.svelte"; }}
             palette="ghost" rounded
-        />
+        >src/routes</ListItem>
     </Drawer>
 {/if}
 
@@ -324,11 +323,11 @@
 
         {#each filtered_files as f}
             <ListItem
-                supporting_text={{ main: f.name, extra: f.path }}
+                label={f.name}
                 active={active === f.name}
                 onclick={() => { active = f.name; }}
                 palette="ghost" rounded
-            />
+            >{f.path}</ListItem>
         {/each}
     </Drawer>
 {/if}
@@ -368,7 +367,7 @@
         { prop: "offset_bottom", type: "string", default: '"0px"' },
         { prop: "width", type: "string", default: '"260px"' },
         { prop: "height", type: "string", default: '"300px"' },
-        { prop: "rounded", type: "boolean", default: "true" },
+        { prop: "rounded", type: "boolean", default: "false" },
         { prop: "header", type: "Snippet", default: "\u2014" },
         { prop: "children", type: "Snippet", default: "\u2014" },
         { prop: "footer", type: "Snippet", default: "\u2014" },

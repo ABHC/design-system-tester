@@ -25,11 +25,13 @@
     type Direction = "top" | "bottom" | "left" | "right";
     type Palette = "accent" | "tone";
     type Position = "fixed" | "floating";
+    type Elevation = "none" | "subtle" | "hard";
 
     let demo_direction: Direction = $state("left");
     let demo_palette: Palette = $state("accent");
     let demo_position: Position = $state("floating");
-    let demo_rounded: boolean = $state(true);
+    let demo_rounded: boolean = $state(false);
+    let demo_elevation: Elevation = $state("none");
 
     // Active item tracking
     let active_index = $state(0);
@@ -129,7 +131,7 @@
 </div>
 
 <!-- Interactive controls -->
-<ControlBar palette="tone" rounded>
+<ControlBar palette="tone">
     <Selector
         label="Preset"
         options={[
@@ -157,9 +159,13 @@
     />
     <Selector
         label="Rounded"
-        options={[{value: true, label: "yes"},
-        {value: false, label: "no"}]}
+        options={[{value: true, label: "yes"}, {value: false, label: "no"}]}
         bind:value={demo_rounded}
+    />
+    <Selector
+        label="Elevation"
+        options={["none", "subtle", "hard"]}
+        bind:value={demo_elevation}
     />
 </ControlBar>
 
@@ -180,6 +186,7 @@
                 direction={demo_direction}
                 palette={demo_palette}
                 rounded={demo_rounded}
+                elevation={demo_elevation}
             >
                 <Button variant="ghost" palette={demo_palette} direction="row"
                     active={active_index === 0}
@@ -213,6 +220,7 @@
                 direction={demo_direction}
                 palette={demo_palette}
                 rounded={demo_rounded}
+                elevation={demo_elevation}
             >
                 <Button variant="ghost" palette={demo_palette} direction="column"
                     active={active_index === 0}
@@ -246,6 +254,7 @@
                 direction={demo_direction}
                 palette={demo_palette}
                 rounded={demo_rounded}
+                elevation={demo_elevation}
             >
                 <Button variant="ghost" palette={demo_palette} rounded direction="column"
                     active={active_index === 0}
@@ -279,6 +288,7 @@
                 direction={demo_direction}
                 palette={demo_palette}
                 rounded={demo_rounded}
+                elevation={demo_elevation}
             >
                 <Button variant="ghost" palette={demo_palette} direction="row"
                     active={active_index === 0}
@@ -357,6 +367,7 @@
         { prop: "direction", type: '"top" | "bottom" | "left" | "right"', default: '"left"' },
         { prop: "palette", type: '"accent" | "tone"', default: '"accent"' },
         { prop: "rounded", type: "boolean", default: "false" },
+        { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
         { prop: "offset", type: "string", default: '"0px"' },
         { prop: "header", type: "Snippet", default: "\u2014" },
         { prop: "footer", type: "Snippet", default: "\u2014" },
@@ -379,7 +390,6 @@
         min-height: 320px;
         background: var(--tone-bg);
         border: 2px solid var(--tone-hover);
-        border-radius: 12px;
         overflow: hidden;
         margin-bottom: 1.5rem;
         padding: 10px;

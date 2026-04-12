@@ -31,7 +31,7 @@
 
     let demo_variant: Variant = $state("flat");
     let demo_elevation: Elevation = $state("hard");
-    let demo_rounded: boolean = $state(true);
+    let demo_rounded: boolean = $state(false);
     let demo_preset: Preset = $state("projects");
 
     const bool_opts = [{ value: true, label: "yes" }, { value: false, label: "no" }] as const;
@@ -71,7 +71,7 @@
     const code_profile = `<Card variant="flat" elevation="subtle" width="100%">
     {#snippet header()}
         <div class="profile-header">
-            <Avatar size="xlg" circular label="JM" palette="accent" />
+            <Avatar size="xl" circular label="JM" palette="accent" />
             <div>
                 <h2>Jean Michel</h2>
                 <p>Designeur de jouet</p>
@@ -244,7 +244,7 @@
             >
                 {#snippet header()}
                     <div class="profile-header">
-                        <Avatar size="xlg" circular label={profile.initials} palette="accent" />
+                        <Avatar size="xl" circular label={profile.initials} palette="accent" />
                         <div class="profile-identity">
                             <h2 class="profile-name">{profile.name}</h2>
                             <p class="profile-role">{profile.role}</p>
@@ -353,7 +353,7 @@
         { prop: "variant", type: '"flat" | "outlined" | "ghost"', default: '"flat"' },
         { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"hard"' },
         { prop: "width", type: "string", default: "undefined" },
-        { prop: "rounded", type: "boolean", default: "true" },
+        { prop: "rounded", type: "boolean", default: "false" },
         { prop: "href", type: "string", default: "undefined" },
         { prop: "header", type: "Snippet", default: "\u2014" },
         { prop: "children", type: "Snippet", default: "\u2014" },

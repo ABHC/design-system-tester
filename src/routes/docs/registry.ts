@@ -6,6 +6,7 @@ import FooterDemo from "./FooterDemo.svelte";
 import NavDemo from "./NavDemo.svelte";
 import DrawerDemo from "./DrawerDemo.svelte";
 import TileGridDemo from "./TileGridDemo.svelte";
+import HeroDemo from "./HeroDemo.svelte";
 import SelectorDemo from "./SelectorDemo.svelte";
 import CalloutDemo from "./CalloutDemo.svelte";
 import AlertDemo from "./AlertDemo.svelte";
@@ -27,6 +28,7 @@ import ProgressDemo from "./ProgressDemo.svelte";
 import AccordionDemo from "./AccordionDemo.svelte";
 import CodeBlockDemo from "./CodeBlockDemo.svelte";
 import DataTableDemo from "./DataTableDemo.svelte";
+import SliderDemo from "./SliderDemo.svelte";
 
 export type Category = "structure" | "components" | "presentation";
 
@@ -51,6 +53,7 @@ export const docs: DocEntry[] = [
     { slug: "nav", label: "Nav", category: "structure", component: NavDemo, get_label: (t) => t?.nav.title ?? "Nav" },
     { slug: "drawer", label: "Drawer", category: "structure", component: DrawerDemo, get_label: (t) => t?.drawer.title ?? "Drawer" },
     { slug: "tilegrid", label: "TileGrid", category: "structure", component: TileGridDemo, get_label: (t) => t?.tile_grid.title ?? "TileGrid" },
+    { slug: "hero", label: "Hero", category: "structure", component: HeroDemo, get_label: (t) => "Hero" },
     { slug: "selector", label: "Selector", category: "structure", component: SelectorDemo, get_label: (t) => t?.selector_demo.title ?? "Selector" },
 
     // Components
@@ -72,6 +75,7 @@ export const docs: DocEntry[] = [
     { slug: "modal", label: "Modal", category: "components", component: ModalDemo, get_label: (t) => t?.modal.title ?? "Modal" },
     { slug: "progress", label: "Progress", category: "components", component: ProgressDemo, get_label: (t) => t?.progress_demo.title ?? "Progress" },
     { slug: "accordion", label: "Accordion", category: "components", component: AccordionDemo, get_label: (t) => (t as any)?.accordion_demo?.title ?? "Accordion" },
+    { slug: "slider", label: "Slider", category: "components", component: SliderDemo, get_label: (t) => (t as any)?.slider_demo?.title ?? "Slider" },
 
     // Presentation
     { slug: "codeblock", label: "CodeBlock", category: "presentation", component: CodeBlockDemo, get_label: (t) => t?.codeblocks.title ?? "CodeBlock" },

@@ -412,9 +412,9 @@
         { prop: "onchange", type: "(value: T) => void", default: "\u2014" },
         { prop: "header", type: "Snippet", default: "\u2014" },
         { prop: "footer", type: "Snippet", default: "\u2014" },
-        { prop: "palette", type: "PopoverPalette", default: '"tone"' },
+        { prop: "palette", type: '"tone" | "accent" | "accentbg"', default: '"tone"' },
         { prop: "rounded", type: "boolean", default: "false" },
-        { prop: "elevation", type: "PopoverElevation", default: '"none"' },
+        { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
         { prop: "direction", type: '"bottom" | "top" | "left" | "right"', default: '"bottom"' },
     ]}
 />

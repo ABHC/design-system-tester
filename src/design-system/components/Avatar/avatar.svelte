@@ -2,7 +2,7 @@
     import { createVariant } from "../../utils/builder";
     import { avatarConfig } from "./avatar.config";
 
-    type Size = "xsm" | "sm" | "md" | "lg" | "xlg";
+    type Size = "xs" | "sm" | "md" | "lg" | "xl";
     type Status = "online" | "offline" | "absent" | "do-not-disturb";
     type Palette = "accent" | "tone";
 
@@ -99,33 +99,34 @@
     }
 
     /* Sizes */
-    .avatar-xsm {
-        width: 24px;
-        height: 24px;
-        font-size: 0.5rem;
+    .avatar-xs {
+        width: 32px;
+        height: 32px;
+        font-size: 0.55rem;
     }
 
     .avatar-sm {
-        width: 32px;
-        height: 32px;
-        font-size: 0.6rem;
+        width: 48px;
+        height: 48px;
+        font-size: 0.7rem;
     }
 
     .avatar-md {
-        width: 40px;
-        height: 40px;
+        width: 72px;
+        height: 72px;
+        font-size: 0.9rem;
     }
 
     .avatar-lg {
-        width: 56px;
-        height: 56px;
-        font-size: 0.8rem;
+        width: 112px;
+        height: 112px;
+        font-size: 1.1rem;
     }
 
-    .avatar-xlg {
-        width: 96px;
-        height: 96px;
-        font-size: 1.1rem;
+    .avatar-xl {
+        width: 160px;
+        height: 160px;
+        font-size: 1.5rem;
     }
 
     /* Shape */

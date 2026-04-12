@@ -6,12 +6,14 @@
     type Position = "fixed" | "floating";
     type Direction = "top" | "bottom" | "left" | "right";
     type Palette = "accent" | "tone";
+    type Elevation = "none" | "subtle" | "hard";
 
     interface Props {
         position?: Position;
         direction?: Direction;
         palette?: Palette;
         rounded?: boolean;
+        elevation?: Elevation;
         offset?: string;
         header?: Snippet;
         footer?: Snippet;
@@ -23,6 +25,7 @@
         direction = "left",
         palette = "accent",
         rounded = false,
+        elevation = "none",
         offset = "0px",
         header,
         footer,
@@ -40,6 +43,7 @@
             direction,
             palette,
             rounded: rounded ? true : undefined,
+            elevation: elevation !== "none" ? elevation : undefined,
         }).trim()
     );
 </script>
@@ -228,6 +232,16 @@
     /*  Palette — tone (styleguide card/highlight style)*/
     .nav-palette-tone {
         background: var(--tone);
+    }
+
+    /* ── Elevation ────────────────────────────────────────────────────────── */
+
+    .nav-elevation-subtle {
+        box-shadow: 0 4px 12px var(--shadow-subtle);
+    }
+
+    .nav-elevation-hard {
+        box-shadow: 0.4rem 0.4rem var(--shadow-hard);
     }
 
 </style>

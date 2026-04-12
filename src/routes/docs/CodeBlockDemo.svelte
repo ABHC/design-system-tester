@@ -353,7 +353,7 @@
         { prop: "code_src", type: "string", default: "undefined" },
         { prop: "copyable", type: "boolean", default: "false" },
         { prop: "line_numbers", type: "boolean", default: "false" },
-        { prop: "rounded", type: "boolean", default: "true" },
+        { prop: "rounded", type: "boolean", default: "false" },
         { prop: "width", type: "string", default: "undefined" },
         { prop: "max_height", type: "string", default: "undefined" },
     ]}

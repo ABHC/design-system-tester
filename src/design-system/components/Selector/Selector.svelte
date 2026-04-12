@@ -5,7 +5,7 @@
     // Types ─────────────────────────────────────────────────────────────────
 
     type Palette = "accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info";
-    type Variant = "flat" | "outlined" | "ghost" | "textual";
+    type Variant = "flat" | "outlined" | "ghost" | "naked";
     type Size = "sm" | "md" | "lg";
     type Direction = "row" | "column";
     type OptionEntry = { value: T; label?: string };
@@ -30,7 +30,7 @@
         palette = "accent",
         variant = "outlined",
         size = "sm",
-        rounded = true,
+        rounded = false,
         uppercase = false,
         direction = "row",
         options,

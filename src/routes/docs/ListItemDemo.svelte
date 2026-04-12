@@ -44,91 +44,66 @@
 
     const code_opaque = `
 <ListItem
-    supporting_text={{ main: "TGV", extra: "Paris — Lyon" }}
+    label="TGV"
     leading={icon_train}
     palette="tone"
     rounded
     active={active === "tgv"}
     onclick={() => active = "tgv"}
-/>
+>
+    Paris — Lyon
+</ListItem>
 <ListItem
-    supporting_text={{ main: "Minitel", extra: "3615 COGIP" }}
+    label="Minitel"
     leading={icon_terminal}
     palette="highlight"
     rounded
     active={active === "minitel"}
     onclick={() => active = "minitel"}
-/>`;
+>
+    3615 COGIP
+</ListItem>`;
 
     const code_ghost = `
 <ListItem
-    supporting_text={{ main: "TGV", extra: "Paris — Lyon" }}
+    label="TGV"
     leading={icon_train}
     palette="ghost"
     rounded
     active={active === "tgv"}
     onclick={() => active = "tgv"}
-/>
+>
+    Paris — Lyon
+</ListItem>
 
 <!-- ListItems in a Drawer automatically take the value ghost -->
 <Drawer palette="accent">
-    <ListItem supporting_text={{ main: "Dashboard" }} palette="ghost" />
-    <ListItem supporting_text={{ main: "Settings" }} palette="ghost" />
+    <ListItem label="Dashboard" palette="ghost" />
+    <ListItem label="Settings" palette="ghost" />
 </Drawer>`;
 
     const code_contextual = `<!-- Contextual palettes — action menus, status lists -->
-<ListItem
-    supporting_text={{ main: "Annuler la mission", extra: "Action irréversible" }}
-    leading={icon_delete}
-    palette="error"
-    rounded
-    onclick={handleDelete}
-/>
-<ListItem
-    supporting_text={{ main: "Mettre en attente" }}
-    leading={icon_archive}
-    palette="warning"
-    rounded
-    onclick={handleHold}
-/>
-<ListItem
-    supporting_text={{ main: "Mission accomplie", extra: "Ariane est en orbite" }}
-    leading={icon_check}
-    palette="success"
-    rounded
-/>
-<ListItem
-    supporting_text={{ main: "Consulter les archives" }}
-    leading={icon_info}
-    palette="info"
-    rounded
-/>`;
+<ListItem label="Annuler la mission" leading={icon_delete} palette="error" rounded onclick={handleDelete}>
+    Action irréversible
+</ListItem>
+<ListItem label="Mettre en attente" leading={icon_archive} palette="warning" rounded onclick={handleHold} />
+<ListItem label="Mission accomplie" leading={icon_check} palette="success" rounded>
+    Ariane est en orbite
+</ListItem>
+<ListItem label="Consulter les archives" leading={icon_info} palette="info" rounded />`;
 
     const code_elevation = `<!-- elevation — même valeurs que Button / Card / Badge -->
-<ListItem
-    supporting_text={{ main: "Subtle shadow" }}
-    palette="tone"
-    rounded
-    elevation="subtle"
-/>
-<ListItem
-    supporting_text={{ main: "Hard shadow" }}
-    palette="tone"
-    rounded
-    elevation="hard"
-/>`;
+<ListItem label="Subtle shadow" palette="tone" rounded elevation="subtle" />
+<ListItem label="Hard shadow" palette="tone" rounded elevation="hard" />`;
 
-    const code_sizes = `<ListItem supporting_text={{ main: "Small" }}  size="sm" palette="tone" rounded />
-<ListItem supporting_text={{ main: "Medium" }} palette="tone" rounded />
-<ListItem supporting_text={{ main: "Large" }}  size="lg" palette="tone" rounded />`;
+    const code_sizes = `<ListItem label="Small"  size="sm" palette="tone" rounded />
+<ListItem label="Medium" palette="tone" rounded />
+<ListItem label="Large"  size="lg" palette="tone" rounded />`;
 
     const code_static = `<!-- Sans onclick — pas de curseur, pas de hover, pas d'état active -->
-<ListItem
-    supporting_text={{ main: "TGV", extra: "Paris — Lyon" }}
-    leading={icon_train}
-    palette="tone"
-    rounded
-/>`;
+<ListItem label="TGV" leading={icon_train} palette="tone" rounded>
+    Paris — Lyon
+</ListItem>`;
 </script>
 
 {#snippet codeCell(value: string)}<code>{value}</code>{/snippet}
@@ -202,7 +177,7 @@
         <span class="group-label">Navigation</span>
         {#each items.nav as item, i}
             <ListItem
-                supporting_text={{ main: item.main, extra: item.extra }}
+                label={item.label}
                 leading={i === 0 ? icon_train : i === 1 ? icon_plane : icon_rocket}
                 palette={i === 0 ? "tone" : i === 1 ? "accent" : "ghost"}
                 size={demo_size}
@@ -210,7 +185,7 @@
                 elevation={demo_elevation}
                 active={active_id === `nav-${i}`}
                 onclick={() => toggle(`nav-${i}`)}
-            />
+            >{item.extra}</ListItem>
         {/each}
     </div>
 
@@ -218,7 +193,7 @@
     <div class="list-group">
         <span class="group-label">Contextual</span>
         <ListItem
-            supporting_text={{ main: items.delete_main, extra: items.delete_extra }}
+            label={items.delete_label}
             leading={icon_delete}
             palette="error"
             size={demo_size}
@@ -226,9 +201,9 @@
             elevation={demo_elevation}
             active={active_id === "delete"}
             onclick={() => toggle("delete")}
-        />
+        >{items.delete_extra}</ListItem>
         <ListItem
-            supporting_text={{ main: items.warning_main, extra: items.warning_extra }}
+            label={items.warning_label}
             leading={icon_archive}
             palette="warning"
             size={demo_size}
@@ -236,9 +211,9 @@
             elevation={demo_elevation}
             active={active_id === "warning"}
             onclick={() => toggle("warning")}
-        />
+        >{items.warning_extra}</ListItem>
         <ListItem
-            supporting_text={{ main: items.success_main, extra: items.success_extra }}
+            label={items.success_label}
             leading={icon_check}
             palette="success"
             size={demo_size}
@@ -246,9 +221,9 @@
             elevation={demo_elevation}
             active={active_id === "success"}
             onclick={() => toggle("success")}
-        />
+        >{items.success_extra}</ListItem>
         <ListItem
-            supporting_text={{ main: items.info_main, extra: items.info_extra }}
+            label={items.info_label}
             leading={icon_info}
             palette="info"
             size={demo_size}
@@ -256,7 +231,7 @@
             elevation={demo_elevation}
             active={active_id === "info"}
             onclick={() => toggle("info")}
-        />
+        >{items.info_extra}</ListItem>
     </div>
 
     <!-- Static — no onclick -->
@@ -264,13 +239,13 @@
         <span class="group-label">Static (no onclick)</span>
         {#each items.nav as item, i}
             <ListItem
-                supporting_text={{ main: item.main, extra: item.extra }}
+                label={item.label}
                 leading={i === 0 ? icon_train : i === 1 ? icon_plane : icon_rocket}
                 palette={i === 0 ? "tone" : i === 1 ? "accent" : "ghost"}
                 size={demo_size}
                 rounded={demo_rounded}
                 elevation={demo_elevation}
-            />
+            >{item.extra}</ListItem>
         {/each}
     </div>
 </div>
@@ -309,9 +284,10 @@
         { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
         { prop: "rounded", type: "boolean", default: "false" },
         { prop: "active", type: "boolean", default: "false" },
+        { prop: "label", type: "string", default: "\u2014" },
         { prop: "leading", type: "Snippet", default: "\u2014" },
         { prop: "trailing", type: "Snippet", default: "\u2014" },
-        { prop: "supporting_text", type: "SupportingText", default: "\u2014" },
+        { prop: "children", type: "Snippet", default: "\u2014" },
         { prop: "onclick", type: "() => void", default: "\u2014" },
     ]}
 />

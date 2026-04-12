@@ -7,12 +7,8 @@
     type Palette = "tone" | "accent" | "ghost" | "neutral" | "error" | "warning" | "success" | "info";
     type Elevation = "none" | "subtle" | "hard";
 
-    export interface SupportingText {
-        main: string;
-        extra?: string | Snippet;
-    }
-
     interface Props {
+        label: string;
         size?: Size;
         palette?: Palette;
         elevation?: Elevation;
@@ -20,19 +16,20 @@
         active?: boolean;
         leading?: Snippet;
         trailing?: Snippet;
-        supporting_text: SupportingText;
+        children?: Snippet;
         onclick?: () => void;
     }
 
     let {
+        label,
         size = "md",
         palette = "tone",
         elevation = "none",
         rounded = false,
         active = false,
-        supporting_text,
         leading,
         trailing,
+        children,
         onclick,
     }: Props = $props();
 
@@ -57,15 +54,11 @@
 
     <div class="supporting-text">
         <div class="main-supporting">
-            {supporting_text.main}
+            {label}
         </div>
-        {#if supporting_text.extra}
+        {#if children}
             <div class="extra-supporting">
-                {#if typeof supporting_text.extra === 'string'}
-                    {supporting_text.extra}
-                {:else}
-                    {@render supporting_text.extra()}
-                {/if}
+                {@render children()}
             </div>
         {/if}
     </div>

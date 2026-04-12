@@ -77,7 +77,6 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        font-family: var(--font-heading);
         border-bottom: 4px solid var(--accent);
         padding: 0 5%;
         z-index: 200;

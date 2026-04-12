@@ -3,7 +3,7 @@
     import { createVariant } from "../../utils/builder";
     import { buttonConfig } from './button.config';
 
-    type Variant = "flat" | "outlined" | "ghost" | "textual";
+    type Variant = "flat" | "outlined" | "ghost" | "naked";
     type Palette = "accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info";
     type Size = "sm" | "md" | "lg";
     type Animate = "left" | "right" | "top" | "bottom";
@@ -15,12 +15,14 @@
         palette?: Palette;
         size?: Size;
         elevation?: Elevation;
+        raised?: boolean;
         uppercase?: boolean;
         animate?: Animate;
         active?: boolean;
         rounded?: boolean;
         direction?: Direction;
         aria_label?: string;
+        href?: string;
         onclick?: () => void;
         children?: Snippet;
     }
@@ -30,12 +32,14 @@
         palette = "accent",
         size = "md",
         elevation = "none",
+        raised = false,
         uppercase = false,
         animate = undefined,
         active = false,
         rounded = false,
         direction = "row",
         aria_label = undefined,
+        href = undefined,
         onclick = undefined,
         children,
     }: Props = $props();
@@ -48,6 +52,7 @@
             palette,
             size,
             elevation,
+            raised,
             animate,
             uppercase,
             active,
@@ -57,17 +62,32 @@
     );
 </script>
 
-<button
-    class={classes}
-    aria-label={aria_label}
-    aria-current={active ? "page" : undefined}
-    {onclick}
->
-    {@render children?.()}
-</button>
+{#if href}
+    <a
+        {href}
+        class={classes}
+        aria-label={aria_label}
+        aria-current={active ? "page" : undefined}
+    >
+        {@render children?.()}
+    </a>
+{:else}
+    <button
+        class={classes}
+        aria-label={aria_label}
+        aria-current={active ? "page" : undefined}
+        {onclick}
+    >
+        {@render children?.()}
+    </button>
+{/if}
 
 <style>
     /* Base ────────────────────────────────────────────────────────────── */
+
+    a.btn {
+        text-decoration: none;
+    }
 
     .btn {
         display: flex;
@@ -111,7 +131,7 @@
     }
 
     /* Textual — transparent, opacity-only hover */
-    .btn-textual {
+    .btn-naked {
         border: none;
         background: transparent;
         padding: 0.25rem 0.5rem;
@@ -123,7 +143,7 @@
     }
 
     .btn-ghost.btn-active.btn-rounded,
-    .btn-textual.btn-active.btn-rounded {
+    .btn-naked.btn-active.btn-rounded {
         border-radius: 8px 8px 0 0;
     }
 
@@ -176,15 +196,15 @@
         border-bottom-color: var(--text-accent);
     }
 
-    .btn-palette-accent.btn-textual {
+    .btn-palette-accent.btn-naked {
         color: var(--accent-muted);
     }
 
-    .btn-palette-accent.btn-textual:hover {
+    .btn-palette-accent.btn-naked:hover {
         color: var(--accent);
     }
 
-    .btn-palette-accent.btn-textual.btn-active {
+    .btn-palette-accent.btn-naked.btn-active {
         color: var(--accent-muted);
         border-color: var(--accent);
     }
@@ -202,7 +222,7 @@
 
     .btn-palette-tone.btn-flat.btn-active {
         background: var(--accent);
-        border-color: var(--accent-bg);
+        border-color: var(--tone-muted);
         color: var(--text-accent);
     }
 
@@ -235,15 +255,15 @@
         border-bottom-color: var(--accent);
     }
 
-    .btn-palette-tone.btn-textual {
+    .btn-palette-tone.btn-naked {
         color: var(--text-muted);
     }
 
-    .btn-palette-tone.btn-textual:hover {
+    .btn-palette-tone.btn-naked:hover {
         color: var(--text);
     }
 
-    .btn-palette-tone.btn-textual.btn-active {
+    .btn-palette-tone.btn-naked.btn-active {
         color: var(--text);
         border-color: var(--text);
     }
@@ -296,15 +316,15 @@
         border-bottom-color: var(--error-muted);
     }
 
-    .btn-palette-error.btn-textual {
+    .btn-palette-error.btn-naked {
         color: var(--error-muted);
     }
 
-    .btn-palette-error.btn-textual:hover {
+    .btn-palette-error.btn-naked:hover {
         color: var(--error);
     }
 
-    .btn-palette-error.btn-textual.btn-active {
+    .btn-palette-error.btn-naked.btn-active {
         color: var(--error-muted);
         border-color: var(--error);
     }
@@ -357,15 +377,15 @@
         border-bottom-color: var(--warning-muted);
     }
 
-    .btn-palette-warning.btn-textual {
+    .btn-palette-warning.btn-naked {
         color: var(--warning-muted);
     }
 
-    .btn-palette-warning.btn-textual:hover {
+    .btn-palette-warning.btn-naked:hover {
         color: var(--warning);
     }
 
-    .btn-palette-warning.btn-textual.btn-active {
+    .btn-palette-warning.btn-naked.btn-active {
         color: var(--warning-muted);
         border-color: var(--warning);
     }
@@ -418,15 +438,15 @@
         border-bottom-color: var(--success-muted);
     }
 
-    .btn-palette-success.btn-textual {
+    .btn-palette-success.btn-naked {
         color: var(--success-muted);
     }
 
-    .btn-palette-success.btn-textual:hover {
+    .btn-palette-success.btn-naked:hover {
         color: var(--success);
     }
 
-    .btn-palette-success.btn-textual.btn-active {
+    .btn-palette-success.btn-naked.btn-active {
         color: var(--success-muted);
         border-color: var(--success);
     }
@@ -479,15 +499,15 @@
         border-bottom-color: var(--info-muted);
     }
 
-    .btn-palette-info.btn-textual {
+    .btn-palette-info.btn-naked {
         color: var(--info-muted);
     }
 
-    .btn-palette-info.btn-textual:hover {
+    .btn-palette-info.btn-naked:hover {
         color: var(--info);
     }
 
-    .btn-palette-info.btn-textual.btn-active {
+    .btn-palette-info.btn-naked.btn-active {
         color: var(--info-muted);
         border-color: var(--info);
     }
@@ -540,26 +560,36 @@
         border-bottom-color: var(--neutral-muted);
     }
 
-    .btn-palette-neutral.btn-textual {
+    .btn-palette-neutral.btn-naked {
         color: var(--neutral-muted);
     }
 
-    .btn-palette-neutral.btn-textual:hover {
+    .btn-palette-neutral.btn-naked:hover {
         color: var(--neutral);
     }
 
-    .btn-palette-neutral.btn-textual.btn-active {
+    .btn-palette-neutral.btn-naked.btn-active {
         color: var(--neutral-muted);
         border-color: var(--neutral);
     }
 
-    /* Elevation — appears on hover ───────────────────────────────────── */
+    /* Elevation — hover only (default) ───────────────────────────────── */
 
     .btn-elevation-subtle:hover {
         box-shadow: 0 4px 12px var(--shadow-subtle);
     }
 
     .btn-elevation-hard:hover {
+        box-shadow: 0.4rem 0.4rem var(--shadow-hard);
+    }
+
+    /* Elevation — constant (raised=true) ─────────────────────────────── */
+
+    .btn-raised.btn-elevation-subtle {
+        box-shadow: 0 4px 12px var(--shadow-subtle);
+    }
+
+    .btn-raised.btn-elevation-hard {
         box-shadow: 0.4rem 0.4rem var(--shadow-hard);
     }
 
@@ -586,9 +616,9 @@
     .btn-ghost.btn-sm { font-size: 0.75rem; }
 
     /* textual: compact padding regardless of size */
-    .btn-textual.btn-lg { font-size: 1.125rem; font-weight: 700; padding: 0.3rem 0.6rem; }
-    .btn-textual.btn-md { padding: 0.25rem 0.5rem; }
-    .btn-textual.btn-sm { font-size: 0.75rem; padding: 0.15rem 0.35rem; }
+    .btn-naked.btn-lg { font-size: 1.125rem; font-weight: 700; padding: 0.3rem 0.6rem; }
+    .btn-naked.btn-md { padding: 0.25rem 0.5rem; }
+    .btn-naked.btn-sm { font-size: 0.75rem; padding: 0.15rem 0.35rem; }
 
     /* Rounded ─────────────────────────────────────────────────────────── */
 

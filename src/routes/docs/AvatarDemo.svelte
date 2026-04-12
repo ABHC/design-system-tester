@@ -17,7 +17,7 @@
 
     // ── Demo state ──────────────────────────────────────────────────────────
 
-    type Size    = "xsm" | "sm" | "md" | "lg" | "xlg";
+    type Size    = "xs" | "sm" | "md" | "lg" | "xl";
     type Palette = "accent" | "tone";
     type Status  = "none" | "online" | "offline" | "absent" | "do-not-disturb";
     type Content = "label" | "image";
@@ -41,11 +41,11 @@
 
     // ── Code examples ───────────────────────────────────────────────────────
 
-    const code_sizes = `<Avatar size="xsm" circular label="JD" />
+    const code_sizes = `<Avatar size="xs" circular label="JD" />
 <Avatar size="sm"  circular label="JD" />
 <Avatar size="md"  circular label="JD" />
 <Avatar size="lg"  circular label="JD" />
-<Avatar size="xlg" circular label="JD" />`;
+<Avatar size="xl" circular label="JD" />`;
 
     const code_palette = `<!-- accent palette (default) or tone -->
 <Avatar size="lg" circular palette="accent" label="AC" />
@@ -97,8 +97,8 @@
 
 <!-- Controls -->
 
-<ControlBar palette="tone" rounded>
-    <Selector label="Size" options={["xsm", "sm", "md", "lg", "xlg"]}                          bind:value={demo_size} />
+<ControlBar palette="tone">
+    <Selector label="Size" options={["xs", "sm", "md", "lg", "xl"]}                          bind:value={demo_size} />
     <Selector label="Palette" options={["accent", "tone"]}                                         bind:value={demo_palette} />
     <Selector label="Circular" options={bool_opts}                                                  bind:value={demo_circular} />
     <Selector label="Status" options={["none", "online", "offline", "absent", "do-not-disturb"]}  bind:value={demo_status} />
@@ -220,7 +220,7 @@
         { key: "default", label: "Default", cell: codeCell },
     ]}
     rows={[
-        { prop: "size", type: '"xsm" | "sm" | "md" | "lg" | "xlg"', default: '"md"' },
+        { prop: "size", type: '"xs" | "sm" | "md" | "lg" | "xl"', default: '"md"' },
         { prop: "status", type: '"online" | "offline" | "absent" | "do-not-disturb"', default: "undefined" },
         { prop: "palette", type: '"accent" | "tone"', default: '"accent"' },
         { prop: "circular", type: "boolean", default: "false" },
@@ -234,7 +234,6 @@
 <style>
     .avatar-preview {
         border: 2px solid var(--tone-hover);
-        border-radius: 12px;
         padding: 1.5rem;
         margin-bottom: 0.75rem;
         background: var(--tone-bg);

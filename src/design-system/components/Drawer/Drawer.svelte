@@ -30,7 +30,7 @@
         offset_bottom = "0px",
         width = "260px",
         height = "300px",
-        rounded = true,
+        rounded = false,
         header,
         children,
         footer,

@@ -50,6 +50,7 @@
         rounded?: boolean;
         width?: string;
         max_height?: string;
+        active_tab?: number;
     }
 
     let {
@@ -65,9 +66,10 @@
         code_src = undefined,
         copyable = false,
         line_numbers = false,
-        rounded = true,
+        rounded = false,
         width = undefined,
         max_height = undefined,
+        active_tab = $bindable(0),
     }: Props = $props();
 
     // Renders basic markdown: **bold**, _italic_, `code`, newlines
@@ -87,9 +89,6 @@
 
     const variant_classes = $derived(resolve({ variant, size }));
     const classes = $derived(variant_classes.trim());
-
-    // Active tab index
-    let active_tab = $state(0);
 
     // Clipboard feedback state
     let copied = $state(false);

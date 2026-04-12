@@ -155,9 +155,9 @@
         { prop: "disabled", type: "boolean", default: "false" },
         { prop: "autofocus", type: "boolean", default: "false" },
         { prop: "naked", type: "boolean", default: "false" },
-        { prop: "size", type: "SearchFieldSize", default: '"md"' },
+        { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"' },
         { prop: "rounded", type: "boolean", default: "false" },
-        { prop: "palette", type: "SearchFieldPalette", default: '"tone"' },
+        { prop: "palette", type: '"tone" | "accent" | "accentbg"', default: '"tone"' },
     ]}
 />
 </div>

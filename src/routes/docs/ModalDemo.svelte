@@ -322,7 +322,7 @@
         { prop: "open", type: "boolean", default: "false" },
         { prop: "onclose", type: "() => void", default: "undefined" },
         { prop: "palette", type: '"tone" | "accent" | "accentbg"', default: '"tone"' },
-        { prop: "elevation", type: "Elevation", default: '"subtle"' },
+        { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"subtle"' },
         { prop: "rounded", type: "boolean", default: "true" },
         { prop: "width", type: "string", default: '"480px"' },
         { prop: "header", type: "Snippet", default: "\u2014" },

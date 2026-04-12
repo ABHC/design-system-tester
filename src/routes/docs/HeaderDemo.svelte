@@ -46,9 +46,9 @@
 {/snippet}
 
 {#snippet actions()}
-    <Button variant="textual">Work</Button>
-    <Button variant="textual">About</Button>
-    <Button variant="textual">Blog</Button>
+    <Button variant="naked">Work</Button>
+    <Button variant="naked">About</Button>
+    <Button variant="naked">Blog</Button>
     <Button variant="flat" size="sm">Contact</Button>
 {/snippet}
 
@@ -89,10 +89,10 @@
 <!-- Nav links go in the children slot — pass as prop or inline between tags -->
 <Header palette="tone" leading={logo} following={actions}>
     <nav style="display:flex; gap: 0.5rem;">
-        <Button variant="textual">Domus</Button>
-        <Button variant="textual">Curia</Button>
-        <Button variant="textual">Lex</Button>
-        <Button variant="textual">Epistola</Button>
+        <Button variant="naked">Domus</Button>
+        <Button variant="naked">Curia</Button>
+        <Button variant="naked">Lex</Button>
+        <Button variant="naked">Epistola</Button>
     </nav>
 </Header>`;
 
@@ -144,7 +144,7 @@ let header_visible = $state(true);
         </div>
         <div class="demo-actions">
             {#each nav_labels as label}
-                <Button variant="textual" palette={demo_palette}>{label}</Button>
+                <Button variant="naked" palette={demo_palette}>{label}</Button>
             {/each}
             <Button 
                 variant="flat" 
@@ -213,7 +213,7 @@ let header_visible = $state(true);
         </div>
         <nav class="demo-nav">
             {#each nav_labels as label}
-                <Button variant="textual" palette={demo_palette}>{label}</Button>
+                <Button variant="naked" palette={demo_palette}>{label}</Button>
             {/each}
         </nav>
         <div class="demo-actions">

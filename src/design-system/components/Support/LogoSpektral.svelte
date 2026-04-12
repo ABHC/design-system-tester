@@ -1,121 +1,186 @@
 <script lang="ts">
-    import { hexToOklch, oklchToHex } from '$lib/utils/contrast';
-    import { onMount } from 'svelte';
-
+    // ── Props ────────────────────────────────────────────────────────────────
     interface Props {
+        /**
+         * Height (and width) of the logo in pixels. The viewBox is square.
+         * Default: 64px.
+         */
         size?: number;
+        /**
+         * When true, renders the CSS token name next to each coloured element.
+         * Intended for styleguide / documentation pages.
+         */
+        annotate?: boolean;
     }
 
-    let { size = 64 }: Props = $props();
-
-    const uid = Math.random().toString(36).slice(2, 8);
-    const gradient_id = `spektral-pipe-gradient-${uid}`;
-
-    let shade_darker = $state('#047857');
-    let shade_dark = $state('#059669');
-    let shade_light = $state('#34d399');
-    let shade_lighter = $state('#6ee7b7');
-
-    function compute_shades(accent_hex: string): void {
-        const oklch = hexToOklch(accent_hex);
-        if (!oklch) return;
-        const { c, h } = oklch;
-        shade_darker = oklchToHex(Math.max(0, oklch.l - 0.20), c, h);
-        shade_dark = oklchToHex(Math.max(0, oklch.l - 0.10), c, h);
-        shade_light = oklchToHex(Math.min(1, oklch.l + 0.10), c, h);
-        shade_lighter = oklchToHex(Math.min(1, oklch.l + 0.20), c, h);
-    }
-
-    function read_accent(): void {
-        const hex = getComputedStyle(document.documentElement)
-            .getPropertyValue('--accent').trim();
-        if (hex) compute_shades(hex);
-    }
-
-    onMount(() => {
-        read_accent();
-        const observer = new MutationObserver(read_accent);
-        observer.observe(document.documentElement, {
-            attributes: true,
-            attributeFilter: ['style'],
-        });
-        return () => observer.disconnect();
-    });
+    let { size = 64, annotate = false }: Props = $props();
 </script>
 
+<!--
+    LogoSpektral — Diamond K logo for the Spektral design system.
+    Geometry preserved verbatim from logo_spektral3.svg (Inkscape, 3rd revision).
+
+    Structural change vs previous version: the nested group hierarchy (g13 /
+    g12-2 / g8-6-7) has been flattened by Inkscape into individual elements,
+    each carrying its own explicit transform. The component mirrors this flat
+    structure exactly.
+
+    Token mapping (from inkscape:label suffixes):
+      -accent       → var(--accent)       fill on Triangle-1, stroke on Outline
+      -accent-hover → var(--accent-hover) fill on Triangle-2, K-1, K-2
+      -accent-muted → var(--accent-muted) fill on Triangle-3
+
+    Render order (painter's algorithm, back to front):
+      1. Triangle-1  (accent)       — large background triangle
+      2. K-1         (accent-hover) — upper K arm
+      3. K-2         (accent-hover) — lower K arm
+      4. Outline     (accent)       — diamond frame, drawn on top
+      5. Triangle-2  (accent-hover) — mid triangle
+      6. Triangle-3  (accent-muted) — small muted triangle
+
+    No linearGradient → no MutationObserver needed. All fills/strokes are
+    resolved natively by the browser via CSS custom properties.
+-->
 <svg
     role="img"
     aria-label="Spektral logo"
-    viewBox="0 0 13.772485 20"
+    viewBox="0 0 209.30361 209.30361"
     xmlns="http://www.w3.org/2000/svg"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    style="height: {size}px; width: auto; overflow: visible;"
+    style="height: {size}px; width: {size}px; overflow: visible;"
 >
-    <defs>
-        <linearGradient
-            id={gradient_id}
-            x1="0"
-            y1="1"
-            x2="0"
-            y2="0"
-            gradientUnits="objectBoundingBox"
-        >
-            <stop offset="0" stop-color={shade_darker} />
-            <stop offset="0.35" stop-color={shade_dark} />
-            <stop offset="0.65" stop-color={shade_light} />
-            <stop offset="1" stop-color={shade_lighter} />
-        </linearGradient>
-    </defs>
+    <!--
+        All elements live in the layer1 coordinate space:
+          transform="translate(-0.34820308,-43.848212)"
+        Each element carries its own additional transform as per the Inkscape source.
+    -->
+    <g transform="translate(-0.34820308,-43.848212)">
 
-    <g transform="translate(-98,-174.0865)">
-        <g id="logo-body">
-            <clipPath id="spektral-clip-{uid}" clipPathUnits="userSpaceOnUse">
-                <rect
-                    width="15.550653"
-                    height="20.734203"
-                    x="139.05003"
-                    y="-92.306259"
-                    transform="rotate(90)"
-                />
-            </clipPath>
+        <!-- ── Triangle-1 (accent) ────────────────────────────────────────── -->
+        <!-- Largest triangle — dominant accent aplat, rendered first (back). -->
+        <path
+            fill="var(--accent)"
+            stroke="none"
+            transform="translate(304.89433,-280.25802)"
+            d="M -225.6617,355.02002 V 502.4941 l -74.64038,-73.73704 z"
+        />
 
-            <g
-                transform="matrix(0,-0.96458977,0.96458977,0,-33.32624,263.12417)"
-                clip-path="url(#spektral-clip-{uid})"
-            >
-                <path
-                    fill={shade_lighter}
-                    d="m 81.89836,132.44698 4.715454,17.97677 5.6935,0.001 z"
-                />
-                <path
-                    fill={shade_darker}
-                    d="m 81.899307,132.44773 c 0.0093,-0.004 -4.673544,17.97677 -4.673544,17.97677 l -5.653723,7.9e-4 z"
-                />
-                <path
-                    fill={shade_dark}
-                    d="m 81.899999,132.44654 0.03062,17.9765 -4.781915,0.002 z"
-                />
-                <path
-                    fill={shade_light}
-                    d="m 81.899596,132.44964 0.0054,17.9734 4.72974,7.7e-4 z"
-                />
-            </g>
+        <!-- ── K-1 — upper arm (accent-hover) ────────────────────────────── -->
+        <path
+            fill="var(--accent-hover)"
+            stroke="none"
+            transform="translate(-200.81692,7.070112)"
+            d="m 326.45353,65.809488 -117.41461,73.404302 -1.47485,1.47485 143.38519,-50.383043 z"
+        />
 
-            <rect
-                fill="url(#{gradient_id})"
-                width="3"
-                height="20"
-                x="98"
-                y="174.0865"
-            />
-        </g>
+        <!-- ── K-2 — lower arm (accent-hover) ────────────────────────────── -->
+        <path
+            fill="var(--accent-hover)"
+            stroke="none"
+            transform="translate(-200.81692,7.070112)"
+            d="m 325.77341,217.64193 25.69998,-25.68775 -143.90777,-49.78294 1.62006,1.62005 z"
+        />
+
+        <!-- ── Outline — diamond frame (accent, stroke only) ─────────────── -->
+        <!--
+            stroke-width="8" as per latest revision (doubled from previous 4).
+            transform uses an explicit rotation centre: rotate(45, cx, cy)
+            where cx=125.23159, cy=346.38349 — preserved verbatim from Inkscape.
+            fill="none" is intentional — frame only.
+        -->
+        <rect
+            fill="none"
+            stroke="var(--accent)"
+            stroke-width="8"
+            stroke-linecap="square"
+            width="140"
+            height="140"
+            x="-98.999046"
+            y="150.76463"
+            transform="rotate(45,125.23159,346.38349)"
+        />
+
+        <!-- ── Triangle-2 (accent-hover) ─────────────────────────────────── -->
+        <!-- Mid-sized triangle — rendered above the Outline frame. -->
+        <path
+            fill="var(--accent-hover)"
+            stroke="none"
+            transform="translate(304.89433,-280.25802)"
+            d="m -236.25032,389.63127 -0.019,79.22795 -64.03276,-40.10216 z"
+        />
+
+        <!-- ── Triangle-3 (accent-muted) ─────────────────────────────────── -->
+        <!-- Smallest triangle — muted shade, rendered last (front). -->
+        <path
+            fill="var(--accent-muted)"
+            stroke="none"
+            transform="translate(304.89433,-280.25802)"
+            d="m -225.66419,402.78407 v 51.94598 l -74.1117,-25.97299 z"
+        />
+
     </g>
+
+    <!-- ── Token annotation labels (annotate prop) ────────────────────────── -->
+    <!--
+        Positioned in the final viewBox coordinate space (0 0 209 209).
+        font-size is in SVG user units so labels scale with the size prop.
+    -->
+    {#if annotate}
+        <!-- Top — Outline label -->
+        <text
+            x="104"
+            y="10"
+            text-anchor="middle"
+            font-size="7"
+            font-family="var(--font-body, monospace)"
+            fill="var(--accent)"
+        >--accent (stroke)</text>
+
+        <!-- Left — Triangle-1 label -->
+        <text
+            x="-2"
+            y="105"
+            text-anchor="end"
+            font-size="7"
+            font-family="var(--font-body, monospace)"
+            fill="var(--accent)"
+        >--accent</text>
+
+        <!-- Left — Triangle-2 label -->
+        <text
+            x="-2"
+            y="130"
+            text-anchor="end"
+            font-size="7"
+            font-family="var(--font-body, monospace)"
+            fill="var(--accent-hover)"
+        >--accent-hover</text>
+
+        <!-- Left — Triangle-3 label -->
+        <text
+            x="-2"
+            y="152"
+            text-anchor="end"
+            font-size="7"
+            font-family="var(--font-body, monospace)"
+            fill="var(--accent-muted)"
+        >--accent-muted</text>
+
+        <!-- Right — K arms label -->
+        <text
+            x="213"
+            y="105"
+            text-anchor="start"
+            font-size="7"
+            font-family="var(--font-body, monospace)"
+            fill="var(--accent-hover)"
+        >--accent-hover (K)</text>
+    {/if}
+
 </svg>
 
 <style>
     svg {
-        height: 64px;
-        width: auto;
-        margin: 8px;
+        /* Allow annotation labels to render outside the viewBox boundaries */
+        overflow: visible;
     }
 </style>

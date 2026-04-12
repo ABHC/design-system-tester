@@ -38,5 +38,11 @@ export const navConfig = {
         rounded: {
             true: "nav-rounded",
         },
+
+        // Shadow elevation.
+        elevation: {
+            subtle: "nav-elevation-subtle",
+            hard:   "nav-elevation-hard",
+        },
     }
 };

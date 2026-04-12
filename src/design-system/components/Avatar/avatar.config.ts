@@ -4,11 +4,11 @@ export const avatarConfig = {
 
     variants: {
         size: {
-            xsm: "avatar-xsm",
+            xs: "avatar-xs",
             sm: "avatar-sm",
             md: "avatar-md",
             lg: "avatar-lg",
-            xlg: "avatar-xlg"
+            xl: "avatar-xl"
         },
 
         palette: {
