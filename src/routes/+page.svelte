@@ -1,63 +1,628 @@
 <script lang="ts">
     import { trans } from "./store";
-    import Headline from "../design-system/components/Headline/Headline.svelte";
+    import LogoSpektral from "../design-system/components/Support/LogoSpektral.svelte";
+    import Badge from "../design-system/components/Badge/Badge.svelte";
     import Button from "../design-system/components/Button/Button.svelte";
+    import Card from "../design-system/components/Card/Card.svelte";
+    import Hero from "../design-system/components/Hero/Hero.svelte";
+    import CodeBlock from "../design-system/components/CodeBlock/CodeBlock.svelte";
+
+    let showcase_tab = $state(0);
+
+    const showcase_code = [
+        // Button
+        `<Button palette="accent">
+  Commencer
+</Button>
+
+<Button variant="outlined" palette="accent">
+  <span class="material-symbols-outlined">palette</span>
+  Personnaliser
+</Button>
+
+<Button variant="ghost" palette="tone" squared>
+  <span class="material-symbols-outlined">menu</span>
+</Button>`,
+        // Card
+        `<Card variant="outlined" elevation="subtle">
+  {#snippet children()}
+    <div class="card-content">
+      <h3>Spektral Card</h3>
+      <p>Composable via snippets Svelte 5.
+Header, body et footer indépendants.</p>
+    </div>
+  {/snippet}
+  {#snippet footer()}
+    <Button size="sm" palette="accent">
+      Voir la doc
+    </Button>
+  {/snippet}
+</Card>`,
+        // Badge
+        `<Badge palette="accent" pill>Svelte 5</Badge>
+
+<Badge variant="outlined" palette="tone" pill>
+  WCAG AA
+</Badge>
+
+<Badge palette="success" size="sm">Nouveau</Badge>`,
+    ];
 </script>
 
 <svelte:head>
     <title>Spektral UI - Design System</title>
 </svelte:head>
 
-<div class="landing">
-    <section class="hero">
-        <Headline size="lg" uppercase>Spektral UI</Headline>
-        <p class="hero-subtitle">{$trans?.welcome.intro ?? "Explore the design system components. Test variants, adjust settings and copy code directly from the page."}</p>
-        <div class="hero-actions">
-            <a href="/docs">
-                <Button palette="accent" rounded>
-                    {$trans?.welcome.cat_composants ?? "Components"}
+<Hero
+    layout="main-left"
+    palette="transparent"
+    pattern="scallops"
+    pattern_color="#aea03f"
+    pattern_size="150px"
+    pattern_opacity={0.3}
+    pattern_mask="ellipse"
+    pattern_mask_size={70}
+    gap="10px"
+    pattern_effect="glow"
+    pattern_effect_opacity={1}
+>
+    {#snippet cell_1()}
+        <div class="hero-content">
+            <!--<LogoSpektral size={100} />-->
+            <LogoSpektral size={160} />
+
+            <h1>{$trans?.hero.headline}</h1>
+
+            <p class="hero-subtitle">{$trans?.hero.subtitle}</p>
+
+            <div class="hero-badges">
+                <Badge variant="outlined" palette="accent" size="sm" pill>
+                    {$trans?.hero.badge_1}
+                </Badge>
+                <Badge variant="outlined" palette="tone" size="sm" pill>
+                    {$trans?.hero.badge_2}
+                </Badge>
+            </div>
+
+            <div class="hero-actions">
+                <Button 
+                    palette="accent" 
+                    href="/docs"
+                >
+                    <span class="material-symbols-outlined hero-btn-icon">book_5</span>
+                    {$trans?.hero.cta_docs}
                 </Button>
-            </a>
-            <a href="/customizer">
-                <Button variant="outlined" palette="accent" rounded>
-                    {$trans?.control.contrast ?? "Customizer"}
+                <Button 
+                    variant="outlined" 
+                    palette="accent"  
+                    href="/customizer"
+                >
+                    <span class="material-symbols-outlined hero-btn-icon">palette</span>
+                    {$trans?.hero.cta_customizer}
                 </Button>
-            </a>
+            </div>
         </div>
-    </section>
-</div>
+    {/snippet}
+</Hero>
+
+<!-- Stat strip -->
+<section class="stat-strip">
+    <div class="stat-item">
+        <span class="stat-number">{$trans?.stats.components_count}</span>
+        <span class="stat-label">{$trans?.stats.components_label}</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+        <span class="stat-number">{$trans?.stats.modes_count}</span>
+        <span class="stat-label">{$trans?.stats.modes_label}</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+        <span class="stat-number">{$trans?.stats.patterns_count}</span>
+        <span class="stat-label">{$trans?.stats.patterns_label}</span>
+    </div>
+</section>
+
+<Hero
+    layout="single"
+    palette="accent"
+    pattern="sunrise"
+    pattern_color="#aea03f"
+    pattern_size="100px"
+    pattern_opacity={0.15}
+    pattern_mask="none"
+    pattern_mask_size={30}
+    pattern_mask_direction="top"
+    gap="10px"
+    pattern_effect="blur"
+    pattern_effect_opacity={0.3}
+    height="20dvh"
+>
+    {#snippet cell_1()}
+        <div class="feature-block">
+            <div class="feature-item">
+                <img id="svelte-icon" src="src/lib/assets/favicon.svg" alt="svelte icon" />
+                <div class="feature-text">
+                    <h3>{$trans?.features.f1_title}</h3>
+                    <span>{$trans?.features.f1_desc}</span>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <span class="material-symbols-outlined feature-icon">
+                    dashboard_2_edit
+                </span>
+                <div class="feature-text">
+                    <h3>{$trans?.features.f2_title}</h3>
+                    <span>{$trans?.features.f2_desc}</span>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <span class="material-symbols-outlined feature-icon">
+                    palette
+                </span>
+                <div class="feature-text">
+                    <h3>{$trans?.features.f4_title}</h3>
+                    <span>{$trans?.features.f4_desc}</span>
+                </div>
+            </div>
+        </div>
+    {/snippet}
+</Hero>
+
+<!-- Code showcase -->
+<Hero
+    layout="two-cols"
+    palette="tone"
+    pattern="none"
+    pattern_color="#aea03f"
+    pattern_size="80px"
+    pattern_opacity={0.5}
+    pattern_mask="none"
+    pattern_mask_direction="right"
+    pattern_mask_size={40}
+    height="42dvh"
+    gap="0"
+>
+    {#snippet cell_1()}
+        <div class="showcase-code">
+            <CodeBlock
+                variant="tabbed"
+                size="sm"
+                copyable
+                rounded
+                max_height="340px"
+                bind:active_tab={showcase_tab}
+                tabs={[
+                    { 
+                        label: $trans?.showcase.tab_button ?? "Button", 
+                        code: showcase_code[0], 
+                        language: "Svelte" 
+                    },
+                    { 
+                        label: $trans?.showcase.tab_card ?? "Card", 
+                        code: showcase_code[1], 
+                        language: "Svelte" 
+                    },
+                    { 
+                        label: $trans?.showcase.tab_badge ?? "Badge",  
+                        code: showcase_code[2], 
+                        language: "Svelte" 
+                    },
+                ]}
+            />
+        </div>
+    {/snippet}
+
+    {#snippet cell_2()}
+        <div class="showcase-preview">
+
+            <div class="showcase-preview-stage">
+                {#if showcase_tab === 0}
+                    <div class="showcase-preview-buttons">
+                        <Button palette="accent">Commencer</Button>
+                        <Button variant="outlined" palette="accent">
+                            <span class="material-symbols-outlined">palette</span>
+                            Personnaliser
+                        </Button>
+                        <Button variant="ghost" palette="tone">
+                            <span class="material-symbols-outlined">menu</span>
+                        </Button>
+                    </div>
+                {:else if showcase_tab === 1}
+                    <Card variant="outlined" elevation="hard" width="280px">
+                        {#snippet children()}
+                            <div class="showcase-card-body">
+                                <h3>Spektral Card</h3>
+                                <p>Composable via snippets Svelte 5. Header, body et footer indépendants.</p>
+                            </div>
+                        {/snippet}
+                        {#snippet footer()}
+                            <Button size="sm" palette="accent">Voir la doc</Button>
+                        {/snippet}
+                    </Card>
+                {:else}
+                    <div class="showcase-preview-badges">
+                        <Badge palette="accent" pill>Svelte 5</Badge>
+                        <Badge variant="outlined" palette="tone" pill>WCAG AA</Badge>
+                        <Badge palette="success" size="sm">Nouveau</Badge>
+                    </div>
+                {/if}
+            </div>
+        </div>
+    {/snippet}
+</Hero>
+
+<!-- Quickstart -->
+<Hero
+    layout="two-cols"
+    palette="transparent"
+    pattern="grid"
+    pattern_color="#aea03f"
+    pattern_size="80px"
+    pattern_effect="fade"
+    pattern_effect_opacity={0.55}
+    pattern_mask="fade"
+    pattern_mask_direction="left"
+    pattern_mask_size={65}
+    height="50dvh"
+    gap="10px"
+>
+    {#snippet cell_1()}
+        <div class="quickstart">
+            <h2>{$trans?.quickstart.title}</h2>
+            <ol class="quickstart-steps">
+                <li class="quickstart-step">
+                    <span class="quickstart-num">01</span>
+                    <div class="quickstart-text">
+                        <strong>{$trans?.quickstart.step_1_label}</strong>
+                        <span>{$trans?.quickstart.step_1_desc}</span>
+                    </div>
+                </li>
+                <li class="quickstart-step">
+                    <span class="quickstart-num">02</span>
+                    <div class="quickstart-text">
+                        <strong>{$trans?.quickstart.step_2_label}</strong>
+                        <span>{$trans?.quickstart.step_2_desc}</span>
+                    </div>
+                </li>
+                <li class="quickstart-step">
+                    <span class="quickstart-num">03</span>
+                    <div class="quickstart-text">
+                        <strong>{$trans?.quickstart.step_3_label}</strong>
+                        <span>{$trans?.quickstart.step_3_desc}</span>
+                    </div>
+                </li>
+            </ol>
+            <Button palette="accent" href="/docs">
+                <span class="material-symbols-outlined">book_5</span>
+                {$trans?.quickstart.cta}
+            </Button>
+        </div>
+    {/snippet}
+
+    {#snippet cell_2()}
+        <div class="quickstart-code">
+            <CodeBlock
+                variant="terminal"
+                size="sm"
+                code="npm install @spektral/ui"
+                copyable
+            />
+            <CodeBlock
+                variant="filename"
+                filename="App.svelte"
+                size="sm"
+                language="Svelte"
+                code={`import { Button, Card, Badge } from '@spektral/ui';`}
+                copyable
+            />
+            <CodeBlock
+                variant="filename"
+                filename="MyComponent.svelte"
+                size="sm"
+                language="Svelte"
+                code={`<Button palette="accent">
+  Commencer
+</Button>`}
+                copyable
+            />
+        </div>
+    {/snippet}
+</Hero>
 
 <style>
-    .landing {
-        min-height: 80dvh;
+    .hero {
+        position: relative;
+        min-height: 85dvh;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-family: var(--font-body);
+        overflow: hidden;
     }
 
-    .hero {
+    .hero-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         text-align: center;
+        gap: 1.25rem;
         max-width: 700px;
         padding: 2rem;
+        width: 100%;
+        height: 100%;
+        flex: 1;
+        margin: 0 auto;
+    }
+
+    .hero-content h1{
+        text-transform: uppercase;
     }
 
     .hero-subtitle {
-        margin-top: 1rem;
         font-size: 1.15rem;
-        line-height: 1.6;
+        line-height: 1.7;
         color: var(--text-muted);
+        max-width: 540px;
+    }
+
+    .hero-badges {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     .hero-actions {
-        margin-top: 2rem;
         display: flex;
         gap: 1rem;
-        justify-content: center;
         flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 0.5rem;
     }
 
-    .hero-actions a {
-        text-decoration: none;
+    .hero-btn-icon {
+        font-size: 18px;
+    }
+
+    .feature-block {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: flex-start;
+        padding: 15px;
+        gap: 12px;
+    }
+
+    .feature-item {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 15px;
+        gap: 12px;
+        max-width: 320px;
+    }
+
+    .feature-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+    }
+
+    .feature-text h3 {
+        margin-top: 0;
+    }
+
+    #svelte-icon {
+        width: 36px;
+        margin: 10px 0;
+    }
+
+    .feature-icon {
+        font-size: 36px;
+        margin: 10px 0;
+    }
+
+    /* Stat strip */
+    .stat-strip {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        padding: 1.5rem 2rem;
+        background: var(--tone);
+        border-top: 2px solid var(--tone-hover);
+        border-bottom: 2px solid var(--tone-hover);
+    }
+
+    .stat-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.15rem;
+    }
+
+    .stat-item-wide {
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+
+    .stat-number {
+        font-size: 1.5rem;
+        font-weight: 700;
+        font-family: var(--font-heading);
+        color: var(--accent);
+        line-height: 1;
+        text-transform: uppercase;
+    }
+
+    .stat-label {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-weight: 500;
+    }
+
+    .stat-divider {
+        width: 1px;
+        height: 2rem;
+        background: var(--tone-hover);
+    }
+
+    /* Code showcase */
+    .showcase-code {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        height: 100%;
+    }
+
+    .showcase-code :global(.codeblock) {
+        width: 100%;
+        max-width: 520px;
+    }
+
+    .showcase-preview {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        height: 100%;
+        padding: 2rem;
+    }
+
+    .showcase-preview-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text-muted);
+        font-weight: 600;
+        align-self: flex-start;
+    }
+
+    .showcase-preview-stage {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        width: 100%;
+    }
+
+    .showcase-preview-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: flex-start;
+    }
+
+    .showcase-preview-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+    }
+
+    .showcase-card-body {
+        padding: 1rem 1.25rem 0.5rem;
+    }
+
+    .showcase-card-body h3 {
+        margin-bottom: 0.4rem;
+    }
+
+    .showcase-card-body p {
+        font-size: 0.875rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+    }
+
+    /* Quickstart */
+    .quickstart {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 2rem;
+        padding: 2rem;
+        height: 100%;
+    }
+
+    .quickstart h2 {
+        font-size: 1.75rem;
+    }
+
+    .quickstart-steps {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    .quickstart-step {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .quickstart-num {
+        font-size: 0.7rem;
+        font-weight: 700;
+        font-family: var(--font-heading);
+        color: var(--accent);
+        background: color-mix(in oklch, var(--accent) 12%, transparent);
+        border: 1px solid color-mix(in oklch, var(--accent) 30%, transparent);
+        border-radius: 4px;
+        padding: 0.2rem 0.4rem;
+        letter-spacing: 0.05em;
+        flex-shrink: 0;
+        margin-top: 0.15rem;
+    }
+
+    .quickstart-text {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+    }
+
+    .quickstart-text strong {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--text);
+    }
+
+    .quickstart-text span {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        line-height: 1.5;
+    }
+
+    .quickstart-code {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 1rem;
+        padding: 2rem;
+        height: 100%;
+    }
+
+    .quickstart-code :global(.codeblock) {
+        margin: 0 0 -2px 0;
+        border-radius: 0;
+    }
+
+    .quickstart-code :global(.codeblock:first-child) {
+        border-radius: 10px 10px 0 0;
+    }
+
+    .quickstart-code :global(.codeblock:last-child) {
+        border-radius: 0 0 10px 10px;
     }
 </style>

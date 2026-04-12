@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onMount, createRawSnippet } from 'svelte';
+    import { onMount } from 'svelte';
     import '../design-system/tokens.css';
     import fontsData from '$lib/data/fonts.json';
     import { preconnectGoogleFonts } from '$lib/utils/fontLoader';
@@ -13,10 +13,10 @@
     import BackToTop from '../design-system/components/Button/BackToTop.svelte';
     import ModeToggle from '../design-system/components/Button/ModeToggle.svelte';
     import Nav from '../design-system/components/Nav/Nav.svelte';
-    import Drawer from '../design-system/components/Drawer/Drawer.svelte';
-    import Popover from '../design-system/components/Popover/Popover.svelte';
     import Button from '../design-system/components/Button/Button.svelte';
-    import ListItem from '../design-system/components/ListItem/ListItem.svelte';
+    import StylePopover from './StylePopover.svelte';
+    import LangPopover from './LangPopover.svelte';
+    import ThemeDrawer from './ThemeDrawer.svelte';
 
     import {
         locale,
@@ -25,21 +25,7 @@
         window_width,
         window_height,
         responsive,
-        drawer_open,
-        drawer_menu,
         selected_tone,
-        tone_index,
-        setToneIndex,
-        accent_index,
-        text_index,
-        ctx_index,
-        body_font_index,
-        title_font_index,
-        tone_palettes,
-        accent_palettes,
-        text_palettes,
-        available_fonts,
-        ctx_colors,
         selected_tone_palette,
         selected_accent,
         selected_text,
@@ -47,6 +33,8 @@
         selected_title_font,
         selected_ctx,
         shadow_opacity,
+        drawer_open,
+        drawer_menu,
     } from './store';
 
     import { tokenValues } from '../design-system/token-schema';
@@ -54,10 +42,7 @@
     import { translations } from './translations';
     import type { Locale } from "$lib/types/translations";
     import type { Snippet } from 'svelte';
-	import { goto } from '$app/navigation';
     import { page } from '$app/state';
-	import Headline from '../design-system/components/Headline/Headline.svelte';
-	import Select from '../design-system/components/Select/Select.svelte';
 
 	// ---------- Props ----------
 	let { children }: { children?: Snippet | null } = $props();
@@ -71,8 +56,6 @@
     let headerElement: HTMLElement | undefined = $state(undefined);
     let header_visible: boolean = $state(true);
     let googleFontsUrl = $state('');
-    let font_role: 'body' | 'title' = $state('body');
-    let popover_open: boolean = $state(false);
 
     // ---------- CSS variables (global, shared across all routes) ----------
     const css_variables = $derived(tokenValues({
@@ -106,33 +89,6 @@
         }
     });
 
-    // ---------- Snippet helpers ----------
-    const swatches = (shades: string[]) => createRawSnippet(() => {
-        const inner = shades.map(color =>
-            `<span class="palette-swatch" style="background:${color}"></span>`
-        ).join('');
-        return {
-            // createRawSnippet requires a single root element —
-            // wrapping keeps all swatches in one mounted node.
-            render: () => `<span class="palette-swatches">${inner}</span>`
-        };
-    });
-
-    const swatches_sm = (shades: string[]) => createRawSnippet(() => {
-        const inner = shades.map(color =>
-            `<span class="palette-swatch-sm" style="background:${color}"></span>`
-        ).join('');
-        return {
-            // createRawSnippet requires a single root element —
-            // wrapping keeps all swatches in one mounted node.
-            render: () => `<span class="palette-swatches-sm">${inner}</span>`
-        };
-    });
-
-    const font_sample = (family: string) => createRawSnippet(() => ({
-        render: () => `<span style="font-family: '${family}', sans-serif;">${$trans?.drawer.test}</span>`,
-    }));
-
 	// ---------- Lifecycle ----------
 	onMount(async (): Promise<void> => {
 		timestamp = Date.now();
@@ -159,16 +115,6 @@
         const lang = isLocale(userLanguage) ? userLanguage : 'en';
 		$locale = lang;
 		$trans = translations[lang];
-	}
-
-	function getFlagEmoji(lang: string): string {
-		switch (lang.toUpperCase()) {
-			case 'EN': return '🇬🇧';
-			case 'FR': return '🇫🇷';
-			case 'DE': return '🇩🇪';
-			case 'ES': return '🇪🇸';
-			default: return '🇬🇧';
-		}
 	}
 
 	// ---------- Other Functions ----------
@@ -293,19 +239,15 @@
 <!-- Utils Snippets ──────────────────────────────────────────────── -->
 
 <!-- Header snippets -->
-{#snippet brand()}
-    <BrandABHC/>
-{/snippet}
-
 {#snippet mobile_brand()}
     <div class="nav-logo">
         <LogoABHC size={50} />
     </div>
 {/snippet}
 
-{#snippet project()}
+{#snippet brand_spektral()}
+    <LogoSpektral size={60}/>
     <h1 id="project">{$trans?.header.project.toUpperCase()}</h1>
-    <LogoSpektral size={45}/>
 {/snippet}
 
 {#snippet empty_nav()}
@@ -314,75 +256,16 @@
 
 {#snippet logo_in_nav()}
     <div class="nav-logo">
-        <LogoABHC size={32} />
+        <LogoSpektral size={32}/>
     </div>
 {/snippet}
 
-{#snippet lang_select()}
-    <select
-        aria-label="Select language"
-        class="local-select"
-        bind:value={$locale}
-    >
-        {#each locales as lang}
-            <option value={lang}>{getFlagEmoji(lang)} {lang.toUpperCase()}</option>
-        {/each}
-    </select>
-{/snippet}
-
-<!-- Drawer snippets -->
-{#snippet drawer_header()}
-    <div class="sb-head">
-        {#if
-            $drawer_menu === "theme:tone" ||
-            $drawer_menu === "theme:accent" ||
-            $drawer_menu === "theme:ctx" ||
-            $drawer_menu === "theme:text"
-        }
-            <button
-                class="sb-head-back"
-                aria-label="{$trans?.aria.return}"
-                onclick={() => {
-                    $responsive.isBelow(1024) ? $drawer_menu = "settings" :
-                    $drawer_menu = "theme";
-                }}
-            >
-                <span class="material-symbols-outlined">arrow_back</span>
-            </button>
-            <span class="sb-head-title">
-                {
-                    $drawer_menu === "theme:tone" ? `${$trans?.control.tone}` :
-                    $drawer_menu === "theme:accent" ? `${$trans?.control.accent}` :
-                    $drawer_menu === "theme:text" ? `${$trans?.control.text ?? 'Text'}` :
-                    `${$trans?.control.ctx}`
-                }
-            </span>
-        {:else}
-            {#if $responsive.isBelow(1024) && $drawer_menu != "settings"}
-                <button
-                    class="sb-head-back"
-                    aria-label="{$trans?.aria.return}"
-                    onclick={() => { $drawer_menu = "settings" }}
-                >
-                    <span class="material-symbols-outlined">arrow_back</span>
-                </button>
-            {:else}
-                <button
-                    class="sb-head-close"
-                    aria-label="{$trans?.aria.close}"
-                    onclick={() => { $drawer_open = false; $drawer_menu = null; }}
-                >
-                    <span class="material-symbols-outlined">close</span>
-                </button>
-            {/if}
-            <span class="sb-head-title">
-                {
-                    $drawer_menu === "settings" ? `${$trans?.control.settings}` :
-                    $drawer_menu === "theme" ? `${$trans?.control.theme}` :
-                    `${$trans?.control.fonts}`
-                }
-            </span>
+{#snippet nav_trailing()}
+    <div class="nav-trailing-group">
+        {#if $responsive.isAbove(1024)}
+            <StylePopover />
         {/if}
+        <LangPopover />
     </div>
 {/snippet}
 
@@ -427,6 +310,14 @@
     <p>{$trans?.footer.license}</p>
 {/snippet}
 
+{#snippet brand_ABHC()}
+    <BrandABHC 
+        logo_fill="text-accent" 
+        text_fill="text-accent"
+        size="sm"
+    />
+{/snippet}
+
 <!-- Header ─────────────────────────────────────────────────────────────────────────────────── -->
 
 <div bind:this={headerElement}>
@@ -434,14 +325,12 @@
     <Header
         palette="tone"
         leading={mobile_brand}
-        following={project}
         bind:visible={header_visible}
     />
 {:else}
     <Header
         palette="tone"
-        leading={brand}
-        following={project}
+        leading={brand_spektral}
         bind:visible={header_visible}
     />
 {/if}
@@ -454,15 +343,43 @@
         position="floating"
         direction="top"
         palette="tone"
+        elevation="subtle"
         header={header_visible ? empty_nav : logo_in_nav}
-        footer={lang_select}
+        footer={nav_trailing}
     >
-        <Button variant="ghost" palette="tone" rounded
-            aria_label={$trans?.control.settings}
-            onclick={() => { $drawer_menu = "settings"; $drawer_open = true; }}
+        <Button 
+            variant="ghost" 
+            palette="tone"
+            aria_label={$trans?.nav.docs}
+            active={page.url.pathname.startsWith('/docs')}
+            href="/docs"
         >
-            <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">settings</span></span>
-            <span class="nav-label">{$trans?.control.settings}</span>
+            <span class="nav-icon" aria-hidden="true">
+                <span class="material-symbols-outlined">book_5</span>
+            </span>
+        </Button>
+
+        <Button 
+            variant="ghost" 
+            palette="tone"
+            aria_label={$trans?.nav.customizer}
+            active={page.url.pathname.startsWith('/customizer')}
+            href="/customizer"
+        >
+            <span class="nav-icon" aria-hidden="true">
+                <span class="material-symbols-outlined">palette</span>
+            </span>
+        </Button>
+
+        <Button 
+            variant="ghost" 
+            palette="tone"
+            aria_label={$trans?.control.settings}
+            onclick={() => { $drawer_menu = "theme"; $drawer_open = true; }}
+        >
+            <span class="nav-icon" aria-hidden="true">
+                <span class="material-symbols-outlined">style</span>
+            </span>
         </Button>
     </Nav>
 {:else}
@@ -470,395 +387,45 @@
         position="floating"
         direction="top"
         palette="tone"
+        elevation="subtle"
         header={header_visible ? empty_nav : logo_in_nav}
-        footer={lang_select}
+        footer={nav_trailing}
     >
-        <Button variant="ghost" palette="tone" rounded
-            aria_label={$trans?.control.theme}
-            onclick={() => { $drawer_menu = "theme"; $drawer_open = true; }}
-        >
-            <span class="nav-icon" aria-hidden="true">
-                <span class="material-symbols-outlined">colors</span>
-            </span>
-            <span class="nav-label">{$trans?.control.theme}</span>
-        </Button>
-        <Button variant="ghost" palette="tone" rounded
-            aria_label={$trans?.control.fonts}
-            onclick={() => { $drawer_menu = "fonts"; $drawer_open = true; }}
-        >
-            <span class="nav-icon" aria-hidden="true">
-                <span class="material-symbols-outlined">brand_family</span>
-            </span>
-            <span class="nav-label">{$trans?.control.fonts}</span>
-        </Button>
-        <Button variant="ghost" palette="tone" rounded
-            aria_label={page.url.pathname.startsWith('/customizer') ? $trans?.control.demo : $trans?.control.contrast}
-            onclick={() => { goto(page.url.pathname.startsWith('/customizer') ? '/docs' : '/customizer') }}
-        >
-            <span class="nav-icon" aria-hidden="true">
-                <span class="material-symbols-outlined">
-                    {page.url.pathname.startsWith('/customizer') ? 'grid_view' : 'contrast_square'}
-                </span>
-            </span>
-            <span class="nav-label">
-                {page.url.pathname.startsWith('/customizer') ? $trans?.control.demo : $trans?.control.contrast}
-            </span>
-        </Button>
-        <Popover
-            bind:open={popover_open}
-            onclose={() => { popover_open = false; }}
+        <Button
+            variant="ghost" 
             palette="tone"
-            rounded={false}
-            maxHeight="800px"
-            gap="14px"
-            direction="bottom"
-            align="center"
+            aria_label={$trans?.nav.home}
+            active={page.url.pathname === '/'}
+            href="/"
         >
-            {#snippet trigger()}
-                <Button variant="ghost" palette="tone" rounded
-                    aria_label={$trans?.control.theme}
-                    onclick={() => {popover_open = !popover_open}}
-                >
-                   <span class="nav-icon" aria-hidden="true">
-                        <span class="material-symbols-outlined">colors</span>
-                    </span>
-                    <span class="nav-label">{$trans?.control.theme}</span>
-                </Button>
-            {/snippet}
+            <span class="nav-label">{$trans?.nav.home}</span>
+        </Button>
 
-            {#snippet children()}
-                <div class="pop-styling-menu">
-                    <div class="pop-styling-row">
-                        <div class="pop-row-left">
-                            <Button 
-                                size="sm"
-                                variant="ghost" 
-                                palette="tone" 
-                                direction="row"
-                                active={$selected_tone === 'light'}
-                                onclick={() => { $selected_tone = 'light'; }}
-                            >
-                                <span class="nav-icon" aria-hidden="true">
-                                    <span class="material-symbols-outlined sm-icon">
-                                        light_mode
-                                    </span>
-                                </span>
-                                <span class="nav-label">{$trans?.control.light}</span>
-                            </Button>
+        <Button 
+            variant="ghost" 
+            palette="tone"
+            aria_label={$trans?.nav.docs}
+            active={page.url.pathname.startsWith('/docs')}
+            href="/docs"
+        >
+            <span class="nav-label">{$trans?.nav.docs}</span>
+        </Button>
 
-                            <Button 
-                                size="sm"
-                                variant="ghost" 
-                                palette="tone" 
-                                direction="row" 
-                                active={$selected_tone === 'dark'}
-                                onclick={() => { $selected_tone = 'dark'; }}
-                            >
-                                <span class="nav-icon" aria-hidden="true">
-                                    <span class="material-symbols-outlined sm-icon">
-                                        dark_mode
-                                    </span>
-                                </span>
-                                <span class="nav-label">{$trans?.control.dark}</span>
-                            </Button>
-                        </div>
-
-                        <div class="pop-row-left">
-                            <Button 
-                                size="sm"
-                                variant="ghost" 
-                                palette="tone" 
-                                direction="row" 
-                                onclick={() => { 
-                                    $drawer_menu = "settings"; 
-                                    $drawer_open = true;
-                                    popover_open = false;
-                                }}
-                            >
-                                <span class="nav-label">
-                                    {$trans?.control.bigger}
-                                </span>
-                            </Button>
-                            <Button 
-                                size="sm"
-                                variant="ghost" 
-                                palette="tone" 
-                                direction="row" 
-                                onclick={() => { popover_open = false; }}
-                            >
-                                <span class="nav-icon" aria-hidden="true">
-                                    <span class="material-symbols-outlined sm-icon">
-                                        close
-                                    </span>
-                                </span>
-                            </Button>
-                        </div>
-                    </div>
-
-                    <Headline size="xs">{$trans?.control.tone}</Headline>
-                    <div class="pop-styling-grid">
-                        {#each $tone_palettes as p, i}
-                            <ListItem
-                                supporting_text={{ 
-                                    main: p.name, 
-                                    extra: swatches_sm([p.bg, p.card]) 
-                                }}
-                                active={i === $tone_index}
-                                onclick={() => { setToneIndex(i); }}
-                                palette="ghost"
-                                size="sm"
-                            />
-                        {/each}
-                    </div>
-
-                    <Headline size="xs">{$trans?.control.accent}</Headline>
-                    <div class="pop-styling-grid">
-                        {#each $accent_palettes as p, i}
-                            <ListItem
-                                supporting_text={{ 
-                                    main: p.name, 
-                                    extra: swatches_sm([p.accent]) 
-                                }}
-                                active={i === $accent_index}
-                                onclick={() => { $accent_index = i; }}
-                                palette="ghost"
-                                size="sm"
-                            />
-                        {/each}
-                    </div>
-
-                    <Headline size="xs">{$trans?.control.ctx}</Headline>
-                    <div class="pop-styling-grid">
-                        {#each $ctx_colors as c, i}
-                            <ListItem
-                                supporting_text={{ 
-                                    main: c.name, 
-                                    extra: swatches_sm(
-                                        [c.error, c.warning, c.success, c.info, c.neutral]
-                                    ) 
-                                }}
-                                active={i === $ctx_index}
-                                onclick={() => { $ctx_index = i; }}
-                                palette="ghost"
-                                size="sm"
-                            />
-                        {/each}
-                    </div>
-
-                    <Headline size="xs">{$trans?.control.text}</Headline>
-                    <div class="pop-styling-grid">
-                        {#each $text_palettes as t, i}
-                            <ListItem
-                                supporting_text={{ 
-                                    main: t.name, 
-                                    extra: swatches_sm([t.light, t.dark]) 
-                                }}
-                                active={i === $text_index}
-                                onclick={() => { $text_index = i; }}
-                                palette="ghost"
-                                size="sm"
-                            />
-                        {/each}
-                    </div>
-
-                    <Headline size="xs">{$trans?.control.fonts}</Headline>
-                    <div class="pop-styling-row">
-                        <Select
-                            bind:value={$title_font_index}
-                            options={available_fonts.map((f, i) => ({ value: i, label: f.family }))}
-                            size="sm"
-                            palette="tone"
-                            label={$trans?.control.font_titles}
-                            placeholder=""
-                            direction="top"
-                        />
-                        <Select
-                            bind:value={$body_font_index}
-                            options={available_fonts.map((f, i) => ({ value: i, label: f.family }))}
-                            size="sm"
-                            palette="tone"
-                            label={$trans?.control.font_body}
-                            placeholder=""
-                            direction="top"
-                        />
-                    </div>
-                </div>
-            {/snippet}
-        </Popover>
+        <Button 
+            variant="ghost" 
+            palette="tone"
+            aria_label={$trans?.nav.customizer}
+            active={page.url.pathname.startsWith('/customizer')}
+            href="/customizer"
+        >
+            <span class="nav-label">{$trans?.nav.customizer}</span>
+        </Button>
     </Nav>
 {/if}
 
 <!-- Drawer ──────────────────────────────────────────────────────────────────────────────────── -->
 
-<Drawer
-    direction="left"
-    palette="tone"
-    width="300px"
-    rounded
-    open={$drawer_open}
-    header={drawer_header}
-    onclose={() => { $drawer_open = false; $drawer_menu = null; }}
->
-    {#if $drawer_menu === "theme"}
-        <div class="drawer-group drawer-group--column">
-            <Button variant="ghost" palette="tone" rounded direction="row"
-                onclick={() => { $drawer_menu = "theme:tone"; }}>
-                <span class="nav-icon" aria-hidden="true">
-                    <span class="material-symbols-outlined">routine</span>
-                </span>
-                <span class="nav-label">{$trans?.control.tone}</span>
-            </Button>
-            <Button variant="ghost" palette="tone" rounded direction="row"
-                onclick={() => { $drawer_menu = "theme:accent"; }}>
-                <span class="nav-icon" aria-hidden="true">
-                    <span class="material-symbols-outlined">style</span>
-                </span>
-                <span class="nav-label">{$trans?.control.accent}</span>
-            </Button>
-            <Button variant="ghost" palette="tone" rounded direction="row"
-                onclick={() => { $drawer_menu = "theme:ctx"; }}>
-                <span class="nav-icon" aria-hidden="true">
-                    <span class="material-symbols-outlined">palette</span>
-                </span>
-                <span class="nav-label">{$trans?.control.ctx}</span>
-            </Button>
-            <Button variant="ghost" palette="tone" rounded direction="row"
-                onclick={() => { $drawer_menu = "theme:text"; }}>
-                <span class="nav-icon" aria-hidden="true">
-                    <span class="material-symbols-outlined">format_color_text</span>
-                </span>
-                <span class="nav-label">{$trans?.control.text ?? 'Text'}</span>
-            </Button>
-        </div>
-
-    {:else if $drawer_menu === "theme:tone"}
-        <div class="drawer-group drawer-group--row">
-            <Button variant="ghost" palette="tone" rounded direction="row"
-                active={$selected_tone === 'light'}
-                onclick={() => { $selected_tone = 'light'; }}>
-                <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">light_mode</span></span>
-                <span class="nav-label">{$trans?.control.light}</span>
-            </Button>
-            <Button variant="ghost" palette="tone" rounded direction="row"
-                active={$selected_tone === 'dark'}
-                onclick={() => { $selected_tone = 'dark'; }}>
-                <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">dark_mode</span></span>
-                <span class="nav-label">{$trans?.control.dark}</span>
-            </Button>
-        </div>
-        <hr class="drawer-sep" />
-        {#each $tone_palettes as p, i}
-            <ListItem
-                supporting_text={{ main: p.name, extra: `${p.bg} ${p.card}` }}
-                leading={swatches([p.bg, p.card])}
-                active={i === $tone_index}
-                onclick={() => { setToneIndex(i); }}
-                palette="ghost"
-                rounded
-            />
-        {/each}
-
-    {:else if $drawer_menu === "theme:accent"}
-        {#each $accent_palettes as p, i}
-            <ListItem
-                supporting_text={{ main: p.name, extra: p.accent }}
-                leading={swatches([p.accent])}
-                active={i === $accent_index}
-                onclick={() => { $accent_index = i; }}
-                palette="ghost"
-                rounded
-            />
-        {/each}
-
-    {:else if $drawer_menu === "theme:ctx"}
-        {#each $ctx_colors as c, i}
-            <ListItem
-                supporting_text={{ 
-                    main: c.name, 
-                    extra: 
-                        `${c.error} ${c.warning} ${c.success} ${c.info} ${c.neutral}` 
-                    }}
-                leading={swatches([c.error, c.warning, c.success, c.info, c.neutral])}
-                active={i === $ctx_index}
-                onclick={() => { $ctx_index = i; }}
-                palette="ghost"
-                rounded
-            />
-        {/each}
-
-    {:else if $drawer_menu === "theme:text"}
-        {#each $text_palettes as t, i}
-            <ListItem
-                supporting_text={{ main: t.name, extra: `${t.light} / ${t.dark}` }}
-                leading={swatches([t.light, t.dark])}
-                active={i === $text_index}
-                onclick={() => { $text_index = i; }}
-                palette="ghost"
-                rounded
-            />
-        {/each}
-
-    {:else if $drawer_menu === "fonts"}
-        <div class="drawer-group drawer-group--row">
-            <Button variant="ghost" palette="tone" rounded direction="row"
-                active={font_role === 'body'}
-                onclick={() => { font_role = 'body'; }}>
-                <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">text_format</span></span>
-                <span class="nav-label">{$trans?.control.font_body}</span>
-            </Button>
-            <Button variant="ghost" palette="tone" rounded direction="row"
-                active={font_role === 'title'}
-                onclick={() => { font_role = 'title'; }}>
-                <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">format_h1</span></span>
-                <span class="nav-label">{$trans?.control.font_titles}</span>
-            </Button>
-        </div>
-        <hr class="drawer-sep" />
-        {#each available_fonts as f, i}
-            <ListItem
-                supporting_text={{ main: f.family, extra: font_sample(f.family) }}
-                active={font_role === 'body' ? i === $body_font_index : i === $title_font_index}
-                onclick={() => {
-                    if (font_role === 'body') $body_font_index = i;
-                    else $title_font_index = i;
-                }}
-                palette="ghost"
-                rounded
-            />
-        {/each}
-
-    {:else if $drawer_menu === "settings"}
-        <div class="drawer-group drawer-group--column">
-            <Button variant="ghost" palette="tone" rounded direction="row"
-                onclick={() => { $drawer_menu = "theme:tone"; }}>
-                <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">routine</span></span>
-                <span class="nav-label">{$trans?.control.tone}</span>
-            </Button>
-            <Button variant="ghost" palette="tone" rounded direction="row"
-                onclick={() => { $drawer_menu = "theme:accent"; }}>
-                <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">style</span></span>
-                <span class="nav-label">{$trans?.control.accent}</span>
-            </Button>
-            <Button variant="ghost" palette="tone" rounded direction="row"
-                onclick={() => { $drawer_menu = "theme:ctx"; }}>
-                <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">palette</span></span>
-                <span class="nav-label">{$trans?.control.ctx}</span>
-            </Button>
-                <Button variant="ghost" palette="tone" rounded direction="row"
-                onclick={() => { $drawer_menu = "theme:text"; }}>
-                <span class="nav-icon" aria-hidden="true">
-                    <span class="material-symbols-outlined">text_format</span>
-                </span>
-                <span class="nav-label">{$trans?.control.text}</span>
-            </Button>
-            <Button variant="ghost" palette="tone" rounded direction="row"
-                onclick={() => { $drawer_menu = "fonts"; }}>
-                <span class="nav-icon" aria-hidden="true"><span class="material-symbols-outlined">brand_family</span></span>
-                <span class="nav-label">{$trans?.control.fonts}</span>
-            </Button>
-        </div>
-    {/if}
-</Drawer>
+<ThemeDrawer />
 
 <!-- Content ────────────────────────────────────────────────────────────────────────────────── -->
 <main>
@@ -867,12 +434,16 @@
 
 <!-- Footer ─────────────────────────────────────────────────────────────────────────────────── -->
 
-<Footer palette="accent" leading={social_links} following={license} />
+<Footer palette="accent" leading={brand_ABHC} following={social_links}>
+    <p>{$trans?.footer.license}</p>
+</Footer>
 
 <!-- BackToTop ───────────────────────────────────────────────────────────────────────────────── -->
 
-<BackToTop palette="neutral" size="sm" rounded/>
-<ModeToggle bind:mode={$selected_tone} palette="neutral" size="sm" rounded/>
+<div class="special-btn-wrapper">
+    <BackToTop palette="neutral" size="sm" rounded/>
+    <ModeToggle bind:mode={$selected_tone} palette="neutral" size="sm" rounded/>
+</div>
 
 <!-- Copy Alert ──────────────────────────────────────────────────────────────────────────────── -->
 
@@ -938,26 +509,12 @@
         color: var(--accent);
     }
 
-    .local-select {
-        cursor: pointer;
-        color: var(--text);
-        font-family: 'Inter', sans-serif;
-        font-weight: bold;
-        border: 2px solid var(--accent);
-        border-radius: 6px;
-        background-color: transparent;
-        height: 40px;
-        padding: 5px 10px;
+    .nav-trailing-group {
         display: flex;
         align-items: center;
-        justify-content: center;
-        z-index: 1;
-        transition: all 0.2s;
-    }
-
-    .local-select:hover {
-        background-color: var(--accent);
-        color: var(--text-accent);
+        justify-content: space-evenly;
+        gap: 4px;
+        width: 100%;
     }
 
     main {
@@ -990,150 +547,13 @@
         transform: scale(1.1);
     }
 
-    /* Drawer header */
-    :global(.sb-head) {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        width: 100%;
-        font-family: var(--font-heading);
-    }
-
-    :global(.sb-head-title) {
-        font-weight: 700;
-        font-size: 1rem;
-        text-transform: uppercase;
-        letter-spacing: 0.4px;
-        flex: 1;
-    }
-
-    :global(.sb-head-back),
-    :global(.sb-head-close) {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        color: inherit;
-        border-radius: 6px;
-        padding: 4px;
-        transition: background 0.15s;
-        flex-shrink: 0;
-    }
-
-    :global(.sb-head-back:hover),
-    :global(.sb-head-close:hover) {
-        background: var(--drawer-item-hover-bg, rgba(128, 128, 128, 0.15));
-    }
-
-    /* Drawer content groups */
-    :global(.drawer-group) {
-        display: flex;
-        gap: 6px;
-    }
-
-    :global(.drawer-group--column) {
-        flex-direction: column;
-    }
-
-    :global(.drawer-group--column) :global(.btn-ghost) {
-        width: 100%;
-        justify-content: flex-start;
-        gap: 0.6rem;
-        padding: 0.5rem 0.75rem;
-    }
-
-    :global(.drawer-group--row) {
-        flex-direction: row;
-        flex-wrap: wrap;
-    }
-
-    :global(.drawer-group--row) :global(.btn-ghost) {
-        flex: 1;
-        justify-content: center;
-        gap: 0.35rem;
-        padding: 0.5rem 0.4rem;
-    }
-
-    :global(.drawer-group) :global(.nav-icon) {
-        line-height: 1;
-    }
-
-    :global(.drawer-group) :global(.nav-label) {
-        font-family: var(--font-heading);
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.4px;
-        line-height: 1;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        max-width: 100%;
-    }
-
-    :global(.drawer-sep) {
-        border: none;
-        border-top: 2px solid var(--drawer-separator, rgba(128, 128, 128, 0.2));
-        margin: 0.15rem 0;
-    }
-
-    /* Styling Popover */
-    .pop-styling-menu {
+    .special-btn-wrapper {
+        position: fixed;
+        bottom: 5.5rem;
+        left: 1.5rem;
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
-        padding: 10px;
+        gap: 15px;
     }
 
-    .pop-styling-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .pop-row-left {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .pop-styling-grid {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 8px;
-    }
-
-    .sm-icon {
-        font-size: 16px;
-    }
-
-    /* Palette swatch */
-    :global(.palette-swatches) {
-        display: inline-flex;
-        gap: 3px;
-        align-items: center;
-    }
-
-    :global(.palette-swatch) {
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        border-radius: 20%;
-        flex-shrink: 0;
-        border: 2px solid var(--text-muted);
-    }
-
-    :global(.palette-swatches-sm) {
-        display: inline-flex;
-        gap: 3px;
-        align-items: center;
-    }
-
-    :global(.palette-swatch-sm) {
-        display: inline-block;
-        width: 10px;
-        height: 10px;
-        flex-shrink: 0;
-    }
 </style>
