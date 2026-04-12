@@ -12,17 +12,23 @@
         type Elevation,
     } from "./tilegrid.config";
 
+    import { type PatternPreset, PATTERN_PRESETS, tintPattern } from "../../utils/patterns";
+
+    type Effect = "none" | "glow" | "blur" | "fade";
+    type Mask = "none" | "ellipse" | "fade";
+    type MaskDirection = "top" | "bottom" | "left" | "right";
+
     // ── Props ─────────────────────────────────────────────────────────────────
 
     /*
         Props
         tiles : Array of tiles to display. Accepts any object satisfying the Tile interface
         locale : Current locale key used to resolve `tile.abstract[locale]`.
-        image_mode : "background" | "decorative" | "none" — default: "background"
-        image_position : In background mode: CSS background-position ("center", "top"…).
-                         In decorative mode: anchor for the floating image
+        image_mode : "image" | "mock-up" | "flat" — default: "image"
+        image_position : In image mode: CSS background-position ("center", "top"…).
+                         In mock-up mode: anchor for the floating image
                          ("top-right" | "top-left" | "top-center" | "right" | "left").
-        image_size : Decorative mode only. CSS size value passed as --tg-deco-size.
+        image_size : Mock-up mode only. CSS size value passed as --tg-deco-size.
                      Controls width for top-* positions, height for side positions.
                      e.g. "280px", "60%", "18rem". Default: CSS fallback (55% / 90%).
         columns : Number of columns on desktop (>= 1024px) — default: 3
@@ -49,6 +55,16 @@
         href_base?: string;
         rounded?: boolean;
         elevation?: Elevation;
+        raised?: boolean;
+        pattern?: PatternPreset | string;
+        pattern_color?: string;
+        pattern_opacity?: number;
+        pattern_size?: string;
+        pattern_effect?: Effect;
+        pattern_effect_opacity?: number;
+        pattern_mask?: Mask;
+        pattern_mask_direction?: MaskDirection;
+        pattern_mask_size?: number;
     }
 
     let {
@@ -66,16 +82,56 @@
         href_base = defaultTileGridConfig.href_base,
         rounded = defaultTileGridConfig.rounded,
         elevation = defaultTileGridConfig.elevation,
+        raised = defaultTileGridConfig.raised,
+        pattern = "none",
+        pattern_color = "white",
+        pattern_opacity = 0.1,
+        pattern_size = undefined,
+        pattern_effect = "none",
+        pattern_effect_opacity = 1,
+        pattern_mask = "none",
+        pattern_mask_direction = "bottom",
+        pattern_mask_size = 70,
     }: Props = $props();
 
-    // -- Helpers 
+    // -- Helpers
+
+    const pattern_bg = $derived.by(() => {
+        if (!pattern || pattern === "none") return "none";
+        if (pattern in PATTERN_PRESETS) {
+            return tintPattern(PATTERN_PRESETS[pattern as Exclude<PatternPreset, "none">], pattern_color);
+        }
+        return pattern;
+    });
+
+    const mask_value = $derived.by(() => {
+        if (pattern_mask === "none") return "none";
+        if (pattern_mask === "ellipse") {
+            return `radial-gradient(ellipse ${pattern_mask_size}% ${pattern_mask_size}% at 50% 50%, black 20%, transparent ${pattern_mask_size}%)`;
+        }
+        const dir_map: Record<MaskDirection, string> = {
+            top: "to top",
+            bottom: "to bottom",
+            left: "to left",
+            right: "to right",
+        };
+        return `linear-gradient(${dir_map[pattern_mask_direction]}, black 0%, transparent ${pattern_mask_size}%)`;
+    });
 
     /*
-        Inject --tg-columns and --tg-gap as CSS custom properties on the grid wrapper.
-        The CSS rules consume these to drive grid-template-columns and gap.
+        Inject --tg-columns, --tg-gap, pattern vars, mask, and effect vars as CSS custom properties.
+        The CSS rules consume these to drive grid-template-columns, gap, and the visual layers.
     */
     const grid_style = $derived(
-        `--tg-columns: ${columns}; --tg-gap: ${gap};`
+        [
+            `--tg-columns: ${columns}`,
+            `--tg-gap: ${gap}`,
+            `--tg-pattern-bg: ${pattern_bg}`,
+            `--tg-pattern-opacity: ${pattern_opacity}`,
+            `--tg-pattern-size: ${pattern_size ?? "auto"}`,
+            `--tg-pattern-mask: ${mask_value}`,
+            `--tg-effect-opacity: ${pattern_effect_opacity}`,
+        ].join("; ")
     );
 
     /*
@@ -130,23 +186,22 @@
         if (!record) return "";
         return record[locale] ?? Object.values(record)[0] ?? "";
     }
-
-    const localised_abstract = (tile: Tile) => localise(tile.abstract);
 </script>
 
 <!-- Markup -->
 
-<section class="tile-grid-section" aria-label="Tile grid">
-    <div
-        class="tg-grid"
-        style={grid_style}
-    >
+<section class="tile-grid-section" aria-label="Tile grid" style={grid_style}>
+    {#if pattern_effect !== "none"}
+        <div class="tg-effect tg-effect-{pattern_effect}"></div>
+    {/if}
+
+    <div class="tg-grid">
         {#each tiles as tile}
             {#if tile.display}
 
                 {@const is_hero = tile.hero === true}
-                {@const use_image = image_mode === "background" && has_image(tile)}
-                {@const use_decorative = image_mode === "decorative" && has_image(tile)}
+                {@const use_image = image_mode === "image" && has_image(tile)}
+                {@const use_decorative = image_mode === "mock-up" && has_image(tile)}
                 {@const mode_class = use_image ? "tg-tile-image" : use_decorative ? "tg-tile-deco" : "tg-tile-flat"}
                 {@const span_class = hero_span_class(is_hero)}
                 {@const hero_class = is_hero ? "tg-tile-hero" : ""}
@@ -154,12 +209,13 @@
                 {@const deco_pos_class = use_decorative ? `tg-deco-${image_position}` : ""}
                 {@const rounded_class = rounded ? "tg-rounded" : ""}
                 {@const elevation_class = elevation !== "none" ? `tg-elevation-${elevation}` : ""}
+                {@const raised_class = raised ? "tg-raised" : ""}
                 {@const abstract = localise(tile.abstract)}
                 {@const hero_text = localise(tile.hero_text)}
 
                 <a
                     href={tile.id ? `${href_base}/${tile.id}` : undefined}
-                    class="tg-tile {mode_class} {hero_class} {span_class} {border_class} {deco_pos_class} {rounded_class} {elevation_class}"
+                    class="tg-tile {mode_class} {hero_class} {span_class} {border_class} {deco_pos_class} {rounded_class} {elevation_class} {raised_class}"
                     style={use_image ? image_style(tile) : undefined}
                     aria-label="{tile.name}{is_hero && hero_text ? ` — ${hero_text}` : ''}"
                     data-sveltekit-preload-data={tile.id ? "hover" : undefined}
@@ -168,7 +224,13 @@
                     <!-- Hero badge -->
                     {#if is_hero && show_hero_badge && hero_text}
                         <span class="tg-hero-badge-anchor">
-                            <Badge variant="flat" palette="accent" uppercase size="sm">
+                            <Badge 
+                                variant="flat" 
+                                palette="accent" 
+                                size="sm"
+                                elevation="subtle"
+                                uppercase
+                            >
                                 {#if tile.hero_icon}
                                     <span
                                         class="material-symbols-outlined tg-hero-badge-icon"
@@ -180,6 +242,11 @@
                                 {hero_text}
                             </Badge>
                         </span>
+                    {/if}
+
+                    <!-- Pattern background layer (flat and deco tiles only) -->
+                    {#if pattern_bg !== "none" && !use_image}
+                        <div class="tg-pattern"></div>
                     {/if}
 
                     <!-- Decorative image — anchored to a corner/edge, clipped by tile -->
@@ -201,12 +268,24 @@
                             <!-- Origin + years badges -->
                             <div class="tg-meta">
                                 {#if tile.origin}
-                                    <Badge variant="flat" palette="accent" uppercase size="sm">
+                                    <Badge 
+                                        variant="flat" 
+                                        palette="accent"  
+                                        size="sm"
+                                        elevation="subtle"
+                                        uppercase
+                                    >
                                         {tile.origin}
                                     </Badge>
                                 {/if}
                                 {#if tile.years}
-                                    <Badge variant="flat" palette="tone" uppercase size="sm">
+                                    <Badge 
+                                        variant="flat" 
+                                        palette="neutral" 
+                                        size="sm"
+                                        elevation="subtle"
+                                        uppercase
+                                    >
                                         {tile.years}
                                     </Badge>
                                 {/if}
@@ -237,6 +316,8 @@
     /* Section wrapper */
 
     .tile-grid-section {
+        position: relative;
+        overflow: hidden;
         width: 100%;
         color: var(--text);
     }
@@ -248,7 +329,39 @@
         Desktop (≥ 1024px) : --tg-columns (2, 3, or 4), injected via style=""
     */
 
+    /* ── Effect layer ─────────────────────────────────────────────────────── */
+
+    .tg-effect {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: var(--tg-effect-opacity);
+        z-index: 0;
+    }
+
+    .tg-effect-glow {
+        background: radial-gradient(
+            ellipse 60% 50% at 50% 40%,
+            color-mix(in oklch, var(--accent) 8%, transparent),
+            transparent
+        );
+    }
+
+    .tg-effect-blur {
+        backdrop-filter: blur(2px);
+    }
+
+    .tg-effect-fade {
+        background: linear-gradient(
+            to bottom,
+            transparent 0%,
+            color-mix(in oklch, var(--tone-bg) 80%, transparent) 100%
+        );
+    }
+
     .tg-grid {
+        position: relative;
+        z-index: 1;
         display: grid;
         grid-template-columns: 1fr;
         gap: var(--tg-gap, 1.5rem);
@@ -304,13 +417,23 @@
         border-radius: 12px;
     }
 
-    /* ---- Elevation ---- */
+    /* ---- Elevation — hover only (default) ---- */
 
     .tg-elevation-subtle:hover {
         box-shadow: 0 4px 12px var(--shadow-subtle);
     }
 
     .tg-elevation-hard:hover {
+        box-shadow: 0.4rem 0.4rem var(--shadow-hard);
+    }
+
+    /* ---- Elevation — constant (raised=true) ---- */
+
+    .tg-raised.tg-elevation-subtle {
+        box-shadow: 0 4px 12px var(--shadow-subtle);
+    }
+
+    .tg-raised.tg-elevation-hard {
         box-shadow: 0.4rem 0.4rem var(--shadow-hard);
     }
 
@@ -325,7 +448,7 @@
     }
 
     .tg-hero-badge-icon {
-        font-size:   14px;
+        font-size: 14px;
         line-height: 1;
     }
 
@@ -339,8 +462,10 @@
         background-repeat: no-repeat;
     }
 
-    .tg-tile-image:hover {
-        transform: translateY(-6px);
+    @media (min-width: 640px) {
+        .tg-tile-image:hover {
+            transform: translateX(3px);
+        }
     }
 
     /* ---- FLAT TILE ---- */
@@ -352,12 +477,11 @@
     }
 
     .tg-tile-flat.tg-tile-hero-border {
-        border-left:   4px solid var(--accent);
+        border-left: 4px solid var(--accent);
     }
 
     .tg-tile-flat.tg-tile-hero {
         border-left-color: var(--accent);
-        background: var(--accent-ghost-hover);
     }
 
     .tg-tile-flat:hover {
@@ -367,11 +491,11 @@
 
     @media (min-width: 640px) {
         .tg-tile-flat:hover {
-            transform: translateX(4px);
+            transform: translateX(3px);
         }
     }
 
-    /* ---- DECORATIVE TILE ---- */
+    /* ---- MOCK-UP TILE ---- */
     /*
         Flat card look + a <img> anchored to a corner/edge via position:absolute.
         The tile's overflow:hidden clips the image at the border-radius boundary,
@@ -401,25 +525,25 @@
 
     @media (min-width: 640px) {
         .tg-tile-deco:hover {
-            transform: translateX(4px);
+            transform: translateX(3px);
         }
     }
 
     /* Decorative image element */
 
     .tg-deco-img {
-        position:       absolute;
-        object-fit:     contain;
+        position: absolute;
+        object-fit: contain;
         pointer-events: none;
-        user-select:    none;
-        z-index:        1;
+        user-select: none;
+        z-index: 1;
     }
 
     /* Top anchors: width-driven (controls how much of the tile width the image takes) */
     .tg-deco-top-right .tg-deco-img,
     .tg-deco-top-left  .tg-deco-img,
     .tg-deco-top-center .tg-deco-img {
-        width:  var(--tg-deco-size, 55%);
+        width: var(--tg-deco-size, 55%);
         height: auto;
     }
 
@@ -432,22 +556,30 @@
 
     /* Placement per anchor */
     .tg-deco-top-right .tg-deco-img { 
-        top: 0; right: 0; 
+        top: 0; 
+        right: 0; 
     }
 
     .tg-deco-top-left .tg-deco-img { 
-        top: 0; left: 0; 
+        top: 0; 
+        left: 0; 
     }
 
     .tg-deco-top-center .tg-deco-img { 
-        top: 0; left: 50%; transform: translateX(-50%); 
+        top: 0; 
+        left: 50%; 
+        transform: translateX(-50%); 
     }
 
     .tg-deco-right .tg-deco-img { 
-        top: 50%; right: 0; transform: translateY(-50%); 
+        top: 50%; 
+        right: 0; 
+        transform: translateY(-50%); 
     }
     .tg-deco-left .tg-deco-img { 
-        top: 50%; left: 0;  transform: translateY(-50%); 
+        top: 50%; 
+        left: 0; 
+        transform: translateY(-50%); 
     }
 
     /* Text layout: reserve space on the opposite side from the image */
@@ -553,14 +685,17 @@
         }
     }
 
-    .tg-deco-back {
+    .tg-pattern {
         position: absolute;
         inset: 0;
         pointer-events: none;
         user-select: none;
         z-index: 0;
+        background-image: var(--tg-pattern-bg);
         background-repeat: repeat;
-        background-size: auto;
-        opacity: 0.5;
+        background-size: var(--tg-pattern-size);
+        opacity: var(--tg-pattern-opacity);
+        mask-image: var(--tg-pattern-mask);
+        -webkit-mask-image: var(--tg-pattern-mask);
     }
 </style>

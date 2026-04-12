@@ -65,7 +65,7 @@ export type ImagePosition =
     image anchored to a corner/edge (decorative style).
     Controlled at the grid level. A tile with no media falls back to flat.
 */
-export type ImageMode = "background" | "decorative" | "none";
+export type ImageMode = "image" | "mock-up" | "flat";
 
 /*
     Number of grid columns on desktop (>= 1024px).
@@ -108,12 +108,13 @@ export interface TileGridConfig {
     href_base: string;
     rounded: boolean;
     elevation: Elevation;
+    raised: boolean;
 }
 
 // ── Defaults ──────────────────────────────────────────────────────────────────
 
 export const defaultTileGridConfig: TileGridConfig = {
-    image_mode: "background",
+    image_mode: "image",
     image_position: "center",
     columns: 3,
     hero_span: "half",
@@ -122,6 +123,7 @@ export const defaultTileGridConfig: TileGridConfig = {
     show_hero_border: true,
     excerpt_length: 52,
     href_base: "/projects",
-    rounded: true,
-    elevation: "hard",
+    rounded: false,
+    elevation: "none",
+    raised: false,
 };

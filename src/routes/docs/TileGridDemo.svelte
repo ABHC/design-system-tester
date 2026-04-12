@@ -6,8 +6,10 @@
     import Callout from "../../design-system/components/Callout/Callout.svelte";
     import Selector from "../../design-system/components/Selector/Selector.svelte";
     import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
+    import Slider from "../../design-system/components/Slider/Slider.svelte";
 
     import type { Tile, Columns, HeroSpan, Elevation } from "../../design-system/components/TileGrid/tilegrid.config";
+    import type { PatternPreset } from "../../design-system/utils/patterns";
     import type { Translation } from "$lib/types/translations";
     import type { PlaceholdersType } from "../placeholders";
 
@@ -22,23 +24,56 @@
 
     // -- Demo state
 
-    type Mode = "background" | "none" | "decorative";
+    type Mode = "image" | "flat" | "mock-up";
+    type Effect = "none" | "glow" | "blur" | "fade";
+    type Mask = "none" | "ellipse" | "fade";
+    type MaskDirection = "top" | "bottom" | "left" | "right";
 
-    let demo_mode: Mode = $state("background");
+    let demo_mode: Mode = $state("image");
     let demo_position: string = $state("center");
     let demo_columns: Columns = $state(3);
     let demo_hero_span: HeroSpan = $state("half");
     let demo_hero_badge: boolean = $state(true);
-    let demo_rounded: boolean = $state(true);
-    let demo_elevation: Elevation = $state("hard");
+    let demo_rounded: boolean = $state(false);
+    let demo_elevation: Elevation = $state("none");
+    let demo_raised: boolean = $state(false);
+    let demo_pattern: PatternPreset = $state("none");
+    let demo_pattern_color: string = $state("white");
+    let demo_pattern_size: string = $state("auto");
+    let demo_pattern_opacity: number = $state(0.1);
+    let demo_pattern_effect: Effect = $state("none");
+    let demo_pattern_effect_opacity: number = $state(1);
+    let demo_pattern_mask: Mask = $state("none");
+    let demo_pattern_mask_direction: MaskDirection = $state("bottom");
+    let demo_pattern_mask_size: number = $state(70);
 
     const bg_positions = ["center", "top", "bottom"] as const;
     const deco_positions = ["top-right", "top-left", "top-center", "right", "left"] as const;
-    const bool_opts = [{ value: true, label: "on" }, { value: false, label: "off" }] as const;
+    const bool_opts = [{ value: true, label: "true" }, { value: false, label: "false" }] as const;
+    const pattern_colors = ["white", "black", "accent"];
+    const color_opts = [
+        { value: "white", label: "white" },
+        { value: "black", label: "black" },
+        { value: "#aea03f", label: "gold" },
+        { value: "#c0392b", label: "red" },
+        { value: "#2c7a7b", label: "teal" },
+    ] as const;
+    const pattern_presets: PatternPreset[] = [
+        "none", 
+        "scallops", 
+        "grid", 
+        "chevrons", 
+        "sunburst", 
+        "sunrise", 
+        "atoms", 
+        "complex", 
+        "prisms", 
+        "lozenge", 
+    ];
 
     function set_mode(m: Mode) {
         demo_mode = m;
-        demo_position = m === "decorative" ? "top-right" : "center";
+        demo_position = m === "mock-up" ? "top-right" : "center";
     }
 
     // Demo tiles — no id (non-clickable), built from placeholders.grid
@@ -128,7 +163,7 @@
         },
     ]}
     locale="en"
-    image_mode="background"
+    image_mode="image"
     image_position="center"
     columns={3}
     hero_span="half"
@@ -169,7 +204,7 @@
         },
     ]}
     locale="en"
-    image_mode="none"
+    image_mode="flat"
     columns={3}
     hero_span="half"
     show_hero_badge={true}
@@ -204,10 +239,53 @@
         },
     ]}
     locale="en"
-    image_mode="decorative"
+    image_mode="mock-up"
     image_position="top-right"
     image_size="55%"
     columns={3}
+    href_base="/projects"
+/>`;
+
+    const code_pattern = `<!-- pattern on flat tiles — works with image_mode="flat" or "mock-up" -->
+<TileGrid
+    tiles={[
+        {
+            id: "core-api",
+            name: "Core API",
+            origin: "Personal",
+            years: "2024",
+            display: true,
+            hero: true,
+            hero_text: { en: "Featured" },
+            media: [],
+            abstract: { en: "Modular REST API built on FastAPI and Docker" },
+        },
+        {
+            id: "dashboard",
+            name: "Dashboard",
+            origin: "Client",
+            display: true,
+            hero: false,
+            media: [],
+            abstract: { en: "Admin interface for an IoT sensor fleet" },
+        },
+        {
+            id: "cli-toolkit",
+            name: "CLI Toolkit",
+            origin: "Open Source",
+            display: true,
+            hero: false,
+            media: [],
+            abstract: { en: "CLI toolkit for Linux task automation" },
+        },
+    ]}
+    locale="en"
+    image_mode="flat"
+    columns={3}
+    hero_span="half"
+    pattern="scallops"
+    pattern_color="white"
+    pattern_opacity={0.4}
     href_base="/projects"
 />`;
 
@@ -244,7 +322,7 @@
         },
     ]}
     locale="en"
-    image_mode="background"
+    image_mode="image"
     image_position="center"
     columns={3}
     hero_span="full"
@@ -263,21 +341,21 @@
 
 <!-- Controls -->
 
-<ControlBar palette="tone" rounded>
+<ControlBar palette="tone">
     <Selector
         label={trans?.tile_grid?.ctrl_mode}
-        options={["background", "none", "decorative"]}
+        options={["image", "flat", "mock-up"]}
         bind:value={demo_mode}
         onchange={set_mode}
     />
-    {#if demo_mode === "background"}
+    {#if demo_mode === "image"}
         <Selector
             label={trans?.tile_grid?.ctrl_position}
             options={bg_positions}
             bind:value={demo_position}
         />
     {/if}
-    {#if demo_mode === "decorative"}
+    {#if demo_mode === "mock-up"}
         <Selector
             label={trans?.tile_grid?.ctrl_position}
             options={deco_positions}
@@ -309,6 +387,85 @@
         options={["none", "subtle", "hard"]}
         bind:value={demo_elevation}
     />
+    <Selector
+        label="Elevation Raised"
+        options={bool_opts}
+        bind:value={demo_raised}
+    />
+    {#if demo_mode !== "image"}
+        <Selector
+            label="Pattern"
+            options={pattern_presets}
+            bind:value={demo_pattern}
+        />
+        {#if demo_pattern !== "none"}
+            <Selector
+                label="Pattern color"
+                options={color_opts}
+                bind:value={demo_pattern_color}
+            />
+            <Selector
+                label="Pattern size"
+                options={["auto", "20px", "40px", "60px", "80px", "120px"]}
+                bind:value={demo_pattern_size}
+            />
+            <div class="slider-control">
+                <span class="slider-label">Pattern opacity</span>
+                <Slider
+                    palette="accent"
+                    size="sm"
+                    rounded
+                    min={0}
+                    max={1}
+                    step={0.05}
+                    bind:value={demo_pattern_opacity}
+                    aria_label="Pattern opacity"
+                />
+            </div>
+            <Selector
+                label="Mask"
+                options={["none", "ellipse", "fade"]}
+                bind:value={demo_pattern_mask}
+            />
+            <Selector
+                label="Mask dir"
+                options={["top", "bottom", "left", "right"]}
+                bind:value={demo_pattern_mask_direction}
+            />
+            <div class="slider-control">
+                <span class="slider-label">Mask size</span>
+                <Slider
+                    palette="accent"
+                    size="sm"
+                    rounded
+                    min={0}
+                    max={100}
+                    step={5}
+                    bind:value={demo_pattern_mask_size}
+                    aria_label="Mask size"
+                />
+            </div>
+            
+            <Selector
+                label="Effect"
+                options={["none", "glow", "blur", "fade"]}
+                bind:value={demo_pattern_effect}
+            />
+            <div class="slider-control">
+                <span class="slider-label">Effect opacity</span>
+                <Slider
+                    palette="accent"
+                    size="sm"
+                    rounded
+                    min={0}
+                    max={1}
+                    step={0.05}
+                    bind:value={demo_pattern_effect_opacity}
+                    aria_label="Effect opacity"
+                />
+            </div>
+        {/if}
+    {/if}
 </ControlBar>
 
 <!-- Live preview -->
@@ -325,7 +482,17 @@
         show_hero_border={true}
         rounded={demo_rounded}
         elevation={demo_elevation}
+        raised={demo_raised}
         excerpt_length={52}
+        pattern={demo_pattern}
+        pattern_color={demo_pattern_color}
+        pattern_size={demo_pattern_size}
+        pattern_opacity={demo_pattern_opacity}
+        pattern_effect={demo_pattern_effect}
+        pattern_effect_opacity={demo_pattern_effect_opacity}
+        pattern_mask={demo_pattern_mask}
+        pattern_mask_direction={demo_pattern_mask_direction}
+        pattern_mask_size={demo_pattern_mask_size}
     />
 </div>
 
@@ -420,7 +587,7 @@
     description={trans?.tile_grid?.code_desc}
     tabs={[
         { 
-            label: trans?.tile_grid?.tab_background ?? "Image bg",   
+            label: trans?.tile_grid?.tab_image ?? "Image",   
             code: code_background, 
             language: "Svelte" 
         },
@@ -429,15 +596,20 @@
             code: code_flat,       
             language: "Svelte" 
         },
-        {   
-            label: trans?.tile_grid?.tab_decorative  ?? "Decorative", 
-            code: code_decorative, 
-            language: "Svelte" 
+        {
+            label: trans?.tile_grid?.tab_mockup ?? "Mock-up",
+            code: code_decorative,
+            language: "Svelte"
         },
-        { 
-            label: trans?.tile_grid?.tab_hero_full   ?? "Full hero",
-            code: code_hero_full,  
-            language: "Svelte" 
+        {
+            label: "Pattern",
+            code: code_pattern,
+            language: "Svelte",
+        },
+        {
+            label: trans?.tile_grid?.tab_hero_full ?? "Full hero",
+            code: code_hero_full,
+            language: "Svelte"
         },
     ]}
 />
@@ -456,18 +628,28 @@
     rows={[
         { prop: "tiles", type: "readonly Tile[]", default: "\u2014" },
         { prop: "locale", type: "string", default: '"en"' },
-        { prop: "image_mode", type: "ImageMode", default: '"background"' },
-        { prop: "image_position", type: "ImagePosition", default: '"center"' },
+        { prop: "image_mode", type: '"image" | "mock-up" | "flat"', default: '"image"' },
+        { prop: "image_position", type: '"center" | "top" | "bottom" | "top-right" | "top-left" | "top-center" | "right" | "left" | string', default: '"center"' },
         { prop: "image_size", type: "string", default: "undefined" },
-        { prop: "columns", type: "Columns", default: "3" },
-        { prop: "hero_span", type: "HeroSpan", default: '"half"' },
+        { prop: "columns", type: "2 | 3 | 4", default: "3" },
+        { prop: "hero_span", type: '"half" | "full"', default: '"half"' },
         { prop: "gap", type: "string", default: '"1.5rem"' },
         { prop: "show_hero_badge", type: "boolean", default: "true" },
         { prop: "show_hero_border", type: "boolean", default: "true" },
         { prop: "excerpt_length", type: "number", default: "52" },
         { prop: "href_base", type: "string", default: '"/projects"' },
-        { prop: "rounded", type: "boolean", default: "true" },
-        { prop: "elevation", type: "Elevation", default: '"hard"' },
+        { prop: "rounded", type: "boolean", default: "false" },
+        { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
+        { prop: "raised", type: "boolean", default: "false" },
+        { prop: "pattern", type: '"none" | "scallops" | "grid" | "chevrons" | "sunburst" | "sunrise" | "atoms" | "complex" | "prisms" | "lozenge" | string', default: '"none"' },
+        { prop: "pattern_color", type: "string", default: '"white"' },
+        { prop: "pattern_opacity", type: "number", default: "0.1" },
+        { prop: "pattern_size", type: "string", default: "undefined" },
+        { prop: "pattern_effect", type: '"none" | "glow" | "blur" | "fade"', default: '"none"' },
+        { prop: "pattern_effect_opacity", type: "number", default: "1" },
+        { prop: "pattern_mask", type: '"none" | "ellipse" | "fade"', default: '"none"' },
+        { prop: "pattern_mask_direction", type: '"top" | "bottom" | "left" | "right"', default: '"bottom"' },
+        { prop: "pattern_mask_size", type: "number", default: "70" },
     ]}
 />
 
@@ -478,7 +660,6 @@
     .tg-preview {
         background: var(--tone-bg);
         border: 2px solid var(--tone-hover);
-        border-radius: 12px;
         padding: 1rem;
         margin-bottom: 1.5rem;
         overflow: hidden;
@@ -514,5 +695,20 @@
 
     .callout-gap {
         height: 1rem;
+    }
+
+    .slider-control {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        min-width: 140px;
+    }
+
+    .slider-label {
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--text-muted);
     }
 </style>
