@@ -8,6 +8,7 @@
     import Callout from "../../design-system/components/Callout/Callout.svelte";
     import Selector from "../../design-system/components/Selector/Selector.svelte";
     import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
+    import Slider from "../../design-system/components/Slider/Slider.svelte";
     import CodeBlock  from "../../design-system/components/CodeBlock/CodeBlock.svelte";
     import DataTable from "../../design-system/components/DataTable/DataTable.svelte";
 
@@ -20,10 +21,39 @@
 
     type Palette = "accent" | "tone";
     type Preset  = "social" | "minimal" | "brand";
+    type PatternPreset = "none" | "scallops" | "grid" | "chevrons" | "sunburst" | "sunrise" | "atoms" | "complex" | "prisms" | "lozenge";
+    type Effect = "none" | "glow" | "blur" | "fade";
+    type Mask = "none" | "fade" | "ellipse";
+    type MaskDirection = "top" | "bottom" | "left" | "right";
 
     let demo_palette:  Palette = $state("accent");
     let demo_rounded:  boolean = $state(false);
     let demo_preset:   Preset  = $state("social");
+    let demo_pattern:  PatternPreset = $state("none");
+    let demo_pattern_color: string = $state("white");
+    let demo_pattern_size: string = $state("auto");
+    let demo_pattern_opacity: number = $state(40);
+    let demo_pattern_effect: Effect = $state("none");
+    let demo_pattern_effect_opacity: number = $state(100);
+    let demo_pattern_mask: Mask = $state("none");
+    let demo_pattern_mask_direction: MaskDirection = $state("left");
+    let demo_pattern_mask_size: number = $state(70);
+
+    const color_opts = [
+        { value: "white", label: "white" },
+        { value: "black", label: "black" },
+        { value: "#aea03f", label: "gold" },
+        { value: "#c0392b", label: "red" },
+        { value: "#2c7a7b", label: "teal" },
+    ] as const;
+
+    const size_opts = [
+        { value: "auto", label: "auto" },
+        { value: "40px", label: "40" },
+        { value: "60px", label: "60" },
+        { value: "80px", label: "80" },
+        { value: "120px", label: "120" },
+    ] as const;
 
     // ── Code examples ─────────────────────────────────────────────────────────
 
@@ -130,7 +160,7 @@
 
 <!-- Controls -->
 
-<ControlBar palette="tone" rounded>
+<ControlBar palette="tone">
     <Selector 
         label="Palette" 
         options={["accent", "tone"]} 
@@ -141,11 +171,77 @@
         options={[{value: true, label: "yes"}, {value: false, label: "no"}]} 
         bind:value={demo_rounded} 
     />
-    <Selector 
-        label="Preset"  
-        options={["social", "minimal", "brand"]} 
-        bind:value={demo_preset} 
+    <Selector
+        label="Preset"
+        options={["social", "minimal", "brand"]}
+        bind:value={demo_preset}
     />
+    <Selector
+        label="Pattern"
+        options={["none", "scallops", "grid", "chevrons", "sunburst", "sunrise", "atoms", "complex", "prisms", "lozenge"]}
+        bind:value={demo_pattern}
+    />
+    <Selector
+        label="Pattern color"
+        options={color_opts}
+        bind:value={demo_pattern_color}
+    />
+    <Selector
+        label="Pattern size"
+        options={size_opts}
+        bind:value={demo_pattern_size}
+    />
+    <div class="slider-control">
+        <span class="slider-label">Pattern opacity</span>
+        <Slider
+            palette="accent"
+            size="sm"
+            rounded
+            min={0}
+            max={100}
+            step={5}
+            bind:value={demo_pattern_opacity}
+        />
+    </div>
+    <Selector
+        label="Effect"
+        options={["none", "glow", "blur", "fade"]}
+        bind:value={demo_pattern_effect}
+    />
+    <div class="slider-control">
+        <span class="slider-label">Effect opacity</span>
+        <Slider
+            palette="accent"
+            size="sm"
+            rounded
+            min={0}
+            max={100}
+            step={5}
+            bind:value={demo_pattern_effect_opacity}
+        />
+    </div>
+    <Selector
+        label="Mask"
+        options={["none", "fade", "ellipse"]}
+        bind:value={demo_pattern_mask}
+    />
+    <Selector
+        label="Mask dir"
+        options={["top", "bottom", "left", "right"]}
+        bind:value={demo_pattern_mask_direction}
+    />
+    <div class="slider-control">
+        <span class="slider-label">Mask size</span>
+        <Slider
+            palette="accent"
+            size="sm"
+            rounded
+            min={0}
+            max={100}
+            step={5}
+            bind:value={demo_pattern_mask_size}
+        />
+    </div>
 </ControlBar>
 
 <!-- Live preview -->
@@ -162,6 +258,15 @@
     <Footer
         palette={demo_palette}
         rounded={demo_rounded}
+        pattern={demo_pattern}
+        pattern_color={demo_pattern_color}
+        pattern_opacity={demo_pattern_opacity / 100}
+        pattern_size={demo_pattern_size === "auto" ? undefined : demo_pattern_size}
+        pattern_effect={demo_pattern_effect}
+        pattern_effect_opacity={demo_pattern_effect_opacity / 100}
+        pattern_mask={demo_pattern_mask}
+        pattern_mask_direction={demo_pattern_mask_direction}
+        pattern_mask_size={demo_pattern_mask_size}
         style="padding: 10px 1.5rem"
         children={
             demo_preset === "social"   ? social_preset  :
@@ -223,6 +328,15 @@
         { prop: "palette", type: '"accent" | "tone"', default: '"accent"' },
         { prop: "rounded", type: "boolean", default: "false" },
         { prop: "style", type: "string", default: "\u2014" },
+        { prop: "pattern", type: '"none" | "scallops" | "grid" | "chevrons" | "sunburst" | "sunrise" | "atoms" | "complex" | "prisms" | "lozenge" | string', default: '"none"' },
+        { prop: "pattern_color", type: "string", default: '"white"' },
+        { prop: "pattern_opacity", type: "number", default: "0.4" },
+        { prop: "pattern_size", type: "string", default: "undefined" },
+        { prop: "pattern_effect", type: '"none" | "glow" | "blur" | "fade"', default: '"none"' },
+        { prop: "pattern_effect_opacity", type: "number", default: "1" },
+        { prop: "pattern_mask", type: '"none" | "fade" | "ellipse"', default: '"none"' },
+        { prop: "pattern_mask_direction", type: '"top" | "bottom" | "left" | "right"', default: '"left"' },
+        { prop: "pattern_mask_size", type: "number", default: "70" },
         { prop: "leading", type: "Snippet", default: "\u2014" },
         { prop: "children", type: "Snippet", default: "\u2014" },
         { prop: "following", type: "Snippet", default: "\u2014" },
@@ -234,7 +348,6 @@
     /* Preview */
     .footer-preview {
         border: 2px solid var(--tone-hover);
-        border-radius: 12px;
         overflow: hidden;
         margin-bottom: 0.75rem;
         background: var(--tone-bg);
@@ -312,4 +425,21 @@
     }
 
     .mock-footer-link:hover { opacity: 1; }
+
+    /* ── Slider control ───────────────────────────────────────────────────── */
+
+    .slider-control {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        min-width: 140px;
+    }
+
+    .slider-label {
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--text-muted);
+    }
 </style>
