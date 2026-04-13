@@ -6,11 +6,13 @@
     import Card from "../design-system/components/Card/Card.svelte";
     import Hero from "../design-system/components/Hero/Hero.svelte";
     import CodeBlock from "../design-system/components/CodeBlock/CodeBlock.svelte";
+    import Showcase from "./Showcase.svelte";
+
+    // Code showcase ─────────────────────────────────────────────────────────
 
     let showcase_tab = $state(0);
 
     const showcase_code = [
-        // Button
         `<Button palette="accent">
   Commencer
 </Button>
@@ -23,7 +25,6 @@
 <Button variant="ghost" palette="tone" squared>
   <span class="material-symbols-outlined">menu</span>
 </Button>`,
-        // Card
         `<Card variant="outlined" elevation="subtle">
   {#snippet children()}
     <div class="card-content">
@@ -38,7 +39,6 @@ Header, body et footer indépendants.</p>
     </Button>
   {/snippet}
 </Card>`,
-        // Badge
         `<Badge palette="accent" pill>Svelte 5</Badge>
 
 <Badge variant="outlined" palette="tone" pill>
@@ -47,14 +47,17 @@ Header, body et footer indépendants.</p>
 
 <Badge palette="success" size="sm">Nouveau</Badge>`,
     ];
+
 </script>
 
 <svelte:head>
     <title>Spektral UI - Design System</title>
 </svelte:head>
 
+<!-- Main Hero ──────────────────────────────────────────────────────────── -->
+
 <Hero
-    layout="main-left"
+    layout="two-cols"
     palette="transparent"
     pattern="scallops"
     pattern_color="#aea03f"
@@ -62,19 +65,15 @@ Header, body et footer indépendants.</p>
     pattern_opacity={0.3}
     pattern_mask="ellipse"
     pattern_mask_size={70}
-    gap="10px"
+    gap="0"
     pattern_effect="glow"
     pattern_effect_opacity={1}
 >
     {#snippet cell_1()}
         <div class="hero-content">
-            <!--<LogoSpektral size={100} />-->
             <LogoSpektral size={160} />
-
             <h1>{$trans?.hero.headline}</h1>
-
             <p class="hero-subtitle">{$trans?.hero.subtitle}</p>
-
             <div class="hero-badges">
                 <Badge variant="outlined" palette="accent" size="sm" pill>
                     {$trans?.hero.badge_1}
@@ -83,29 +82,26 @@ Header, body et footer indépendants.</p>
                     {$trans?.hero.badge_2}
                 </Badge>
             </div>
-
             <div class="hero-actions">
-                <Button 
-                    palette="accent" 
-                    href="/docs"
-                >
+                <Button palette="accent" href="/docs">
                     <span class="material-symbols-outlined hero-btn-icon">book_5</span>
                     {$trans?.hero.cta_docs}
                 </Button>
-                <Button 
-                    variant="outlined" 
-                    palette="accent"  
-                    href="/customizer"
-                >
+                <Button variant="outlined" palette="accent" href="/customizer">
                     <span class="material-symbols-outlined hero-btn-icon">palette</span>
                     {$trans?.hero.cta_customizer}
                 </Button>
             </div>
         </div>
     {/snippet}
+
+    {#snippet cell_2()}
+        <Showcase />
+    {/snippet}
 </Hero>
 
-<!-- Stat strip -->
+<!-- Stat strip ─────────────────────────────────────────────────────────── -->
+
 <section class="stat-strip">
     <div class="stat-item">
         <span class="stat-number">{$trans?.stats.components_count}</span>
@@ -122,6 +118,8 @@ Header, body et footer indépendants.</p>
         <span class="stat-label">{$trans?.stats.patterns_label}</span>
     </div>
 </section>
+
+<!-- Features ───────────────────────────────────────────────────────────── -->
 
 <Hero
     layout="single"
@@ -147,21 +145,15 @@ Header, body et footer indépendants.</p>
                     <span>{$trans?.features.f1_desc}</span>
                 </div>
             </div>
-
             <div class="feature-item">
-                <span class="material-symbols-outlined feature-icon">
-                    dashboard_2_edit
-                </span>
+                <span class="material-symbols-outlined feature-icon">dashboard_2_edit</span>
                 <div class="feature-text">
                     <h3>{$trans?.features.f2_title}</h3>
                     <span>{$trans?.features.f2_desc}</span>
                 </div>
             </div>
-
             <div class="feature-item">
-                <span class="material-symbols-outlined feature-icon">
-                    palette
-                </span>
+                <span class="material-symbols-outlined feature-icon">palette</span>
                 <div class="feature-text">
                     <h3>{$trans?.features.f4_title}</h3>
                     <span>{$trans?.features.f4_desc}</span>
@@ -171,90 +163,8 @@ Header, body et footer indépendants.</p>
     {/snippet}
 </Hero>
 
-<!-- Code showcase -->
-<Hero
-    layout="two-cols"
-    palette="tone"
-    pattern="none"
-    pattern_color="#aea03f"
-    pattern_size="80px"
-    pattern_opacity={0.5}
-    pattern_mask="none"
-    pattern_mask_direction="right"
-    pattern_mask_size={40}
-    height="42dvh"
-    gap="0"
->
-    {#snippet cell_1()}
-        <div class="showcase-code">
-            <CodeBlock
-                variant="tabbed"
-                size="sm"
-                copyable
-                rounded
-                max_height="340px"
-                bind:active_tab={showcase_tab}
-                tabs={[
-                    { 
-                        label: $trans?.showcase.tab_button ?? "Button", 
-                        code: showcase_code[0], 
-                        language: "Svelte" 
-                    },
-                    { 
-                        label: $trans?.showcase.tab_card ?? "Card", 
-                        code: showcase_code[1], 
-                        language: "Svelte" 
-                    },
-                    { 
-                        label: $trans?.showcase.tab_badge ?? "Badge",  
-                        code: showcase_code[2], 
-                        language: "Svelte" 
-                    },
-                ]}
-            />
-        </div>
-    {/snippet}
+<!-- Quickstart ─────────────────────────────────────────────────────────── -->
 
-    {#snippet cell_2()}
-        <div class="showcase-preview">
-
-            <div class="showcase-preview-stage">
-                {#if showcase_tab === 0}
-                    <div class="showcase-preview-buttons">
-                        <Button palette="accent">Commencer</Button>
-                        <Button variant="outlined" palette="accent">
-                            <span class="material-symbols-outlined">palette</span>
-                            Personnaliser
-                        </Button>
-                        <Button variant="ghost" palette="tone">
-                            <span class="material-symbols-outlined">menu</span>
-                        </Button>
-                    </div>
-                {:else if showcase_tab === 1}
-                    <Card variant="outlined" elevation="hard" width="280px">
-                        {#snippet children()}
-                            <div class="showcase-card-body">
-                                <h3>Spektral Card</h3>
-                                <p>Composable via snippets Svelte 5. Header, body et footer indépendants.</p>
-                            </div>
-                        {/snippet}
-                        {#snippet footer()}
-                            <Button size="sm" palette="accent">Voir la doc</Button>
-                        {/snippet}
-                    </Card>
-                {:else}
-                    <div class="showcase-preview-badges">
-                        <Badge palette="accent" pill>Svelte 5</Badge>
-                        <Badge variant="outlined" palette="tone" pill>WCAG AA</Badge>
-                        <Badge palette="success" size="sm">Nouveau</Badge>
-                    </div>
-                {/if}
-            </div>
-        </div>
-    {/snippet}
-</Hero>
-
-<!-- Quickstart -->
 <Hero
     layout="two-cols"
     palette="transparent"
@@ -301,15 +211,9 @@ Header, body et footer indépendants.</p>
             </Button>
         </div>
     {/snippet}
-
     {#snippet cell_2()}
         <div class="quickstart-code">
-            <CodeBlock
-                variant="terminal"
-                size="sm"
-                code="npm install @spektral/ui"
-                copyable
-            />
+            <CodeBlock variant="terminal" size="sm" code="npm install @spektral/ui" copyable />
             <CodeBlock
                 variant="filename"
                 filename="App.svelte"
@@ -333,14 +237,7 @@ Header, body et footer indépendants.</p>
 </Hero>
 
 <style>
-    .hero {
-        position: relative;
-        min-height: 85dvh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-    }
+    /* Hero left column ─────────────────────────────────────────────────── */
 
     .hero-content {
         display: flex;
@@ -349,23 +246,20 @@ Header, body et footer indépendants.</p>
         justify-content: center;
         text-align: center;
         gap: 1.25rem;
-        max-width: 700px;
-        padding: 2rem;
+        padding: 3rem 2rem;
         width: 100%;
         height: 100%;
-        flex: 1;
-        margin: 0 auto;
     }
 
-    .hero-content h1{
+    .hero-content h1 {
         text-transform: uppercase;
     }
 
     .hero-subtitle {
-        font-size: 1.15rem;
+        font-size: 1.1rem;
         line-height: 1.7;
         color: var(--text-muted);
-        max-width: 540px;
+        max-width: 480px;
     }
 
     .hero-badges {
@@ -386,6 +280,51 @@ Header, body et footer indépendants.</p>
     .hero-btn-icon {
         font-size: 18px;
     }
+
+    /* Stat strip ───────────────────────────────────────────────────────── */
+
+    .stat-strip {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        padding: 1.5rem 2rem;
+        background: var(--tone);
+        border-top: 2px solid var(--tone-hover);
+        border-bottom: 2px solid var(--tone-hover);
+    }
+
+    .stat-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.15rem;
+    }
+
+    .stat-number {
+        font-size: 1.5rem;
+        font-weight: 700;
+        font-family: var(--font-heading);
+        color: var(--accent);
+        line-height: 1;
+        text-transform: uppercase;
+    }
+
+    .stat-label {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-weight: 500;
+    }
+
+    .stat-divider {
+        width: 1px;
+        height: 2rem;
+        background: var(--tone-hover);
+    }
+
+    /* Features ─────────────────────────────────────────────────────────── */
 
     .feature-block {
         display: flex;
@@ -427,54 +366,8 @@ Header, body et footer indépendants.</p>
         margin: 10px 0;
     }
 
-    /* Stat strip */
-    .stat-strip {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 2rem;
-        padding: 1.5rem 2rem;
-        background: var(--tone);
-        border-top: 2px solid var(--tone-hover);
-        border-bottom: 2px solid var(--tone-hover);
-    }
+    /* Code showcase ────────────────────────────────────────────────────── */
 
-    .stat-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.15rem;
-    }
-
-    .stat-item-wide {
-        flex-direction: row;
-        gap: 0.5rem;
-    }
-
-    .stat-number {
-        font-size: 1.5rem;
-        font-weight: 700;
-        font-family: var(--font-heading);
-        color: var(--accent);
-        line-height: 1;
-        text-transform: uppercase;
-    }
-
-    .stat-label {
-        font-size: 0.75rem;
-        color: var(--text-muted);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        font-weight: 500;
-    }
-
-    .stat-divider {
-        width: 1px;
-        height: 2rem;
-        background: var(--tone-hover);
-    }
-
-    /* Code showcase */
     .showcase-code {
         display: flex;
         align-items: center;
@@ -496,15 +389,6 @@ Header, body et footer indépendants.</p>
         gap: 1rem;
         height: 100%;
         padding: 2rem;
-    }
-
-    .showcase-preview-label {
-        font-size: 0.7rem;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        color: var(--text-muted);
-        font-weight: 600;
-        align-self: flex-start;
     }
 
     .showcase-preview-stage {
@@ -543,7 +427,8 @@ Header, body et footer indépendants.</p>
         line-height: 1.6;
     }
 
-    /* Quickstart */
+    /* Quickstart ───────────────────────────────────────────────────────── */
+
     .quickstart {
         display: flex;
         flex-direction: column;

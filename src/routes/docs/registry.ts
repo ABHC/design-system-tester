@@ -29,6 +29,8 @@ import AccordionDemo from "./AccordionDemo.svelte";
 import CodeBlockDemo from "./CodeBlockDemo.svelte";
 import DataTableDemo from "./DataTableDemo.svelte";
 import SliderDemo from "./SliderDemo.svelte";
+import MarqueeDemo from "./MarqueeDemo.svelte";
+import TimelineDemo from "./TimelineDemo.svelte";
 
 export type Category = "structure" | "components" | "presentation";
 
@@ -76,6 +78,8 @@ export const docs: DocEntry[] = [
     { slug: "progress", label: "Progress", category: "components", component: ProgressDemo, get_label: (t) => t?.progress_demo.title ?? "Progress" },
     { slug: "accordion", label: "Accordion", category: "components", component: AccordionDemo, get_label: (t) => (t as any)?.accordion_demo?.title ?? "Accordion" },
     { slug: "slider", label: "Slider", category: "components", component: SliderDemo, get_label: (t) => (t as any)?.slider_demo?.title ?? "Slider" },
+    { slug: "marquee", label: "Marquee", category: "components", component: MarqueeDemo, get_label: (t) => (t as any)?.marquee_demo?.title ?? "Marquee" },
+    { slug: "timeline", label: "Timeline", category: "components", component: TimelineDemo, get_label: (t) => (t as any)?.timeline_demo?.title ?? "Timeline" },
 
     // Presentation
     { slug: "codeblock", label: "CodeBlock", category: "presentation", component: CodeBlockDemo, get_label: (t) => t?.codeblocks.title ?? "CodeBlock" },
