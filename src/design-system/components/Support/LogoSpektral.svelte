@@ -11,9 +11,23 @@
          * Intended for styleguide / documentation pages.
          */
         annotate?: boolean;
+        /**
+         * When true, fills resolve to --logo-main/-hover/-muted (set by the
+         * parent) instead of the accent tokens. The parent decides the palette;
+         * fallbacks keep the logo readable if none are provided.
+         */
+        mono?: boolean;
     }
 
-    let { size = 64, annotate = false }: Props = $props();
+    let { size = 64, annotate = false, mono = false }: Props = $props();
+
+    // In mono mode each role reads from a dedicated CSS var the parent can
+    // override with fully-resolved solid colors. Stacking opacity on top of
+    // currentColor would visually collapse (overlapping paths bleed through
+    // each other), so we rely on distinct fill values instead.
+    const fill_main = $derived(mono ? "var(--logo-main, currentColor)" : "var(--accent)");
+    const fill_hover = $derived(mono ? "var(--logo-hover, currentColor)" : "var(--accent-hover)");
+    const fill_muted = $derived(mono ? "var(--logo-muted, currentColor)" : "var(--accent-muted)");
 </script>
 
 <!--
@@ -56,9 +70,8 @@
     <g transform="translate(-0.34820308,-43.848212)">
 
         <!-- ── Triangle-1 (accent) ────────────────────────────────────────── -->
-        <!-- Largest triangle — dominant accent aplat, rendered first (back). -->
         <path
-            fill="var(--accent)"
+            fill={fill_main}
             stroke="none"
             transform="translate(304.89433,-280.25802)"
             d="M -225.6617,355.02002 V 502.4941 l -74.64038,-73.73704 z"
@@ -66,7 +79,7 @@
 
         <!-- ── K-1 — upper arm (accent-hover) ────────────────────────────── -->
         <path
-            fill="var(--accent-hover)"
+            fill={fill_hover}
             stroke="none"
             transform="translate(-200.81692,7.070112)"
             d="m 326.45353,65.809488 -117.41461,73.404302 -1.47485,1.47485 143.38519,-50.383043 z"
@@ -74,22 +87,17 @@
 
         <!-- ── K-2 — lower arm (accent-hover) ────────────────────────────── -->
         <path
-            fill="var(--accent-hover)"
+            fill={fill_hover}
             stroke="none"
             transform="translate(-200.81692,7.070112)"
             d="m 325.77341,217.64193 25.69998,-25.68775 -143.90777,-49.78294 1.62006,1.62005 z"
         />
 
         <!-- ── Outline — diamond frame (accent, stroke only) ─────────────── -->
-        <!--
-            stroke-width="8" as per latest revision (doubled from previous 4).
-            transform uses an explicit rotation centre: rotate(45, cx, cy)
-            where cx=125.23159, cy=346.38349 — preserved verbatim from Inkscape.
-            fill="none" is intentional — frame only.
-        -->
+
         <rect
             fill="none"
-            stroke="var(--accent)"
+            stroke={fill_main}
             stroke-width="8"
             stroke-linecap="square"
             width="140"
@@ -100,18 +108,18 @@
         />
 
         <!-- ── Triangle-2 (accent-hover) ─────────────────────────────────── -->
-        <!-- Mid-sized triangle — rendered above the Outline frame. -->
+
         <path
-            fill="var(--accent-hover)"
+            fill={fill_hover}
             stroke="none"
             transform="translate(304.89433,-280.25802)"
             d="m -236.25032,389.63127 -0.019,79.22795 -64.03276,-40.10216 z"
         />
 
         <!-- ── Triangle-3 (accent-muted) ─────────────────────────────────── -->
-        <!-- Smallest triangle — muted shade, rendered last (front). -->
+
         <path
-            fill="var(--accent-muted)"
+            fill={fill_muted}
             stroke="none"
             transform="translate(304.89433,-280.25802)"
             d="m -225.66419,402.78407 v 51.94598 l -74.1117,-25.97299 z"
@@ -120,10 +128,7 @@
     </g>
 
     <!-- ── Token annotation labels (annotate prop) ────────────────────────── -->
-    <!--
-        Positioned in the final viewBox coordinate space (0 0 209 209).
-        font-size is in SVG user units so labels scale with the size prop.
-    -->
+   
     {#if annotate}
         <!-- Top — Outline label -->
         <text
