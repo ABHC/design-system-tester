@@ -4,7 +4,7 @@ export interface ColorPickerConfig {
 }
 
 export const defaultColorPickerConfig: ColorPickerConfig = {
-    rounded: true,
+    rounded: false,
     elevation: "none",
 };
 
