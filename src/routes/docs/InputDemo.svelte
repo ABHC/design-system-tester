@@ -3,7 +3,6 @@
     import type { PlaceholdersType } from "../placeholders";
     import Headline from "../../design-system/components/Headline/Headline.svelte";
     import Input from "../../design-system/components/Input/Input.svelte";
-    import Textarea from "../../design-system/components/Textarea/Textarea.svelte";
     import Card from "../../design-system/components/Card/Card.svelte";
     import Button from "../../design-system/components/Button/Button.svelte";
     import CodeBlock from "../../design-system/components/CodeBlock/CodeBlock.svelte";
@@ -33,25 +32,6 @@
 
     const password_match = $derived(password_repeat.length > 0 && password === password_repeat);
     const password_mismatch = $derived(password_repeat.length > 0 && password !== password_repeat);
-
-    // ── Contact form ─────────────────────────────────────────────────────
-
-    let ct_name: string = $state("");
-    let ct_email: string = $state("");
-    let ct_subject: string = $state("");
-    let ct_message: string = $state("");
-
-    const msg_long_enough = $derived(ct_message.length >= 20);
-    const msg_error = $derived(
-        ct_message.length > 0 && ct_message.length < 20
-            ? (placeholders?.input_demo?.error_msg_short ?? "Message too short (min 20 characters)")
-            : undefined
-    );
-    const msg_success = $derived(
-        msg_long_enough
-            ? (placeholders?.input_demo?.success_msg ?? "Looks good!")
-            : undefined
-    );
 
     // ── States reference (static) ────────────────────────────────────────
 
@@ -105,22 +85,6 @@
 
 <!-- trailing — right of the field -->
 <Input bind:value placeholder="Search…" trailing={icon_search} />`;
-
-    const code_textarea = `<script lang="ts">
-    let message: string = $state("");
-
-    const too_short = $derived(message.length > 0 && message.length < 20);
-    const long_enough = $derived(message.length >= 20);
-<\/script>
-
-<Textarea
-    bind:value={message}
-    label="Message"
-    rows={5}
-    placeholder="Write something…"
-    error={too_short   ? "Too short (min 20 characters)" : undefined}
-    success={long_enough ? "Looks good!"                 : undefined}
-/>`;
 
     const code_states = `<!-- hint — neutral helper text -->
 <Input bind:value label="Username" hint="3–20 characters" />
@@ -185,12 +149,6 @@
 {#snippet icon_lock()}
     <span class="material-symbols-outlined">lock</span>
 {/snippet}
-{#snippet icon_subject()}
-    <span class="material-symbols-outlined">subject</span>
-{/snippet}
-{#snippet icon_eye()}
-    <span class="material-symbols-outlined">visibility</span>
-{/snippet}
 
 <!-- ── Markup ────────────────────────────────────────────────────────────── -->
 
@@ -206,11 +164,10 @@
     />
 </ControlBar>
 
-<!-- Forms grid -->
+<!-- Sign-up form -->
 
 <div class="forms-grid">
-
-    <!-- Sign-up form -->
+    <span></span>
     <Card variant="flat" rounded elevation="subtle">
         {#snippet header()}
             <div class="card-form-header">
@@ -282,64 +239,6 @@
             </Button>
         {/snippet}
     </Card>
-
-    <!-- Contact form -->
-    <Card variant="flat" rounded elevation="subtle">
-        {#snippet header()}
-            <div class="card-form-header">
-                <span class="material-symbols-outlined">mail</span>
-                <span>{placeholders?.input_demo?.sect_contact}</span>
-            </div>
-        {/snippet}
-
-        {#snippet children()}
-            <Input
-                bind:value={ct_name}
-                size={demo_size}
-                label={placeholders?.input_demo?.lbl_name}
-                placeholder={placeholders?.input_demo?.ph_name}
-                leading={icon_person}
-                required
-            />
-
-            <Input
-                bind:value={ct_email}
-                size={demo_size}
-                type="email"
-                label={placeholders?.input_demo?.lbl_email}
-                placeholder={placeholders?.input_demo?.ph_email}
-                leading={icon_email}
-                required
-            />
-
-            <Input
-                bind:value={ct_subject}
-                size={demo_size}
-                label={placeholders?.input_demo?.lbl_subject}
-                placeholder={placeholders?.input_demo?.ph_subject}
-                leading={icon_subject}
-            />
-
-            <Textarea
-                bind:value={ct_message}
-                size={demo_size}
-                label={placeholders?.input_demo?.lbl_message}
-                placeholder={placeholders?.input_demo?.ph_message}
-                hint={placeholders?.input_demo?.hint_message}
-                error={msg_error}
-                success={msg_success}
-                rows={6}
-                required
-            />
-        {/snippet}
-
-        {#snippet footer()}
-            <Button variant="flat" size={demo_size}>
-                {placeholders?.input_demo?.btn_send}
-            </Button>
-        {/snippet}
-    </Card>
-
 </div>
 
 <!-- States reference -->
@@ -348,14 +247,12 @@
 <Headline size="sm" uppercase muted>{trans?.doc.states ?? "States"}</Headline>
 </div>
 <div class="states-preview">
-    <span class="section-label">{trans?.input_demo?.sect_states}</span>
-
     <div class="states-grid">
         <div class="state-item">
             <span class="state-label">{trans?.input_demo?.lbl_normal}</span>
-            <Input 
-                size={demo_size} 
-                placeholder="you@example.com" 
+            <Input
+                size={demo_size}
+                placeholder="you@example.com"
             />
         </div>
 
@@ -388,95 +285,40 @@
 
         <div class="state-item">
             <span class="state-label">{trans?.input_demo?.lbl_disabled}</span>
-            <Input 
-                size={demo_size} 
-                value={ref_disabled_val} 
-                disabled 
+            <Input
+                size={demo_size}
+                value={ref_disabled_val}
+                disabled
             />
         </div>
 
         <div class="state-item">
             <span class="state-label">{trans?.input_demo?.lbl_readonly}</span>
-            <Input 
-                size={demo_size} 
-                value={ref_readonly_val} 
-                readonly 
+            <Input
+                size={demo_size}
+                value={ref_readonly_val}
+                readonly
             />
         </div>
 
         <div class="state-item">
             <span class="state-label">{trans?.input_demo?.lbl_leading}</span>
-            <Input 
-                size={demo_size} 
-                placeholder="you@example.com" 
-                leading={icon_email} 
+            <Input
+                size={demo_size}
+                placeholder="you@example.com"
+                leading={icon_email}
             />
         </div>
 
         <div class="state-item">
             <span class="state-label">{trans?.input_demo?.lbl_trailing}</span>
-            <Input 
-                size={demo_size} 
-                type="password" 
-                placeholder="••••••••" 
-                leading={icon_lock} 
-            />
-        </div>
-    </div>
-
-    <span class="section-label">{trans?.input_demo?.sect_states_ta}</span>
-
-    <div class="states-grid">
-
-        <div class="state-item">
-            <span class="state-label">{trans?.input_demo?.lbl_normal}</span>
-            <Textarea 
-                size={demo_size} 
-                rows={3} 
-                placeholder={placeholders?.input_demo?.ph_message} 
-            />
-        </div>
-
-        <div class="state-item">
-            <span class="state-label">{trans?.input_demo?.lbl_hint}</span>
-            <Textarea
+            <Input
                 size={demo_size}
-                rows={3}
-                placeholder={placeholders?.input_demo?.ph_message}
-                hint={placeholders?.input_demo?.hint_message}
+                type="password"
+                placeholder="••••••••"
+                leading={icon_lock}
             />
         </div>
-
-        <div class="state-item">
-            <span class="state-label">{trans?.input_demo?.lbl_error}</span>
-            <Textarea
-                size={demo_size}
-                rows={3}
-                value={placeholders?.input_demo?.too_short}
-                error={placeholders?.input_demo?.error_ref_ta}
-            />
-        </div>
-
-        <div class="state-item">
-            <span class="state-label">{trans?.input_demo?.lbl_success}</span>
-            <Textarea
-                size={demo_size}
-                rows={3}
-                value={placeholders?.input_demo?.long_enough}
-                success={placeholders?.input_demo?.success_ref}
-            />
-        </div>
-
-        <div class="state-item">
-            <span class="state-label">{trans?.input_demo?.lbl_disabled}</span>
-            <Textarea 
-                size={demo_size} 
-                rows={3} 
-                value={placeholders?.input_demo?.disabled}
-                disabled 
-            />
-        </div>
-
     </div>
 </div>
 
@@ -492,7 +334,6 @@
         { label: "basic", code: code_basic, language: "Svelte" },
         { label: "validation", code: code_validation, language: "Svelte" },
         { label: "icons", code: code_icons, language: "Svelte" },
-        { label: "textarea", code: code_textarea, language: "Svelte" },
         { label: "states", code: code_states, language: "Svelte" },
         { label: "password toggle", code: code_pw_toggle, language: "Svelte" },
     ]}
@@ -538,14 +379,6 @@
         border-radius: 12px;
         padding: 1.5rem;
         margin-bottom: 0.75rem;
-    }
-
-    .section-label {
-        font-size: 0.7rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.6px;
-        color: var(--text-muted);
     }
 
     .states-grid {
