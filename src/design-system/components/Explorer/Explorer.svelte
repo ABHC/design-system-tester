@@ -7,14 +7,12 @@
 
     interface Props {
         palette?: Palette;
-        rounded?: boolean;
         children: Snippet;
         aria_label?: string;
     }
 
     let {
         palette = "tone",
-        rounded = false,
         children,
         aria_label = "Explorer",
     }: Props = $props();
@@ -24,7 +22,6 @@
     const root_classes = $derived(
         resolve({
             palette,
-            rounded: rounded ? true : undefined,
         }).trim()
     );
 </script>
@@ -39,10 +36,6 @@
         flex-direction: column;
         gap: 0.25rem;
         font-family: var(--font-body);
-    }
-
-    .explorer-rounded {
-        border-radius: 10px;
     }
 
     .explorer-palette-accent {

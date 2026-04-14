@@ -6,9 +6,6 @@ export const explorerConfig = {
             accent: "explorer-palette-accent",
             tone: "explorer-palette-tone",
         },
-        rounded: {
-            true: "explorer-rounded",
-        },
     },
 };
 
