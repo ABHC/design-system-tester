@@ -589,9 +589,12 @@
     .cp-preview {
         width: 56px;
         min-height: 56px;
-        border-radius: 6px;
         border: 1px solid var(--tone-hover);
         flex-shrink: 0;
+    }
+
+    .color-picker-rounded .cp-preview {
+        border-radius: var(--radius-soft);
     }
 
     .cp-values {
