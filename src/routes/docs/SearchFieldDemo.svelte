@@ -66,7 +66,7 @@
     <Headline size="md" uppercase>{trans?.search_field_demo.title}</Headline>
 </div>
 
-<ControlBar palette="tone" rounded>
+<ControlBar palette="tone">
     <Selector
         label="Size"
         options={["sm", "md", "lg"]}
@@ -102,7 +102,7 @@
 <!-- Demo grid -->
 
 <div class="demo-grid">
-    <Card variant="flat" rounded elevation="subtle">
+    <Card variant="flat" elevation="subtle">
         {#snippet children()}
             <SearchField
                 bind:value={search_basic}
@@ -175,7 +175,6 @@
         color: var(--text-muted);
         padding: 0.5rem 0.6rem;
         background: var(--tone-bg);
-        border-radius: 5px;
         margin-top: 0.5rem;
     }
 

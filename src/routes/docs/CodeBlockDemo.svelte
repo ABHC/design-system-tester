@@ -16,18 +16,18 @@
 
     // ── Demo state ─────────────────────────────────────────────────────────
 
-    type Variant   = "simple" | "titled" | "filename" | "tabbed" | "terminal";
-    type Size      = "sm" | "md" | "lg";
-    type DescMode  = "none" | "split" | "only";
+    type Variant = "simple" | "titled" | "filename" | "tabbed" | "terminal";
+    type Size = "sm" | "md" | "lg";
+    type DescMode = "none" | "split" | "only";
     type MaxHeight = "none" | "200px" | "300px";
 
-    let demo_variant:     Variant   = $state("titled");
-    let demo_size:        Size      = $state("md");
-    let demo_copyable:    boolean   = $state(true);
-    let demo_line_numbers: boolean  = $state(false);
-    let demo_rounded:     boolean   = $state(true);
-    let demo_desc_mode:   DescMode  = $state("none");
-    let demo_max_height:  MaxHeight = $state("none");
+    let demo_variant: Variant = $state("titled");
+    let demo_size: Size = $state("md");
+    let demo_copyable: boolean = $state(true);
+    let demo_line_numbers: boolean = $state(false);
+    let demo_rounded: boolean = $state(false);
+    let demo_desc_mode: DescMode = $state("none");
+    let demo_max_height: MaxHeight = $state("none");
 
     const bool_opts = [
         { value: true,  label: "true"  },
@@ -73,35 +73,66 @@
         },
     ];
 
-    const preview_desc = "**Split layout** — the `description` prop activates a side panel.\\nSupports **bold**, _italic_ and `inline code`.";
-    const preview_desc_only = "**Description-only mode** — when `code` is absent, the description fills the full body width.\\nUseful for **notes**, _tips_ or any prose content that doesn't need a code panel.";
-
     // Props derived from demo state
-    const preview_title    = $derived(demo_variant === "titled" ? "TokenConfig" : demo_variant === "terminal" ? "build.sh" : undefined);
-    const preview_filename = $derived(demo_variant === "filename" ? "button.config.ts" : undefined);
-    const preview_language = $derived((demo_variant === "titled" || demo_variant === "filename") ? "TypeScript" : undefined);
-    const preview_desc_val = $derived(demo_desc_mode !== "none" ? (demo_desc_mode === "only" ? preview_desc_only : preview_desc) : undefined);
-    const preview_mh       = $derived(demo_max_height !== "none" ? demo_max_height : undefined);
+    const preview_title = $derived(({
+        simple: undefined,
+        titled: placeholders.code_block.title_labeled,
+        filename: undefined,
+        tabbed: undefined,
+        terminal: placeholders.code_block.title_terminal,
+    } as Record<Variant, string | undefined>)[demo_variant]);
+
+    const preview_filename = $derived(({
+        simple: undefined,
+        titled: undefined,
+        filename: placeholders.code_block.filename,
+        tabbed: undefined,
+        terminal: undefined,
+    } as Record<Variant, string | undefined>)[demo_variant]);
+
+    const preview_language = $derived(({
+        simple: undefined,
+        titled: "TypeScript",
+        filename: "TypeScript",
+        tabbed: undefined,
+        terminal: undefined,
+    } as Record<Variant, string | undefined>)[demo_variant]);
+
+    const preview_desc_val = $derived(({
+        none: undefined,
+        split: placeholders.code_block.desc_split,
+        only: placeholders.code_block.desc_only,
+    } as Record<DescMode, string | undefined>)[demo_desc_mode]);
+
+    const preview_mh = $derived(({
+        none: undefined,
+        "200px": "200px",
+        "300px": "300px",
+    } as Record<MaxHeight, string | undefined>)[demo_max_height]);
 
     // Generated usage code — the block shows its own source
     const generated_code = $derived.by(() => {
         const props: string[] = [];
-        if (demo_variant !== "simple")  props.push(`    variant="${demo_variant}"`);
-        if (demo_size !== "md")         props.push(`    size="${demo_size}"`);
-        if (preview_title)              props.push(`    title="${preview_title}"`);
-        if (preview_filename)           props.push(`    filename="${preview_filename}"`);
-        if (preview_language)           props.push(`    language="${preview_language}"`);
-        if (demo_desc_mode === "split") props.push(`    description="**Split layout** — describe your code here.\\n_italic_, \\\`inline code\\\` supported."`);
-        if (demo_desc_mode === "only")  props.push(`    description="**Description-only** — prose content without a code panel."`);
+        if (demo_variant !== "simple") props.push(`     variant="${demo_variant}"`);
+        if (demo_size !== "md") props.push(`        size="${demo_size}"`);
+        if (preview_title) props.push(`     title="${preview_title}"`);
+        if (preview_filename) props.push(`      filename="${preview_filename}"`);
+        if (preview_language) props.push(`     language="${preview_language}"`);
+        if (demo_desc_mode === "split") props.push(`        description="**Split layout** — describe your code here.\\n_italic_, \\\`inline code\\\` supported."`);
+        if (demo_desc_mode === "only") props.push(`     description="**Description-only** — prose content without a code panel."`);
         if (demo_max_height !== "none") props.push(`    max_height="${demo_max_height}"`);
-        if (demo_copyable)              props.push(`    copyable`);
-        if (demo_line_numbers)          props.push(`    line_numbers`);
-        if (!demo_rounded)              props.push(`    rounded={false}`);
-        if (demo_desc_mode !== "only")  props.push(`    code={snippet}`);
+        if (demo_copyable) props.push(`     copyable`);
+        if (demo_line_numbers) props.push(`     line_numbers`);
+        if (!demo_rounded) props.push(`     rounded={false}`);
+        if (demo_desc_mode !== "only") props.push(`     code={snippet}`);
         return `<CodeBlock\n${props.join("\n")}\n/>`;
     });
 
-    const preview_code = $derived(demo_desc_mode === "only" ? undefined : generated_code);
+    const preview_code = $derived(({
+        none: generated_code,
+        split: generated_code,
+        only: undefined,
+    } as Record<DescMode, string | undefined>)[demo_desc_mode]);
 
     // ── Usage code examples ────────────────────────────────────────────────
 
@@ -128,9 +159,9 @@
     variant="tabbed"
     copyable
     tabs={[
-        { label: "tokens.ts",        code: tsCode,  language: "TypeScript" },
+        { label: "tokens.ts", code: tsCode,  language: "TypeScript" },
         { label: "button.config.ts", code: cfgCode, language: "TypeScript" },
-        { label: "styles.css",       code: cssCode, language: "CSS"        },
+        { label: "styles.css", code: cssCode, language: "CSS" },
     ]}
 />`;
 
@@ -212,7 +243,7 @@
 
 <!-- Controls ──────────────────────────────────────────────────────────── -->
 
-<ControlBar palette="tone" rounded>
+<ControlBar palette="tone">
     <Selector
         label="Variant"
         options={["simple", "titled", "filename", "tabbed", "terminal"]}
@@ -280,7 +311,7 @@
 
 <!-- Mini blocks ───────────────────────────────────────────────────────── -->
 
-<p class="demo-label">Mini — <code>width="fit-content"</code> pour les commandes inline</p>
+<p class="demo-label">{@html trans?.code_block_demo.mini_label}</p>
 
 <div class="mini-row">
     <CodeBlock
@@ -291,17 +322,19 @@
         copyable
     />
     <CodeBlock
+        variant="filename"
+        filename="doc.md"
+        language="Markdown"
+        size="sm"
+        width="fit-content"
+        description="This is a Markdown block !"
+        copyable
+    />
+    <CodeBlock
         variant="simple"
         size="sm"
         width="fit-content"
         code="npx sv create my-app"
-        copyable
-    />
-    <CodeBlock
-        variant="terminal"
-        size="sm"
-        width="fit-content"
-        code="git push origin main"
         copyable
     />
 </div>
@@ -374,15 +407,7 @@
     .demo-label {
         font-size: 0.8rem;
         color: var(--text-muted);
-        margin: 1.5rem 0 0;
+        margin: 1.5rem 0 0.75rem;
         font-style: italic;
-    }
-
-    .demo-label code {
-        font-style: normal;
-        background: var(--tone-hover);
-        padding: 0.1em 0.35em;
-        border-radius: 4px;
-        font-size: 0.9em;
     }
 </style>

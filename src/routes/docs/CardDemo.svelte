@@ -10,7 +10,6 @@
     import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
     import type { Translation } from "$lib/types/translations";
     import type { PlaceholdersType } from "../placeholders";
-	import { goto } from "$app/navigation";
 
     interface Props {
         trans: Translation | null;
@@ -129,13 +128,13 @@
 
 <!-- ── Markup ─────────────────────────────────────────────────────────────── -->
 
-<div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
+<div data-summary="demo" data-summary-label={trans?.doc.demo}>
     <Headline size="md" uppercase>{trans?.card_demo.title}</Headline>
 </div>
 
 <!-- Controls -->
 
-<ControlBar palette="tone" rounded>
+<ControlBar palette="tone">
     <Selector 
         label="Preset" 
         options={["none", "projects", "profile", "testimonials"]}
@@ -324,7 +323,7 @@
 
 <!-- Code examples -->
 
-<div data-summary="usage" data-summary-label={trans?.doc.usage ?? "Usage"}>
+<div data-summary="usage" data-summary-label={trans?.doc.usage}>
 <Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
 </div>
 <CodeBlock
@@ -367,7 +366,6 @@
 
     .card-preview {
         border: 2px solid var(--tone-hover);
-        border-radius: 12px;
         padding: 1.5rem;
         margin-bottom: 0.75rem;
         background: var(--tone-bg);

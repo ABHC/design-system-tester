@@ -81,7 +81,7 @@
     <Headline size="md" uppercase>{trans?.progress_demo?.title}</Headline>
 </div>
 
-<ControlBar palette="tone" rounded>
+<ControlBar palette="tone">
     <Selector
         label="Palette"
         options={["accent", "tone", "neutral", "error", "warning", "success", "info"]}
@@ -160,9 +160,9 @@
     variant="tabbed"
     copyable
     tabs={[
-        { label: "Basic",         code: code_basic,         language: "Svelte" },
+        { label: "Basic", code: code_basic, language: "Svelte" },
         { label: "Indeterminate", code: code_indeterminate, language: "Svelte" },
-        { label: "Modifiers",     code: code_modifiers,     language: "Svelte" },
+        { label: "Modifiers", code: code_modifiers, language: "Svelte" },
     ]}
 />
 
@@ -170,31 +170,31 @@
 
 <div data-summary="api" data-summary-label={trans?.doc.api ?? "API"}>
     <Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
-    <DataTable
-        variant="ghost" palette="tone" size="sm"
-        columns={[
-            { key: "prop", label: "Prop" },
-            { key: "type", label: "Type", cell: codeCell },
-            { key: "default", label: "Default", cell: codeCell },
-        ]}
-        rows={[
-            { prop: "value", type: "number | null", default: "null" },
-            { prop: "max", type: "number", default: "100" },
-            { prop: "unit", type: "string", default: '""' },
-            { prop: "palette", type: '"accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info"', default: '"accent"' },
-            { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"' },
-            { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
-            { prop: "outlined", type: "boolean", default: "false" },
-            { prop: "rounded", type: "boolean", default: "false" },
-            { prop: "aria_label", type: "string", default: "undefined" },
-        ]}
-    />
 </div>
+
+<DataTable
+    variant="ghost" palette="tone" size="sm"
+    columns={[
+        { key: "prop", label: "Prop" },
+        { key: "type", label: "Type", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell },
+    ]}
+    rows={[
+        { prop: "value", type: "number | null", default: "null" },
+        { prop: "max", type: "number", default: "100" },
+        { prop: "unit", type: "string", default: '""' },
+        { prop: "palette", type: '"accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info"', default: '"accent"' },
+        { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"' },
+        { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
+        { prop: "outlined", type: "boolean", default: "false" },
+        { prop: "rounded", type: "boolean", default: "false" },
+        { prop: "aria_label", type: "string", default: "undefined" },
+    ]}
+/>
 
 <style>
     .progress-preview {
         border: 2px solid var(--tone-hover);
-        border-radius: 12px;
         padding: 1.5rem 1.5rem 0.5rem;
         margin-bottom: 0.75rem;
     }

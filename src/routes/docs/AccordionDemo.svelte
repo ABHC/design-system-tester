@@ -31,7 +31,7 @@
     let demo_elevation: Elevation = $state("none");
     let demo_rounded: boolean = $state(false);
 
-    const bool_opts = [{ value: true, label: "yes" }, { value: false, label: "no" }] as const;
+    const bool_opts = [{ value: true, label: "true" }, { value: false, label: "false" }] as const;
 
     // -- Code examples --------------------------------------------------------
 
@@ -95,12 +95,12 @@
 <!-- -- Markup --------------------------------------------------------------- -->
 
 <div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
-    <Headline size="md" uppercase>Accordion</Headline>
+    <Headline size="md" uppercase>{trans?.accordion_demo.title}</Headline>
 </div>
 
 <!-- Controls -->
 
-<ControlBar palette="tone" rounded>
+<ControlBar palette="tone">
     <Selector
         label="Variant"
         options={["ghost", "flat", "outlined"]}
@@ -173,47 +173,47 @@
 
 <div data-summary="api" data-summary-label={trans?.doc.api ?? "API"}>
     <Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
-
-    <h4 class="api-subtitle">Accordion</h4>
-    <DataTable
-        variant="ghost" palette="tone" size="sm"
-        columns={[
-            { key: "prop", label: "Prop" },
-            { key: "type", label: "Type", cell: codeCell },
-            { key: "default", label: "Default", cell: codeCell },
-        ]}
-        rows={[
-            { prop: "variant", type: '"flat" | "outlined" | "ghost"', default: '"ghost"' },
-            { prop: "palette", type: '"accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info"', default: '"tone"' },
-            { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"' },
-            { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
-            { prop: "rounded", type: "boolean", default: "false" },
-            { prop: "children", type: "Snippet", default: "\u2014" },
-        ]}
-    />
-
-    <h4 class="api-subtitle">AccordionHeader</h4>
-    <DataTable
-        variant="ghost" palette="tone" size="sm"
-        columns={[
-            { key: "prop", label: "Prop" },
-            { key: "type", label: "Type", cell: codeCell },
-            { key: "default", label: "Default", cell: codeCell },
-        ]}
-        rows={[
-            { prop: "label", type: "string", default: "\u2014" },
-            { prop: "icon", type: "Snippet", default: "undefined" },
-            { prop: "open", type: "boolean", default: "false" },
-            { prop: "disabled", type: "boolean", default: "false" },
-            { prop: "children", type: "Snippet", default: "\u2014" },
-        ]}
-    />
 </div>
+
+<h4 class="api-subtitle">Accordion</h4>
+<DataTable
+    variant="ghost" palette="tone" size="sm"
+    columns={[
+        { key: "prop", label: "Prop" },
+        { key: "type", label: "Type", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell },
+    ]}
+    rows={[
+        { prop: "variant", type: '"flat" | "outlined" | "ghost"', default: '"ghost"' },
+        { prop: "palette", type: '"accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info"', default: '"tone"' },
+        { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"' },
+        { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
+        { prop: "rounded", type: "boolean", default: "false" },
+        { prop: "children", type: "Snippet", default: "\u2014" },
+    ]}
+/>
+
+<h4 class="api-subtitle">AccordionHeader</h4>
+<DataTable
+    variant="ghost" palette="tone" size="sm"
+    columns={[
+        { key: "prop", label: "Prop" },
+        { key: "type", label: "Type", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell },
+    ]}
+    rows={[
+        { prop: "label", type: "string", default: "\u2014" },
+        { prop: "icon", type: "Snippet", default: "undefined" },
+        { prop: "open", type: "boolean", default: "false" },
+        { prop: "disabled", type: "boolean", default: "false" },
+        { prop: "children", type: "Snippet", default: "\u2014" },
+    ]}
+/>
+
 
 <style>
     .accordion-preview {
         border: 2px solid var(--tone-hover);
-        border-radius: 12px;
         padding: 1.5rem;
         margin-bottom: 0.75rem;
         background: var(--tone-bg);

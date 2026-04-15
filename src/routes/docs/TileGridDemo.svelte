@@ -498,7 +498,7 @@
 
 <!-- ID info note -->
 
-<Callout variant="info" align="center" rounded>
+<Callout variant="info" align="center">
     {#snippet leading()}
         <span class="material-symbols-outlined">
             photo_library
@@ -554,7 +554,7 @@
 
 <!-- ID info note -->
 
-<Callout variant="accent" align="start" rounded>
+<Callout variant="accent" align="start">
     {#snippet leading()}
         <span 
             class="material-symbols-outlined" 

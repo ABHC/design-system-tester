@@ -100,7 +100,7 @@
 
 <!-- Controls -->
 
-<ControlBar palette="tone" rounded>
+<ControlBar palette="tone">
     <Selector
         label="Variant"
         options={["flat", "outlined", "ghost"]}
@@ -165,42 +165,42 @@
 
 <div data-summary="api" data-summary-label={trans?.doc.api ?? "API"}>
     <Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
-
-    <h4 class="api-subtitle">DataTable</h4>
-    <DataTable
-        variant="ghost"
-        palette="tone"
-        size="sm"
-        columns={[
-            { key: "name", label: "Prop" },
-            { key: "type", label: "Type", cell: codeCell },
-            { key: "default", label: "Default", cell: codeCell },
-        ]}
-        rows={sample_rows}
-    />
-
-    <h4 class="api-subtitle">Column</h4>
-    <DataTable
-        variant="ghost"
-        palette="tone"
-        size="sm"
-        columns={[
-            { key: "name", label: "Property" },
-            { key: "type", label: "Type", cell: codeCell },
-            { key: "required", label: "Required" },
-        ]}
-        rows={[
-            { name: "key", type: "string", required: "yes" },
-            { name: "label", type: "string", required: "yes" },
-            { name: "cell", type: "Snippet<[any]>", required: "no" },
-        ]}
-    />
 </div>
+
+<h4 class="api-subtitle">DataTable</h4>
+<DataTable
+    variant="ghost"
+    palette="tone"
+    size="sm"
+    columns={[
+        { key: "name", label: "Prop" },
+        { key: "type", label: "Type", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell },
+    ]}
+    rows={sample_rows}
+/>
+
+<h4 class="api-subtitle">Column</h4>
+<DataTable
+    variant="ghost"
+    palette="tone"
+    size="sm"
+    columns={[
+        { key: "name", label: "Property" },
+        { key: "type", label: "Type", cell: codeCell },
+        { key: "required", label: "Required" },
+    ]}
+    rows={[
+        { name: "key", type: "string", required: "yes" },
+        { name: "label", type: "string", required: "yes" },
+        { name: "cell", type: "Snippet<[any]>", required: "no" },
+    ]}
+/>
+
 
 <style>
     .datatable-preview {
         border: 2px solid var(--tone-hover);
-        border-radius: 12px;
         padding: 1.5rem;
         margin-bottom: 0.75rem;
         background: var(--tone-bg);

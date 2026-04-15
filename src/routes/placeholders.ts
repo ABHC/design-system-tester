@@ -54,7 +54,15 @@ export const placeholders = {
             info: "Mettre un turboréacteur sur un train n'est pas économique",
             warning_pre: "Votre session expire bientôt.",
             warning_link: "Renouvelez votre abonnement Minitel maintenant",
-            error: "Échec du lancement de la fusée Ariane"
+            error: "Échec du lancement de la fusée Ariane",
+            neutral: "Ce message n'implique aucune action obligatoire de votre part.",
+            warning_title: "Avertissement",
+            neutral_title: "Note",
+            info_title: "Info",
+            success_title: "Succès",
+            error_title: "Erreur",
+            dismiss: "Ignorer",
+            trigger: "Déclencher",
         },
         callout: {
             success_label: "Succès",
@@ -68,6 +76,13 @@ export const placeholders = {
             neutral: "Ce composant est un message à caractère informatif et n'implique aucune action obligatoire de la part de l'utilisateur.",
             tip: "Composez librement <code>leading</code>, <code>children</code> et <code>following</code>. Le slot <code>leading</code> hérite de <code>--cb-color</code> automatiquement. Préférez <code>align='start'</code> pour du contenu multi-lignes — l'icône s'ancre en haut. Un <code>Button variant='ghost' palette='tone'</code> placé en <code>following</code> adopte la couleur du callout parent.",
             view: "Voir"
+        },
+        code_block: {
+            title_labeled: "TokenConfig",
+            title_terminal: "build.sh",
+            filename: "button.config.ts",
+            desc_split: "**Disposition en deux colonnes** — la prop `description` active le panneau latéral.\\nSupporte **le gras**, _l'italique_ et le `code en ligne`.",
+            desc_only: "**Mode description seule** — quand `code` est absent, la description occupe toute la largeur.\\nIdéal pour des **notes**, _conseils_ ou tout contenu en prose sans panneau de code.",
         },
         grid: {
             hero_text: "En vedette",
@@ -625,8 +640,16 @@ export const placeholders = {
             info: "Putting a turbojet engine on a train is not economical",
             warning_pre: "Your session will expire soon.",
             warning_link: "Renew your Minitel subscription now",
-            error: "Failure to launch the Ariane rocket"
-            },
+            error: "Failure to launch the Ariane rocket",
+            neutral: "This message does not require any action on your part.",
+            warning_title: "Warning",
+            neutral_title: "Note",
+            info_title: "Info",
+            success_title: "Success",
+            error_title: "Error",
+            dismiss: "Dismiss",
+            trigger: "Trigger",
+        },
         callout: {
             success_label: "Success",
             error_label: "Error",
@@ -639,6 +662,13 @@ export const placeholders = {
             neutral: "Note: this component is an informative message and does not imply any mandatory action on the part of the user.",
             tip: "Freely combine <code>leading</code>, <code>children</code>, and <code>following</code>. The <code>leading</code> slot automatically inherits <code>--cb-color</code>. Prefer <code>align='start'</code> for multi-line content — the icon anchors to the top. A <code>Button variant='ghost' palette='tone'</code> placed in <code>following</code> adopts the parent callout's color.",
             view: "View"
+        },
+        code_block: {
+            title_labeled: "TokenConfig",
+            title_terminal: "build.sh",
+            filename: "button.config.ts",
+            desc_split: "**Split layout** — the `description` prop activates a side panel.\\nSupports **bold**, _italic_ and `inline code`.",
+            desc_only: "**Description-only mode** — when `code` is absent, the description fills the full body width.\\nUseful for **notes**, _tips_ or any prose content that doesn't need a code panel.",
         },
         grid: {
             hero_text: "Featured",

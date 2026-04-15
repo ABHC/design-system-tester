@@ -104,6 +104,7 @@
 <div data-summary="variants" data-summary-label="Variants">
     <Headline size="sm" uppercase muted>Variants</Headline>
 </div>
+
 <p class="demo-label">{placeholders?.selector?.sect_variants}</p>
 
 <div class="variants-grid">
@@ -154,6 +155,7 @@
 <div data-summary="usage" data-summary-label={trans?.doc.usage}>
     <Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
 </div>
+
 <CodeBlock
     variant="tabbed"
     copyable
@@ -256,7 +258,6 @@
         grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
         gap: 1rem;
         border: 2px solid var(--tone-hover);
-        border-radius: 12px;
         padding: 1.5rem;
         margin-bottom: 0.75rem;
     }

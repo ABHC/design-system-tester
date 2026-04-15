@@ -156,7 +156,7 @@
     <Headline size="md" uppercase>{trans?.input_demo?.title}</Headline>
 </div>
 
-<ControlBar palette="tone" rounded>
+<ControlBar palette="tone">
     <Selector
         label={trans?.input_demo?.lbl_size}
         options={["sm", "md", "lg"]}
@@ -244,8 +244,9 @@
 <!-- States reference -->
 
 <div data-summary="states" data-summary-label={trans?.doc.states ?? "States"}>
-<Headline size="sm" uppercase muted>{trans?.doc.states ?? "States"}</Headline>
+    <Headline size="sm" uppercase muted>{trans?.doc.states ?? "States"}</Headline>
 </div>
+
 <div class="states-preview">
     <div class="states-grid">
         <div class="state-item">
@@ -376,7 +377,6 @@
         flex-direction: column;
         gap: 0.75rem;
         border: 2px solid var(--tone-hover);
-        border-radius: 12px;
         padding: 1.5rem;
         margin-bottom: 0.75rem;
     }

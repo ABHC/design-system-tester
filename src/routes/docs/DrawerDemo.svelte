@@ -184,7 +184,6 @@
     <Button
         variant="flat"
         size="sm"
-        rounded
         onclick={() => { demo_open = true; }}
     >
         <span class="material-symbols-outlined">open_in_new</span>

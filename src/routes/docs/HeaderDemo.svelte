@@ -253,7 +253,7 @@ let header_visible = $state(true);
 
 <!-- Controls ─────────────────────────────────────────────────────────── -->
 
-<ControlBar palette="tone" rounded>
+<ControlBar palette="tone">
     <Selector label="Palette" options={["tone", "accent"]} bind:value={demo_palette} />
     <Selector label="Rounded" options={[{value: true, label: "yes"}, {value: false, label: "no"}]} bind:value={demo_rounded} />
     <Selector label="Preset"  options={["editorial", "app", "mixed"]} bind:value={demo_preset} />
@@ -279,7 +279,7 @@ let header_visible = $state(true);
 </div>
 
 <!-- Preset descriptions -->
-<Callout variant="accent" align="start" rounded>
+<Callout variant="accent" align="start">
     {#snippet leading()}
         <span class="material-symbols-outlined">flex_no_wrap</span>
     {/snippet}
@@ -307,7 +307,7 @@ let header_visible = $state(true);
     <div class="sim-callout-gap"></div>
     <div class="sim-callout-gap"></div>
     
-    <Callout variant="neutral" align="start" rounded>
+    <Callout variant="neutral" align="start">
         {#snippet children()}
             <p>{@html trans?.header_demo.bind_visible}</p>
         {/snippet}
@@ -364,7 +364,7 @@ let header_visible = $state(true);
 <!-- Code examples ────────────────────────────────────────────────────── -->
 
 <div data-summary="usage" data-summary-label={trans?.doc.usage ?? "Usage"}>
-<Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
+    <Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
 </div>
 
 <CodeBlock
@@ -380,7 +380,7 @@ let header_visible = $state(true);
 
 
 <div data-summary="api" data-summary-label={trans?.doc.api ?? "API"}>
-<Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
+    <Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
 </div>
 
 <DataTable
@@ -405,7 +405,6 @@ let header_visible = $state(true);
     /* ---- Preview ---- */
     .header-preview {
         border: 2px solid var(--tone-hover);
-        border-radius: 12px;
         overflow: hidden;
         margin-bottom: 0.75rem;
         background: var(--tone-bg);
@@ -493,9 +492,9 @@ let header_visible = $state(true);
 
     .sim-preview {
         border: 2px solid var(--tone-hover);
-        border-radius: 12px;
         overflow: hidden;
         background: var(--tone-bg);
+        margin-top: 0.75rem;
     }
 
     /* Header area — collapses smoothly to simulate scroll */

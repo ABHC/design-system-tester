@@ -28,7 +28,7 @@
     let demo_align: Align = $state("start");
     let demo_palette: Palette = $state("tone");
     let demo_elevation: Elevation = $state("none");
-    let demo_rounded: boolean = $state(true);
+    let demo_rounded: boolean = $state(false);
 
     let open_basic = $state(false);
     let open_menu = $state(false);
@@ -125,7 +125,7 @@
 <p class="anchor-note">{@html trans?.popover_demo?.anchor_note ?? ""}</p>
 
 <!-- Interactive controls -->
-<ControlBar palette="tone" rounded>
+<ControlBar palette="tone">
     <Selector
         label="Direction"
         options={["top", "bottom", "left", "right"]}
@@ -279,8 +279,9 @@
 <!-- Code examples -->
 
 <div data-summary="usage" data-summary-label={trans?.doc.usage ?? "Usage"}>
-<Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
+    <Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
 </div>
+
 <CodeBlock
     variant="tabbed"
     copyable
@@ -295,7 +296,9 @@
 <!-- API -->
 
 <div data-summary="api" data-summary-label={trans?.doc.api ?? "API"}>
-<Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
+    <Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
+</div>
+
 <DataTable
     variant="ghost" palette="tone" size="sm"
     columns={[
@@ -313,13 +316,12 @@
         { prop: "width", type: "string", default: "\u2014" },
         { prop: "matchWidth", type: "boolean", default: "false" },
         { prop: "palette", type: '"tone" | "accent" | "accentbg"', default: '"tone"' },
-        { prop: "rounded", type: "boolean", default: "true" },
+        { prop: "rounded", type: "boolean", default: "false" },
         { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
         { prop: "trigger", type: "Snippet", default: "\u2014" },
         { prop: "children", type: "Snippet", default: "\u2014" },
     ]}
 />
-</div>
 
 <style>
     .popover-preview {
@@ -329,7 +331,6 @@
         min-height: 280px;
         background: var(--tone-bg);
         border: 2px solid var(--tone-hover);
-        border-radius: 12px;
         overflow: visible;
         margin-bottom: 1.5rem;
         padding: 10px;

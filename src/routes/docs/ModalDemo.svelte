@@ -29,7 +29,7 @@
 
     let demo_palette: Palette = $state("tone");
     let demo_elevation: Elevation = $state("subtle");
-    let demo_rounded: boolean = $state(true);
+    let demo_rounded: boolean = $state(false);
     let demo_width: string = $state("480px");
     let demo_preset: Preset = $state("confirm");
 
@@ -125,7 +125,7 @@
 
 <!-- Controls -->
 
-<ControlBar palette="tone" rounded>
+<ControlBar palette="tone">
     <Selector 
         label="Preset" 
         options={["confirm", "announce", "profile", "terms"]} 
@@ -159,7 +159,6 @@
     <Button
         variant="flat"
         size="sm"
-        rounded
         onclick={() => demo_open = true}
     >
         <span class="material-symbols-outlined">open_in_new</span>
@@ -294,8 +293,9 @@
 <!-- Code examples -->
 
 <div data-summary="usage" data-summary-label={trans?.doc.usage ?? "Usage"}>
-<Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
+    <Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
 </div>
+
 <CodeBlock
     variant="tabbed"
     copyable
@@ -310,7 +310,9 @@
 
 
 <div data-summary="api" data-summary-label={trans?.doc.api ?? "API"}>
-<Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
+    <Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
+</div>
+
 <DataTable
     variant="ghost" palette="tone" size="sm"
     columns={[
@@ -323,14 +325,13 @@
         { prop: "onclose", type: "() => void", default: "undefined" },
         { prop: "palette", type: '"tone" | "accent" | "accentbg"', default: '"tone"' },
         { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"subtle"' },
-        { prop: "rounded", type: "boolean", default: "true" },
+        { prop: "rounded", type: "boolean", default: "false" },
         { prop: "width", type: "string", default: '"480px"' },
         { prop: "header", type: "Snippet", default: "\u2014" },
         { prop: "children", type: "Snippet", default: "\u2014" },
         { prop: "footer", type: "Snippet", default: "\u2014" },
     ]}
 />
-</div>
 
 <style>
     .open-row {

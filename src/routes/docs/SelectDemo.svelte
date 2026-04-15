@@ -113,7 +113,7 @@
     <Headline size="md" uppercase>{trans?.select_demo.title}</Headline>
 </div>
 
-<ControlBar palette="tone" rounded>
+<ControlBar palette="tone">
     <Selector
         label="Size"
         options={["sm", "md", "lg"]}
@@ -489,7 +489,6 @@
         flex-direction: column;
         gap: 0.75rem;
         border: 2px solid var(--tone-hover);
-        border-radius: 12px;
         padding: 1.5rem;
         margin-bottom: 0.75rem;
     }

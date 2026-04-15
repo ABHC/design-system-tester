@@ -27,7 +27,7 @@
 
     let demo_palette: Palette = $state("tone");
     let demo_elevation: Elevation = $state("none");
-    let demo_rounded: boolean = $state(true);
+    let demo_rounded: boolean = $state(false);
 
     const bool_opts = [{ value: true, label: "true" }, { value: false, label: "false" }] as const;
 
@@ -157,7 +157,7 @@
     <Headline size="md" uppercase>{trans?.command_demo.title}</Headline>
 </div>
 
-<ControlBar palette="tone" rounded>
+<ControlBar palette="tone">
     <Selector
         label="Palette"
         options={["tone", "accent", "accentbg"]}
@@ -180,7 +180,7 @@
 <div class="demo-grid">
 
     <!-- Basic grouped -->
-    <Card variant="flat" rounded elevation="subtle">
+    <Card variant="flat" elevation="subtle">
         {#snippet header()}
             <div class="card-section-header">
                 <span class="material-symbols-outlined">terminal</span>
@@ -207,7 +207,7 @@
     </Card>
 
     <!-- Custom item snippet -->
-    <Card variant="flat" rounded elevation="subtle">
+    <Card variant="flat" elevation="subtle">
         {#snippet header()}
             <div class="card-section-header">
                 <span class="material-symbols-outlined">groups</span>
@@ -234,7 +234,7 @@
     </Card>
 
     <!-- Flat (no groups) -->
-    <Card variant="flat" rounded elevation="subtle">
+    <Card variant="flat" elevation="subtle">
         {#snippet header()}
             <div class="card-section-header">
                 <span class="material-symbols-outlined">list</span>
@@ -348,7 +348,7 @@
         { prop: "item", type: "Snippet<[CommandItem]>", default: "\u2014" },
         { prop: "empty", type: "Snippet", default: "\u2014" },
         { prop: "palette", type: '"tone" | "accent" | "accentbg"', default: '"tone"' },
-        { prop: "rounded", type: "boolean", default: "true" },
+        { prop: "rounded", type: "boolean", default: "false" },
         { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"subtle"' },
         { prop: "width", type: "string", default: '"560px"' },
     ]}

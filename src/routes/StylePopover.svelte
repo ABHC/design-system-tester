@@ -130,7 +130,7 @@
                 </div>
             </div>
 
-            <Headline size="xs">{$trans?.control.tone}</Headline>
+            <Headline size="xs" uppercase>{$trans?.control.tone}</Headline>
             <div class="pop-styling-grid">
                 {#each $tone_palettes as p, i}
                     <ListItem
@@ -145,7 +145,7 @@
                 {/each}
             </div>
 
-            <Headline size="xs">{$trans?.control.accent}</Headline>
+            <Headline size="xs" uppercase>{$trans?.control.accent}</Headline>
             <div class="pop-styling-grid">
                 {#each $accent_palettes as p, i}
                     <ListItem
@@ -160,7 +160,7 @@
                 {/each}
             </div>
 
-            <Headline size="xs">{$trans?.control.ctx}</Headline>
+            <Headline size="xs" uppercase>{$trans?.control.ctx}</Headline>
             <div class="pop-styling-grid">
                 {#each $ctx_colors as c, i}
                     <ListItem
@@ -177,7 +177,7 @@
                 {/each}
             </div>
 
-            <Headline size="xs">{$trans?.control.text}</Headline>
+            <Headline size="xs" uppercase>{$trans?.control.text}</Headline>
             <div class="pop-styling-grid">
                 {#each $text_palettes as t, i}
                     <ListItem
@@ -192,7 +192,7 @@
                 {/each}
             </div>
 
-            <Headline size="xs">{$trans?.control.fonts}</Headline>
+            <Headline size="xs" uppercase>{$trans?.control.fonts}</Headline>
             <div class="pop-styling-row">
                 <Select
                     bind:value={$title_font_index}

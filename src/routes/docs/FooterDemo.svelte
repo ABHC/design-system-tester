@@ -277,7 +277,7 @@
 </div>
 
 <!-- Preset descriptions -->
-<Callout variant="accent" align="start" rounded>
+<Callout variant="accent" align="start">
     {#snippet leading()}
         <span class="material-symbols-outlined">flex_no_wrap</span>
     {/snippet}
@@ -302,8 +302,9 @@
 <!-- Code examples -->
 
 <div data-summary="usage" data-summary-label={trans?.doc.usage ?? "Usage"}>
-<Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
+    <Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
 </div>
+
 <CodeBlock
     variant="tabbed"
     copyable
@@ -316,32 +317,32 @@
 
 
 <div data-summary="api" data-summary-label={trans?.doc.api ?? "API"}>
-<Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
-<DataTable
-    variant="ghost" palette="tone" size="sm"
-    columns={[
-        { key: "prop", label: "Prop" },
-        { key: "type", label: "Type", cell: codeCell },
-        { key: "default", label: "Default", cell: codeCell },
-    ]}
-    rows={[
-        { prop: "palette", type: '"accent" | "tone"', default: '"accent"' },
-        { prop: "rounded", type: "boolean", default: "false" },
-        { prop: "style", type: "string", default: "\u2014" },
-        { prop: "pattern", type: '"none" | "scallops" | "grid" | "chevrons" | "sunburst" | "sunrise" | "atoms" | "complex" | "prisms" | "lozenge" | string', default: '"none"' },
-        { prop: "pattern_color", type: "string", default: '"white"' },
-        { prop: "pattern_opacity", type: "number", default: "0.4" },
-        { prop: "pattern_size", type: "string", default: "undefined" },
-        { prop: "pattern_effect", type: '"none" | "glow" | "blur" | "fade"', default: '"none"' },
-        { prop: "pattern_effect_opacity", type: "number", default: "1" },
-        { prop: "pattern_mask", type: '"none" | "fade" | "ellipse"', default: '"none"' },
-        { prop: "pattern_mask_direction", type: '"top" | "bottom" | "left" | "right"', default: '"left"' },
-        { prop: "pattern_mask_size", type: "number", default: "70" },
-        { prop: "leading", type: "Snippet", default: "\u2014" },
-        { prop: "children", type: "Snippet", default: "\u2014" },
-        { prop: "following", type: "Snippet", default: "\u2014" },
-    ]}
-/>
+    <Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
+    <DataTable
+        variant="ghost" palette="tone" size="sm"
+        columns={[
+            { key: "prop", label: "Prop" },
+            { key: "type", label: "Type", cell: codeCell },
+            { key: "default", label: "Default", cell: codeCell },
+        ]}
+        rows={[
+            { prop: "palette", type: '"accent" | "tone"', default: '"accent"' },
+            { prop: "rounded", type: "boolean", default: "false" },
+            { prop: "style", type: "string", default: "\u2014" },
+            { prop: "pattern", type: '"none" | "scallops" | "grid" | "chevrons" | "sunburst" | "sunrise" | "atoms" | "complex" | "prisms" | "lozenge" | string', default: '"none"' },
+            { prop: "pattern_color", type: "string", default: '"white"' },
+            { prop: "pattern_opacity", type: "number", default: "0.4" },
+            { prop: "pattern_size", type: "string", default: "undefined" },
+            { prop: "pattern_effect", type: '"none" | "glow" | "blur" | "fade"', default: '"none"' },
+            { prop: "pattern_effect_opacity", type: "number", default: "1" },
+            { prop: "pattern_mask", type: '"none" | "fade" | "ellipse"', default: '"none"' },
+            { prop: "pattern_mask_direction", type: '"top" | "bottom" | "left" | "right"', default: '"left"' },
+            { prop: "pattern_mask_size", type: "number", default: "70" },
+            { prop: "leading", type: "Snippet", default: "\u2014" },
+            { prop: "children", type: "Snippet", default: "\u2014" },
+            { prop: "following", type: "Snippet", default: "\u2014" },
+        ]}
+    />
 </div>
 
 <style>
@@ -349,7 +350,7 @@
     .footer-preview {
         border: 2px solid var(--tone-hover);
         overflow: hidden;
-        margin-bottom: 0.75rem;
+        margin-bottom: 1.5rem;
         background: var(--tone-bg);
     }
 
@@ -366,6 +367,7 @@
         border-radius: 4px;
         width: 100%;
     }
+
     .mock-line.short { width: 55%; }
 
     /* Demo content snippets  */
@@ -386,22 +388,6 @@
     .mock-social-links {
         display: flex;
         gap:     8px;
-    }
-
-    .mock-social-link {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 36px;
-        height: 36px;
-        border-radius: 8px;
-        transition: all 0.2s ease;
-        opacity: 0.85;
-    }
-
-    .mock-social-link:hover {
-        opacity: 1;
-        background: var(--tone-ghost);
     }
 
     .mock-copy {

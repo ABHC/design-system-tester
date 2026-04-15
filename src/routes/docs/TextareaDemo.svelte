@@ -104,7 +104,7 @@
     <Headline size="md" uppercase>{trans?.textarea_demo?.title}</Headline>
 </div>
 
-<ControlBar palette="tone" rounded>
+<ControlBar palette="tone">
     <Selector
         label={trans?.textarea_demo?.lbl_size}
         options={["sm", "md", "lg"]}
@@ -168,8 +168,9 @@
 <!-- States reference -->
 
 <div data-summary="states" data-summary-label={trans?.doc.states ?? "States"}>
-<Headline size="sm" uppercase muted>{trans?.doc.states ?? "States"}</Headline>
+    <Headline size="sm" uppercase muted>{trans?.doc.states ?? "States"}</Headline>
 </div>
+
 <div class="states-preview">
     <div class="states-grid">
 
@@ -228,8 +229,9 @@
 <!-- Code examples -->
 
 <div data-summary="usage" data-summary-label={trans?.doc.usage ?? "Usage"}>
-<Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
+    <Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
 </div>
+
 <CodeBlock
     variant="tabbed"
     copyable
@@ -242,7 +244,9 @@
 
 
 <div data-summary="api" data-summary-label={trans?.doc.api ?? "API"}>
-<Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
+    <Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
+</div>
+  
 <DataTable
     variant="ghost" palette="tone" size="sm"
     columns={[
@@ -266,7 +270,6 @@
         { prop: "id", type: "string", default: "\u2014" },
     ]}
 />
-</div>
 
 <style>
     /* States reference */
@@ -275,7 +278,6 @@
         flex-direction: column;
         gap: 0.75rem;
         border: 2px solid var(--tone-hover);
-        border-radius: 12px;
         padding: 1.5rem;
         margin-bottom: 0.75rem;
     }

@@ -114,6 +114,23 @@
 <BackToTop />
 <BackToTop palette="tone" rounded />
 <BackToTop palette="accent" variant="outlined" />`;
+
+    const code_copy_button = `<!-- Basic: copies a static string -->
+<CopyButton to_copy="Hello, world!" />
+<CopyButton to_copy="Hello, world!" palette="accent" rounded />
+<CopyButton to_copy="Hello, world!" palette="tone" size="md" />
+<CopyButton to_copy="Hello, world!" palette="neutral" size="lg" rounded />
+
+<!-- Outlined variant -->
+<CopyButton variant="outlined" to_copy="Hello, world!" palette="accent" rounded />
+<CopyButton variant="outlined" to_copy="Hello, world!" palette="tone" />
+
+<!-- Bind to a dynamic value -->
+<` + `script>
+    let code = $state("const x = 42;");
+</` + `script>
+
+<CopyButton to_copy={code} palette="accent" />`;
 </script>
 
 {#snippet codeCell(value: string)}<code>{value}</code>{/snippet}
@@ -126,7 +143,7 @@
 
 <!-- Controls -->
 
-<ControlBar palette="tone" rounded>
+<ControlBar palette="tone">
     <Selector 
         label="Variant"
         options={["flat", "outlined", "ghost", "naked"]}
@@ -315,18 +332,18 @@
     <Headline size="sm" uppercase muted>{trans?.doc.CopyButton}</Headline>
 </div>
 
-<p class="demo-label">{trans?.button_demo.back_to_top1} — <code>BackToTop</code></p>
-<p class="demo-label">{trans?.button_demo.back_to_top2}</p>
+<p class="demo-label">{trans?.button_demo.copy_button_desc1} — <code>CopyButton</code></p>
+<p class="demo-label">{trans?.button_demo.copy_button_desc2}</p>
 
 <div class="btt-preview">
-    <CopyButton palette="accent" rounded />
-    <CopyButton palette="tone" size="md" />
-    <CopyButton palette="neutral" size="lg" rounded/>
-    <CopyButton palette="info" size="lg"/>
-    <CopyButton variant="outlined" palette="accent" rounded />
-    <CopyButton variant="outlined" palette="tone" size="md" />
-    <CopyButton variant="outlined" palette="neutral" size="lg" rounded/>
-    <CopyButton variant="outlined" palette="info" size="lg"/>
+    <CopyButton to_copy="Hello, world!" palette="accent" rounded />
+    <CopyButton to_copy="Hello, world!" palette="tone" size="md" />
+    <CopyButton to_copy="Hello, world!" palette="neutral" size="lg" rounded />
+    <CopyButton to_copy="Hello, world!" palette="info" size="lg" />
+    <CopyButton variant="outlined" to_copy="Hello, world!" palette="accent" rounded />
+    <CopyButton variant="outlined" to_copy="Hello, world!" palette="tone" size="md" />
+    <CopyButton variant="outlined" to_copy="Hello, world!" palette="neutral" size="lg" rounded />
+    <CopyButton variant="outlined" to_copy="Hello, world!" palette="info" size="lg" />
 </div>
 
 <!-- Code examples -->
@@ -379,10 +396,15 @@
             code: code_elevation,  
             language: "Svelte" 
         },
-        { 
-            label: "BackToTop",  
-            code: code_back_to_top, 
-            language: "Svelte" 
+        {
+            label: "BackToTop",
+            code: code_back_to_top,
+            language: "Svelte"
+        },
+        {
+            label: "CopyButton",
+            code: code_copy_button,
+            language: "Svelte"
         },
     ]}
 />
@@ -419,7 +441,6 @@
 <style>
     .btn-preview {
         border: 2px solid var(--tone-hover);
-        border-radius: 12px;
         padding: 1.5rem;
         margin-bottom: 0.75rem;
         display: flex;

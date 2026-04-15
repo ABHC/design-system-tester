@@ -657,13 +657,6 @@
         margin: 12px 4px;
     }
 
-    .switch-label {
-        font-size: 12px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.04em;
-    }
-
     .swatch-label {
         display: block;
         font-size: 0.65rem;

@@ -183,7 +183,7 @@
 
 <!-- Controls -->
 
-<ControlBar palette="tone" rounded>
+<ControlBar palette="tone">
     <Selector 
         label="Variant" 
         options={["flat", "outlined"]} 
@@ -461,23 +461,24 @@
 <!-- Code examples -->
 
 <div data-summary="usage" data-summary-label={trans?.doc.usage ?? "Usage"}>
-<Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
+    <Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
 </div>
+
 <CodeBlock
     variant="tabbed"
     copyable
     tabs={[
-        { label: "Variants",    code: code_variants,    language: "Svelte" },
-        { label: "Shape",       code: code_shape,       language: "Svelte" },
-        { label: "Trailing",    code: code_trailing,    language: "Svelte" },
+        { label: "Variants", code: code_variants, language: "Svelte" },
+        { label: "Shape", code: code_shape, language: "Svelte" },
+        { label: "Trailing", code: code_trailing, language: "Svelte" },
         { label: "Interactive", code: code_interactive, language: "Svelte" },
-        { label: "BadgeGroup",  code: code_group,       language: "Svelte" },
+        { label: "BadgeGroup",  code: code_group, language: "Svelte" },
     ]}
 />
 
 
 <div data-summary="api" data-summary-label={trans?.doc.api ?? "API"}>
-<Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
+    <Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
 
 <h4 class="api-subtitle">Badge</h4>
 <DataTable
@@ -529,7 +530,6 @@
 <style>
     .badge-preview {
         border: 2px solid var(--tone-hover);
-        border-radius: 12px;
         padding: 1.5rem;
         margin-bottom: 0.75rem;
         background: var(--tone-bg);

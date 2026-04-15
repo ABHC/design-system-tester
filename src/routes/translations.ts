@@ -173,6 +173,8 @@ export const translations = {
             title: "Button",
             back_to_top1: "Boutons spéciaux",
             back_to_top2: "Au clic font remonter l'utilisateur en haut de la page",
+            copy_button_desc1: "Bouton de copie dans le presse-papier",
+            copy_button_desc2: "Au clic, copie la valeur de to_copy. L'icône se transforme en coche pendant 2 secondes.",
         },
         badge_demo: {
             title: "Badge",
@@ -192,10 +194,10 @@ export const translations = {
         },
         modal_demo: {
             title: "Modal",
-            btn_open_tone: "Ouvrir (tone)",
-            btn_open_accent: "Ouvrir (accent)",
-            btn_open_compose: "Ouvrir composition",
-            btn_open_wide: "Large — 680px",
+            btn_open_tone: "Supprimer un fichier",
+            btn_open_accent: "Nouvelle annonce",
+            btn_open_compose: "Profil utilisateur",
+            btn_open_wide: "Conditions d'utilisation",
         },
         card_demo: {
             title: "Card",
@@ -206,10 +208,6 @@ export const translations = {
         alert_demo: {
             title: "Alert",
             trigger: "Cliquez un bouton pour déclencher la notification correspondante. Elles s'empilent — recliquez plusieurs fois.",
-            info_title: "Info",
-            success_title: "Succès",
-            error_title: "Erreur",
-            dismiss: "Ignorer",
         },
         callout_demo: {
             title: "Callout",
@@ -284,6 +282,7 @@ export const translations = {
         },
         code_block_demo: {
             title: "CodeBlock",
+            mini_label: 'Mini — <code>width="fit-content"</code> pour les commandes inline',
         },
         accordion_demo: {
             title: "Accordion",
@@ -534,6 +533,8 @@ export const translations = {
             title: "Button",
             back_to_top1: "Special buttons",
             back_to_top2: "Trigger a scroll to the top of the page when clicked",
+            copy_button_desc1: "Standalone copy-to-clipboard button",
+            copy_button_desc2: "Clicking copies the to_copy value. The icon switches to a checkmark for 2 seconds.",
         },
         badge_demo: {
             title: "Badge",
@@ -553,10 +554,10 @@ export const translations = {
         },
         modal_demo: {
             title: "Modal",
-            btn_open_tone: "Open (tone)",
-            btn_open_accent: "Open (accent)",
-            btn_open_compose: "Open composition",
-            btn_open_wide: "Wide — 680px",
+            btn_open_tone: "Delete a file",
+            btn_open_accent: "New announcement",
+            btn_open_compose: "User profile",
+            btn_open_wide: "Terms of use",
         },
         card_demo: {
             title: "Cards",
@@ -567,10 +568,6 @@ export const translations = {
         alert_demo: {
             title: "Alert",
             trigger: "Click a button to trigger the corresponding toast notification. They stack — click multiple times.",
-            info_title: "Info",
-            success_title: "Success",
-            error_title: "Error",
-            dismiss: "Dismiss",
         },
         callout_demo: {
             title: "Callout",
@@ -645,6 +642,7 @@ export const translations = {
         },
         code_block_demo: {
             title: "Code blocks",
+            mini_label: 'Mini — <code>width="fit-content"</code> for inline commands',
         },
         accordion_demo: {
             title: "Accordion",

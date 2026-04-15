@@ -24,7 +24,7 @@
     type Bg = "bg" | "card" | "accent";
 
     let demo_size: Size = $state("md");
-    let demo_rounded: boolean = $state(true);
+    let demo_rounded: boolean = $state(false);
     let demo_elevation: Elevation = $state("none");
     let demo_bg: Bg = $state("bg");
 
@@ -137,13 +137,13 @@
 
 <!-- ── Markup ─────────────────────────────────────────────────────────────── -->
 
-<div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
-    <Headline size="md" uppercase>{trans?.list_item_demo?.title ?? "List Items"}</Headline>
+<div data-summary="demo" data-summary-label={trans?.doc.demo}>
+    <Headline size="md" uppercase>{trans?.list_item_demo?.title}</Headline>
 </div>
 
 <!-- Controls -->
 
-<ControlBar palette="tone" rounded>
+<ControlBar palette="tone">
     <Selector
         label="Size"
         options={["sm", "md", "lg"]}
@@ -252,7 +252,7 @@
 
 <!-- Code examples -->
 
-<div data-summary="usage" data-summary-label={trans?.doc.usage ?? "Usage"}>
+<div data-summary="usage" data-summary-label={trans?.doc.usage}>
 <Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
 </div>
 <CodeBlock
@@ -269,8 +269,10 @@
 />
 
 
-<div data-summary="api" data-summary-label={trans?.doc.api ?? "API"}>
-<Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
+<div data-summary="api" data-summary-label={trans?.doc.api}>
+    <Headline size="sm" uppercase muted>{trans?.doc.api}</Headline>
+</div>
+
 <DataTable
     variant="ghost" palette="tone" size="sm"
     columns={[
@@ -291,12 +293,10 @@
         { prop: "onclick", type: "() => void", default: "\u2014" },
     ]}
 />
-</div>
 
 <style>
     .list-preview {
         border: 2px solid var(--tone-hover);
-        border-radius: 12px;
         padding: 1.5rem;
         margin-bottom: 0.75rem;
         display: flex;
@@ -309,7 +309,7 @@
     .list-group {
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
+        gap: 1rem;
         flex: 1;
         min-width: 200px;
     }

@@ -179,7 +179,7 @@
 
 <!-- Controls -->
 
-<ControlBar palette="tone" rounded>
+<ControlBar palette="tone">
     <Selector
         label={trans?.switch_demo?.lbl_size ?? "Size"}
         options={["sm", "md", "lg"]}
@@ -383,7 +383,6 @@
     /* Preview box */
     .switch-preview {
         border: 2px solid var(--tone-hover);
-        border-radius: 12px;
         padding: 1.5rem;
         margin-bottom: 0.75rem;
     }
@@ -448,54 +447,5 @@
         font-weight: 600;
         color: var(--text-muted);
         margin-left: 0.25rem;
-    }
-
-    /* Palette reference grids */
-    .palette-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        margin-bottom: 0.75rem;
-    }
-
-    .palette-section {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-    .section-label {
-        font-size: 0.7rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.6px;
-        color: var(--text-muted);
-    }
-
-    .palette-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1.5rem;
-        padding: 1rem 1.25rem;
-        border-radius: 10px;
-        border: 1.5px solid var(--tone-hover);
-    }
-
-    .palette-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.4rem;
-    }
-
-    .item-label {
-        font-size: 0.65rem;
-        font-weight: 600;
-        color: var(--text-muted);
-        text-align: center;
-    }
-
-    .accent-text {
-        color: var(--accent-muted);
     }
 </style>

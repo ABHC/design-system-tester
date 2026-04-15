@@ -101,7 +101,7 @@
 
 <!-- Controls ────────────────────────────────────────────────────────────── -->
 
-<ControlBar palette="tone" rounded>
+<ControlBar palette="tone">
     <Selector
         label={trans?.radio_demo?.lbl_palette ?? "Palette"}
         options={["accent", "tone"]}
@@ -209,7 +209,6 @@
 <style>
     .radio-preview {
         border: 2px solid var(--tone-hover);
-        border-radius: 12px;
         padding: 1.5rem;
         margin-bottom: 0.75rem;
     }
