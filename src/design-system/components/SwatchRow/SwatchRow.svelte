@@ -10,17 +10,19 @@
     interface Props {
         swatches: Swatch[];
         compact?: boolean;
+        rounded?: boolean;
     }
 
     let {
         swatches,
         compact = defaultSwatchRowConfig.compact,
+        rounded = defaultSwatchRowConfig.rounded
     }: Props = $props();
 
     // ── Helpers ────────────────────────────────────────────────────────────────
 
     const resolve = createVariant(swatchRowConfig);
-    const classes = $derived(resolve({ compact }));
+    const classes = $derived(resolve({ compact, rounded }));
 
     function formatOklch(hex: string): string | null {
         if (!hex || hex.startsWith("rgba")) return null;
@@ -61,7 +63,6 @@
     .sw {
         flex: 1;
         min-width: 0;
-        border-radius: 5px;
         padding: 7px 8px;
         display: flex;
         flex-direction: column;
@@ -107,12 +108,11 @@
         opacity: 0.6;
     }
 
-    /* ── Compact ────────────────────────────────────────────────────────────── */
+    /* Compact ────────────────────────────────────────────────────────────── */
 
     .swatch-row-compact .sw {
         padding: 4px 5px;
         gap: 1px;
-        border-radius: 4px;
     }
 
     .swatch-row-compact .sw-aa {
@@ -130,5 +130,11 @@
 
     .swatch-row-compact .sw-oklch {
         font-size: 0.45rem;
+    }
+
+    /* Rounded ────────────────────────────────────────────────────────────── */
+
+    .swatch-row-rounded .sw {
+        border-radius: var(--radius-edge);
     }
 </style>

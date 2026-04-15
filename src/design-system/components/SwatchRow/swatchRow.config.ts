@@ -8,10 +8,12 @@ export interface Swatch {
 
 export interface SwatchRowConfig {
     compact: boolean;
+    rounded: boolean;
 }
 
 export const defaultSwatchRowConfig: SwatchRowConfig = {
     compact: false,
+    rounded: false
 };
 
 export const swatchRowConfig = {
@@ -21,5 +23,10 @@ export const swatchRowConfig = {
         compact: {
             true: "swatch-row-compact",
         },
+
+        rounded: {
+            true: "swatch-row-rounded"
+        },
     },
+    
 };
