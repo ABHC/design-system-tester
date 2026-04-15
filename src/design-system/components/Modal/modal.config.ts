@@ -34,7 +34,7 @@ export interface ModalConfig {
 
 export const defaultModalConfig: ModalConfig = {
     palette: "tone",
-    rounded: true,
+    rounded: false,
     elevation: "subtle",
 };
 

@@ -233,8 +233,8 @@
 
     /* Rounded ─────────────────────────────────────────────────────────── */
 
-    .slider-rounded { border-radius: 20px; }
-    .slider-rounded .slider-fill { border-radius: 20px; }
+    .slider-rounded { border-radius: var(--radius-pill); }
+    .slider-rounded .slider-fill { border-radius: var(--radius-pill); }
 
     /* Outlined ────────────────────────────────────────────────────────── */
 
@@ -273,7 +273,7 @@
         top: 50%;
         width: 20px;
         height: 20px;
-        border-radius: 50%;
+        border-radius: var(--radius-circle);
         transform: translate(-50%, -50%);
         cursor: grab;
         transition: box-shadow 0.15s ease, transform 0.15s ease;

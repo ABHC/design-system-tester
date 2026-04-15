@@ -556,7 +556,7 @@
         position: relative;
         width:50%;
         aspect-ratio: 280 / 160;
-        border-radius: 6px;
+        border-radius: var(--radius-edge);
         overflow: hidden;
         cursor: crosshair;
     }
@@ -572,7 +572,7 @@
         width: 14px;
         height: 14px;
         border: 2px solid #fff;
-        border-radius: 50%;
+        border-radius: var(--radius-circle);
         box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(0, 0, 0, 0.2);
         transform: translate(-50%, -50%);
         pointer-events: none;
@@ -634,7 +634,7 @@
         background: var(--tone-bg);
         color: var(--text);
         border: 1px solid var(--tone-hover);
-        border-radius: 4px;
+        border-radius: var(--radius-edge);
         padding: 2px 6px;
         width: 6rem;
     }
@@ -671,7 +671,7 @@
     .cp-slider-track {
         flex: 1;
         height: 12px;
-        border-radius: 6px;
+        border-radius: var(--radius-edge);
         position: relative;
         border: 1px solid var(--tone-hover);
     }
@@ -712,7 +712,7 @@
         -webkit-appearance: none;
         width: 16px;
         height: 16px;
-        border-radius: 50%;
+        border-radius: var(--radius-circle);
         background: #fff;
         border: 2px solid rgba(0, 0, 0, 0.3);
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
@@ -722,7 +722,7 @@
     .cp-slider::-moz-range-thumb {
         width: 16px;
         height: 16px;
-        border-radius: 50%;
+        border-radius: var(--radius-circle);
         background: #fff;
         border: 2px solid rgba(0, 0, 0, 0.3);
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);

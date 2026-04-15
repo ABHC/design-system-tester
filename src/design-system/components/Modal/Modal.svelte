@@ -155,7 +155,7 @@
 
     /* Rounded */
     .modal-rounded {
-        border-radius: 16px;
+        border-radius: var(--radius-round);
     }
 
     /* Elevation */

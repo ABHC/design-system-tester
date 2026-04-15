@@ -214,7 +214,7 @@
     /* Rounded ──────────────────────────────────────────────────────── */
 
     .popover-rounded {
-        border-radius: 8px;
+        border-radius: var(--radius-soft);
     }
 
     /* Elevation ────────────────────────────────────────────────────── */

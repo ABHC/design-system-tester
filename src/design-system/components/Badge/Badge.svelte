@@ -15,8 +15,8 @@
         size : sm | md | lg
         uppercase : Text transform + letter-spacing
         elevation : kind of shadow applied to the badge
-        pill : true (default) → border-radius: 20px (capsule)
-               false → border-radius: 6px (rounded rectangle)
+        pill : true (default) → capsule shape
+               false → rounded rectangle
         href : Renders as <a>
         onclick: Renders as <button>. Implicit — no extra prop needed.
         trailing_icon : Material Symbol name shown after the label
@@ -148,8 +148,8 @@
 
     /* Shape ────────────────────────────────────────────────────────────── */
 
-    .badge-pill { border-radius: 20px; }
-    .badge-rect { border-radius: 4px; }
+    .badge-pill { border-radius: var(--radius-pill); }
+    .badge-rect { border-radius: var(--radius-edge); }
 
     /* Variants ─────────────────────────────────────────────────────────── */
 

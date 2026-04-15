@@ -129,8 +129,8 @@
     .drawer-direction-right.drawer-closed { transform: translateX(100%); }
 
     /* Rounded — inner edge only */
-    .drawer-direction-left.drawer-rounded { border-radius: 0 14px 14px 0; }
-    .drawer-direction-right.drawer-rounded { border-radius: 14px 0 0 14px; }
+    .drawer-direction-left.drawer-rounded { border-radius: 0 var(--radius-round) var(--radius-round) 0; }
+    .drawer-direction-right.drawer-rounded { border-radius: var(--radius-round) 0 0 var(--radius-round); }
 
     /* Direction: top / bottom (horizontal drawer) ───────────────────── */
 
@@ -149,8 +149,8 @@
     .drawer-direction-bottom.drawer-closed { transform: translateY(100%); }
 
     /* Rounded — inner edge only */
-    .drawer-direction-top.drawer-rounded { border-radius: 0 0 14px 14px; }
-    .drawer-direction-bottom.drawer-rounded { border-radius: 14px 14px 0 0; }
+    .drawer-direction-top.drawer-rounded { border-radius: 0 0 var(--radius-round) var(--radius-round); }
+    .drawer-direction-bottom.drawer-rounded { border-radius: var(--radius-round) var(--radius-round) 0 0; }
 
     /* Open state (shared) ───────────────────────────────────────────── */
 

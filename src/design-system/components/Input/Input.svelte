@@ -212,7 +212,7 @@
         align-items: center;
         background: var(--tone);
         border: 2px solid var(--tone-hover);
-        border-radius: 6px;
+        border-radius: var(--radius-edge);
         overflow: hidden;
         transition: border-color 0.15s ease, box-shadow 0.15s ease;
     }
@@ -297,8 +297,8 @@
 
     /* ── Sizes ───────────────────────────────────────────────────────── */
 
-    .input-sm .input-field { 
-        border-radius: 5px; 
+    .input-sm .input-field {
+        border-radius: var(--radius-edge);
     }
 
     .input-sm .input-element { 
@@ -343,8 +343,8 @@
         padding: 0 0.6rem; 
     }
 
-    .input-lg .input-field { 
-        border-radius: 8px; 
+    .input-lg .input-field {
+        border-radius: var(--radius-soft);
     }
     
     .input-lg .input-element { 

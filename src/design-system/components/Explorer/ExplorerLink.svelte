@@ -80,7 +80,7 @@
         background: transparent;
         color: var(--explorer-muted, currentColor);
         cursor: pointer;
-        border-radius: 6px;
+        border-radius: var(--radius-edge);
         text-decoration: none;
         transition: background 0.15s;
         text-align: left;

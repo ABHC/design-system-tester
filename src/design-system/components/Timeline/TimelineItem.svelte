@@ -146,7 +146,7 @@
     }
 
     .timeline-dot-rounded {
-        border-radius: 50%;
+        border-radius: var(--radius-circle);
     }
 
     /* Wide marker: auto-grows horizontally to fit long content (e.g. version

@@ -72,7 +72,7 @@
     }
 
     /* Rounded */
-    .callout-rounded { border-radius: 10px; }
+    .callout-rounded { border-radius: var(--radius-soft); }
 
     /* Bordered */ 
     .callout-bordered {
@@ -178,7 +178,7 @@
         color: var(--text);
         background: var(--cb-ghost);
         padding: 0.1em 0.35em;
-        border-radius: 4px;
+        border-radius: var(--radius-edge);
     }
 
     /* Icon in leading slot */

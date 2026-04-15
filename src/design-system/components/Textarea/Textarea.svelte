@@ -116,7 +116,7 @@
         display: flex;
         background: var(--tone);
         border: 2px solid var(--tone-hover);
-        border-radius: 6px;
+        border-radius: var(--radius-edge);
         overflow: hidden;
         transition: border-color 0.15s ease, box-shadow 0.15s ease;
     }
@@ -164,8 +164,8 @@
 
     /* ── Sizes ───────────────────────────────────────────────────────── */
 
-    .textarea-sm .field-wrapper { 
-        border-radius: 5px; 
+    .textarea-sm .field-wrapper {
+        border-radius: var(--radius-edge);
     }
 
     .textarea-sm .textarea-field { 
@@ -186,8 +186,8 @@
         padding: 0.6rem 0.9rem; 
     }
 
-    .textarea-lg .field-wrapper { 
-        border-radius: 8px; 
+    .textarea-lg .field-wrapper {
+        border-radius: var(--radius-soft);
     }
 
     .textarea-lg .textarea-field { 

@@ -113,7 +113,7 @@
         background: transparent;
         border: none;
         color: var(--explorer-text, currentColor);
-        border-radius: 6px;
+        border-radius: var(--radius-edge);
         transition: background 0.15s;
         width: 90%;
         text-align: left;
@@ -129,7 +129,7 @@
         border: none;
         cursor: pointer;
         color: var(--explorer-text, currentColor);
-        border-radius: 6px;
+        border-radius: var(--radius-edge);
         transition: background 0.15s;
         width: 100%;
         text-align: left;

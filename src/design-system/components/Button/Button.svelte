@@ -144,7 +144,7 @@
 
     .btn-ghost.btn-active.btn-rounded,
     .btn-naked.btn-active.btn-rounded {
-        border-radius: 8px 8px 0 0;
+        border-radius: var(--radius-soft) var(--radius-soft) 0 0;
     }
 
     /* Palette × Variant colors ────────────────────────────────────────── */
@@ -623,7 +623,7 @@
     /* Rounded ─────────────────────────────────────────────────────────── */
 
     .btn-rounded {
-        border-radius: 8px;
+        border-radius: var(--radius-soft);
     }
 
     /* Direction ────────────────────────────────────────────────────────── */

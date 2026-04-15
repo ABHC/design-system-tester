@@ -81,11 +81,11 @@
     }
 
     /* Rounded corners — only when rounded prop is passed */
-    .nav-rounded { border-radius: 12px; }
+    .nav-rounded { border-radius: var(--radius-round); }
 
     /* Top / bottom bars only round the inner edge */
-    .nav-direction-top.nav-rounded    { border-radius: 0 0 12px 12px; }
-    .nav-direction-bottom.nav-rounded { border-radius: 12px 12px 0 0; }
+    .nav-direction-top.nav-rounded    { border-radius: 0 0 var(--radius-round) var(--radius-round); }
+    .nav-direction-bottom.nav-rounded { border-radius: var(--radius-round) var(--radius-round) 0 0; }
 
     /* Layout directions — derived from direction prop */
     .nav-layout-column {

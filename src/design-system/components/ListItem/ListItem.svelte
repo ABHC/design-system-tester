@@ -231,7 +231,7 @@
     /* Rounded ─────────────────────────────────────────────────────────── */
 
     .list-item-rounded {
-        border-radius: 8px;
+        border-radius: var(--radius-soft);
     }
 
     /* Inner elements ──────────────────────────────────────────────────── */

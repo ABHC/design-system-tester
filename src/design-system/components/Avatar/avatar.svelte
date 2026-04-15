@@ -131,7 +131,7 @@
 
     /* Shape */
     .avatar-circular {
-        border-radius: 50%;
+        border-radius: var(--radius-circle);
     }
     
     /* Image */
@@ -150,7 +150,7 @@
         transform: translate(-50%, -50%);
         width: 22%;
         height: 22%;
-        border-radius: 50%;
+        border-radius: var(--radius-circle);
         border: 2px solid var(--dot-bg, var(--tone-bg));
     }
 

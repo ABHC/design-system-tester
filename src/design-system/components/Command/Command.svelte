@@ -225,7 +225,7 @@
         width: 100%;
         background: none;
         border: none;
-        border-radius: 6px;
+        border-radius: var(--radius-edge);
         color: var(--cmd-txt);
         font-family: var(--font-body);
         font-size: 0.9rem;

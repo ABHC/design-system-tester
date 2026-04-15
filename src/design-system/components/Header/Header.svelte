@@ -83,7 +83,7 @@
     }
 
     /* Rounded */
-    .header-rounded { border-radius: 0 0 12px 12px; }
+    .header-rounded { border-radius: 0 0 var(--radius-round) var(--radius-round); }
 
     /* Palette — tone (default: card background) */
     .header-palette-tone {

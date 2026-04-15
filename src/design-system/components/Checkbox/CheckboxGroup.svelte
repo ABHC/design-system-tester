@@ -131,7 +131,7 @@
         flex-shrink: 0;
         width: var(--checkbox-size, 18px);
         height: var(--checkbox-size, 18px);
-        border-radius: 4px;
+        border-radius: var(--radius-edge);
         border: 2px solid var(--text-muted);
         background: transparent;
         transition: border-color 0.2s ease, background 0.2s ease;

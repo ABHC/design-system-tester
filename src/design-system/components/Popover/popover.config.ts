@@ -13,7 +13,7 @@ export interface PopoverDefaults {
 
 export const defaultPopoverConfig: PopoverDefaults = {
     palette: "tone",
-    rounded: true,
+    rounded: false,
     elevation: "none",
     direction: "bottom",
     align: "start",

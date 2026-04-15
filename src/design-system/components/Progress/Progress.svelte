@@ -100,12 +100,12 @@
 
     /* Rounded ────────────────────────────────────────────────────────── */
 
-    .progress-rounded { 
-        border-radius: 20px; 
+    .progress-rounded {
+        border-radius: var(--radius-pill);
     }
 
-    .progress-rounded .progress-fill { 
-        border-radius: 20px; 
+    .progress-rounded .progress-fill {
+        border-radius: var(--radius-pill);
     }
 
     /* Outlined ───────────────────────────────────────────────────────── */

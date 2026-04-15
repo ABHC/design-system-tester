@@ -414,7 +414,7 @@
     }
 
     .tg-rounded {
-        border-radius: 12px;
+        border-radius: var(--radius-round);
     }
 
     /* ---- Elevation — hover only (default) ---- */

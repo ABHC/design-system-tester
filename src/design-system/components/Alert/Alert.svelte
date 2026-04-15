@@ -190,7 +190,7 @@
     .alert-pos-bottom-right { bottom: 1.5rem; right: 1.5rem; }
 
     /* Rounded */
-    .alert-rounded { border-radius: 10px; }
+    .alert-rounded { border-radius: var(--radius-soft); }
 
     /* Slots */
     .alert-leading {
@@ -222,7 +222,7 @@
         color: var(--al-color);
         background: var(--al-bg);
         padding: 0.1em 0.35em;
-        border-radius: 4px;
+        border-radius: var(--radius-edge);
     }
 
     /* <a> inside content — inherits --al-color automatically */

@@ -260,7 +260,7 @@
         width: 100%;
         background: var(--tone);
         border: 2px solid var(--tone-hover);
-        border-radius: 6px;
+        border-radius: var(--radius-edge);
         color: var(--text);
         font-family: var(--font-body);
         cursor: pointer;
@@ -331,7 +331,7 @@
         width: 100%;
         background: none;
         border: none;
-        border-radius: 5px;
+        border-radius: var(--radius-edge);
         color: var(--text);
         font-family: var(--font-body);
         cursor: pointer;
@@ -421,7 +421,7 @@
     .select-sm .select-trigger {
         font-size: 0.8rem;
         padding: 0.35rem 0.65rem;
-        border-radius: 5px;
+        border-radius: var(--radius-edge);
     }
 
     .select-sm .select-label {
@@ -450,7 +450,7 @@
     .select-lg .select-trigger {
         font-size: 1rem;
         padding: 0.85rem 1.1rem;
-        border-radius: 8px;
+        border-radius: var(--radius-soft);
     }
 
     .select-lg .select-label {

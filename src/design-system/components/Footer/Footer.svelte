@@ -180,7 +180,7 @@
     }
 
     /* Rounded — top corners only */
-    .footer-rounded { border-radius: 12px 12px 0 0; }
+    .footer-rounded { border-radius: var(--radius-round) var(--radius-round) 0 0; }
 
     /* Palette — accent (default: matches layout footer) */
     .footer-palette-accent {

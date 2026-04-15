@@ -50,7 +50,7 @@
     }
 
     .control-rounded {
-        border-radius: 10px;
+        border-radius: var(--radius-soft);
     }
 
     /* Header — separator only, no box border */

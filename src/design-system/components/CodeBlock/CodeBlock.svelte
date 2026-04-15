@@ -338,7 +338,7 @@
 <style>
     /* Base */
     .codeblock {
-        border-radius: 10px;
+        border-radius: var(--radius-soft);
         border: 2px solid var(--tone-hover);
         overflow: hidden;
         position: relative;
@@ -382,7 +382,7 @@
         flex-shrink: 0;
         user-select: none;
         padding: 1px 4px 2px 6px;
-        border-radius: 4px;
+        border-radius: var(--radius-edge);
         border: 2px solid var(--accent);
     }
 
@@ -443,7 +443,7 @@
     .codeblock-lang {
         font-size: 0.7rem;
         padding: 0.3rem 0.6rem;
-        border-radius: 4px;
+        border-radius: var(--radius-edge);
         background: var(--tone-hover);
         color: var(--text-muted);
         text-transform: uppercase;
@@ -495,7 +495,7 @@
         font-size: 0.8em;
         background: var(--tone-hover);
         padding: 0.1em 0.35em;
-        border-radius: 3px;
+        border-radius: var(--radius-edge);
         color: var(--text);
     }
 

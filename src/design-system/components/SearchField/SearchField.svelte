@@ -172,7 +172,7 @@
         padding: 0.15rem;
         cursor: pointer;
         color: var(--text-muted);
-        border-radius: 3px;
+        border-radius: var(--radius-edge);
         transition: color 0.1s ease, background 0.1s ease;
     }
 
@@ -216,7 +216,7 @@
     /* ── Rounded ──────────────────────────────────────────────────────── */
 
     .search-field-rounded {
-        border-radius: 12px;
+        border-radius: var(--radius-round);
     }
 
     /* ── Naked ────────────────────────────────────────────────────────── */

@@ -131,7 +131,7 @@
         flex-shrink: 0;
         width: var(--radio-size, 18px);
         height: var(--radio-size, 18px);
-        border-radius: 50%;
+        border-radius: var(--radius-circle);
         border: 2px solid var(--text-muted);
         background: transparent;
         transition: border-color 0.2s ease;
@@ -145,7 +145,7 @@
         left: 50%;
         width: var(--radio-dot, 8px);
         height: var(--radio-dot, 8px);
-        border-radius: 50%;
+        border-radius: var(--radius-circle);
         transform: translate(-50%, -50%) scale(0);
         transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }

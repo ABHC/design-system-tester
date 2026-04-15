@@ -175,12 +175,12 @@
     /* Shapes ────────────────────────────────────────────────────────── */
 
     /* circle=true  → pill track + round knob */
-    .switch-circle .switch-track { border-radius: 999px; }
-    .switch-circle .switch-knob  { border-radius: 50%; }
+    .switch-circle .switch-track { border-radius: var(--radius-pill); }
+    .switch-circle .switch-knob  { border-radius: var(--radius-circle); }
 
     /* circle=false → rect track + square knob */
-    .switch-wrapper:not(.switch-circle) .switch-track { border-radius: 4px; }
-    .switch-wrapper:not(.switch-circle) .switch-knob  { border-radius: 2px; }
+    .switch-wrapper:not(.switch-circle) .switch-track { border-radius: var(--radius-edge); }
+    .switch-wrapper:not(.switch-circle) .switch-knob  { border-radius: var(--radius-edge); }
 
     /* Palette — ON state (track fill + knob color) ──────────────────── */
 
