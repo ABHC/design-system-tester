@@ -35,7 +35,7 @@
     )
 </script>
 
-<div class="brand-container">
+<a class="brand-container" href="https://combe.tf/">
     <div class="tagline brand-{size}">
         <div class="brand-name {text_fill_class}">
             <span>ALEXANDRE</span>
@@ -46,7 +46,7 @@
     <div class="logo-container {logo_fill_class}">
         <LogoABHC size={logo_size} />
     </div>
-</div>
+</a>
 
 <style>
     .brand-container {
@@ -55,6 +55,8 @@
         align-items: center;
         gap: 8px;
         padding: 6px;
+        cursor: pointer;
+        text-decoration: none;
     }
 
     .brand-container:hover {
