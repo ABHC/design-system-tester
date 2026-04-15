@@ -130,7 +130,7 @@
 <!-- ── Markup ─────────────────────────────────────────────────────────────── -->
 
 <div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
-    <Headline size="md" uppercase>{trans?.cards.title}</Headline>
+    <Headline size="md" uppercase>{trans?.card_demo.title}</Headline>
 </div>
 
 <!-- Controls -->

@@ -35,7 +35,7 @@
     });
 
     const font_sample = (family: string) => createRawSnippet(() => ({
-        render: () => `<span style="font-family: '${family}', sans-serif;">${$trans?.drawer.test}</span>`,
+        render: () => `<span style="font-family: '${family}', sans-serif;">${$trans?.control.font_preview}</span>`,
     }));
 </script>
 

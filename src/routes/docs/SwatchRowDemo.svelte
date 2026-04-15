@@ -21,26 +21,69 @@
     // ── Demo state ──────────────────────────────────────────────────────────
 
     let demo_compact: boolean = $state(false);
+    let demo_rounded: boolean = $state(false);
 
     const bool_opts = [{ value: true, label: "true" }, { value: false, label: "false" }] as const;
 
     // ── Swatch sets ─────────────────────────────────────────────────────────
 
     const surfaces: Swatch[] = $derived([
-        { label: sr.surface_bg,    value: "var(--bg)",    bg: "var(--bg)",    color: "var(--text)" },
-        { label: sr.surface_tone,  value: "var(--tone)",  bg: "var(--tone)",  color: "var(--text)" },
-        { label: sr.surface_card,  value: "var(--card)",  bg: "var(--card)",  color: "var(--text)" },
+        { 
+            label: sr.surface_bg,
+            value: "var(--bg)", 
+            bg: "var(--bg)", 
+            color: "var(--text)" 
+        },
+        { 
+            label: sr.surface_tone, 
+            value: "var(--tone)",
+            bg: "var(--tone)", 
+            color: "var(--text)" 
+        },
+        { 
+            label: sr.surface_card, 
+            value: "var(--card)", 
+            bg: "var(--card)", 
+            color: "var(--text)" 
+        },
     ]);
 
     const accents: Swatch[] = $derived([
-        { label: sr.accent_main,  value: "var(--accent)",        bg: "var(--accent)",        color: "var(--text-accent)" },
-        { label: sr.accent_hover, value: "var(--accent-hover)",  bg: "var(--accent-hover)",  color: "var(--text-accent)" },
-        { label: sr.accent_muted, value: "var(--accent-muted)",  bg: "var(--accent-muted)",  color: "var(--text-accent)" },
+        { 
+            label: sr.accent_main, 
+            value: "var(--accent)", 
+            bg: "var(--accent)", 
+            color: "var(--text-accent)" 
+        },
+        { 
+            label: sr.accent_hover, 
+            value: "var(--accent-hover)", 
+            bg: "var(--accent-hover)", 
+            color: "var(--text-accent)" 
+        },
+        { 
+            label: sr.accent_muted, 
+            value: "var(--accent-muted)", 
+            bg: "var(--accent-muted)", 
+            color: "var(--text-accent)" 
+        },
     ]);
 
     const text_on_tone: Swatch[] = $derived([
-        { label: sr.text_main,  value: "var(--text)",        bg: "var(--tone)", color: "var(--text)",        isText: true },
-        { label: sr.text_muted, value: "var(--text-muted)",  bg: "var(--tone)", color: "var(--text-muted)",  isText: true },
+        { 
+            label: sr.text_main, 
+            value: "var(--text)", 
+            bg: "var(--tone)", 
+            color: "var(--text)", 
+            isText: true 
+        },
+        { 
+            label: sr.text_muted, 
+            value: "var(--text-muted)", 
+            bg: "var(--tone)", 
+            color: "var(--text-muted)", 
+            isText: true 
+        },
     ]);
 
     // ── Code examples ───────────────────────────────────────────────────────
@@ -50,9 +93,9 @@
     import SwatchRow from "./SwatchRow/SwatchRow.svelte";
 
     const swatches: Swatch[] = [
-        { label: "Background", value: "var(--bg)",   bg: "var(--bg)",   color: "var(--text)" },
-        { label: "Tone",       value: "var(--tone)", bg: "var(--tone)", color: "var(--text)" },
-        { label: "Card",       value: "var(--card)", bg: "var(--card)", color: "var(--text)" },
+        { label: "Background", value: "var(--bg)", bg: "var(--bg)", color: "var(--text)" },
+        { label: "Tone", value: "var(--tone)", bg: "var(--tone)", color: "var(--text)" },
+        { label: "Card", value: "var(--card)", bg: "var(--card)", color: "var(--text)" },
     ];
 <\/script>
 
@@ -60,7 +103,7 @@
 
     const code_text = `<!-- isText: true displays a large Aa sample on the swatch. -->
 <SwatchRow swatches={[
-    { label: "Text",  value: "var(--text)",       bg: "var(--tone)", color: "var(--text)",       isText: true },
+    { label: "Text", value: "var(--text)", bg: "var(--tone)", color: "var(--text)", isText: true },
     { label: "Muted", value: "var(--text-muted)", bg: "var(--tone)", color: "var(--text-muted)", isText: true },
 ]} />`;
 
@@ -82,22 +125,39 @@
         options={bool_opts}
         bind:value={demo_compact}
     />
+    <Selector
+        label="Rounded"
+        options={bool_opts}
+        bind:value={demo_rounded}
+    />
 </ControlBar>
 
 <div class="swatch-row-preview">
     <div class="swatch-group">
         <span class="swatch-group-label">{sr.group_surfaces}</span>
-        <SwatchRow swatches={surfaces} compact={demo_compact} />
+        <SwatchRow 
+            swatches={surfaces} 
+            compact={demo_compact} 
+            rounded={demo_rounded}
+        />
     </div>
 
     <div class="swatch-group">
         <span class="swatch-group-label">{sr.group_accents}</span>
-        <SwatchRow swatches={accents} compact={demo_compact} />
+        <SwatchRow 
+            swatches={accents} 
+            compact={demo_compact} 
+            rounded={demo_rounded}
+        />
     </div>
 
     <div class="swatch-group">
         <span class="swatch-group-label">{sr.group_text}</span>
-        <SwatchRow swatches={text_on_tone} compact={demo_compact} />
+        <SwatchRow 
+            swatches={text_on_tone} 
+            compact={demo_compact} 
+            rounded={demo_rounded}
+        />
     </div>
 </div>
 
@@ -133,6 +193,7 @@
         rows={[
             { prop: "swatches", type: "Swatch[]", default: "required" },
             { prop: "compact", type: "boolean", default: "false" },
+            { prop: "rounded", type: "boolean", default: "false" },
         ]}
     />
 

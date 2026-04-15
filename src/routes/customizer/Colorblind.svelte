@@ -153,8 +153,8 @@
             { surface: 'hover', fg: s.textOn, bg: s.hover, target: 4.5 },
             { surface: 'card', fg: s.muted, bg: s.card, target: 4.5 },
             { surface: 'bg', fg: s.muted, bg: s.toneBg, target: 4.5 },
-            { surface: 'sem-bg', fg: s.text, bg: s.bg, target: 4.5 },
-            { surface: 'muted/bg', fg: s.muted, bg: s.bg, target: 3 },
+            { surface: 'Text/Accent-bg', fg: s.text, bg: s.bg, target: 4.5 },
+            { surface: 'muted/Accent-bg', fg: s.muted, bg: s.bg, target: 3 },
         ];
     }
 
@@ -363,17 +363,9 @@
         margin-bottom: 40px;
     }
 
-    .section-title {
-        margin-bottom: 20px;
-        color: var(--text);
-        font-size: 2rem;
-        font-weight: 600;
-    }
-
     .colorblind-info {
         background: var(--tone);
         padding: 20px;
-        border-radius: 8px;
         margin-top: 20px;
     }
 

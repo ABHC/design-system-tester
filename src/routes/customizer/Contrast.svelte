@@ -779,14 +779,12 @@
     .contrast-info {
         background: var(--tone);
         padding: 20px;
-        border-radius: 8px;
         margin-top: 20px;
     }
 
     .contrast-legend {
-        margin-top: 15px;
-        font-size: 13px;
         color: var(--text-muted);
+        margin-top: 0px;
     }
 
     .contrast-category-title {
@@ -878,7 +876,6 @@
 
     .sem-card {
         background: var(--tone-hover);
-        border-radius: 8px;
         padding: 0.75rem;
     }
 
@@ -895,7 +892,6 @@
         text-transform: uppercase;
         letter-spacing: 0.05em;
         padding: 0.4rem;
-        border-radius: 6px;
     }
 
     .sem-card-hex {
@@ -903,7 +899,6 @@
         font-family: monospace;
         opacity: 0.7;
         padding: 0.4rem;
-        border-radius: 6px;
     }
 
     .sem-card-checks {
@@ -965,7 +960,6 @@
 
     .suggest-item {
         background: var(--tone-hover);
-        border-radius: 6px;
         padding: 0.75rem;
         border-left: 3px solid var(--warning);
     }

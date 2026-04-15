@@ -120,7 +120,7 @@
 <!-- Markup ─────────────────────────────────────────────────────────────── -->
 
 <div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
-    <Headline size="md" uppercase>{trans?.modal.title}</Headline>
+    <Headline size="md" uppercase>{trans?.modal_demo.title}</Headline>
 </div>
 
 <!-- Controls -->
@@ -164,10 +164,10 @@
     >
         <span class="material-symbols-outlined">open_in_new</span>
         {
-            demo_preset === "confirm"  ? trans?.modal.btn_open_tone :
-            demo_preset === "announce" ? trans?.modal.btn_open_accent :
-            demo_preset === "profile"  ? trans?.modal.btn_open_compose :
-            trans?.modal.btn_open_wide
+            demo_preset === "confirm"  ? trans?.modal_demo.btn_open_tone :
+            demo_preset === "announce" ? trans?.modal_demo.btn_open_accent :
+            demo_preset === "profile"  ? trans?.modal_demo.btn_open_compose :
+            trans?.modal_demo.btn_open_wide
         }
     </Button>
 </div>

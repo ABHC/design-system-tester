@@ -97,7 +97,7 @@
 <!-- Headline -->
 
 <div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
-    <Headline size="md" uppercase>{trans?.callout.title}</Headline>
+    <Headline size="md" uppercase>{trans?.callout_demo.title}</Headline>
 </div>
 
 <!-- Controls -->

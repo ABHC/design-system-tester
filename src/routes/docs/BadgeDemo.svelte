@@ -178,7 +178,7 @@
 <!-- ── Markup ─────────────────────────────────────────────────────────────── -->
 
 <div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
-    <Headline size="md" uppercase>{trans?.badges.title}</Headline>
+    <Headline size="md" uppercase>{trans?.badge_demo.title}</Headline>
 </div>
 
 <!-- Controls -->
@@ -396,7 +396,7 @@
 
 <!-- Trailing icon — dismissable filters -->
 
-<p class="demo-label">{trans?.badges.trailing} <code>on_trailing_click</code></p>
+<p class="demo-label">{trans?.badge_demo.trailing} <code>on_trailing_click</code></p>
 <div class="row">
     {#each active_filters as f (f)}
         <Badge
@@ -417,7 +417,7 @@
 
 <!-- Href badges -->
 
-<p class="demo-label">{trans?.badges.link} <code>href</code></p>
+<p class="demo-label">{trans?.badge_demo.link} <code>href</code></p>
 <div class="row">
     <Badge 
         variant="outlined" 
@@ -440,7 +440,7 @@
 
 <!-- BadgeGroup -->
 
-<p class="demo-label">{trans?.badges.multiple}</p>
+<p class="demo-label">{trans?.badge_demo.multiple}</p>
 <div class="row">
     <BadgeGroup 
         badges={group_badges} 

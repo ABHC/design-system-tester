@@ -336,49 +336,49 @@
 <!-- Headline -->
 
 <div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
-    <Headline size="md" uppercase>{trans?.tile_grid?.title ?? "Tile Grid"}</Headline>
+    <Headline size="md" uppercase>{trans?.tile_grid_demo?.title ?? "Tile Grid"}</Headline>
 </div>
 
 <!-- Controls -->
 
 <ControlBar palette="tone">
     <Selector
-        label={trans?.tile_grid?.ctrl_mode}
+        label={trans?.tile_grid_demo?.ctrl_mode}
         options={["image", "flat", "mock-up"]}
         bind:value={demo_mode}
         onchange={set_mode}
     />
     {#if demo_mode === "image"}
         <Selector
-            label={trans?.tile_grid?.ctrl_position}
+            label={trans?.tile_grid_demo?.ctrl_position}
             options={bg_positions}
             bind:value={demo_position}
         />
     {/if}
     {#if demo_mode === "mock-up"}
         <Selector
-            label={trans?.tile_grid?.ctrl_position}
+            label={trans?.tile_grid_demo?.ctrl_position}
             options={deco_positions}
             bind:value={demo_position}
         />
     {/if}
     <Selector
-        label={trans?.tile_grid?.ctrl_columns}
+        label={trans?.tile_grid_demo?.ctrl_columns}
         options={[2, 3, 4]}
         bind:value={demo_columns}
     />
     <Selector
-        label={trans?.tile_grid?.ctrl_hero_span}
+        label={trans?.tile_grid_demo?.ctrl_hero_span}
         options={["half", "full"]}
         bind:value={demo_hero_span}
     />
     <Selector
-        label={trans?.tile_grid?.ctrl_hero_badge}
+        label={trans?.tile_grid_demo?.ctrl_hero_badge}
         options={bool_opts}
         bind:value={demo_hero_badge}
     />
     <Selector
-        label={trans?.tile_grid?.ctrl_rounded}
+        label={trans?.tile_grid_demo?.ctrl_rounded}
         options={bool_opts}
         bind:value={demo_rounded}
     />
@@ -566,10 +566,10 @@
     {#snippet children()}
         <div class="tg-id-note-content">
             <strong class="tg-id-note-title">
-                {trans?.tile_grid?.id_note_title ?? "Role of the identifier (id)"}
+                {trans?.tile_grid_demo?.id_note_title ?? "Role of the identifier (id)"}
             </strong>
             <p class="tg-id-note-body">
-                {trans?.tile_grid?.id_note}
+                {trans?.tile_grid_demo?.id_note}
             </p>
         </div>
     {/snippet}
@@ -584,20 +584,20 @@
 <CodeBlock
     variant="tabbed"
     copyable
-    description={trans?.tile_grid?.code_desc}
+    description={trans?.tile_grid_demo?.code_desc}
     tabs={[
         { 
-            label: trans?.tile_grid?.tab_image ?? "Image",   
+            label: trans?.tile_grid_demo?.tab_image ?? "Image",   
             code: code_background, 
             language: "Svelte" 
         },
         { 
-            label: trans?.tile_grid?.tab_flat ?? "Flat",
+            label: trans?.tile_grid_demo?.tab_flat ?? "Flat",
             code: code_flat,       
             language: "Svelte" 
         },
         {
-            label: trans?.tile_grid?.tab_mockup ?? "Mock-up",
+            label: trans?.tile_grid_demo?.tab_mockup ?? "Mock-up",
             code: code_decorative,
             language: "Svelte"
         },
@@ -607,7 +607,7 @@
             language: "Svelte",
         },
         {
-            label: trans?.tile_grid?.tab_hero_full ?? "Full hero",
+            label: trans?.tile_grid_demo?.tab_hero_full ?? "Full hero",
             code: code_hero_full,
             language: "Svelte"
         },

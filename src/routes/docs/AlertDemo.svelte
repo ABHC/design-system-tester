@@ -83,7 +83,7 @@
                 <span class="material-symbols-outlined alert-demo-icon">error</span>
             {/snippet}
             {#snippet children()}
-                <strong class="alert-demo-title">{trans?.alerts.error_title}</strong>
+                <strong class="alert-demo-title">{trans?.alert_demo.error_title}</strong>
                 <p class="alert-demo-body">{placeholders.alerts.error}</p>
             {/snippet}
         </Alert>
@@ -106,13 +106,13 @@
 {#if t_success > 0}
     {#key t_success}
         <Alert variant="success" position="bottom-right" animate="left" duration={4} rounded
-            dismiss_label={trans?.alerts.dismiss}
+            dismiss_label={trans?.alert_demo.dismiss}
         >
             {#snippet leading()}
                 <span class="material-symbols-outlined alert-demo-icon">check_circle</span>
             {/snippet}
             {#snippet children()}
-                <strong class="alert-demo-title">{trans?.alerts.success_title}</strong>
+                <strong class="alert-demo-title">{trans?.alert_demo.success_title}</strong>
                 <p class="alert-demo-body">{placeholders.alerts.success}</p>
             {/snippet}
         </Alert>
@@ -126,7 +126,7 @@
                 <span class="material-symbols-outlined alert-demo-icon">info</span>
             {/snippet}
             {#snippet children()}
-                <strong class="alert-demo-title">{trans?.alerts.info_title}</strong>
+                <strong class="alert-demo-title">{trans?.alert_demo.info_title}</strong>
                 <p class="alert-demo-body">{placeholders.alerts.info}</p>
             {/snippet}
         </Alert>
@@ -140,7 +140,7 @@
                 <span class="material-symbols-outlined alert-demo-icon">info</span>
             {/snippet}
             {#snippet children()}
-                <strong class="alert-demo-title">{trans?.alerts.info_title}</strong>
+                <strong class="alert-demo-title">{trans?.alert_demo.info_title}</strong>
                 <p class="alert-demo-body">{placeholders.alerts.info}</p>
             {/snippet}
         </Alert>
@@ -150,7 +150,7 @@
 <!-- Headline ──────────────────────────────────────────────────────────── -->
 
 <div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
-    <Headline size="md" uppercase>{trans?.alerts.title}</Headline>
+    <Headline size="md" uppercase>{trans?.alert_demo.title}</Headline>
 </div>
 
 <!-- Instruction callout ───────────────────────────────────────────────── -->
@@ -160,7 +160,7 @@
         <span class="material-symbols-outlined">lightbulb</span>
     {/snippet}
     {#snippet children()}
-        <p>{trans?.alerts.trigger}</p>
+        <p>{trans?.alert_demo.trigger}</p>
     {/snippet}
 </Callout>
 

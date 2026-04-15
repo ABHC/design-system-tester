@@ -1,23 +1,58 @@
-import type { command } from "$app/server";
-import type { Translations, Locale, Translation } from "$lib/types/translations";
+import type { Locale } from "$lib/types/translations";
 
 export const translations = {
     fr: {
         language_name: "Français",
+
+        // Layout -----------------------------------------------------------
+
         header: {
             project: "Spektral UI",
-            name1: "Alexandre",
-            name3: "Combe",
-            logo_btn: "Retour à l'accueil"
         },
+        nav: {
+            title: "Nav",
+            code: "position='fixed'",
+            fixed: "recouvre la fenêtre d'affichage réelle - la preview utilise floating pour ne pas casser le layout",
+            home: "Spektral",
+            docs: "Docs",
+            customizer: "Personnaliser",
+        },
+        footer: {
+            license: "Publié sous licence GNU GPLv3",
+            git_btn: "Github",
+            linked_in_btn: "LinkedIn",
+            copied: "Copié !",
+            clipboard: "L'adresse e-mail a été copiée dans votre presse-papier",
+        },
+        aria: {
+            return: "Retour",
+            close: "Fermer",
+            back_to_top: "Retour en haut de page",
+            language: "Langue",
+        },
+        doc: {
+            title: "Sur cette page",
+            demo: "Demo",
+            usage: "Usage",
+            api: "API",
+            filter: "Filtrer...",
+            avatar_dots: "Statut",
+            avatar_clickable: "Interactif",
+            back_to_top: "BackToTop",
+            ModeToggle: "ModeToggle",
+            CopyButton: "CopyButton",
+            states: "États",
+            swatches: "Swatches",
+        },
+
+        // Landing page -----------------------------------------------------
+
         welcome: {
-            title: "Styleguide",
-            intro: "Explorez les composants du design system. Testez les variantes, ajustez les paramètres et copiez le code directement depuis la page.",
-            filter_header: "Catégorie",
-            cat_all: "tout",
-            cat_presentation: "présentation",
-            cat_structure: "structure",
-            cat_composants: "composants",
+            cat_layout: "layout",
+            cat_controls: "contrôles",
+            cat_overlays: "overlays",
+            cat_feedback: "feedback",
+            cat_content: "contenu",
         },
         hero: {
             headline: "Spektral UI",
@@ -28,23 +63,20 @@ export const translations = {
             cta_customizer: "Personnaliser",
         },
         stats: {
-            components_count: "40+",
+            components_count: "30+",
             components_label: "composants",
             modes_count: "2 modes",
             modes_label: "clair & sombre",
             patterns_count: "10 patterns art déco",
             patterns_label: "Pour ajouter du style à vos webapps",
-            a11y_label: "WCAG AA",
-            colors_label: "OKLCH natif",
-            framework_label: "Svelte 5 · Runes · Snippets",
         },
-        showcase: {
-            title: "Voir et copier",
-            subtitle: "Code réel, rendu réel. Copiez et adaptez directement dans votre projet.",
-            preview_label: "Aperçu",
-            tab_button: "Button",
-            tab_card: "Card",
-            tab_badge: "Badge",
+        features: {
+            f1_title: "Zéro dépendance",
+            f1_desc: "Chaque composant repose uniquement sur du HTML, du CSS et Svelte 5, du composant jusqu'au rendu.",
+            f2_title: "Composable par snippets",
+            f2_desc: "Certains composants exposent des snippets. Adaptez les composants à votre usage en injectant dans les snippets vos contenus... ou d'autres composants !",
+            f4_title: "Objectif WCAG AA",
+            f4_desc: "Créer vos palettes de couleurs accessibles sur la page de personnalisation. L'outil vérifie les contrastes, propose de meilleures nuances et simule le daltonisme.",
         },
         quickstart: {
             title: "En 3 étapes",
@@ -56,115 +88,61 @@ export const translations = {
             step_3_desc: "Les snippets Svelte 5 vous donnent le contrôle total sur chaque zone du composant.",
             cta: "Lire la documentation",
         },
-        features: {
-            f1_title: "Zéro dépendance",
-            f1_desc: "Chaque composant repose uniquement sur du HTML, du CSS et Svelte 5, du composant jusqu'au rendu.",
-            f2_title: "Composable par snippets",
-            f2_desc: "Certains composants exposent des snippets. Adaptez les composants à votre usage en injectant dans les snippets vos contenus... ou d'autres composants !",
-            f3_title: "Clair et sombre",
-            f3_desc: "Un seul jeu de tokens OKLCH pour les deux modes. L'interface entière bascule sans surcharge à écrire ni classe utilitaire à dupliquer.",
-            f4_title: "Objectif WCAG AA",
-            f4_desc: "Créer vos palettes de couleurs accessibles sur la page de personnalisation. L'outil vérifie les contrastes, propose de meilleures nuances et simule le daltonisme.",
-        },
+
+        // Theme controls ---------------------------------------------------
+
         control: {
             light: "Clair",
             dark: "Sombre",
             theme: "Thème",
             tone: "Teinte",
-            palette: "Palette",
             accent: "Couleur d'accent",
             ctx: "Couleurs contextuelles",
             text: "Palette texte",
             fonts: "Polices",
             font_body: "Corps de texte",
             font_titles: "Titres",
-            contrast: "Contrastes",
-            demo: "Démo",
-            export: "Export",
+            font_preview: "Philippe ! Je sais où tu te caches !",
             settings: "Options",
-            more: "Voir plus",
-            less: "Voir moins",
-            bigger: "Voir en grand", 
-        },
-        typo: {
-            title: "Typographie",
-            h1: "Titre 1",
-            h2: "Titre 2",
-            h3: "Titre 3",
-            h4: "Titre 4",
-            h5: "Titre 5",
-            h6: "Titre 6",
-            lead: "Texte introductif",
-            body: "Corps de texte"
+            bigger: "Voir en grand",
         },
         palette: {
-            title: "Palette de couleurs"
+            title: "Palette de couleurs",
         },
-        buttons: {
-            title: "Boutons",
-            back_to_top1: "Boutons spéciaux",
-            back_to_top2: "Au clic font remonter l'utilisateur en haut de la page",
-            lbl_flat: 'variant="flat"',
-            lbl_outlined: 'variant="outlined" — arrondi',
-            lbl_ghost: 'variant="ghost" — sur fond accent (palette="accent") / sur fond neutre (palette="tone")',
-            lbl_naked: 'variant="naked" — accent (sur fond accent) / tone / error / warning / success / info',
-            lbl_sizes: "Tailles — lg / md / sm",
-            lbl_modifiers: "Modificateurs — uppercase / left / top / bottom / right / squared",
-            lbl_active: "(actif)",
+        palette_creator: {
+            title: "Palettes customisées",
+            tone_bg: "Ton (fond)",
+            tone_base: "Ton (base)",
+            accent: "Accent",
+            ctx: "Contextuelles",
+            text: "Texte",
+            light_text: "Texte clair",
+            dark_text: "Texte sombre",
+            slot_hint: "Chaque slot stocke une palette custom par catégorie (ton, accent, ctx, texte). Sauvegarder écrase le slot sélectionné.",
         },
-        badges: {
-            title: "Badges",
-            trailing: "Trailing icon — Utile pour créer des filtres — ",
-            link: "Lien intégré au badge — ",
-            multiple: "BadgeGroup — sélection multiple ou unique"
+
+        // Structure demos --------------------------------------------------
+
+        header_demo: {
+            title: "Header",
+            layout: "Structure",
+            preset_editorial: `<strong>Editorial</strong> — <code>leading</code> wordmark, <code>following</code> liens texte + CTA primaire. Palette <code>tone</code> ou <code>accent</code>.`,
+            preset_app: `<strong>App</strong> — <code>leading</code> logo, <code>following</code> <code>Button variant="ghost" palette="tone" squared</code> icône seule. La palette est inversée par rapport au Header pour un contraste optimal.`,
+            preset_mixed: `<strong>Mixed</strong> — <code>leading</code> logo, <code>children</code> liens de navigation centrés (slot default), <code>following</code> icône + CTA.`,
+            bind_visible: `<code>bind:visible</code> — le Header observe lui-même sa visibilité dans le viewport et expose un booléen bindable. Simulation ci-dessous (en prod : déclenché par le scroll).`,
         },
-        avatar: {
-            title: "Avatar",
-            sect_sizes: "Tailles — <code>xs</code> à <code>xl</code>, sur les combinaisons forme × palette × status",
-            sect_content: "Contenu — <code>label</code> (tronqué à 3 car.) vs <code>src</code> (photo)",
-            sect_status: "Status dots — <code>do-not-disturb</code> utilise un double border",
-            sect_interactive: "Interactif — <code>onclick</code> réservé pour un flyout ou une modale",
-            status_online: "online",
-            status_offline: "offline",
-            status_absent: "absent",
-            status_dnd: "do-not-disturb",
-            click: "click",
+        footer_demo: {
+            title: "Footer",
+            layout: "Structure",
+            preset_social: `<strong>Social</strong> — <code>leading</code> icônes de réseaux sociaux, <code>following</code> mention légale. Correspond au footer par défaut du layout.`,
+            preset_minimal: `<strong>Minimal</strong> — contenu centré via le slot <code>children</code> (slot default). Idéal pour un footer discret.`,
+            preset_brand: `<strong>Brand</strong> — <code>leading</code> logo, <code>children</code> liens de navigation centrés, <code>following</code> mention légale.`,
         },
-        modal: {
-            title: "Modal",
-            sect_palette: "Palette — <code>tone</code> (défaut) vs <code>accent</code>",
-            sect_compose: "Composition libre des slots <code>header</code> / <code>children</code> / <code>footer</code>",
-            sect_width: "Largeur — prop <code>width</code> (défaut : 480px, max : 100vw − 2rem)",
-            btn_open_tone: "Ouvrir (tone)",
-            btn_open_accent: "Ouvrir (accent)",
-            btn_open_compose: "Ouvrir composition",
-            btn_open_narrow: "Étroit — 360px",
-            btn_open_wide: "Large — 680px",
+        drawer_demo: {
+            title: "Drawer",
         },
-        codeblocks: {
-            title: "Blocs de code",
-        },
-        cards: {
-            title: "Cartes",
-            variantes: "Variantes",
-            clickable: "Cartes cliquables (href) — pas de children interactifs",
-            layout: "Header / Body / Footer — avec une image en header", 
-            profile: "Exemple profil — Header / Body / Footer, largeur 100%", 
-            testimonials: "Exemple témoignage — {#each} dans une flexbox parente"
-        },
-        nav: {
-            title: "Navigation",
-            code: "position='fixed'",
-            fixed: "recouvre la fenêtre d'affichage réelle - la preview utilise floating pour ne pas casser le layout",
-            home: "Spektral",
-            docs: "Docs",
-            customizer: "Personnaliser",
-        },
-        selector_demo: {
-            title: "Barre de contrôle & Sélecteur",
-        },
-        tile_grid: {
-            title: "Grille de tuiles",
+        tile_grid_demo: {
+            title: "TileGrid",
             id_note_title: "Rôle de l'identifiant (id)",
             id_note: "Chaque tuile peut recevoir un id optionnel. Quand il est renseigné, la tuile devient un lien vers {href_base}/{id} — survol SvelteKit et curseur pointer activés. Sans id, la tuile reste un bloc purement décoratif : aucun lien, curseur neutre.",
             ctrl_mode: "Mode",
@@ -179,18 +157,70 @@ export const translations = {
             tab_mockup: "Mock-up",
             tab_hero_full: "Héro plein",
         },
-        drawer: {
-            title: "Tiroir",
-            test: "Philippe ! Je sais où tu te caches !",
+        hero_demo: {
+            title: "Hero",
         },
-        list_items: {
-            title: "Éléments de liste",
+        selector_demo: {
+            title: "Selector",
+        },
+        control_bar_demo: {
+            title: "ControlBar",
+        },
+
+        // Component demos --------------------------------------------------
+
+        button_demo: {
+            title: "Button",
+            back_to_top1: "Boutons spéciaux",
+            back_to_top2: "Au clic font remonter l'utilisateur en haut de la page",
+        },
+        badge_demo: {
+            title: "Badge",
+            trailing: "Trailing icon — Utile pour créer des filtres — ",
+            link: "Lien intégré au badge — ",
+            multiple: "BadgeGroup — sélection multiple ou unique",
+        },
+        avatar_demo: {
+            title: "Avatar",
+            sect_status: "Status dots — <code>do-not-disturb</code> utilise un double border",
+            sect_interactive: "Interactif — <code>onclick</code> réservé pour un flyout ou une modale",
+            status_online: "online",
+            status_offline: "offline",
+            status_absent: "absent",
+            status_dnd: "do-not-disturb",
+            click: "click",
+        },
+        modal_demo: {
+            title: "Modal",
+            btn_open_tone: "Ouvrir (tone)",
+            btn_open_accent: "Ouvrir (accent)",
+            btn_open_compose: "Ouvrir composition",
+            btn_open_wide: "Large — 680px",
+        },
+        card_demo: {
+            title: "Card",
+        },
+        list_item_demo: {
+            title: "ListItem",
+        },
+        alert_demo: {
+            title: "Alert",
+            trigger: "Cliquez un bouton pour déclencher la notification correspondante. Elles s'empilent — recliquez plusieurs fois.",
+            info_title: "Info",
+            success_title: "Succès",
+            error_title: "Erreur",
+            dismiss: "Ignorer",
+        },
+        callout_demo: {
+            title: "Callout",
+        },
+        progress_demo: {
+            title: "Progress",
         },
         input_demo: {
-            title: "Input & Textarea",
+            title: "Input",
             lbl_size: "Taille",
-            sect_states: "États — Input",
-            sect_states_ta: "États — Textarea",
+            sect_states: "États",
             lbl_normal: "Normal",
             lbl_hint: "Avec aide",
             lbl_error: "Erreur",
@@ -200,8 +230,18 @@ export const translations = {
             lbl_leading: "Icône gauche",
             lbl_trailing: "Icône droite",
         },
+        textarea_demo: {
+            title: "Textarea",
+            lbl_size: "Taille",
+            sect_states: "États",
+            lbl_normal: "Normal",
+            lbl_hint: "Avec aide",
+            lbl_error: "Erreur",
+            lbl_success: "Succès",
+            lbl_disabled: "Désactivé",
+        },
         radio_demo: {
-            title: "Radio Group",
+            title: "RadioGroup",
             lbl_palette: "Palette",
             lbl_size: "Taille",
             lbl_label_position: "Position du label",
@@ -220,7 +260,7 @@ export const translations = {
             lbl_individual: "Options individuelles désactivées",
         },
         switch_demo: {
-            title: "Interrupteurs",
+            title: "Switch",
             lbl_palette: "Palette",
             lbl_size: "Taille",
             lbl_circle: "Circle",
@@ -229,120 +269,79 @@ export const translations = {
             lbl_enabled: "Activé",
             lbl_disabled: "Désactivé",
         },
-        search_field: {
-            title: "Searchfield"
+        search_field_demo: {
+            title: "SearchField",
         },
-        select: {
-            title: "Select"
+        select_demo: {
+            title: "Select",
         },
-        popover: {
+        popover_demo: {
             title: "Popover",
             anchor_note: "L'élément d'ancrage (bouton, input…) doit être placé dans le snippet <code>trigger</code>. Le panneau s'ouvre alors relativement à cet élément. <code>direction</code> définit le côté d'ouverture (top, bottom, left, right) et <code>align</code> l'alignement sur l'axe transversal (start, center, end). Le positionnement est en CSS absolu — il ne se recalcule pas au scroll.",
         },
-        command: {
-            title: "Command"
+        command_demo: {
+            title: "Command",
         },
-        form: {
-            title: "📋 Formulaires",
-            name: "Nom",
-            email: "Email",
-            message: "Message",
-            send: "Envoyer",
+        code_block_demo: {
+            title: "CodeBlock",
         },
-        alerts: {
-            title: "Alertes",
-            trigger: "Cliquez un bouton pour déclencher la notification correspondante. Elles s'empilent — recliquez plusieurs fois.",
-            info_title: "Info",
-            success_title: "Succès",
-            error_title: "Erreur",
-            dismiss: "Ignorer"
+        accordion_demo: {
+            title: "Accordion",
         },
-        callout:{
-            title: "Callout"
+        slider_demo: {
+            title: "Slider",
         },
-        progress_demo:{
-            title: "Progress"
+        marquee_demo: {
+            title: "Marquee",
         },
-        header_demo: {
-            title: "Header",
-            layout: "Structure", 
-            preset_editorial: `<strong>Editorial</strong> — <code>leading</code> wordmark, <code>following</code> liens texte + CTA primaire. Palette <code>tone</code> ou <code>accent</code>.`,
-            preset_app: `<strong>App</strong> — <code>leading</code> logo, <code>following</code> <code>Button variant="ghost" palette="tone" squared</code> icône seule. La palette est inversée par rapport au Header pour un contraste optimal.`,
-            preset_mixed: `<strong>Mixed</strong> — <code>leading</code> logo, <code>children</code> liens de navigation centrés (slot default), <code>following</code> icône + CTA.`,
-            bind_visible: `<code>bind:visible</code> — le Header observe lui-même sa visibilité dans le viewport et expose un booléen bindable. Simulation ci-dessous (en prod : déclenché par le scroll).`,
+        timeline_demo: {
+            title: "Timeline",
         },
-        footer_demo: {
-            title: "Footer",
-            layout: "Structure", 
-            preset_social: `<strong>Social</strong> — <code>leading</code> icônes de réseaux sociaux, <code>following</code> mention légale. Correspond au footer par défaut du layout.`,
-            preset_minimal: `<strong>Minimal</strong> — contenu centré via le slot <code>children</code> (slot default). Idéal pour un footer discret.`,
-            preset_brand: `<strong>Brand</strong> — <code>leading</code> logo, <code>children</code> liens de navigation centrés, <code>following</code> mention légale.`,
+        data_table_demo: {
+            title: "DataTable",
         },
+        explorer_demo: {
+            title: "Explorer",
+        },
+        color_picker_demo: {
+            title: "ColorPicker",
+        },
+        swatch_row_demo: {
+            title: "SwatchRow",
+        },
+        support_demo: {
+            title: "Support",
+        },
+        headline_demo: {
+            title: "Headline",
+        },
+
+        // Customizer -------------------------------------------------------
+
         contrast: {
             title: "Informations de contraste",
-            desc: "Ratios de contraste actuels :",
-            required1: "✅ WCAG AA requis: 4.5:1 pour texte normal, 3:1 pour texte large",
-            required2: "✅ WCAG AAA requis: 7:1 pour texte normal, 4.5:1 pour texte large",
             text: "Texte",
             accent: "Accent",
-            accent_lighter: "Lighter",
-            accent_light: "Light",
-            accent_dark: "Dark",
-            accent_darker: "Darker",
-            text_accent: "Texte Accent",
-            background: "Background",
-            highlight: "Highlight",
-            card: "Card",
-            large_text_note: "Évalué en texte large (boutons)",
+            text_muted_label: "Texte atténué",
             cat_text: "Lisibilité du texte principal",
             cat_surfaces: "Séparation des surfaces",
-            surface_badge: "Surface",
-            surface_note: "Contraste de distinction visuelle — seuils WCAG non applicables",
-            results_title: "Résultats des tests",
-            reco_best_accent_per_surface: "Meilleur accent par surface",
-            reco_best_surface_per_accent: "Meilleure surface par variante d'accent",
-            reco_on: "sur",
-            reco_threshold: "Seuil minimal par surface",
-            reco_threshold_from: "à partir de",
-            reco_threshold_none: "Aucune variante ne passe",
-            reco_scale: "Échelles des accents",
-            export_text: "Copier (texte)",
-            export_json: "Copier (JSON)",
-            export_copied: "Copié !",
-            export_theme: "Thème",
-            export_accent: "Accent",
-            detail_show: "Voir le détail par combinaison",
-            detail_hide: "Masquer le détail",
-            suggest_title: "Ajustement",
-            suggest_all_pass: "Toutes les combinaisons requises passent AA",
-            suggest_scale_title: "Échelle suggérée",
-            suggest_scale_step: "Pas",
-            suggest_scale_none: "Aucune échelle trouvée avec ces contraintes",
-            suggest_mandatory: "Nécessaire",
-            suggest_satisfactory: "Satisfaisant",
-            current_desc: "Vérification des règles de contraste de l'accent sur le thème sélectionné.",
-            current_label: "Thème sélectionné",
-            opposite_desc: "Vérification des règles de contraste de l'accent sur un thème opposé.",
-            opposite_select_label: "Thème opposé",
-            opposite_none: "— Aucun —",
-            opposite_ratios_on: "Ratios sur",
-            suggest_adjusted: "Ajusté",
-            suggest_corrected_title: "Échelle corrigée",
             cat_accent: "Couleurs d'accent",
             cat_contextual: "Couleurs contextuelles",
-            ctx_note: "Vérification AA (4.5:1) avec le texte d'accent",
+            cat_semantic: "Couleurs sémantiques",
+            surface_badge: "Surface",
+            surface_note: "Contraste de distinction visuelle — seuils WCAG non applicables",
+            semantic_note: "hover et muted sont calculés par thème : hover ajuste la luminosité OKLCH vers le contraste (+ clair sur fond sombre, + foncé sur fond clair), muted cible 5.5:1 contre card avec chroma réduite à 80%.",
+            results_title: "Résultats des tests",
+            suggest_title: "Ajustement",
+            suggest_all_pass: "Toutes les combinaisons requises passent AA",
+            export_theme: "Thème",
+            export_accent: "Accent",
+            opposite_none: "— Aucun —",
             ctx_error: "Erreur",
             ctx_warning: "Avertissement",
             ctx_success: "Succès",
             ctx_info: "Information",
-            ctx_more: "Hover accent",
             ctx_neutral: "Neutre",
-            ctx_all_pass: "Toutes les couleurs contextuelles passent AA",
-            ctx_suggest_title: "Suggestions contextuelles",
-            tone_hover: "Tone Hover",
-            text_muted_label: "Texte atténué",
-            cat_semantic: "Couleurs sémantiques",
-            semantic_note: "hover et muted sont calculés par thème : hover ajuste la luminosité OKLCH vers le contraste (+ clair sur fond sombre, + foncé sur fond clair), muted cible 5.5:1 contre card avec chroma réduite à 80%.",
         },
         colorblind: {
             title: "Simulation daltonisme",
@@ -355,73 +354,66 @@ export const translations = {
             tritan: "Tritanopie",
             tritan_desc: "Pas de cônes bleus",
             surfaces: "Surfaces",
-            accents: "Accents",
             score_aa: "paires AA",
             score_aa_large: "paires AA Large",
             score_changes: "Changements",
             score_no_change: "Aucun changement",
             score_on: "sur",
         },
+    },
+
+    en: {
+        language_name: "English",
+
+        // Layout -----------------------------------------------------------
+
+        header: {
+            project: "Styleguide",
+        },
+        nav: {
+            title: "Nav",
+            code: "position='fixed'",
+            fixed: "overlays the real viewport - preview uses floating for layout safety",
+            home: "Spektral",
+            docs: "Docs",
+            customizer: "Customizer",
+        },
         footer: {
-            license: "Publié sous licence GNU GPLv3",
+            license: "Published under GNU GPLv3 license",
             git_btn: "Github",
             linked_in_btn: "LinkedIn",
-            copied: "Copié !",
-            clipboard: "L'adresse e-mail a été copiée dans votre presse-papier"
-        },
-        palette_creator: {
-            title: "Palettes customisées",
-            tone_bg: "Ton (fond)",
-            tone_base: "Ton (base)",
-            accent: "Accent",
-            ctx: "Contextuelles",
-            text: "Texte",
-            light_text: "Texte clair",
-            dark_text: "Texte sombre",
-            save: "Sauvegarder",
-            slot_hint: "Chaque slot stocke une palette custom par catégorie (ton, accent, ctx, texte). Sauvegarder écrase le slot sélectionné."
-        },
-        seo: {
-            meta: "",
-            title: ""
+            copied: "Copied !",
+            clipboard: "The email address has been copied to your clipboard.",
         },
         aria: {
-            return: "Retour",
-            close: "Fermer",
-            back_to_top: "Retour en haut de page",
-            language: "Langue"
+            return: "Return",
+            close: "Close",
+            back_to_top: "Back to top",
+            language: "Language",
         },
         doc: {
-            title: "Sur cette page",
+            title: "On this page",
             demo: "Demo",
             usage: "Usage",
             api: "API",
-            avatar_dots: "Statut",
-            avatar_clickable: "Interactif",
-            filter: "Filtrer...",
+            filter: "Filter...",
+            avatar_dots: "Status dots",
+            avatar_clickable: "Interactive",
             back_to_top: "BackToTop",
             ModeToggle: "ModeToggle",
             CopyButton: "CopyButton",
-            states: "États",
-            swatches: "Swatches"
-        }
-    },
-    en: {
-        language_name: "English",
-        header: {
-            project: "Styleguide",
-            name1: "Alexandre",
-            name3: "Combe",
-            logo_btn: "Back to home"
+            states: "States",
+            swatches: "Swatches",
         },
+
+        // Landing page -----------------------------------------------------
+
         welcome: {
-            title: "Styleguide",
-            intro: "Browse the design system components. Test variants, adjust settings and copy the code directly from the page.",
-            filter_header: "Category",
-            cat_all: "all",
-            cat_presentation: "presentation",
-            cat_structure: "structure",
-            cat_composants: "components",
+            cat_layout: "layout",
+            cat_controls: "controls",
+            cat_overlays: "overlays",
+            cat_feedback: "feedback",
+            cat_content: "content",
         },
         hero: {
             headline: "Spektral UI",
@@ -432,23 +424,20 @@ export const translations = {
             cta_customizer: "Customize",
         },
         stats: {
-            components_count: "43",
+            components_count: "30+",
             components_label: "components",
             modes_count: "2 modes",
             modes_label: "light & dark",
             patterns_count: "10 art deco patterns",
             patterns_label: "To add style to your web apps",
-            a11y_label: "WCAG AA",
-            colors_label: "Native OKLCH",
-            framework_label: "Svelte 5 · Runes · Snippets",
         },
-        showcase: {
-            title: "See it. Copy it.",
-            subtitle: "Real code, real render. Copy and adapt directly into your project.",
-            preview_label: "Preview",
-            tab_button: "Button",
-            tab_card: "Card",
-            tab_badge: "Badge",
+        features: {
+            f1_title: "Zero dependencies",
+            f1_desc: "Each component relies solely on HTML, CSS, and Svelte 5, from component to rendering.",
+            f2_title: "Composable via snippets",
+            f2_desc: "Some components expose snippets. Adapt the components to your needs by injecting, in the snippets, your content... or other components !",
+            f4_title: "WCAG AA target",
+            f4_desc: "Create your accessible color palettes on the customization page. The tool checks contrasts, suggests better shades, and simulates color blindness.",
         },
         quickstart: {
             title: "Up in 3 steps",
@@ -460,107 +449,61 @@ export const translations = {
             step_3_desc: "Svelte 5 snippets give you full control over every zone of each component.",
             cta: "Read the documentation",
         },
-        features: {
-            f1_title: "Zero dependencies",
-            f1_desc: "Each component relies solely on HTML, CSS, and Svelte 5, from component to rendering.",
-            f2_title: "Composable via snippets",
-            f2_desc: "Some components expose snippets. Adapt the components to your needs by injecting, in the snippets, your content... or other components !",
-            f3_title: "Light and dark",
-            f3_desc: "A single set of OKLCH tokens for both modes. The entire interface switches without extra writing or duplicating utility classes.",
-            f4_title: "WCAG AA target",
-            f4_desc: "Create your accessible color palettes on the customization page. The tool checks contrasts, suggests better shades, and simulates color blindness.",
-        },
+
+        // Theme controls ---------------------------------------------------
+
         control: {
             light: "Light",
             dark: "Dark",
             theme: "Theme",
             tone: "Tone",
-            palette: "Palette",
             accent: "Accent Color",
             ctx: "Contextual colors",
             text: "Text Palette",
             fonts: "Fonts",
             font_body: "Body",
             font_titles: "Headings",
-            contrast: "Contrast",
-            demo: "Demo",
-            export: "Export",
+            font_preview: "The quick brown fox",
             settings: "Settings",
-            more: "See more",
-            less: "See less",
-            bigger: "View larger", 
-        },
-        typo: {
-            title: "Typography",
-            h1: "Heading 1",
-            h2: "Heading 2",
-            h3: "Heading 3",
-            h4: "Heading 4",
-            h5: "Heading 5",
-            h6: "Heading 6",
-            lead: "Lead text",
-            body: "Body text"
+            bigger: "View larger",
         },
         palette: {
-            title: "Color palette"
+            title: "Color palette",
         },
-        buttons: {
-            title: "Buttons",
-            back_to_top1: "Special buttons",
-            back_to_top2: "Trigger a scroll to the top of the page when clicked",
-            lbl_flat: 'variant="flat"',
-            lbl_outlined: 'variant="outlined" — rounded',
-            lbl_ghost: 'variant="ghost" — on accent background (palette="accent") / on neutral background (palette="tone")',
-            lbl_naked: 'variant="naked" — accent (on accent background) / tone / error / warning / success / info',
-            lbl_sizes: "Sizes — lg / md / sm",
-            lbl_modifiers: "Modifiers — uppercase / left / top / bottom / right / squared",
-            lbl_active: "(active)",
+        palette_creator: {
+            title: "Custom palettes",
+            tone_bg: "Tone (background)",
+            tone_base: "Tone (base)",
+            accent: "Accent",
+            ctx: "Contextuals",
+            text: "Text",
+            light_text: "Light text",
+            dark_text: "Dark text",
+            slot_hint: "Each slot stores one custom palette per category (tone, accent, ctx, text). Saving overwrites the selected slot.",
         },
-        badges: {
-            title: "Badges",
-            trailing: "Trailing icon — Useful for create filters — ",
-            link: "Integrated links to the badge — ",
-            multiple: "BadgeGroup — multiple or single selection"
+
+        // Structure demos --------------------------------------------------
+
+        header_demo: {
+            title: "Header",
+            layout: "Layout",
+            preset_editorial: `<strong>Editorial</strong> — <code>leading</code> wordmark, <code>following</code> text links + primary CTA. <code>tone</code> or <code>accent</code> palette.`,
+            preset_app: `<strong>App</strong> — <code>leading</code> logo, <code>following</code> <code>Button variant="ghost" palette="tone" squared</code> icon-only. Palette is inverted relative to the Header for optimal contrast.`,
+            preset_mixed: `<strong>Mixed</strong> — <code>leading</code> logo, <code>children</code> centred navigation links (default slot), <code>following</code> icon + CTA.`,
+            bind_visible: `<code>bind:visible</code> — the Header observes its own viewport visibility and exposes a bindable boolean. Simulated below (in production: triggered by scroll).`,
         },
-        avatar: {
-            title: "Avatar",
-            sect_sizes: "Sizes — <code>xs</code> to <code>xl</code>, across shape × palette × status combinations",
-            sect_content: "Content — <code>label</code> (truncated to 3 chars) vs <code>src</code> (photo)",
-            sect_status: "Status dots — <code>do-not-disturb</code> uses a double border",
-            sect_interactive: "Interactive — <code>onclick</code> reserved for a flyout or modal",
-            status_online: "online",
-            status_offline: "offline",
-            status_absent: "absent",
-            status_dnd: "do-not-disturb",
-            click: "click",
+        footer_demo: {
+            title: "Footer",
+            layout: "Layout",
+            preset_social: `<strong>Social</strong> — <code>leading</code> social network icons, <code>following</code> legal notice. Matches the default layout footer.`,
+            preset_minimal: `<strong>Minimal</strong> — content centred via the <code>children</code> slot (default slot). Ideal for a discreet footer.`,
+            preset_brand: `<strong>Brand</strong> — <code>leading</code> logo, <code>children</code> centred navigation links, <code>following</code> legal notice.`,
         },
-        modal: {
-            title: "Modal",
-            sect_palette: "Palette — <code>tone</code> (default) vs <code>accent</code>",
-            sect_compose: "Free slot composition — <code>header</code> / <code>children</code> / <code>footer</code>",
-            sect_width: "Width — <code>width</code> prop (default: 480px, max: 100vw − 2rem)",
-            btn_open_tone: "Open (tone)",
-            btn_open_accent: "Open (accent)",
-            btn_open_compose: "Open composition",
-            btn_open_narrow: "Narrow — 360px",
-            btn_open_wide: "Wide — 680px",
+        drawer_demo: {
+            title: "Drawer",
         },
-        codeblocks: {
-            title: "Code blocks",
-        },
-        cards: {
-            title: "Cards",
-            variantes: "Variants",
-            clickable: "Clickable card (href) — no interactive children",
-            layout: "Header / Body / Footer — with an image header", 
-            profile: "Profile card Example — Header / Body / Footer, width 100%", 
-            testimonials: "Testimonials Example — as {#each} in a flexbox"
-        },
-        selector_demo: {
-            title: "ControlBar & Selector",
-        },
-        tile_grid: {
-            title: "Tile Grid",
+        tile_grid_demo: {
+            title: "TileGrid",
             id_note_title: "Role of the identifier (id)",
             id_note: "Each tile can receive an optional id. When provided, the tile becomes a link to {href_base}/{id} — enabling SvelteKit preloading and a pointer cursor. Without id, the tile is a purely decorative block: no link, neutral cursor.",
             ctrl_mode: "Mode",
@@ -573,25 +516,93 @@ export const translations = {
             tab_image: "Image",
             tab_flat: "Flat",
             tab_mockup: "Mock-up",
-            tab_hero_full: "Full hero",            
+            tab_hero_full: "Full hero",
         },
-        nav: {
-            title: "Navigation",
-            code: "position='fixed'",
-            fixed: "overlays the real viewport - preview uses floating for layout safety",
-            home: "Spektral",
-            docs: "Docs",
-            customizer: "Customizer",
+        hero_demo: {
+            title: "Hero",
         },
-        drawer: {
-            title: "Drawer",
-            test: "The quick brown fox"
+        selector_demo: {
+            title: "Selector",
         },
-        list_items: {
+        control_bar_demo: {
+            title: "ControlBar",
+        },
+
+        // Component demos --------------------------------------------------
+
+        button_demo: {
+            title: "Button",
+            back_to_top1: "Special buttons",
+            back_to_top2: "Trigger a scroll to the top of the page when clicked",
+        },
+        badge_demo: {
+            title: "Badge",
+            trailing: "Trailing icon — Useful for create filters — ",
+            link: "Integrated links to the badge — ",
+            multiple: "BadgeGroup — multiple or single selection",
+        },
+        avatar_demo: {
+            title: "Avatar",
+            sect_status: "Status dots — <code>do-not-disturb</code> uses a double border",
+            sect_interactive: "Interactive — <code>onclick</code> reserved for a flyout or modal",
+            status_online: "online",
+            status_offline: "offline",
+            status_absent: "absent",
+            status_dnd: "do-not-disturb",
+            click: "click",
+        },
+        modal_demo: {
+            title: "Modal",
+            btn_open_tone: "Open (tone)",
+            btn_open_accent: "Open (accent)",
+            btn_open_compose: "Open composition",
+            btn_open_wide: "Wide — 680px",
+        },
+        card_demo: {
+            title: "Cards",
+        },
+        list_item_demo: {
             title: "List Items",
         },
+        alert_demo: {
+            title: "Alert",
+            trigger: "Click a button to trigger the corresponding toast notification. They stack — click multiple times.",
+            info_title: "Info",
+            success_title: "Success",
+            error_title: "Error",
+            dismiss: "Dismiss",
+        },
+        callout_demo: {
+            title: "Callout",
+        },
+        progress_demo: {
+            title: "Progress",
+        },
+        input_demo: {
+            title: "Input",
+            lbl_size: "Size",
+            sect_states: "States",
+            lbl_normal: "Normal",
+            lbl_hint: "Hint",
+            lbl_error: "Error",
+            lbl_success: "Success",
+            lbl_disabled: "Disabled",
+            lbl_readonly: "Readonly",
+            lbl_leading: "Leading icon",
+            lbl_trailing: "Trailing icon",
+        },
+        textarea_demo: {
+            title: "Textarea",
+            lbl_size: "Size",
+            sect_states: "States",
+            lbl_normal: "Normal",
+            lbl_hint: "Hint",
+            lbl_error: "Error",
+            lbl_success: "Success",
+            lbl_disabled: "Disabled",
+        },
         radio_demo: {
-            title: "Radio Group",
+            title: "RadioGroup",
             lbl_palette: "Palette",
             lbl_size: "Size",
             lbl_label_position: "Label position",
@@ -618,144 +629,80 @@ export const translations = {
             lbl_on_accent: "On accent surface",
             lbl_enabled: "Enabled",
             lbl_disabled: "Disabled",
-            wifi: "Wi-Fi",
-            notifications: "Notifications",
-            light_mode: "Light mode",
-            dark_mode: "Dark mode",
-            airplane: "Airplane mode",
-            bluetooth: "Bluetooth",
-            sync: "Sync",
-            dnd: "Do not disturb",
         },
-        input_demo: {
-            title: "Input & Textarea",
-            lbl_size: "Size",
-            sect_states: "States — Input",
-            sect_states_ta: "States — Textarea",
-            lbl_normal: "Normal",
-            lbl_hint: "Hint",
-            lbl_error: "Error",
-            lbl_success: "Success",
-            lbl_disabled: "Disabled",
-            lbl_readonly: "Readonly",
-            lbl_leading: "Leading icon",
-            lbl_trailing: "Trailing icon",
+        search_field_demo: {
+            title: "SearchField",
         },
-        search_field: {
-            title: "Searchfield"
+        select_demo: {
+            title: "Select",
         },
-        select: {
-            title: "Select"
-        },
-        popover: {
+        popover_demo: {
             title: "Popover",
             anchor_note: "The anchor element (button, input…) must be placed inside the <code>trigger</code> snippet. The panel then opens relative to that element. <code>direction</code> sets which side it opens on (top, bottom, left, right) and <code>align</code> controls cross-axis alignment (start, center, end). Positioning is CSS absolute — it does not reposition on scroll.",
         },
-        command: {
-            title: "Command"
+        command_demo: {
+            title: "Command",
         },
-        form: {
-            title: "📋 Forms",
-            name: "Name",
-            email: "Email",
-            message: "Message",
-            send: "Send",
+        code_block_demo: {
+            title: "Code blocks",
         },
-        alerts: {
-            title: "Alerts",
-            trigger: "Click a button to trigger the corresponding toast notification. They stack — click multiple times.",
-            info_title: "Info",
-            success_title: "Success",
-            error_title: "Error",
-            dismiss: "Dismiss"
+        accordion_demo: {
+            title: "Accordion",
         },
-        callout:{
-            title: "Callout"
+        slider_demo: {
+            title: "Slider",
         },
-        progress_demo:{
-            title: "Progress"
+        marquee_demo: {
+            title: "Marquee",
         },
-        header_demo: {
-            title : "Header",
-            layout: "Layout", 
-            preset_editorial: `<strong>Editorial</strong> — <code>leading</code> wordmark, <code>following</code> text links + primary CTA. <code>tone</code> or <code>accent</code> palette.`,
-            preset_app: `<strong>App</strong> — <code>leading</code> logo, <code>following</code> <code>Button variant="ghost" palette="tone" squared</code> icon-only. Palette is inverted relative to the Header for optimal contrast.`,
-            preset_mixed: `<strong>Mixed</strong> — <code>leading</code> logo, <code>children</code> centred navigation links (default slot), <code>following</code> icon + CTA.`,
-            bind_visible: `<code>bind:visible</code> — the Header observes its own viewport visibility and exposes a bindable boolean. Simulated below (in production: triggered by scroll).`,
+        timeline_demo: {
+            title: "Timeline",
         },
-        footer_demo: {
-            title : "Footer",
-            layout: "Layout", 
-            preset_social: `<strong>Social</strong> — <code>leading</code> social network icons, <code>following</code> legal notice. Matches the default layout footer.`,
-            preset_minimal: `<strong>Minimal</strong> — content centred via the <code>children</code> slot (default slot). Ideal for a discreet footer.`,
-            preset_brand: `<strong>Brand</strong> — <code>leading</code> logo, <code>children</code> centred navigation links, <code>following</code> legal notice.`,
+        data_table_demo: {
+            title: "DataTable",
         },
+        explorer_demo: {
+            title: "Explorer",
+        },
+        color_picker_demo: {
+            title: "ColorPicker",
+        },
+        swatch_row_demo: {
+            title: "SwatchRow",
+        },
+        support_demo: {
+            title: "Support",
+        },
+        headline_demo: {
+            title: "Headline",
+        },
+
+        // Customizer -------------------------------------------------------
+
         contrast: {
             title: "Contrast information",
-            desc: "Current contrast ratios (approximate):",
-            required1: "✅ WCAG AA required: 4.5:1 for normal text, 3:1 for large text",
-            required2: "✅ WCAG AAA required: 7:1 for normal text, 4.5:1 for large text",
             text: "Text",
             accent: "Accent",
-            accent_lighter: "Lighter",
-            accent_light: "Light",
-            accent_dark: "Dark",
-            accent_darker: "Darker",
-            text_accent: "Text Accent",
-            background: "Background",
-            highlight: "Highlight",
-            card: "Card",
-            large_text_note: "Evaluated as large text (buttons)",
+            text_muted_label: "Text Muted",
             cat_text: "Main text readability",
             cat_surfaces: "Surface separation",
-            surface_badge: "Surface",
-            surface_note: "Visual distinction contrast — WCAG thresholds do not apply",
-            results_title: "Tests results",
-            reco_best_accent_per_surface: "Best accent per surface",
-            reco_best_surface_per_accent: "Best surface per accent variant",
-            reco_on: "on",
-            reco_threshold: "Minimum threshold per surface",
-            reco_threshold_from: "from",
-            reco_threshold_none: "No variant passes",
-            reco_scale: "Accents scales",
-            export_text: "Copy (text)",
-            export_json: "Copy (JSON)",
-            export_copied: "Copied!",
-            export_theme: "Theme",
-            export_accent: "Accent",
-            detail_show: "Show detail per combination",
-            detail_hide: "Hide detail",
-            suggest_title: "Adjustment",
-            suggest_all_pass: "All required combinations pass AA",
-            suggest_scale_title: "Suggested scale",
-            suggest_scale_step: "Step",
-            suggest_scale_none: "No scale found with these constraints",
-            suggest_mandatory: "Mandatory",
-            suggest_satisfactory: "Satisfactory",
-            current_desc: "Check accent contrast rules for the selected theme.",
-            current_label: "Selected Theme",
-            opposite_title: "Opposite theme check",
-            opposite_desc: "Check accent contrast rules against an opposite theme.",
-            opposite_select_label: "Opposite theme",
-            opposite_none: "— None —",
-            opposite_ratios_on: "Ratios on",
-            suggest_adjusted: "Adjusted",
-            suggest_corrected_title: "Corrected scale",
             cat_accent: "Accent colors",
             cat_contextual: "Contextual colors",
-            ctx_note: "AA (4.5:1) check with text accent",
+            cat_semantic: "Semantic colors",
+            surface_badge: "Surface",
+            surface_note: "Visual distinction contrast — WCAG thresholds do not apply",
+            semantic_note: "hover and muted are computed per-theme: hover shifts OKLCH lightness toward contrast (lighter on dark bg, darker on light bg), muted targets 5.5:1 against card with chroma reduced to 80%.",
+            results_title: "Tests results",
+            suggest_title: "Adjustment",
+            suggest_all_pass: "All required combinations pass AA",
+            export_theme: "Theme",
+            export_accent: "Accent",
+            opposite_none: "— None —",
             ctx_error: "Error",
             ctx_warning: "Warning",
             ctx_success: "Success",
             ctx_info: "Info",
-            ctx_more: "Hover accent",
             ctx_neutral: "Neutral",
-            ctx_all_pass: "All contextual colors pass AA",
-            ctx_suggest_title: "Contextual suggestions",
-            tone_hover: "Tone Hover",
-            text_muted_label: "Text Muted",
-            cat_semantic: "Semantic colors",
-            semantic_note: "hover and muted are computed per-theme: hover shifts OKLCH lightness toward contrast (lighter on dark bg, darker on light bg), muted targets 5.5:1 against card with chroma reduced to 80%.",
         },
         colorblind: {
             title: "Color blindness simulation",
@@ -768,56 +715,12 @@ export const translations = {
             tritan: "Tritanopia",
             tritan_desc: "No blue cones",
             surfaces: "Surfaces",
-            accents: "Accents",
             score_aa: "AA pairs",
             score_aa_large: "AA Large pairs",
             score_changes: "Changes",
             score_no_change: "No changes",
             score_on: "on",
         },
-        footer: {
-            license: "Published under GNU GPLv3 license",
-            git_btn: "Github",
-            linked_in_btn: "LinkedIn",
-            copied: "Copied !",
-            clipboard: "The email address has been copied to your clipboard."
-        },
-        palette_creator: {
-            title: "Custom palettes",
-            tone_bg: "Tone (background)",
-            tone_base: "Tone (base)",
-            accent: "Accent",
-            ctx: "Contextuals",
-            text: "Text",
-            light_text: "Light text",
-            dark_text: "Dark text",
-            save: "Save",
-            slot_hint: "Each slot stores one custom palette per category (tone, accent, ctx, text). Saving overwrites the selected slot."
-        },
-        seo: {
-            meta: "",
-            title: ""
-        },
-        aria: {
-            return: "Return",
-            close: "Close",
-            back_to_top: "Back to top",
-            language: "Language"
-        },
-        doc: {
-            title: "On this page",
-            demo: "Demo",
-            usage: "Usage",
-            api: "API",
-            avatar_dots: "Status dots",
-            avatar_clickable: "Interactive",
-            filter: "Filter...",
-            back_to_top: "BackToTop",
-            ModeToggle: "ModeToggle",
-            CopyButton: "CopyButton",
-            states: "States",
-            swatches: "Swatches"
-        }
     }
 };
 

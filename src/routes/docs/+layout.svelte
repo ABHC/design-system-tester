@@ -101,7 +101,7 @@
             />
         </div>
 
-        <Explorer palette="tone" rounded aria_label="Component navigation">
+        <Explorer palette="tone" aria_label="Component navigation">
             {#each by_category as cat}
                 <ExplorerGroup label={cat.get_label($trans)} headline={true}>
                     {#each cat.entries as entry}
@@ -126,9 +126,8 @@
                 label={$trans?.doc.title ?? "On this page"}
                 headline={false} 
                 collapsible={false} 
-                naked
             >
-                <Explorer palette="tone" rounded aria_label="On this page">
+                <Explorer palette="tone" aria_label="On this page">
                     {#each summary_items as item}
                         <ExplorerLink
                             label={item.label}

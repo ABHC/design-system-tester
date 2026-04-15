@@ -92,7 +92,7 @@
 <!-- ── Markup ─────────────────────────────────────────────────────────────── -->
 
 <div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
-    <Headline size="md" uppercase>{trans?.avatar.title}</Headline>
+    <Headline size="md" uppercase>{trans?.avatar_demo.title}</Headline>
 </div>
 
 <!-- Controls -->
@@ -144,23 +144,23 @@
     <Headline size="sm" uppercase muted>{trans?.doc.avatar_dots}</Headline>
 </div>
 
-<p class="demo-label">{@html trans?.avatar.sect_status}</p>
+<p class="demo-label">{@html trans?.avatar_demo.sect_status}</p>
 <div class="row align-center">
     <div class="status-item">
         <Avatar size="lg" circular label="ON" status="online" />
-        <span class="status-label">{trans?.avatar.status_online}</span>
+        <span class="status-label">{trans?.avatar_demo.status_online}</span>
     </div>
     <div class="status-item">
         <Avatar size="lg" circular label="OF" status="offline" />
-        <span class="status-label">{trans?.avatar.status_offline}</span>
+        <span class="status-label">{trans?.avatar_demo.status_offline}</span>
     </div>
     <div class="status-item">
         <Avatar size="lg" circular label="AB" status="absent" />
-        <span class="status-label">{trans?.avatar.status_absent}</span>
+        <span class="status-label">{trans?.avatar_demo.status_absent}</span>
     </div>
     <div class="status-item">
         <Avatar size="lg" circular label="DND" status="do-not-disturb" />
-        <span class="status-label">{trans?.avatar.status_dnd}</span>
+        <span class="status-label">{trans?.avatar_demo.status_dnd}</span>
     </div>
 </div>
 
@@ -170,7 +170,7 @@
     <Headline size="sm" uppercase muted>{trans?.doc.avatar_clickable}</Headline>
 </div>
 
-<p class="demo-label">{@html trans?.avatar.sect_interactive}</p>
+<p class="demo-label">{@html trans?.avatar_demo.sect_interactive}</p>
 <div class="row align-center">
     <Avatar 
         size="lg" 
@@ -186,7 +186,7 @@
     
     {#if click_count > 0}
         <span class="click-result">
-            {click_count} {trans?.avatar.click}{click_count > 1 ? 's' : ''}
+            {click_count} {trans?.avatar_demo.click}{click_count > 1 ? 's' : ''}
         </span>
     {/if}
 </div>

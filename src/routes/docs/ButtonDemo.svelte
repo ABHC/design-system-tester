@@ -121,7 +121,7 @@
 <!-- ── Markup ─────────────────────────────────────────────────────────────── -->
 
 <div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
-    <Headline size="md" uppercase>{trans?.buttons.title}</Headline>
+    <Headline size="md" uppercase>{trans?.button_demo.title}</Headline>
 </div>
 
 <!-- Controls -->
@@ -275,8 +275,8 @@
     <Headline size="sm" uppercase muted>{trans?.doc.back_to_top ?? "BackToTop"}</Headline>
 </div>
 
-<p class="demo-label">{trans?.buttons.back_to_top1} — <code>BackToTop</code></p>
-<p class="demo-label">{trans?.buttons.back_to_top2}</p>
+<p class="demo-label">{trans?.button_demo.back_to_top1} — <code>BackToTop</code></p>
+<p class="demo-label">{trans?.button_demo.back_to_top2}</p>
 
 <div class="btt-preview">
     <BackToTop palette="accent" elevation="hard" animate="top" />
@@ -295,8 +295,8 @@
     <Headline size="sm" uppercase muted>{trans?.doc.ModeToggle}</Headline>
 </div>
 
-<p class="demo-label">{trans?.buttons.back_to_top1} — <code>BackToTop</code></p>
-<p class="demo-label">{trans?.buttons.back_to_top2}</p>
+<p class="demo-label">{trans?.button_demo.back_to_top1} — <code>BackToTop</code></p>
+<p class="demo-label">{trans?.button_demo.back_to_top2}</p>
 
 <div class="btt-preview">
     <ModeToggle palette="accent" elevation="hard" animate="top" />
@@ -315,8 +315,8 @@
     <Headline size="sm" uppercase muted>{trans?.doc.CopyButton}</Headline>
 </div>
 
-<p class="demo-label">{trans?.buttons.back_to_top1} — <code>BackToTop</code></p>
-<p class="demo-label">{trans?.buttons.back_to_top2}</p>
+<p class="demo-label">{trans?.button_demo.back_to_top1} — <code>BackToTop</code></p>
+<p class="demo-label">{trans?.button_demo.back_to_top2}</p>
 
 <div class="btt-preview">
     <CopyButton palette="accent" rounded />

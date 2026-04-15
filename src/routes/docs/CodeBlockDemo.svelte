@@ -207,7 +207,7 @@
 {#snippet codeCell(value: string)}<code>{value}</code>{/snippet}
 
 <div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
-    <Headline size="md" uppercase>{trans?.codeblocks.title}</Headline>
+    <Headline size="md" uppercase>{trans?.code_block_demo.title}</Headline>
 </div>
 
 <!-- Controls ──────────────────────────────────────────────────────────── -->

@@ -91,12 +91,6 @@
                 label: name,
                 labelColor: tk[`--${name}-muted`],
                 swatches: [
-                    {
-                        label: `--${name}-ghost-hover`,
-                        value: ghostHoverRgba,
-                        bg: tk[`--${name}`],
-                        color: tk[`--text-${name}`]
-                    },
                     { 
                         label: `--${name}-bg`, 
                         value: tk[`--${name}-bg`], 

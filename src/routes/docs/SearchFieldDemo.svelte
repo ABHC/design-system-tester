@@ -62,8 +62,8 @@
 
 <!-- ── Markup ────────────────────────────────────────────────────────────── -->
 
-<div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
-    <Headline size="md" uppercase>{trans?.search_field.title}</Headline>
+<div data-summary="demo" data-summary-label={trans?.doc.demo}>
+    <Headline size="md" uppercase>{trans?.search_field_demo.title}</Headline>
 </div>
 
 <ControlBar palette="tone" rounded>
@@ -124,7 +124,7 @@
 
 <!-- Code examples -->
 
-<div data-summary="usage" data-summary-label={trans?.doc.usage ?? "Usage"}>
+<div data-summary="usage" data-summary-label={trans?.doc.usage}>
 <Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
 </div>
 <CodeBlock
@@ -139,8 +139,8 @@
 />
 
 
-<div data-summary="api" data-summary-label={trans?.doc.api ?? "API"}>
-<Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
+<div data-summary="api" data-summary-label={trans?.doc.api}>
+<Headline size="sm" uppercase muted>{trans?.doc.api}</Headline>
 <DataTable
     variant="ghost" palette="tone" size="sm"
     columns={[

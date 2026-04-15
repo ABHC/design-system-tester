@@ -119,10 +119,10 @@
 {#snippet codeCell(value: string)}<code>{value}</code>{/snippet}
 
 <div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
-    <Headline size="md" uppercase>{trans?.popover?.title ?? "Popover"}</Headline>
+    <Headline size="md" uppercase>{trans?.popover_demo?.title ?? "Popover"}</Headline>
 </div>
 
-<p class="anchor-note">{@html trans?.popover?.anchor_note ?? ""}</p>
+<p class="anchor-note">{@html trans?.popover_demo?.anchor_note ?? ""}</p>
 
 <!-- Interactive controls -->
 <ControlBar palette="tone" rounded>

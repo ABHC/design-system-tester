@@ -110,7 +110,7 @@
 <!-- ── Markup ────────────────────────────────────────────────────────────── -->
 
 <div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
-    <Headline size="md" uppercase>{trans?.select.title}</Headline>
+    <Headline size="md" uppercase>{trans?.select_demo.title}</Headline>
 </div>
 
 <ControlBar palette="tone" rounded>

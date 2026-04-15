@@ -14,11 +14,13 @@
     import Slider from "../design-system/components/Slider/Slider.svelte";
     import Switch from "../design-system/components/Switch/Switch.svelte";
     import TileGrid from "../design-system/components/TileGrid/TileGrid.svelte";
+    import Timeline from "../design-system/components/Timeline/Timeline.svelte";
+    import TimelineItem from "../design-system/components/Timeline/TimelineItem.svelte";
     import type { Tile } from "../design-system/components/TileGrid/tilegrid.config";
 
     //  imer ─────────────────────────────────────────────────────────────────
 
-    const SLIDE_COUNT = 7;
+    const SLIDE_COUNT = 8;
     const SLIDE_MS = 3500;
 
     let index = $state(0);
@@ -76,7 +78,7 @@
 
     // Labels ────────────────────────────────────────────────────────────────
 
-    const labels = ["Card", "TileGrid", "Accordion", "Settings", "Progress", "Slider", "ListItem"];
+    const labels = ["Card", "TileGrid", "Accordion", "Settings", "Progress", "Slider", "ListItem", "Timeline"];
 </script>
 
 <div
@@ -291,7 +293,7 @@
                         {/snippet}
                     </Card>
 
-                {:else}
+                {:else if index === 6}
                     <!-- Slide 6 — ListItems -->
                     <Card variant="flat" width="320px">
                         {#snippet header()}
@@ -408,6 +410,38 @@
                             </div>
                         {/snippet}
                     </Card>
+
+                {:else}
+                    <!-- Slide 7 — Timeline (stepper content) -->
+                    {#snippet tl_step_1()}<span class="cs-tl-num">1</span>{/snippet}
+                    {#snippet tl_step_2()}<span class="cs-tl-num">2</span>{/snippet}
+                    {#snippet tl_step_3()}<span class="cs-tl-num">3</span>{/snippet}
+                    {#snippet tl_step_4()}<span class="cs-tl-num">4</span>{/snippet}
+
+                    <div class="cs-timeline-frame">
+                        <Timeline
+                            variant="flat"
+                            elevation="hard"
+                            orientation="vertical"
+                            palette="accent"
+                            size="sm"
+                            completed={2}
+                            rounded
+                        >
+                            <TimelineItem marker={tl_step_1} title="Cart" meta="Step 1">
+                                Review the items and their quantities before checkout.
+                            </TimelineItem>
+                            <TimelineItem marker={tl_step_2} title="Shipping" meta="Step 2">
+                                Enter the delivery address and pick a shipping method.
+                            </TimelineItem>
+                            <TimelineItem marker={tl_step_3} title="Payment" meta="Step 3">
+                                Provide your card details or pick another payment option.
+                            </TimelineItem>
+                            <TimelineItem marker={tl_step_4} title="Confirmation" meta="Step 4">
+                                Order placed — a confirmation email is on its way.
+                            </TimelineItem>
+                        </Timeline>
+                    </div>
                 {/if}
             </div>
         {/key}
@@ -688,5 +722,17 @@
     .cs-list-body :global(.material-symbols-outlined) {
         font-size: 1.1rem;
         color: var(--text-muted);
+    }
+
+    /* Slide 7 — Timeline ──────────────────────────────────────────────────── */
+
+    .cs-timeline-frame {
+        width: 340px;
+    }
+
+    .cs-tl-num {
+        font-weight: 700;
+        font-size: 0.9em;
+        line-height: 1;
     }
 </style>

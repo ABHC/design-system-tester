@@ -148,7 +148,7 @@
 
 <!-- Section headline -->
 <div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
-    <Headline size="md" uppercase>{trans?.drawer.title}</Headline>
+    <Headline size="md" uppercase>{trans?.drawer_demo.title}</Headline>
 </div>
 
 <!-- Controls -->

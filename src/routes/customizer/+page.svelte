@@ -162,12 +162,6 @@
         const tk = deriveSemanticTokens(name, hex, isDark, cardHex, bgHex, textPalette);
         return [
             { 
-                label: 'ghost-hover',
-                value: tk[`--${name}-ghost-hover`],
-                bg: tk[`--${name}-ghost-hover`], 
-                color: txtColor 
-            },
-            { 
                 label: 'bg', 
                 value: tk[`--${name}-bg`], 
                 bg: tk[`--${name}-bg`], 

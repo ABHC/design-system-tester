@@ -153,7 +153,6 @@
         gap: 0.35rem;
         padding: 0.5rem;
         background: var(--tone-hover);
-        border-radius: 6px;
         border-left: 3px solid var(--success);
     }
 
