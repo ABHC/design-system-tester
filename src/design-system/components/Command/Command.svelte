@@ -161,7 +161,7 @@
                 {#each visible_groups as group}
                     {#if group.label}
                         <div class="group-label" style="--color: var(--cmd-txt);">
-                            <Headline size="xs">{group.label}</Headline>
+                            <Headline size="xs" uppercase>{group.label}</Headline>
                         </div>
                     {/if}
                     {#each group.items as entry}

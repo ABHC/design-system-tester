@@ -40,7 +40,7 @@ import LogoSpektral from "./LogoSpektral.svelte";
     const logo_mono: boolean = $derived(logo_fill !== "accent");
 </script>
 
-<a class="support-container" href="https://combe.tf/">
+<a class="support-container" href="https://spektral.combe.tf/">
     <div class="logo-container {logo_fill_class}">
         <LogoSpektral size={logo_size} mono={logo_mono} />
     </div>

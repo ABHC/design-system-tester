@@ -71,7 +71,6 @@
 
     .headline-xs {
         font-weight: 600;
-        text-transform: uppercase;
     }
 
     .headline-muted {

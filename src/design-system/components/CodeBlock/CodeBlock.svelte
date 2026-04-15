@@ -14,24 +14,24 @@
 
     /*
         -- Props
-        title            : "titled" / "terminal" → text displayed in header
-        filename         : "filename" variant    → file icon + name in header
-        description      : markdown text for the description panel
+        title : "titled" / "terminal" → text displayed in header
+        filename : "filename" variant    → file icon + name in header
+        description : markdown text for the description panel
         description_src  : URL to a file whose content is used as description (fetched, not executed)
-        language         : language badge (e.g. "TypeScript", "CSS")
-        tabs             : "tabbed" variant → tab navigation
-        code             : code content for non-tabbed variants
-        code_src         : URL to a file whose content is used as code (fetched, not executed)
-        copyable         : show copy button
-        line_numbers     : show line numbers
-        rounded          : apply border-radius (default true)
-        width            : CSS width value — if omitted, takes full available width
-        max_height       : CSS max-height for the body area — enables scrolling when content overflows
+        language : language badge (e.g. "TypeScript", "CSS")
+        tabs : "tabbed" variant → tab navigation
+        code : code content for non-tabbed variants
+        code_src : URL to a file whose content is used as code (fetched, not executed)
+        copyable : show copy button
+        line_numbers : show line numbers
+        rounded : apply border-radius (default true)
+        width : CSS width value — if omitted, takes full available width
+        max_height : CSS max-height for the body area — enables scrolling when content overflows
 
         -- Layout modes (derived automatically, no prop needed)
         code + description  → split layout (description panel on left, code on right)
-        code only           → code fills the body (default)
-        description only    → description fills the full body width
+        code only → code fills the body (default)
+        description only → description fills the full body width
     */
 
     interface Props {
@@ -137,13 +137,17 @@
     // Header is only rendered for variants other than "simple"
     const has_header = $derived(variant !== "simple");
 
+    // Whether the floating copy button is shown (simple variant, no header)
+    const has_float_copy = $derived(copyable && variant === "simple");
+
     // Layout modes — derived from content presence, no prop needed
     const is_split = $derived(!!effective_description && !!code_snippet);
     const is_description_only = $derived(!!effective_description && !code_snippet);
 
     async function handleCopy() {
         try {
-            await navigator.clipboard.writeText(code_snippet.trim());
+            const text = is_description_only ? (effective_description ?? "") : code_snippet.trim();
+            await navigator.clipboard.writeText(text);
             copied = true;
             setTimeout(() => { copied = false; }, 2000);
         } catch {
@@ -224,7 +228,7 @@
                         {code_language}
                     </span>
                 {/if}
-                {#if copyable && !is_description_only}
+                {#if copyable}
                     <Button variant="ghost" palette="tone" size="sm" onclick={handleCopy} aria_label="Copy code">
                         {#if copied}
                             <svg
@@ -269,46 +273,6 @@
         style:overflow-y={max_height ? 'auto' : undefined}
     >
 
-        <!-- Floating copy button for the "simple" variant (no header) -->
-        {#if copyable && variant === "simple" && !is_description_only}
-            <div class="codeblock-copy-float">
-                <Button variant="ghost" palette="tone" size="sm" onclick={handleCopy} aria_label="Copy code">
-                    {#if copied}
-                        <svg
-                            width="13"
-                            height="13"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            aria-hidden="true"
-                        >
-                            <polyline points="20 6 9 17 4 12"/>
-                        </svg>
-                        Copied
-                    {:else}
-                        <svg
-                            width="13"
-                            height="13"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            aria-hidden="true"
-                        >
-                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-                        </svg>
-                        Copy
-                    {/if}
-                </Button>
-            </div>
-        {/if}
-
         <!-- Description panel: left column in split layout, full width when description-only -->
         {#if is_split || is_description_only}
             <div class="codeblock-description {is_description_only ? 'codeblock-description-only' : ''}">
@@ -316,20 +280,60 @@
             </div>
         {/if}
 
+        <!-- Code + optional copy button side by side for the "simple" variant -->
         {#if !is_description_only}
-            {#if line_numbers}
-                <pre class="codeblock-pre"
-                ><code class="codeblock-code codeblock-numbered"
-                >{#each lines as line
-                }<span class="codeblock-line">{line}</span
-                >{/each}</code
-                ></pre>
-            {:else}
-                <pre class="codeblock-pre"
-                ><code class="codeblock-code"
-                >{code_snippet.trim()}</code
-                ></pre>
-            {/if}
+            <div class="{has_float_copy ? 'codeblock-code-row' : ''}">
+                {#if line_numbers}
+                    <pre class="codeblock-pre"
+                    ><code class="codeblock-code codeblock-numbered"
+                    >{#each lines as line
+                    }<span class="codeblock-line">{line}</span
+                    >{/each}</code
+                    ></pre>
+                {:else}
+                    <pre class="codeblock-pre"
+                    ><code class="codeblock-code"
+                    >{code_snippet.trim()}</code
+                    ></pre>
+                {/if}
+
+                {#if has_float_copy}
+                    <div class="codeblock-copy-side">
+                        <Button variant="ghost" palette="tone" size="sm" onclick={handleCopy} aria_label="Copy code">
+                            {#if copied}
+                                <svg
+                                    width="13"
+                                    height="13"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2.5"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    aria-hidden="true"
+                                >
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                            {:else}
+                                <svg
+                                    width="13"
+                                    height="13"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    aria-hidden="true"
+                                >
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                                </svg>
+                            {/if}
+                        </Button>
+                    </div>
+                {/if}
+            </div>
         {/if}
     </div>
 
@@ -452,14 +456,20 @@
         font-family: var(--font-body);
     }
 
-    /*  Copy button */
+    /* Copy button — "simple" variant: flex row, code left, button right */
+    .codeblock-code-row {
+        display: flex;
+        align-items: flex-start;
+    }
 
-    /* Floating copy button for the "simple" variant (no header) */
-    .codeblock-copy-float {
-        position: absolute;
-        top: 0.625rem;
-        right: 0.625rem;
-        z-index: 1;
+    .codeblock-code-row > .codeblock-pre {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .codeblock-copy-side {
+        flex-shrink: 0;
+        padding: 0.22rem 0.2rem;
     }
 
     /* Code body */
