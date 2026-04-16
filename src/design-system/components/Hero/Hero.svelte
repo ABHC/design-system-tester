@@ -142,18 +142,32 @@
 
     .hero-palette-transparent {
         background: var(--tone-bg);
+        color: var(--text);
     }
 
     .hero-palette-tone {
         background: var(--tone);
+        color: var(--text);
     }
 
     .hero-palette-accent {
         background: var(--accent);
+        color: var(--text-accent);
     }
 
     .hero-palette-accent-bg {
         background: var(--accent-bg);
+        color: var(--text);
+    }
+
+    .hero-palette-accent :global(h3) {
+        color: var(--text-accent);
+    }
+
+    .hero-palette-transparent :global(h3),
+    .hero-palette-tone :global(h3),
+    .hero-palette-accent-bg :global(h3) {
+        color: var(--text);
     }
 
     /* ── Pattern layer ────────────────────────────────────────────────────── */
