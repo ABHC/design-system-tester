@@ -103,8 +103,16 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 10%;
-        margin: 0 30px;
+        width: auto;
+        flex-shrink: 0;
+        margin: 0 8px;
+    }
+
+    @media (max-width: 639px) {
+        .nav-header,
+        .nav-footer {
+            margin: 0 4px;
+        }
     }
 
     /* Items container inherits the parent direction */

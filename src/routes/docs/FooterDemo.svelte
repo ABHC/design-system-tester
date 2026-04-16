@@ -375,6 +375,8 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.6rem;
         width: 100%;
     }
 
@@ -393,6 +395,7 @@
     .mock-copy {
         font-size: 0.78rem;
         opacity: 0.75;
+        margin: 0;
     }
 
     .mock-footer-nav {

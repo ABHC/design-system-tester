@@ -40,7 +40,7 @@
     let demo_pattern: PatternPreset = $state("none");
     let demo_pattern_color: string = $state("white");
     let demo_pattern_size: string = $state("auto");
-    let demo_pattern_opacity: number = $state(0.1);
+    let demo_pattern_opacity: number = $state(0.4);
     let demo_pattern_effect: Effect = $state("none");
     let demo_pattern_effect_opacity: number = $state(1);
     let demo_pattern_mask: Mask = $state("none");
@@ -643,7 +643,7 @@
         { prop: "raised", type: "boolean", default: "false" },
         { prop: "pattern", type: '"none" | "scallops" | "grid" | "chevrons" | "sunburst" | "sunrise" | "atoms" | "complex" | "prisms" | "lozenge" | string', default: '"none"' },
         { prop: "pattern_color", type: "string", default: '"white"' },
-        { prop: "pattern_opacity", type: "number", default: "0.1" },
+        { prop: "pattern_opacity", type: "number", default: "0.4" },
         { prop: "pattern_size", type: "string", default: "undefined" },
         { prop: "pattern_effect", type: '"none" | "glow" | "blur" | "fade"', default: '"none"' },
         { prop: "pattern_effect_opacity", type: "number", default: "1" },

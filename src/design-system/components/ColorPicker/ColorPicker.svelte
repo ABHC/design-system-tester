@@ -745,4 +745,15 @@
         flex-direction: column;
         gap: 0.5rem;
     }
+
+    @media (max-width: 1024px) {
+        .color-row {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .cp-spectrum-wrap {
+            width: 100%;
+        }
+    }
 </style>

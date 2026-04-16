@@ -105,6 +105,7 @@ export const translations = {
             font_preview: "Philippe ! Je sais où tu te caches !",
             settings: "Options",
             bigger: "Voir en grand",
+            docs: "Composants",
         },
         palette: {
             title: "Palette de couleurs",
@@ -465,6 +466,7 @@ export const translations = {
             font_preview: "The quick brown fox",
             settings: "Settings",
             bigger: "View larger",
+            docs: "Components",
         },
         palette: {
             title: "Color palette",

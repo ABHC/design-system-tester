@@ -292,13 +292,13 @@
                             </div>
 
                             <!-- Tile name -->
-                            <h3 class="tg-name {use_image ? 'on-image' : ''}">
+                            <h3 class="tg-name">
                                 {tile.name}
                             </h3>
 
                             <!-- Localised abstract -->
                             {#if abstract}
-                                <h5 class="tg-abstract {use_image ? 'on-image' : ''}">
+                                <h5 class="tg-abstract">
                                     {is_hero
                                         ? abstract
                                         : truncate(abstract, excerpt_length)}
@@ -674,8 +674,9 @@
         opacity:0.85;
     }
 
-    .on-image {
-        color: #ffffff;
+    .tg-overlay .tg-name,
+    .tg-overlay .tg-abstract {
+        color: var(--text-light);
     }
 
     /* Hide the subtitle on very small screens to keep tiles compact */

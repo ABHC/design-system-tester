@@ -40,6 +40,7 @@ export const responsive = derived(window_width, ($width) => ({
 export type DrawerMenu = "theme" | "theme:tone" | "theme:accent" | "theme:ctx" | "theme:text" | "fonts" | "settings" | null;
 export const drawer_open: Writable<boolean> = writable(false);
 export const drawer_menu: Writable<DrawerMenu> = writable(null);
+export const drawer_docs_open: Writable<boolean> = writable(false);
 
 // ── Theme/font control (defined after persistStore — see below) ──────────────
 

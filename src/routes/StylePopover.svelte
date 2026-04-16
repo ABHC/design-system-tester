@@ -43,7 +43,7 @@
     palette="tone"
     rounded={false}
     maxHeight="800px"
-    gap="14px"
+    gap="18px"
     direction="bottom"
     align="end"
 >

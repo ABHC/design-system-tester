@@ -5,7 +5,6 @@
     import { preconnectGoogleFonts } from '$lib/utils/fontLoader';
     import favicon from '$lib/assets/favicon.svg';
     import BrandABHC from '$lib/brand/BrandABHC.svelte';
-    import LogoABHC from '../lib/brand/LogoABHC.svelte';
     import LogoSpektral from '../design-system/components/Support/LogoSpektral.svelte';
     import Alert from '../design-system/components/Alert/Alert.svelte';
     import Header from '../design-system/components/Header/Header.svelte';
@@ -17,6 +16,7 @@
     import StylePopover from './StylePopover.svelte';
     import LangPopover from './LangPopover.svelte';
     import ThemeDrawer from './ThemeDrawer.svelte';
+    import DocsDrawer from './DocsDrawer.svelte';
 
     import {
         locale,
@@ -35,6 +35,7 @@
         shadow_opacity,
         drawer_open,
         drawer_menu,
+        drawer_docs_open,
     } from './store';
 
     import { tokenValues } from '../design-system/token-schema';
@@ -240,8 +241,10 @@
 
 <!-- Header snippets -->
 {#snippet mobile_brand()}
-    <LogoSpektral size={30}/>
-    <h3 id="project">{$trans?.header.project.toUpperCase()}</h3>
+    <a  class="return-landing" href="/">
+        <LogoSpektral size={30}/>
+        <h3 id="project">{$trans?.header.project.toUpperCase()}</h3>
+    </a>
 {/snippet}
 
 {#snippet brand_spektral()}
@@ -254,9 +257,9 @@
 {/snippet}
 
 {#snippet logo_in_nav()}
-    <div class="nav-logo">
+    <a  class="return-landing" href="/">
         <LogoSpektral size={32}/>
-    </div>
+    </a>
 {/snippet}
 
 {#snippet nav_trailing()}
@@ -282,31 +285,23 @@
         </svg>
     </a>
 
-    <a href="https://linkedin.com/in/abhc" class="social-link" aria-label="LinkedIn" target="_blank">
-        <svg class="social-icon" viewBox="0 0 24 24" fill="white">
-            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+    <a href="https://www.npmjs.com/" class="social-link" aria-label="npm" target="_blank">
+        <svg 
+            class="social-icon"
+            role="img" 
+            viewBox="0 0 24 24" 
+            fill="white"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <title>npm</title>
+            <path d="M1.763 0C.786 0 0 .786 0 1.763v20.474C0 23.214.786 24 1.763 24h20.474c.977 0 1.763-.786 1.763-1.763V1.763C24 .786 23.214 0 22.237 0zM5.13 5.323l13.837.019-.009 13.836h-3.464l.01-10.382h-3.456L12.04 19.17H5.113z"/>
         </svg>
     </a>
 
-    <div
-        class="social-link email-link"
-        role="button"
-        tabindex="0"
-        aria-label="Copy email address"
-        onclick={async () => {
-            await navigator.clipboard.writeText('alexandre.combe@gmail.com');
-            copied = true;
-        }}
-        onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') e.currentTarget.click(); }}
-    >
-        <svg class="social-icon" viewBox="0 0 26 24" fill="white">
-            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-        </svg>
-    </div>
 {/snippet}
 
 {#snippet license()}
-    <p>{$trans?.footer.license}</p>
+    <p id="license">{$trans?.footer.license}</p>
 {/snippet}
 
 {#snippet brand_ABHC()}
@@ -346,17 +341,31 @@
         header={header_visible ? empty_nav : logo_in_nav}
         footer={nav_trailing}
     >
-        <Button 
-            variant="ghost" 
-            palette="tone"
-            aria_label={$trans?.nav.docs}
-            active={page.url.pathname.startsWith('/docs')}
-            href="/docs"
-        >
-            <span class="nav-icon" aria-hidden="true">
-                <span class="material-symbols-outlined">book_5</span>
-            </span>
-        </Button>
+        {#if !page.url.pathname.startsWith('/docs')}
+            <Button 
+                variant="ghost" 
+                palette="tone"
+                aria_label={$trans?.nav.docs}
+                active={page.url.pathname.startsWith('/docs')}
+                href="/docs"
+            >
+                <span class="nav-icon" aria-hidden="true">
+                    <span class="material-symbols-outlined">book_5</span>
+                </span>
+            </Button>
+        {:else}
+            <Button 
+                variant="ghost" 
+                palette="tone"
+                aria_label={$trans?.nav.docs}
+                onclick={() => { $drawer_docs_open = true; }}
+            >
+                <span class="nav-icon" aria-hidden="true">
+                    <span class="material-symbols-outlined">book_5</span>
+                </span>
+            </Button>
+        {/if}
+
 
         <Button 
             variant="ghost" 
@@ -425,6 +434,7 @@
 <!-- Drawer ──────────────────────────────────────────────────────────────────────────────────── -->
 
 <ThemeDrawer />
+<DocsDrawer />
 
 <!-- Content ────────────────────────────────────────────────────────────────────────────────── -->
 <main>
@@ -433,9 +443,15 @@
 
 <!-- Footer ─────────────────────────────────────────────────────────────────────────────────── -->
 
-<Footer palette="accent" leading={brand_ABHC} following={social_links}>
-    <p>{$trans?.footer.license}</p>
-</Footer>
+{#if $responsive.isBelow(768)}
+    <Footer palette="accent" leading={brand_ABHC} following={license}>
+        {@render social_links()}
+    </Footer>
+{:else}
+    <Footer palette="accent" leading={brand_ABHC} following={social_links}>
+        {@render license()}
+    </Footer>
+{/if}
 
 <!-- BackToTop ───────────────────────────────────────────────────────────────────────────────── -->
 
@@ -503,11 +519,6 @@
         color: var(--text);
     }
 
-    .nav-logo {
-        cursor: pointer;
-        color: var(--accent);
-    }
-
     .nav-trailing-group {
         display: flex;
         align-items: center;
@@ -556,4 +567,22 @@
         gap: 15px;
     }
 
+    .return-landing {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        padding: 10px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .return-landing:hover {
+        background: var(--tone-ghost);
+        box-shadow: 0 4px 12px var(--shadow-subtle);
+    }
+
+    #license {
+        margin: 10px 0;
+    }
 </style>

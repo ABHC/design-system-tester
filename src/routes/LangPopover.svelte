@@ -25,7 +25,7 @@
     onclose={() => { lang_open = false; }}
     palette="tone"
     rounded={false}
-    gap="14px"
+    gap="18px"
     direction="bottom"
     align="end"
 >

@@ -1,6 +1,7 @@
 <script lang="ts">
     import { onMount, onDestroy } from "svelte";
     import { fade } from "svelte/transition";
+    import { responsive } from "./store";
 
     import Avatar from "../design-system/components/Avatar/avatar.svelte";
     import Accordion from "../design-system/components/Accordion/Accordion.svelte";
@@ -22,14 +23,29 @@
 
     const SLIDE_COUNT = 8;
     const SLIDE_MS = 3500;
+    const TILEGRID_INDEX = 1;
 
     let index = $state(0);
     let paused = false;
     let timer: ReturnType<typeof setInterval>;
 
+    // TileGrid (index 1) doesn't render well below 768px — skip it
+    const hide_tilegrid = $derived($responsive.isBelow(768));
+
+    function next(i: number): number {
+        let n = (i + 1) % SLIDE_COUNT;
+        if (n === TILEGRID_INDEX && hide_tilegrid) n = (n + 1) % SLIDE_COUNT;
+        return n;
+    }
+
+    // If breakpoint crosses while showing TileGrid, advance away
+    $effect(() => {
+        if (hide_tilegrid && index === TILEGRID_INDEX) index = next(index);
+    });
+
     onMount(() => {
         timer = setInterval(() => {
-            if (!paused) index = (index + 1) % SLIDE_COUNT;
+            if (!paused) index = next(index);
         }, SLIDE_MS);
     });
 
@@ -39,9 +55,9 @@
 
     const tiles: Tile[] = [
         { 
-            name: "Aérotrain",  
+            name: "TGV",  
             display: true, 
-            media: [{ src: "/assets/aerotrain.jpeg", type: "image" }], 
+            media: [{ src: "/assets/tgv.jpeg", type: "image" }], 
             abstract: { en: "" } 
         },
         { 
@@ -66,13 +82,13 @@
 
     // Slide 3 — Settings switches ───────────────────────────────────────────
 
-    let sw_dark    = $state(false);
+    let sw_dark = $state(false);
     let sw_rounded = $state(true);
-    let sw_motion  = $state(true);
+    let sw_motion = $state(true);
 
     // Slide 5 — Sliders ─────────────────────────────────────────────────────
 
-    let sl_font    = $state(14);
+    let sl_font = $state(14);
     let sl_spacing = $state(16);
     let sl_opacity = $state(80);
 
@@ -109,8 +125,8 @@
                             </div>
                         {/snippet}
                         {#snippet footer()}
-                            <Button size="sm" variant="ghost" palette="tone">View profile</Button>
-                            <Button size="sm" variant="ghost" palette="accent">Message</Button>
+                            <Button size="sm" variant="flat" palette="accent">View profile</Button>
+                            <Button size="sm" variant="ghost" palette="tone">Message</Button>
                         {/snippet}
                     </Card>
 
@@ -449,13 +465,15 @@
 
     <nav class="showcase-nav">
         {#each labels as label, i}
-            <button
-                class="showcase-nav-btn"
-                class:showcase-nav-active={index === i}
-                onclick={() => index = i}
-            >
-                {label}
-            </button>
+            {#if !(i === TILEGRID_INDEX && hide_tilegrid)}
+                <button
+                    class="showcase-nav-btn"
+                    class:showcase-nav-active={index === i}
+                    onclick={() => index = i}
+                >
+                    {label}
+                </button>
+            {/if}
         {/each}
     </nav>
 </div>
@@ -477,6 +495,7 @@
         position: relative;
         flex: 1;
         width: 100%;
+        min-height: 440px;
         display: flex;
         align-items: center;
         justify-content: center;

@@ -73,8 +73,9 @@
     .header-base {
         box-sizing: border-box;
         width: 100%;
-        height: 100px;
+        min-height: 100px;
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
         align-items: center;
         border-bottom: 4px solid var(--accent);
@@ -98,20 +99,21 @@
         border-bottom-color: var(--tone-hover);
     }
 
-    /* Slots layout — flex-shrink: 0 prevents leading/following from compressing */
+    /* Slots layout */
     .header-leading,
     .header-following {
         display: flex;
         align-items: center;
         gap: 0.5rem;
-        flex-shrink: 0;
+        flex: 0 0 auto;
+        min-width: 0;
     }
 
     .header-content {
         display: flex;
         align-items: center;
         flex: 1;
-        padding: 0 2rem;
+        /*padding: 0 2rem;*/
         min-width: 0;
     }
 </style>

@@ -10,8 +10,6 @@
 
     // Code showcase ─────────────────────────────────────────────────────────
 
-    let showcase_tab = $state(0);
-
     const showcase_code = [
         `<Button palette="accent">
   Commencer
@@ -247,7 +245,6 @@ Header, body et footer indépendants.</p>
         text-align: center;
         gap: 1.25rem;
         padding: 3rem 2rem;
-        width: 100%;
         height: 100%;
     }
 
@@ -287,6 +284,7 @@ Header, body et footer indépendants.</p>
         display: flex;
         align-items: center;
         justify-content: center;
+        flex-wrap: wrap;
         gap: 2rem;
         padding: 1.5rem 2rem;
         background: var(--tone);
@@ -322,6 +320,18 @@ Header, body et footer indépendants.</p>
         width: 1px;
         height: 2rem;
         background: var(--tone-hover);
+    }
+
+    @media (max-width: 520px) {
+        .stat-strip {
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .stat-divider {
+            width: 40%;
+            height: 1px;
+        }
     }
 
     /* Features ─────────────────────────────────────────────────────────── */

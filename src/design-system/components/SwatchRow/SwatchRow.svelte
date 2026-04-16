@@ -56,12 +56,12 @@
 
 <style>
     .swatch-row {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
         gap: 5px;
     }
 
     .sw {
-        flex: 1;
         min-width: 0;
         padding: 7px 8px;
         display: flex;
@@ -109,6 +109,10 @@
     }
 
     /* Compact ────────────────────────────────────────────────────────────── */
+
+    .swatch-row-compact {
+        grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+    }
 
     .swatch-row-compact .sw {
         padding: 4px 5px;
