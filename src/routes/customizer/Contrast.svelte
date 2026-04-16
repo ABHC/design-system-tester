@@ -1056,35 +1056,6 @@
         gap: 30px;
     }
 
-    .contrast-export-row {
-        display: flex;
-        gap: 0.75rem;
-        margin: 1.25rem 0 0.5rem 0;
-    }
-
-    .button {
-        display: inline-block;
-        padding: 12px 24px;
-        border-radius: 8px;
-        font-weight: 600;
-        cursor: pointer;
-        border: none;
-        font-size: 14px;
-        transition: all 0.2s;
-        text-decoration: none;
-    }
-
-    .button-secondary {
-        background: transparent;
-        color: var(--text);
-        border: 2px solid var(--accent);
-    }
-
-    .button-secondary:hover {
-        background: var(--accent);
-        color: var(--text-accent);
-    }
-
     @media (max-width: 768px) {
         .rules-block {
             flex-direction: column;

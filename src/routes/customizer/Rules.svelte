@@ -227,8 +227,4 @@
         font-size: 0.72rem;
         color: var(--text-muted);
     }
-
-    .rules-ratio-row .wcag-badge {
-        margin-left: auto;
-    }
 </style>
