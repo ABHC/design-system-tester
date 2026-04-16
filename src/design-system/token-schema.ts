@@ -208,8 +208,9 @@ export function tokenValues(config: TokenConfig): Record<string, string> {
         '--tone-ghost-hover': hexToRgba(text, 0.15),
 
         // Global
-        /*'--shadow': shadow,*/
         '--text': text,
+        '--text-light': text_palette.light,
+        '--text-dark': text_palette.dark,
         '--text-muted': text_muted,
 
         // Typography

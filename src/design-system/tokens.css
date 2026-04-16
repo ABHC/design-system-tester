@@ -62,6 +62,8 @@
 
     /* ── text ── */
     --text: #fafafa;
+    --text-light: #fafafa;
+    --text-dark: #0a0a0a;
     --text-muted: #b0b0b0;
 
     /* ── Typography ── */
