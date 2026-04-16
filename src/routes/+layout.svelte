@@ -240,9 +240,8 @@
 
 <!-- Header snippets -->
 {#snippet mobile_brand()}
-    <div class="nav-logo">
-        <LogoABHC size={50} />
-    </div>
+    <LogoSpektral size={30}/>
+    <h3 id="project">{$trans?.header.project.toUpperCase()}</h3>
 {/snippet}
 
 {#snippet brand_spektral()}
@@ -550,7 +549,8 @@
     .special-btn-wrapper {
         position: fixed;
         bottom: 5.5rem;
-        left: 1.5rem;
+        right: 1.5rem;
+        z-index: 100;
         display: flex;
         flex-direction: column;
         gap: 15px;

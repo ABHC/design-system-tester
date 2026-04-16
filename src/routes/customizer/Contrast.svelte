@@ -445,7 +445,7 @@
                 <!-- Text readability card -->
                 <div class="sem-card">
                     <div class="sem-card-header">
-                        <span class="sem-card-title">{trans?.contrast.cat_text ?? 'Text'}</span>
+                        <span class="sem-card-title">{trans?.contrast.cat_text}</span>
                         <span class="sem-card-hex">{palette.name}</span>
                     </div>
                     <div class="sem-card-checks">
@@ -502,7 +502,7 @@
                 <!-- Surface separation card -->
                 <div class="sem-card">
                     <div class="sem-card-header">
-                        <span class="sem-card-title">{trans?.contrast.cat_surfaces ?? 'Surfaces'}</span>
+                        <span class="sem-card-title">{trans?.contrast.cat_surfaces}</span>
                     </div>
                     <div class="sem-card-surfaces">
                         {#each [
@@ -555,7 +555,7 @@
         {/snippet}
 
         <div class="contrast-category-title">
-            {trans?.contrast.cat_surfaces ?? 'Surfaces'} & {trans?.contrast.cat_text ?? 'Text'}
+            {trans?.contrast.cat_surfaces} & {trans?.contrast.cat_text}
         </div>
         <p class="contrast-note">{trans?.contrast.surface_note}</p>
         <div class="semantic-columns">

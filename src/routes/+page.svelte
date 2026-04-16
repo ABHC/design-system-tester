@@ -366,67 +366,6 @@ Header, body et footer indépendants.</p>
         margin: 10px 0;
     }
 
-    /* Code showcase ────────────────────────────────────────────────────── */
-
-    .showcase-code {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 2rem;
-        height: 100%;
-    }
-
-    .showcase-code :global(.codeblock) {
-        width: 100%;
-        max-width: 520px;
-    }
-
-    .showcase-preview {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 1rem;
-        height: 100%;
-        padding: 2rem;
-    }
-
-    .showcase-preview-stage {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex: 1;
-        width: 100%;
-    }
-
-    .showcase-preview-buttons {
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-        align-items: flex-start;
-    }
-
-    .showcase-preview-badges {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        justify-content: center;
-    }
-
-    .showcase-card-body {
-        padding: 1rem 1.25rem 0.5rem;
-    }
-
-    .showcase-card-body h3 {
-        margin-bottom: 0.4rem;
-    }
-
-    .showcase-card-body p {
-        font-size: 0.875rem;
-        color: var(--text-muted);
-        line-height: 1.6;
-    }
-
     /* Quickstart ───────────────────────────────────────────────────────── */
 
     .quickstart {

@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { Translation } from "$lib/types/translations";
     import { getContrastRatio, getWcagLevel } from "$lib/utils/contrast";
+    import Badge from "../../design-system/components/Badge/Badge.svelte";
 
     export interface ContrastRule {
         label: string;
@@ -54,16 +55,13 @@
 </script>
 
 <div class="rules-container">
-    {#each computed_groups as group}
+    {#each computed_groups.filter(g => !g.all_pass) as group}
         <div class="rules-group">
             <div class="rules-group-label">
                 {#if group.color}
                     <span class="rules-priority-dot" style="background: {group.color};"></span>
                 {/if}
                 {group.title}
-                {#if group.all_pass}
-                    <span class="rules-group-pass">Pass</span>
-                {/if}
             </div>
             <div class="rules-grid">
                 {#each group.rules as rule}
@@ -79,14 +77,30 @@
                             </div>
                         </div>
                         <div class="rules-ratio-row">
-                            <span class="rules-ratio">{rule.ratio}</span>
-                            <span class="rules-target">/ {rule.target}:1</span>
-                            <span
+                            <div class="rules-ratio-block">
+                                <span class="rules-ratio">{rule.ratio}</span>
+                                <span class="rules-target">/ {rule.target}:1</span>
+                            </div>
+                            {#if !rule.passes}
+                                <Badge
+                                    variant="flat"
+                                    palette="error"
+                                    size="sm"
+                                    pill={true}
+                                >
+                                    {rule.passes ? 'Pass' : 'Fail'}
+                                </Badge>
+                            {/if}
+                            <!--<span
                                 class="wcag-badge"
-                                style="background: {rule.passes ? 'var(--success)' : 'var(--error)'}; color: {rule.passes ? 'var(--text-success)' : 'var(--text-error)'};"
+                                style="background: {
+                                    rule.passes ? 'var(--success)' : 
+                                    'var(--error)'}; color: {rule.passes ? 
+                                    'var(--text-success)' : 'var(--text-error)'
+                                };"
                             >
                                 {rule.passes ? 'Pass' : 'Fail'}
-                            </span>
+                            </span>-->
                         </div>
                     </div>
                 {/each}
@@ -128,13 +142,7 @@
         margin: 0.75rem 0 0.4rem 0;
     }
 
-    .rules-group-pass {
-        font-size: 0.65rem;
-        color: var(--success);
-        margin-left: auto;
-    }
-
-    .rules-priority-dot {
+.rules-priority-dot {
         width: 8px;
         height: 8px;
         border-radius: 50%;
@@ -199,7 +207,7 @@
     .rules-ratio-row {
         display: flex;
         align-items: center;
-        gap: 0.4rem;
+        justify-content: space-between;
     }
 
     .rules-ratio {
@@ -207,6 +215,13 @@
         font-weight: 700;
         color: var(--text);
     }
+
+    .rules-ratio-block {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+    }
+
 
     .rules-target {
         font-size: 0.72rem;
