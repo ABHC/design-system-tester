@@ -91,16 +91,6 @@
                                     {rule.passes ? 'Pass' : 'Fail'}
                                 </Badge>
                             {/if}
-                            <!--<span
-                                class="wcag-badge"
-                                style="background: {
-                                    rule.passes ? 'var(--success)' : 
-                                    'var(--error)'}; color: {rule.passes ? 
-                                    'var(--text-success)' : 'var(--text-error)'
-                                };"
-                            >
-                                {rule.passes ? 'Pass' : 'Fail'}
-                            </span>-->
                         </div>
                     </div>
                 {/each}
@@ -142,7 +132,7 @@
         margin: 0.75rem 0 0.4rem 0;
     }
 
-.rules-priority-dot {
+    .rules-priority-dot {
         width: 8px;
         height: 8px;
         border-radius: 50%;
@@ -226,5 +216,11 @@
     .rules-target {
         font-size: 0.72rem;
         color: var(--text-muted);
+    }
+
+    @media (max-width: 600px) {
+        .rules-grid {
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        }
     }
 </style>

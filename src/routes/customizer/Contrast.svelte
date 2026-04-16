@@ -92,6 +92,21 @@
 
     const tokens = $derived(makeTokensFor(selected_tone_palette, selected_tone));
 
+    interface RenderContext {
+        palette: ToneTheme;
+        tk: Record<string, string>;
+    }
+
+    const has_opposite = $derived(opposite_theme !== null && opposite_tokens !== null);
+
+    const contexts = $derived.by((): RenderContext[] => {
+        const arr: RenderContext[] = [{ palette: selected_tone_palette, tk: tokens }];
+        if (opposite_theme && opposite_tokens) {
+            arr.push({ palette: opposite_theme, tk: opposite_tokens });
+        }
+        return arr;
+    });
+
     function getSemanticLabel(name: string): string {
         const map: Record<string, string | undefined> = {
             accent: trans?.contrast.accent,
@@ -439,117 +454,119 @@
             <span style="color: var(--info-muted);">■</span> {trans?.contrast.surface_badge}
         </p>
 
-        <!-- Surface & Text Cards -->
-        {#snippet surfaceCards(palette: ToneTheme, tk: Record<string, string>)}
-            <div class="semantic-cards">
-                <!-- Text readability card -->
-                <div class="sem-card">
-                    <div class="sem-card-header">
-                        <span class="sem-card-title">{trans?.contrast.cat_text}</span>
+        <!-- Surface separation card -->
+        {#snippet surfaceCard(palette: ToneTheme, tk: Record<string, string>)}
+            <div class="sem-card">
+                <div class="sem-card-header">
+                    <span class="sem-card-title">{trans?.contrast.cat_surfaces}</span>
+                    {#if has_opposite}
                         <span class="sem-card-hex">{palette.name}</span>
-                    </div>
-                    <div class="sem-card-checks">
-                        {#each [
-                            { 
-                                label: 'text', 
-                                sublabel: 'tone-bg', 
-                                fg: tk['--text'], 
-                                bg: palette.bg 
-                            },
-                            { 
-                                label: 'text', 
-                                sublabel: 'tone', 
-                                fg: tk['--text'], 
-                                bg: palette.card 
-                            },
-                            { 
-                                label: 'text', 
-                                sublabel: 'tone-hover', 
-                                fg: tk['--text'], 
-                                bg: tk['--tone-hover'] 
-                            },
-                            { 
-                                label: 'text-muted', 
-                                sublabel: 'tone', 
-                                fg: tk['--text-muted'], 
-                                bg: palette.card 
-                            },
-                            { 
-                                label: 'text-muted', 
-                                sublabel: 'tone-bg', 
-                                fg: tk['--text-muted'], 
-                                bg: palette.bg 
-                            },
-                            { 
-                                label: 'tone-muted', 
-                                sublabel: 'tone', 
-                                fg: tk['--tone-muted'], 
-                                bg: palette.card 
-                            },
-                        ] as check}
-                            {@const ratio = getContrastRatio(check.fg, check.bg)}
-                            {@const wcag = getWcagLevel(ratio, 'normal')}
-                            <div class="sem-check-row">
-                                <div class="sem-check-swatch" style="background: {check.bg}; color: {check.fg};">Aa</div>
-                                <span class="sem-check-label">{check.label} / {check.sublabel}</span>
-                                <span class="sem-check-ratio">{ratio}</span>
-                                <span class="wcag-badge wcag-badge-sm" style="background: {wcag.bg}; color: {wcag.colour};">{wcag.level}</span>
-                            </div>
-                        {/each}
-                    </div>
+                    {/if}
                 </div>
+                <div class="sem-card-surfaces">
+                    {#each [
+                        { label: 'tone-bg', hex: palette.bg },
+                        { label: 'tone', hex: palette.card },
+                        { label: 'tone-hover', hex: tk['--tone-hover'] },
+                    ] as s}
+                        <div
+                            class="sem-surface-swatch"
+                            style="background: {s.hex}; color: {tk['--text']}"
+                        >
+                            <span class="sem-surface-label">{s.label}</span>
+                            <span class="sem-surface-hex">{s.hex}</span>
+                        </div>
+                    {/each}
+                </div>
+                <div class="sem-card-checks">
+                    {#each [
+                        {
+                            label: 'tone',
+                            sublabel: 'tone-bg',
+                            c1: palette.card,
+                            c2: palette.bg
+                        },
+                        {
+                            label: 'tone-hover',
+                            sublabel: 'tone-bg',
+                            c1: tk['--tone-hover'],
+                            c2: palette.bg
+                        },
+                        {
+                            label: 'tone-hover',
+                            sublabel: 'tone',
+                            c1: tk['--tone-hover'],
+                            c2: palette.card
+                        },
+                    ] as check}
+                        {@const ratio = getContrastRatio(check.c1, check.c2)}
+                        <div class="sem-check-row">
+                            <div class="swatch-surface-outer" style="background: {check.c2};">
+                                <div class="swatch-surface-inner" style="background: {check.c1};"></div>
+                            </div>
+                            <span class="sem-check-label">{check.label} / {check.sublabel}</span>
+                            <span class="sem-check-ratio">{ratio}</span>
+                        </div>
+                    {/each}
+                </div>
+            </div>
+        {/snippet}
 
-                <!-- Surface separation card -->
-                <div class="sem-card">
-                    <div class="sem-card-header">
-                        <span class="sem-card-title">{trans?.contrast.cat_surfaces}</span>
-                    </div>
-                    <div class="sem-card-surfaces">
-                        {#each [
-                            { label: 'tone-bg', hex: palette.bg },
-                            { label: 'tone', hex: palette.card },
-                            { label: 'tone-hover', hex: tk['--tone-hover'] },
-                        ] as s}
-                            <div 
-                                class="sem-surface-swatch" 
-                                style="background: {s.hex}; color: {tk['--text']}"
-                            >
-                                <span class="sem-surface-label">{s.label}</span>
-                                <span class="sem-surface-hex">{s.hex}</span>
-                            </div>
-                        {/each}
-                    </div>
-                    <div class="sem-card-checks">
-                        {#each [
-                            { 
-                                label: 'tone', 
-                                sublabel: 'tone-bg', 
-                                c1: palette.card, 
-                                c2: palette.bg 
-                            },
-                            { 
-                                label: 'tone-hover', 
-                                sublabel: 'tone-bg', 
-                                c1: tk['--tone-hover'], 
-                                c2: palette.bg 
-                            },
-                            { 
-                                label: 'tone-hover', 
-                                sublabel: 'tone', 
-                                c1: tk['--tone-hover'], 
-                                c2: palette.card 
-                            },
-                        ] as check}
-                            {@const ratio = getContrastRatio(check.c1, check.c2)}
-                            <div class="sem-check-row">
-                                <div class="swatch-surface-outer" style="background: {check.c2};">
-                                    <div class="swatch-surface-inner" style="background: {check.c1};"></div>
-                                </div>
-                                <span class="sem-check-label">{check.label} / {check.sublabel}</span>
-                                <span class="sem-check-ratio">{ratio}</span>
-                            </div>
-                        {/each}
-                    </div>
+        <!-- Text readability card -->
+        {#snippet textCard(palette: ToneTheme, tk: Record<string, string>)}
+            <div class="sem-card">
+                <div class="sem-card-header">
+                    <span class="sem-card-title">{trans?.contrast.cat_text}</span>
+                    <span class="sem-card-hex">{palette.name}</span>
+                </div>
+                <div class="sem-card-checks">
+                    {#each [
+                        {
+                            label: 'text',
+                            sublabel: 'tone-bg',
+                            fg: tk['--text'],
+                            bg: palette.bg
+                        },
+                        {
+                            label: 'text',
+                            sublabel: 'tone',
+                            fg: tk['--text'],
+                            bg: palette.card
+                        },
+                        {
+                            label: 'text',
+                            sublabel: 'tone-hover',
+                            fg: tk['--text'],
+                            bg: tk['--tone-hover']
+                        },
+                        {
+                            label: 'text-muted',
+                            sublabel: 'tone',
+                            fg: tk['--text-muted'],
+                            bg: palette.card
+                        },
+                        {
+                            label: 'text-muted',
+                            sublabel: 'tone-bg',
+                            fg: tk['--text-muted'],
+                            bg: palette.bg
+                        },
+                        {
+                            label: 'tone-muted',
+                            sublabel: 'tone',
+                            fg: tk['--tone-muted'],
+                            bg: palette.card
+                        },
+                    ] as check}
+                        {@const ratio = getContrastRatio(check.fg, check.bg)}
+                        {@const wcag = getWcagLevel(ratio, 'normal')}
+                        <div class="sem-check-row">
+                            <div class="sem-check-swatch" style="background: {check.bg}; color: {check.fg};">Aa</div>
+                            <span class="sem-check-label">{check.label} / {check.sublabel}</span>
+                            <span class="sem-check-ratio">{ratio}</span>
+                            <span class="wcag-badge wcag-badge-sm" style="background: {wcag.bg}; color: {wcag.colour};">{wcag.level}</span>
+                        </div>
+                    {/each}
                 </div>
             </div>
         {/snippet}
@@ -558,119 +575,121 @@
             {trans?.contrast.cat_surfaces} & {trans?.contrast.cat_text}
         </div>
         <p class="contrast-note">{trans?.contrast.surface_note}</p>
-        <div class="semantic-columns">
-            {@render surfaceCards(selected_tone_palette, tokens)}
-            {#if opposite_theme && opposite_tokens}
-                {@render surfaceCards(opposite_theme, opposite_tokens)}
-            {/if}
+        <div class="semantic-grid" class:dual={has_opposite}>
+            {#each contexts as ctx}
+                {@render surfaceCard(ctx.palette, ctx.tk)}
+            {/each}
+            {#each contexts as ctx}
+                {@render textCard(ctx.palette, ctx.tk)}
+            {/each}
         </div>
 
         <!-- Semantic Color Preview -->
         <div class="contrast-category-title">{trans?.contrast.cat_semantic}</div>
         <p class="contrast-note">{trans?.contrast.semantic_note}</p>
-        {#snippet semanticCards(palette: ToneTheme, tk: Record<string, string>)}
-            <div class="semantic-cards">
-                {#each SEMANTIC_NAMES as name}
-                    {@const base_hex = getSemanticHex(name)}
-                    {@const text_on_color = tk[`--text-${name}`]}
-                    {@const muted_hex = tk[`--${name}-muted`]}
-                    {@const hover_hex = tk[`--${name}-hover`]}
-                    {@const bg_hex = tk[`--${name}-bg`]}
-                    {@const checks = [
-                        { 
-                            label: `text-${name}`, 
-                            sublabel: name, 
-                            fg: text_on_color, 
-                            bg: base_hex, 
-                            target: 4.5 
-                        },
-                        { 
-                            label: `text-${name}`, 
-                            sublabel: `${name}-hover`, 
-                            fg: text_on_color, 
-                            bg: hover_hex, 
-                            target: 4.5 
-                        },
-                        { 
-                            label: `${name}-muted`, 
-                            sublabel: 'tone', 
-                            fg: muted_hex, 
-                            bg: palette.card, 
-                            target: 4.5 
-                        },
-                        { 
-                            label: `${name}-muted`, 
-                            sublabel: 'tone-bg', 
-                            fg: muted_hex, 
-                            bg: palette.bg, 
-                            target: 4.5 
-                        },
-                        { 
-                            label: 'Text', 
-                            sublabel: `${name}-bg`, 
-                            fg: tk['--text'], 
-                            bg: bg_hex, 
-                            target: 4.5 
-                        },
-                        { 
-                            label: `${name}-muted`, 
-                            sublabel: `${name}-bg`, 
-                            fg: muted_hex, 
-                            bg: bg_hex, 
-                            target: 3 
-                        },
-                    ]}
-                    <div class="sem-card">
-                        <div class="sem-card-header" style="color: {muted_hex};">
-                            <span
-                                class="sem-card-title"
-                                style="background:{palette.card};"
+        {#snippet semCard(name: string, palette: ToneTheme, tk: Record<string, string>)}
+            {@const base_hex = getSemanticHex(name)}
+            {@const text_on_color = tk[`--text-${name}`]}
+            {@const muted_hex = tk[`--${name}-muted`]}
+            {@const hover_hex = tk[`--${name}-hover`]}
+            {@const bg_hex = tk[`--${name}-bg`]}
+            {@const checks = [
+                {
+                    label: `text-${name}`,
+                    sublabel: name,
+                    fg: text_on_color,
+                    bg: base_hex,
+                    target: 4.5
+                },
+                {
+                    label: `text-${name}`,
+                    sublabel: `${name}-hover`,
+                    fg: text_on_color,
+                    bg: hover_hex,
+                    target: 4.5
+                },
+                {
+                    label: `${name}-muted`,
+                    sublabel: 'tone',
+                    fg: muted_hex,
+                    bg: palette.card,
+                    target: 4.5
+                },
+                {
+                    label: `${name}-muted`,
+                    sublabel: 'tone-bg',
+                    fg: muted_hex,
+                    bg: palette.bg,
+                    target: 4.5
+                },
+                {
+                    label: 'Text',
+                    sublabel: `${name}-bg`,
+                    fg: tk['--text'],
+                    bg: bg_hex,
+                    target: 4.5
+                },
+                {
+                    label: `${name}-muted`,
+                    sublabel: `${name}-bg`,
+                    fg: muted_hex,
+                    bg: bg_hex,
+                    target: 3
+                },
+            ]}
+            <div class="sem-card">
+                <div class="sem-card-header" style="color: {muted_hex};">
+                    <span
+                        class="sem-card-title"
+                        style="background:{palette.card};"
+                    >
+                        {getSemanticLabel(name)}
+                        {#if has_opposite}
+                            <span class="sem-card-palette">· {palette.name}</span>
+                        {/if}
+                    </span>
+                    <span
+                        class="sem-card-hex"
+                        style="background:{palette.card};"
+                    >
+                        {base_hex}
+                    </span>
+                </div>
+                <div class="sem-card-checks">
+                    {#each checks as check}
+                        {@const ratio = getContrastRatio(check.fg, check.bg)}
+                        {@const wcag = getWcagLevel(ratio, 'normal')}
+                        <div class="sem-check-row">
+                            <div
+                                class="sem-check-swatch"
+                                style="background: {check.bg}; color: {check.fg};"
                             >
-                                {getSemanticLabel(name)}
+                                Aa
+                            </div>
+                            <span class="sem-check-label">
+                                {check.label} / {check.sublabel}
+                            </span>
+                            <span class="sem-check-ratio">
+                                {ratio}
                             </span>
                             <span
-                                class="sem-card-hex"
-                                style="background:{palette.card};"
+                                class="wcag-badge wcag-badge-sm"
+                                style="background: {wcag.bg}; color: {wcag.colour};"
                             >
-                                {base_hex}
+                                {wcag.level}
                             </span>
                         </div>
-                        <div class="sem-card-checks">
-                            {#each checks as check}
-                                {@const ratio = getContrastRatio(check.fg, check.bg)}
-                                {@const wcag = getWcagLevel(ratio, 'normal')}
-                                <div class="sem-check-row">
-                                    <div
-                                        class="sem-check-swatch"
-                                        style="background: {check.bg}; color: {check.fg};"
-                                    >
-                                        Aa
-                                    </div>
-                                    <span class="sem-check-label">
-                                        {check.label} / {check.sublabel}
-                                    </span>
-                                    <span class="sem-check-ratio">
-                                        {ratio}
-                                    </span>
-                                    <span
-                                        class="wcag-badge wcag-badge-sm"
-                                        style="background: {wcag.bg}; color: {wcag.colour};"
-                                    >
-                                        {wcag.level}
-                                    </span>
-                                </div>
-                            {/each}
-                        </div>
-                    </div>
-                {/each}
+                    {/each}
+                </div>
             </div>
         {/snippet}
 
-        <div class="semantic-columns">
-            {@render semanticCards(selected_tone_palette, tokens)}
-            {#if opposite_theme && opposite_tokens}
-                {@render semanticCards(opposite_theme, opposite_tokens)}
-            {/if}
+        <div class="semantic-grid" class:dual={has_opposite}>
+            {#each SEMANTIC_NAMES as name}
+                {#each contexts as ctx}
+                    {@render semCard(name, ctx.palette, ctx.tk)}
+                {/each}
+            {/each}
         </div>
 
         
@@ -805,16 +824,23 @@
         margin-bottom: 0.5rem;
     }
 
-    /* Semantic columns (dual-theme) */
-    .semantic-columns {
-        display: flex;
-        gap: 1.5rem;
+    /* Semantic grid: auto-fill when single, paired 2-col when dual */
+    .semantic-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 0.75rem;
         margin-top: 0.75rem;
     }
 
-    .semantic-columns > .semantic-cards {
-        flex: 0.5;
-        min-width: 0;
+    .semantic-grid.dual {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .sem-card-palette {
+        font-size: 0.6rem;
+        font-weight: 600;
+        opacity: 0.7;
+        margin-left: 0.25rem;
     }
 
     /* Surface swatches (inside sem-card) */
@@ -864,14 +890,6 @@
         width: 1rem;
         height: 0.7rem;
         border-radius: 2px;
-    }
-
-    /* Semantic cards */
-    .semantic-cards {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 0.75rem;
-        margin-top: 0.75rem;
     }
 
     .sem-card {
@@ -927,7 +945,7 @@
 
     .sem-check-label {
         font-size: 0.65rem;
-        color: var(--text-muted);
+        color: var(--text);
         flex: 1;
         min-width: 0;
         white-space: nowrap;
@@ -1026,26 +1044,26 @@
     .suggest-hex {
         font-size: 0.65rem;
         font-family: monospace;
-        color: var(--text-muted);
+        color: var(--text);
     }
 
     .suggest-oklch {
         font-size: 0.55rem;
         font-family: monospace;
-        color: var(--text-muted);
+        color: var(--text);
         opacity: 0.6;
     }
 
     .suggest-arrow {
         font-size: 1rem;
-        color: var(--text-muted);
+        color: var(--text);
         flex-shrink: 0;
     }
 
     .suggest-detail {
         margin-top: 0.35rem;
         font-size: 0.7rem;
-        color: var(--text-muted);
+        color: var(--text);
         font-style: italic;
         font-family: monospace;
     }
@@ -1056,9 +1074,20 @@
         gap: 30px;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 1024px) {
+        .semantic-grid.dual {
+            grid-template-columns: 1fr;
+        }
+
         .rules-block {
             flex-direction: column;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .sem-check-label {
+            white-space: normal;
+            line-height: 1.15;
         }
     }
 </style>

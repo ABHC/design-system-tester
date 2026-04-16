@@ -134,49 +134,72 @@
         if (!opposite_tokens || !opposite_palette) return null;
         return buildGroups(opposite_tokens, opposite_palette.card);
     });
+
+    interface InterleavedCell {
+        group: SwatchGroup;
+        palette_name: string;
+    }
+
+    const cells = $derived.by((): InterleavedCell[] => {
+        const out: InterleavedCell[] = [];
+        for (let i = 0; i < current_groups.length; i++) {
+            out.push({ group: current_groups[i], palette_name: current_palette.name });
+            if (opposite_groups && opposite_palette) {
+                out.push({ group: opposite_groups[i], palette_name: opposite_palette.name });
+            }
+        }
+        return out;
+    });
+
+    const has_opposite = $derived(opposite_groups !== null);
 </script>
 
-{#snippet swatchCol(groups: SwatchGroup[])}
-    <div class="ts-col">
-        {#each groups as group}
-            <div class="ts-group">
+<div class="ts-grid" class:dual={has_opposite}>
+    {#each cells as cell}
+        <div class="ts-group">
+            <div class="ts-group-header">
                 <span
                     class="ts-group-label"
-                    style={group.labelColor ? `color: ${group.labelColor};` : ''}
+                    style={cell.group.labelColor ? `color: ${cell.group.labelColor};` : ''}
                 >
-                    {group.label}
+                    {cell.group.label}
                 </span>
-                <SwatchRow swatches={group.swatches} />
+                {#if has_opposite}
+                    <span class="ts-group-palette">{cell.palette_name}</span>
+                {/if}
             </div>
-        {/each}
-    </div>
-{/snippet}
-
-<div class="ts-columns">
-    {@render swatchCol(current_groups)}
-    {#if opposite_groups}
-        {@render swatchCol(opposite_groups)}
-    {/if}
+            <SwatchRow swatches={cell.group.swatches} />
+        </div>
+    {/each}
 </div>
 
 <style>
-    .ts-columns {
-        display: flex;
-        gap: 1.5rem;
-    }
-
-    .ts-col {
-        flex: 0.5;
-        min-width: 0;
+    .ts-grid {
         display: flex;
         flex-direction: column;
         gap: 0.75rem;
+    }
+
+    .ts-grid.dual {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 1.5rem;
+        row-gap: 0.75rem;
     }
 
     .ts-group {
         display: flex;
         flex-direction: column;
         gap: 4px;
+        min-width: 0;
+    }
+
+    .ts-group-header {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 0.5rem;
+        margin-bottom: 2px;
     }
 
     .ts-group-label {
@@ -185,6 +208,21 @@
         text-transform: uppercase;
         letter-spacing: 0.06em;
         color: var(--text-muted);
-        margin-bottom: 2px;
+    }
+
+    .ts-group-palette {
+        font-size: 0.6rem;
+        font-weight: 600;
+        color: var(--text-muted);
+        opacity: 0.7;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    @media (max-width: 1024px) {
+        .ts-grid.dual {
+            grid-template-columns: 1fr;
+        }
     }
 </style>

@@ -650,6 +650,13 @@
         padding: 10px 20px;
     }
 
+    @media (max-width: 1024px) {
+        .picker-tabs {
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+    }
+
     .picker-toggles {
         display: flex;
         gap: 8px;
@@ -722,6 +729,12 @@
     .opposite-select:focus {
         outline: none;
         border-color: var(--accent);
+    }
+
+    @media (max-width: 1024px) {
+        .theme-selector-row {
+            flex-direction: column;
+        }
     }
 
     @media (max-width: 768px) {

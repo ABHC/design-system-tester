@@ -499,7 +499,7 @@
     }
 
     .cb-score-label {
-        color: var(--text-muted);
+        color: var(--text);
         flex: 1;
     }
 
@@ -527,7 +527,7 @@
 
     .cb-score-hint {
         font-size: 0.7rem;
-        color: var(--text-muted);
+        color: var(--text);
         margin-top: 2px;
     }
 
@@ -571,7 +571,7 @@
     }
 
     .cb-change-pair {
-        color: var(--text-muted);
+        color: var(--text);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
