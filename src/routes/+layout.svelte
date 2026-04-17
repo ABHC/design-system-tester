@@ -464,8 +464,7 @@
 <!-- BackToTop ───────────────────────────────────────────────────────────────────────────────── -->
 
 <div class="special-btn-wrapper">
-    <BackToTop palette="neutral" size="sm" rounded/>
-    <ModeToggle bind:mode={$selected_tone} palette="neutral" size="sm" rounded/>
+    <BackToTop palette="tone" size="sm" elevation="subtle" raised rounded/>
 </div>
 
 <!-- Copy Alert ──────────────────────────────────────────────────────────────────────────────── -->
