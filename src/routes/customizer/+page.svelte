@@ -13,7 +13,7 @@
     import Switch from "../../design-system/components/Switch/Switch.svelte";
     import ColorPicker from "../../design-system/components/ColorPicker/ColorPicker.svelte";
     import SwatchRow from "../../design-system/components/SwatchRow/SwatchRow.svelte";
-    import { tokenValues, deriveSemanticTokens, computeMuted } from '../../design-system/token-schema';
+    import { tokenValues, deriveSemanticTokens, computeMuted } from '$lib/theme/tokenSchema';
     import type { Swatch } from '../../design-system/components/SwatchRow/swatchRow.config';
 
     import {

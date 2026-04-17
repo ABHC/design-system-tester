@@ -13,7 +13,7 @@
         hexToOklch,
         oklchToHex,
     } from "$lib/utils/contrast";
-    import { tokenValues, deriveSemanticTokens } from '../../design-system/token-schema';
+    import { tokenValues, deriveSemanticTokens } from '$lib/theme/tokenSchema';
     import Rules from './Rules.svelte';
     import type { ContrastRule, RuleGroup } from './Rules.svelte';
     const SEMANTIC_NAMES = ['accent', 'error', 'warning', 'success', 'info', 'neutral'] as const;

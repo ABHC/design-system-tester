@@ -4,7 +4,7 @@
     import { simulateColorblind, type ColorblindType } from "$lib/utils/colorblind";
     import { getContrastRatio, getWcagLevel, getLuminance } from "$lib/utils/contrast";
 
-    import { deriveSemanticTokens, computeMuted, HOVER_DELTA } from '../../design-system/token-schema';
+    import { deriveSemanticTokens, computeMuted, HOVER_DELTA } from '$lib/theme/tokenSchema';
     import { hexToOklch, oklchToHex } from '$lib/utils/contrast';
 
     interface PairInfo {
