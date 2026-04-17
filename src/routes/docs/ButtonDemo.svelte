@@ -10,7 +10,8 @@
     import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
 	import ModeToggle from "../../design-system/components/Button/ModeToggle.svelte";
     import CopyButton from "../../design-system/components/Button/CopyButton.svelte";
-
+    import { selected_tone } from "../store";
+    
     interface Props {
         trans: Translation | null;
         placeholders: PlaceholdersType[keyof PlaceholdersType];
@@ -316,14 +317,52 @@
 <p class="demo-label">{trans?.button_demo.back_to_top2}</p>
 
 <div class="btt-preview">
-    <ModeToggle palette="accent" elevation="hard" animate="top" />
-    <ModeToggle palette="accent" elevation="hard" animate="top" rounded />
-    <ModeToggle palette="tone" elevation="subtle" animate="top" />
-    <ModeToggle palette="tone" elevation="subtle" animate="top" rounded />
-    <ModeToggle palette="accent" variant="outlined" />
-    <ModeToggle palette="tone" variant="outlined" />
-    <ModeToggle palette="neutral" variant="flat" />
-    <ModeToggle palette="neutral" variant="outlined" />
+    <ModeToggle 
+        bind:mode={$selected_tone} 
+        palette="accent" 
+        elevation="hard" 
+        animate="top" 
+    />
+    <ModeToggle 
+        bind:mode={$selected_tone} 
+        palette="accent" 
+        elevation="hard" 
+        animate="top" 
+        rounded 
+    />
+    <ModeToggle 
+        bind:mode={$selected_tone} 
+        palette="tone" 
+        elevation="subtle" 
+        animate="top" 
+    />
+    <ModeToggle 
+        bind:mode={$selected_tone} 
+        palette="tone" 
+        elevation="subtle" 
+        animate="top" 
+        rounded 
+    />
+    <ModeToggle 
+        bind:mode={$selected_tone} 
+        palette="accent" 
+        variant="outlined" 
+    />
+    <ModeToggle 
+        bind:mode={$selected_tone} 
+        palette="tone" 
+        variant="outlined" 
+    />
+    <ModeToggle 
+        bind:mode={$selected_tone} 
+        palette="neutral" 
+        variant="flat" 
+    />
+    <ModeToggle 
+        bind:mode={$selected_tone} 
+        palette="neutral" 
+        variant="outlined" 
+    />
 </div>
 
 <!-- CopyButton ────────────────────────────────────────────────────────────────── -->
@@ -426,6 +465,7 @@
         { prop: "palette", type: '"accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info"', default: '"accent"' },
         { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"' },
         { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
+        { prop: "raised", type: "boolean", default: "false" },
         { prop: "uppercase", type: "boolean", default: "false" },
         { prop: "animate", type: '"left" | "right" | "top" | "bottom"', default: "undefined" },
         { prop: "active", type: "boolean", default: "false" },

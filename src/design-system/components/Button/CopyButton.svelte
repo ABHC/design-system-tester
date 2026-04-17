@@ -12,6 +12,8 @@
         palette?: Palette;
         size? : Size;
         to_copy: string | undefined;
+        elevation?: Elevation;
+        raised?: boolean;
         rounded?: boolean;
     }
 
@@ -20,6 +22,8 @@
         palette = "tone",
         size = "sm",
         to_copy = undefined,
+        elevation = "none",
+        raised= false,
         rounded = false
     }: Props = $props();
 
@@ -45,6 +49,8 @@
     variant={variant} 
     palette={palette}
     size={size}
+    elevation={elevation}
+    raised={raised}
     rounded={rounded}
     onclick={handleCopy} 
     aria_label="Copy elements"
