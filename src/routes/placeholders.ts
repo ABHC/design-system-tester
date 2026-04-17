@@ -397,6 +397,16 @@ export const placeholders = {
             settings: "Options",
             profile: "Profil"
         },
+        tooltip: {
+            trigger: "Survolez-moi",
+            body: "Le tooltip se positionne par rapport à son trigger et passe à la ligne dès que le contenu dépasse la largeur maximale.",
+            short_hint: "Astuce courte",
+            large_body: "Tooltip plus généreux, avec coins arrondis et élévation.",
+            leading_body: "Authentification requise pour continuer.",
+            trailing_body: "Clé API générée — copiez-la avant de fermer ce panneau.",
+            api_key: "sk-demo-42-aXb9-00tooltip",
+            help_label: "Aide"
+        },
         command: {
             groups: {
                 file: "Fichier",
@@ -982,6 +992,16 @@ export const placeholders = {
             match: "Stretches to trigger width",
             settings: "Settings",
             profile: "Profile"
+        },
+        tooltip: {
+            trigger: "Hover me",
+            body: "The tooltip positions relative to its trigger and wraps as soon as its content exceeds the maximum width.",
+            short_hint: "Short hint",
+            large_body: "Bigger tooltip with softer corners and elevation.",
+            leading_body: "Authentication required to continue.",
+            trailing_body: "Generated API key — copy it before dismissing this panel.",
+            api_key: "sk-demo-42-aXb9-00tooltip",
+            help_label: "Help"
         },
         command: {
             groups: {

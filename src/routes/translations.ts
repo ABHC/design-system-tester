@@ -281,6 +281,14 @@ export const translations = {
             title: "Popover",
             anchor_note: "L'élément d'ancrage (bouton, input…) doit être placé dans le snippet <code>trigger</code>. Le panneau s'ouvre alors relativement à cet élément. <code>direction</code> définit le côté d'ouverture (top, bottom, left, right) et <code>align</code> l'alignement sur l'axe transversal (start, center, end). Le positionnement est en CSS absolu — il ne se recalcule pas au scroll.",
         },
+        tooltip_demo: {
+            title: "Tooltip",
+            anchor_note: "Le tooltip s'ouvre au survol ou au focus du trigger, et se ferme quand le pointeur le quitte. Les délais <code>showDelay</code> et <code>hideDelay</code> absorbent la traversée du <code>gap</code>. La queue est un pseudo-élément ; elle suit <code>direction</code> et <code>align</code>, et reprend la bordure si <code>bordered</code> est actif.",
+            preset_sm: "Petit, sans queue ni bordure",
+            preset_lg: "Grand, arrondi, avec élévation",
+            preset_leading: "Icône en leading",
+            preset_trailing: "Bouton copier en trailing",
+        },
         command_demo: {
             title: "Command",
         },
@@ -644,6 +652,14 @@ export const translations = {
         popover_demo: {
             title: "Popover",
             anchor_note: "The anchor element (button, input…) must be placed inside the <code>trigger</code> snippet. The panel then opens relative to that element. <code>direction</code> sets which side it opens on (top, bottom, left, right) and <code>align</code> controls cross-axis alignment (start, center, end). Positioning is CSS absolute — it does not reposition on scroll.",
+        },
+        tooltip_demo: {
+            title: "Tooltip",
+            anchor_note: "The tooltip opens on hover or focus of the trigger and closes when the pointer leaves. <code>showDelay</code> and <code>hideDelay</code> absorb the traversal of the <code>gap</code>. The arrow is a pseudo-element; it follows <code>direction</code> and <code>align</code>, and mirrors the panel border when <code>bordered</code> is on.",
+            preset_sm: "Small, no arrow, no border",
+            preset_lg: "Large, rounded, with elevation",
+            preset_leading: "Icon in leading",
+            preset_trailing: "Copy button in trailing",
         },
         command_demo: {
             title: "Command",

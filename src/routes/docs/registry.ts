@@ -25,6 +25,7 @@ import ControlBarDemo from "./ControlBarDemo.svelte";
 import DrawerDemo from "./DrawerDemo.svelte";
 import ModalDemo from "./ModalDemo.svelte";
 import PopoverDemo from "./PopoverDemo.svelte";
+import TooltipDemo from "./TooltipDemo.svelte";
 import CommandDemo from "./CommandDemo.svelte";
 
 import AlertDemo from "./AlertDemo.svelte";
@@ -198,6 +199,12 @@ export const docs: DocEntry[] = [
         label: "Popover",
         category: "overlays",
         component: PopoverDemo, get_label: (t) => t?.popover_demo?.title ?? "Popover"
+    },
+    {
+        slug: "tooltip",
+        label: "Tooltip",
+        category: "overlays",
+        component: TooltipDemo, get_label: (t) => t?.tooltip_demo?.title ?? "Tooltip"
     },
     {
         slug: "command",
