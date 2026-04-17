@@ -138,7 +138,7 @@
     {elevation}
     {width}
 >
-    {#snippet header()}
+    {#snippet leading()}
         <SearchField
             bind:value={search}
             {placeholder}

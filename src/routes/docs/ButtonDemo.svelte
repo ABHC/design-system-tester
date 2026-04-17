@@ -313,8 +313,8 @@
     <Headline size="sm" uppercase muted>{trans?.doc.ModeToggle}</Headline>
 </div>
 
-<p class="demo-label">{trans?.button_demo.back_to_top1} — <code>BackToTop</code></p>
-<p class="demo-label">{trans?.button_demo.back_to_top2}</p>
+<p class="demo-label">{trans?.button_demo.mode_toggle_desc1} — <code>ModeToggle</code></p>
+<p class="demo-label">{trans?.button_demo.mode_toggle_desc2}</p>
 
 <div class="btt-preview">
     <ModeToggle 
@@ -358,10 +358,10 @@
         palette="neutral" 
         variant="flat" 
     />
-    <ModeToggle 
-        bind:mode={$selected_tone} 
-        palette="neutral" 
-        variant="outlined" 
+    <ModeToggle
+        bind:mode={$selected_tone}
+        palette="neutral"
+        variant="outlined"
     />
 </div>
 
@@ -453,6 +453,7 @@
     <Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
 </div>
 
+<h4 class="api-subtitle">Button</h4>
 <DataTable
     variant="ghost" palette="tone" size="sm"
     columns={[
@@ -475,6 +476,68 @@
         { prop: "href", type: "string", default: "undefined" },
         { prop: "onclick", type: "() => void", default: "undefined" },
         { prop: "children", type: "Snippet", default: "\u2014" },
+    ]}
+/>
+
+<h4 class="api-subtitle">BackToTop</h4>
+<DataTable
+    variant="ghost" palette="tone" size="sm"
+    columns={[
+        { key: "prop", label: "Prop" },
+        { key: "type", label: "Type", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell },
+    ]}
+    rows={[
+        { prop: "variant", type: '"flat" | "outlined"', default: '"flat"' },
+        { prop: "palette", type: '"accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info"', default: '"accent"' },
+        { prop: "size", type: '"sm" | "md" | "lg"', default: '"sm"' },
+        { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
+        { prop: "raised", type: "boolean", default: "false" },
+        { prop: "uppercase", type: "boolean", default: "false" },
+        { prop: "animate", type: '"left" | "right" | "top" | "bottom"', default: "undefined" },
+        { prop: "rounded", type: "boolean", default: "false" },
+        { prop: "position", type: '"left" | "right"', default: '"right"' },
+        { prop: "children", type: "Snippet", default: "\u2014" },
+    ]}
+/>
+
+<h4 class="api-subtitle">ModeToggle</h4>
+<DataTable
+    variant="ghost" palette="tone" size="sm"
+    columns={[
+        { key: "prop", label: "Prop" },
+        { key: "type", label: "Type", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell },
+    ]}
+    rows={[
+        { prop: "mode", type: '"light" | "dark"', default: '"dark"' },
+        { prop: "onchange", type: "(mode: Mode) => void", default: "undefined" },
+        { prop: "variant", type: '"flat" | "outlined"', default: '"flat"' },
+        { prop: "palette", type: '"accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info"', default: '"accent"' },
+        { prop: "size", type: '"sm" | "md" | "lg"', default: '"sm"' },
+        { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
+        { prop: "raised", type: "boolean", default: "false" },
+        { prop: "uppercase", type: "boolean", default: "false" },
+        { prop: "animate", type: '"left" | "right" | "top" | "bottom"', default: "undefined" },
+        { prop: "rounded", type: "boolean", default: "false" },
+        { prop: "position", type: '"left" | "right"', default: '"right"' },
+    ]}
+/>
+
+<h4 class="api-subtitle">CopyButton</h4>
+<DataTable
+    variant="ghost" palette="tone" size="sm"
+    columns={[
+        { key: "prop", label: "Prop" },
+        { key: "type", label: "Type", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell },
+    ]}
+    rows={[
+        { prop: "to_copy", type: "string", default: "undefined" },
+        { prop: "variant", type: '"ghost" | "outlined"', default: '"ghost"' },
+        { prop: "palette", type: '"accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info"', default: '"tone"' },
+        { prop: "size", type: '"sm" | "md" | "lg"', default: '"sm"' },
+        { prop: "rounded", type: "boolean", default: "false" },
     ]}
 />
 
@@ -528,5 +591,12 @@
 
     .item-demo {
         font-size: 100%;
+    }
+
+    .api-subtitle {
+        font-size: 0.9rem;
+        font-weight: 700;
+        margin: 1rem 0 0.5rem;
+        color: var(--text-muted);
     }
 </style>
