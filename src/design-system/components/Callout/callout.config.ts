@@ -13,7 +13,7 @@ export const calloutConfig = {
             info: "callout-variant-info",
         },
 
-        // Vertical alignment of leading / children / following.
+        // Vertical alignment of leading / children / trailing.
         align: {
             center: "callout-align-center",
             start: "callout-align-start",

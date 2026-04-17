@@ -288,7 +288,7 @@
             <p class="alert-demo-body">{demo_body}</p>
         </div>
         {#if demo_dismissable}
-            <div class="alert-mock-following">
+            <div class="alert-mock-trailing">
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -389,7 +389,7 @@
         { prop: "style", type: "string", default: "\u2014" },
         { prop: "leading", type: "Snippet", default: "\u2014" },
         { prop: "children", type: "Snippet", default: "\u2014" },
-        { prop: "following", type: "Snippet", default: "\u2014" },
+        { prop: "trailing", type: "Snippet", default: "\u2014" },
         { prop: "ondismiss", type: "() => void", default: "\u2014" },
     ]}
 />
@@ -520,7 +520,7 @@
         gap: 0.2rem;
     }
 
-    .alert-mock-following {
+    .alert-mock-trailing {
         flex-shrink: 0;
         display: flex;
         align-items: center;

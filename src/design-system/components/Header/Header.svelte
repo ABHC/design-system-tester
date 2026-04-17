@@ -13,7 +13,7 @@
         style?: string;
         leading?: Snippet;
         children?: Snippet;
-        following?: Snippet;
+        trailing?: Snippet;
     }
 
     let {
@@ -23,7 +23,7 @@
         style,
         leading,
         children,
-        following
+        trailing
     }: Props = $props();
 
     const resolve = createVariant(headerConfig);
@@ -62,9 +62,9 @@
         </div>
     {/if}
 
-    {#if following}
-        <div class="header-following">
-            {@render following()}
+    {#if trailing}
+        <div class="header-trailing">
+            {@render trailing()}
         </div>
     {/if}
 </header>
@@ -101,7 +101,7 @@
 
     /* Slots layout */
     .header-leading,
-    .header-following {
+    .header-trailing {
         display: flex;
         align-items: center;
         gap: 0.5rem;

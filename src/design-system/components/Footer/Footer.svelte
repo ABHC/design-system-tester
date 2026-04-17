@@ -25,7 +25,7 @@
         pattern_mask_size?: number;
         leading?: Snippet;
         children?: Snippet;
-        following?: Snippet;
+        trailing?: Snippet;
     }
 
     let {
@@ -43,7 +43,7 @@
         pattern_mask_size = 70,
         leading,
         children,
-        following
+        trailing
     }: Props = $props();
 
     const resolve = createVariant(footerConfig);
@@ -110,9 +110,9 @@
         </div>
     {/if}
 
-    {#if following}
-        <div class="footer-following">
-            {@render following()}
+    {#if trailing}
+        <div class="footer-trailing">
+            {@render trailing()}
         </div>
     {/if}
 </footer>
@@ -197,7 +197,7 @@
 
     /* Slots layout */
     .footer-leading,
-    .footer-following {
+    .footer-trailing {
         display: flex;
         align-items: center;
         gap: 1rem;

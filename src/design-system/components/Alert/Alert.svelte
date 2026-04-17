@@ -13,7 +13,7 @@
         Props
         animate : Direction of the slide-in/out translation. false = no animation
         duration : Auto-dismiss delay in seconds. Omit to disable.
-        dismissable : Show a built-in close button (icon) when no `following` snippet is provided
+        dismissable : Show a built-in close button (icon) when no `trailing` snippet is provided
         dismiss_label : Show a btn-text dismiss button with this label. Takes priority over `dismissable`
     */
     interface Props {
@@ -27,7 +27,7 @@
         style?: string;
         leading?: Snippet;
         children?: Snippet;
-        following?: Snippet;
+        trailing?: Snippet;
         ondismiss?: () => void;
     }
 
@@ -42,7 +42,7 @@
         style,
         leading,
         children,
-        following,
+        trailing,
         ondismiss,
     }: Props = $props();
 
@@ -109,18 +109,18 @@
             </div>
         {/if}
 
-        {#if following}
-            <div class="alert-following">
-                {@render following()}
+        {#if trailing}
+            <div class="alert-trailing">
+                {@render trailing()}
             </div>
         {:else if dismiss_label}
-            <div class="alert-following">
+            <div class="alert-trailing">
                 <Button variant="naked" size="sm" onclick={dismiss}>
                     {dismiss_label}
                 </Button>
             </div>
         {:else if dismissable}
-            <div class="alert-following">
+            <div class="alert-trailing">
                 <Button variant="naked" size="sm" onclick={dismiss} aria_label="Close">
                     <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -208,7 +208,7 @@
         gap: 0.2rem;
     }
 
-    .alert-following {
+    .alert-trailing {
         flex-shrink: 0;
         display: flex;
         align-items: center;

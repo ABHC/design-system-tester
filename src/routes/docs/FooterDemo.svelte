@@ -71,7 +71,7 @@
     <p>© 2025 — MIT License</p>
 {/snippet}
 
-<Footer palette="accent" leading={social_links} following={copyright} />`;
+<Footer palette="accent" leading={social_links} trailing={copyright} />`;
 
     const code_minimal = `<!-- Minimal — centered tagline only -->
 <Footer palette="tone">
@@ -92,7 +92,7 @@
     <p style="font-size:0.75rem; opacity:0.75;">© 2025 ACME Corp.</p>
 {/snippet}
 
-<Footer palette="accent" leading={brand} following={legal}>
+<Footer palette="accent" leading={brand} trailing={legal}>
     <nav style="display:flex; gap:1rem; justify-content:center;">
         <a href="/about">About</a>
         <a href="/work">Work</a>
@@ -340,7 +340,7 @@
             { prop: "pattern_mask_size", type: "number", default: "70" },
             { prop: "leading", type: "Snippet", default: "\u2014" },
             { prop: "children", type: "Snippet", default: "\u2014" },
-            { prop: "following", type: "Snippet", default: "\u2014" },
+            { prop: "trailing", type: "Snippet", default: "\u2014" },
         ]}
     />
 </div>

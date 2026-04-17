@@ -52,7 +52,7 @@
     <Button variant="flat" size="sm">Contact</Button>
 {/snippet}
 
-<Header palette="tone" leading={wordmark} following={actions} />`;
+<Header palette="tone" leading={wordmark} trailing={actions} />`;
 
     const code_app = `<!-- App header — accent palette, icon-only squared ghost buttons -->
 {#snippet logo()}
@@ -74,9 +74,9 @@
     </Button>
 {/snippet}
 
-<Header palette="accent" leading={logo} following={toolbar} />`;
+<Header palette="accent" leading={logo} trailing={toolbar} />`;
 
-    const code_mixed = `<!-- Mixed — logo leading, centered nav links (children), actions following -->
+    const code_mixed = `<!-- Mixed — logo leading, centered nav links (children), actions trailing -->
 {#snippet logo()}…{/snippet}
 
 {#snippet actions()}
@@ -87,7 +87,7 @@
 {/snippet}
 
 <!-- Nav links go in the children slot — pass as prop or inline between tags -->
-<Header palette="tone" leading={logo} following={actions}>
+<Header palette="tone" leading={logo} trailing={actions}>
     <nav style="display:flex; gap: 0.5rem;">
         <Button variant="naked">Domus</Button>
         <Button variant="naked">Curia</Button>
@@ -128,7 +128,7 @@ let header_visible = $state(true);
 <!--
     Pour le preview, tout passe en children dans une flex row qu'on contrôle.
     Le Header fournit background / border / palette, la mise en page est la nôtre.
-    Les code tabs montrent l'API leading/following/children réelle.
+    Les code tabs montrent l'API leading/trailing/children réelle.
 -->
 
 {#snippet editorial()}
@@ -397,7 +397,7 @@ let header_visible = $state(true);
         { prop: "style", type: "string", default: "\u2014" },
         { prop: "leading", type: "Snippet", default: "\u2014" },
         { prop: "children", type: "Snippet", default: "\u2014" },
-        { prop: "following", type: "Snippet", default: "\u2014" },
+        { prop: "trailing", type: "Snippet", default: "\u2014" },
     ]}
 />
 

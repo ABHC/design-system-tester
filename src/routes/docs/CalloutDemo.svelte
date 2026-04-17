@@ -46,7 +46,7 @@
     <p>La lex a été promulguée avec succès.</p>
 </Callout>
 
-<!-- Leading + following — Button variant="ghost" palette="tone" hérite de --cb-color -->
+<!-- Leading + trailing — Button variant="ghost" palette="tone" hérite de --cb-color -->
 {#snippet warn_icon()}
     <span class="material-symbols-outlined">warning</span>
 {/snippet}
@@ -55,13 +55,13 @@
     <Button variant="ghost" palette="tone" size="sm">Ignorer</Button>
 {/snippet}
 
-<Callout variant="warning" leading={warn_icon} following={dismiss}>
+<Callout variant="warning" leading={warn_icon} trailing={dismiss}>
     <p>Les ides de mars approchent. Vérifiez vos accès avant de continuer.</p>
 </Callout>
 
 `;
 
-    const code_composition = `<!-- align="start" + <code> dans le contenu + following -->
+    const code_composition = `<!-- align="start" + <code> dans le contenu + trailing -->
 {#snippet tip_icon()}
     <span class="material-symbols-outlined">lightbulb</span>
 {/snippet}
@@ -70,7 +70,7 @@
     <Button variant="ghost" palette="tone" size="sm">En savoir plus</Button>
 {/snippet}
 
-<Callout variant="accent" align="start" rounded leading={tip_icon} following={action}>
+<Callout variant="accent" align="start" rounded leading={tip_icon} trailing={action}>
     <strong>Tip</strong>
     <p>
         Préférez <code>align="start"</code> pour du contenu multi-lignes —
@@ -141,7 +141,7 @@
             <strong>Tip</strong>
             <p>{@html placeholders?.callout.tip}</p>
         {/snippet}
-        {#snippet following()}
+        {#snippet trailing()}
             <Button 
                 variant="ghost" 
                 palette={demo_variant} 
@@ -194,7 +194,7 @@
         { prop: "style", type: "string", default: "\u2014" },
         { prop: "leading", type: "Snippet", default: "\u2014" },
         { prop: "children", type: "Snippet", default: "\u2014" },
-        { prop: "following", type: "Snippet", default: "\u2014" },
+        { prop: "trailing", type: "Snippet", default: "\u2014" },
     ]}
 />
 </div>

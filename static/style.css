@@ -1,5 +1,5 @@
 /* ─── Global reset — layout only ─────────────────────────────────────────────
-   Tokens and typography live in design-system/tokens.css.
+   Tokens and typography live in src/lib/theme/tokens.css.
    ─────────────────────────────────────────────────────────────────────────── */
 
 * {

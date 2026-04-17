@@ -14,7 +14,7 @@
         style?: string;
         leading?: Snippet;
         children?: Snippet;
-        following?: Snippet;
+        trailing?: Snippet;
     }
 
     let {
@@ -25,7 +25,7 @@
         style,
         leading,
         children,
-        following,
+        trailing,
     }: Props = $props();
 
     const resolve = createVariant(calloutConfig);
@@ -52,9 +52,9 @@
         </div>
     {/if}
 
-    {#if following}
-        <div class="callout-following">
-            {@render following()}
+    {#if trailing}
+        <div class="callout-trailing">
+            {@render trailing()}
         </div>
     {/if}
 </div>
@@ -149,7 +149,7 @@
         gap: 0.25rem;
     }
 
-    .callout-following {
+    .callout-trailing {
         flex-shrink: 0;
         display: flex;
         align-items: inherit;

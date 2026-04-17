@@ -452,11 +452,11 @@
 <!-- Footer ─────────────────────────────────────────────────────────────────────────────────── -->
 
 {#if $responsive.isBelow(768)}
-    <Footer palette="accent" leading={brand_ABHC} following={license}>
+    <Footer palette="accent" leading={brand_ABHC} trailing={license}>
         {@render social_links()}
     </Footer>
 {:else}
-    <Footer palette="accent" leading={brand_ABHC} following={social_links}>
+    <Footer palette="accent" leading={brand_ABHC} trailing={social_links}>
         {@render license()}
     </Footer>
 {/if}
