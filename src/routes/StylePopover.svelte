@@ -23,7 +23,10 @@
         available_fonts,
         drawer_open,
         drawer_menu,
+        icon_set,
+        type IconSet,
     } from './store';
+    import { iconSetOptions, downloadThemeCSS } from '$lib/theme/exportTheme';
 
     let style_open: boolean = $state(false);
 
@@ -100,6 +103,22 @@
                 </div>
 
                 <div class="pop-row-left">
+                    <Button
+                        size="sm"
+                        variant="ghost"
+                        palette="tone"
+                        direction="row"
+                        aria_label={$trans?.control.export}
+                        onclick={() => { downloadThemeCSS(); }}
+                    >
+                        <span class="nav-icon" aria-hidden="true">
+                            <span class="material-symbols-outlined sm-icon">
+                                download
+                            </span>
+                        </span>
+                        <span class="nav-label">{$trans?.control.export}</span>
+                    </Button>
+
                     <Button
                         size="sm"
                         variant="ghost"
@@ -213,6 +232,27 @@
                     direction="top"
                 />
             </div>
+
+            <Headline size="xs" uppercase>{$trans?.control.icons}</Headline>
+            <div class="pop-styling-grid pop-icons-grid">
+                {#each iconSetOptions as opt}
+                    {#snippet iconLeading()}
+                        {#if opt.preview}
+                            <span class={opt.preview.className} aria-hidden="true">
+                                {opt.preview.content ?? ''}
+                            </span>
+                        {/if}
+                    {/snippet}
+                    <ListItem
+                        label={opt.id === 'none' ? ($trans?.control.icon_none ?? opt.label) : opt.label}
+                        active={$icon_set === opt.id}
+                        onclick={() => { $icon_set = opt.id as IconSet; }}
+                        palette="ghost"
+                        size="sm"
+                        leading={opt.preview ? iconLeading : undefined}
+                    />
+                {/each}
+            </div>
         </div>
     {/snippet}
 </Popover>
@@ -242,6 +282,17 @@
         display: grid;
         grid-template-columns: repeat(5, 1fr);
         gap: 8px;
+    }
+
+    .pop-icons-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .pop-icons-grid :global(.material-symbols-outlined),
+    .pop-icons-grid :global(.lucide),
+    .pop-icons-grid :global(.ph) {
+        font-size: 18px;
+        line-height: 1;
     }
 
     .sm-icon {

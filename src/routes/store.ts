@@ -222,6 +222,10 @@ async function setInIndexedDB<T>(db: IDBDatabase, key: string, value: T): Promis
 	});
 }
 
+// ── Icon set (for export) ────────────────────────────────────────────────────
+export type IconSet = 'material' | 'lucide' | 'phosphor' | 'none';
+export const icon_set = persistStore<IconSet>('icon-set', 'none', 'indexedDB');
+
 // ── Theme/font control (persisted in IndexedDB) ─────────────────────────────
 export const selected_tone = persistStore<'light' | 'dark'>('selected-tone', 'dark', 'indexedDB');
 export const tone_index_dark = persistStore<number>('tone-index-dark', 0, 'indexedDB');

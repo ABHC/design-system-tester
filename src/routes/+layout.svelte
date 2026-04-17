@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import '../design-system/tokens.css';
+    import '$lib/theme/tokens.css';
     import fontsData from '$lib/data/fonts.json';
     import { preconnectGoogleFonts } from '$lib/utils/fontLoader';
     import favicon from '$lib/assets/favicon.svg';
@@ -38,7 +38,7 @@
         drawer_docs_open,
     } from './store';
 
-    import { tokenValues } from '../design-system/token-schema';
+    import { tokenValues } from '$lib/theme/tokenSchema';
 
     import { translations } from './translations';
     import type { Locale } from "$lib/types/translations";
@@ -231,9 +231,17 @@
     {#if googleFontsUrl}
         <link rel="stylesheet" href={googleFontsUrl} />
     {/if}
-    <link 
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" 
-        rel="stylesheet" 
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+        rel="stylesheet"
+    />
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/lucide-static@latest/font/lucide.css"
+    />
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css"
     />
 </svelte:head>
 

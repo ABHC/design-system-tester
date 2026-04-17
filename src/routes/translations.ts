@@ -106,6 +106,9 @@ export const translations = {
             settings: "Options",
             bigger: "Voir en grand",
             docs: "Composants",
+            icons: "Icônes",
+            icon_none: "Aucune",
+            export: "Exporter",
         },
         palette: {
             title: "Palette de couleurs",
@@ -467,6 +470,9 @@ export const translations = {
             settings: "Settings",
             bigger: "View larger",
             docs: "Components",
+            icons: "Icons",
+            icon_none: "None",
+            export: "Export",
         },
         palette: {
             title: "Color palette",
