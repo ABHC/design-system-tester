@@ -455,7 +455,7 @@
             alpha={false}
             onchange={(hex) => { tone_bg_hex = hex; }}
         >
-            {#snippet header()}
+            {#snippet leading()}
                 {@render header_tabs()}
             {/snippet}
             {#snippet extra()}
@@ -470,7 +470,7 @@
                 </div>
                 <SwatchRow swatches={tone_swatches} />
             {/snippet}
-            {#snippet footer()}
+            {#snippet trailing()}
                 {@render save_footer()}
             {/snippet}
         </ColorPicker>
@@ -482,7 +482,7 @@
             alpha={false}
             onchange={(hex) => { tone_card_hex = hex; }}
         >
-            {#snippet header()}
+            {#snippet leading()}
                 {@render header_tabs()}
             {/snippet}
             {#snippet extra()}
@@ -497,7 +497,7 @@
                 </div>
                 <SwatchRow swatches={tone_swatches} />
             {/snippet}
-            {#snippet footer()}
+            {#snippet trailing()}
                 {@render save_footer()}
             {/snippet}
         </ColorPicker>
@@ -509,7 +509,7 @@
             alpha={true}
             onchange={(hex) => { accent_hex = hex; }}
         >
-            {#snippet header()}
+            {#snippet leading()}
                 {@render header_tabs()}
             {/snippet}
             {#snippet extra()}
@@ -519,7 +519,7 @@
                     <SwatchRow swatches={accent_opposite_swatches} />
                 {/if}
             {/snippet}
-            {#snippet footer()}
+            {#snippet trailing()}
                 {@render save_footer()}
             {/snippet}
         </ColorPicker>
@@ -531,7 +531,7 @@
             alpha={true}
             onchange={(hex) => { ctx_hexes[ctx_field] = hex; }}
         >
-            {#snippet header()}
+            {#snippet leading()}
                 {@render header_tabs()}
             {/snippet}
             {#snippet extra()}
@@ -548,7 +548,7 @@
                     <SwatchRow swatches={ctx_opposite_swatches} />
                 {/if}
             {/snippet}
-            {#snippet footer()}
+            {#snippet trailing()}
                 {@render save_footer()}
             {/snippet}
         </ColorPicker>
@@ -560,7 +560,7 @@
             alpha={false}
             onchange={(hex) => { text_hex = hex; }}
         >
-            {#snippet header()}
+            {#snippet leading()}
                 {@render header_tabs()}
             {/snippet}
             {#snippet extra()}
@@ -575,7 +575,7 @@
                 </div>
                 <SwatchRow swatches={text_swatches} />
             {/snippet}
-            {#snippet footer()}
+            {#snippet trailing()}
                 {@render save_footer()}
             {/snippet}
         </ColorPicker>

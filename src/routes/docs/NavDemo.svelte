@@ -79,7 +79,7 @@
     </Button>
 </Nav>`;
 
-    const usage_header_footer = `<!-- Header, footer, and free composition -->
+    const usage_header_footer = `<!-- Leading, trailing, and free composition -->
 {#snippet logo()}
     <Logo size={32} />
 {/snippet}
@@ -92,7 +92,7 @@
 {/snippet}
 
 <Nav position="floating" direction="left" palette="accent"
-    header={logo} footer={lang_select}>
+    leading={logo} trailing={lang_select}>
     <Button variant="ghost" palette="accent" rounded
         onclick={() => {}}>
         <span class="material-symbols-outlined">colors</span>
@@ -340,7 +340,7 @@
             language: "Svelte"
         },
         {
-            label: "header & footer",
+            label: "leading & trailing",
             code: usage_header_footer,
             language: "Svelte"
         },
@@ -369,8 +369,8 @@
         { prop: "rounded", type: "boolean", default: "false" },
         { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
         { prop: "offset", type: "string", default: '"0px"' },
-        { prop: "header", type: "Snippet", default: "\u2014" },
-        { prop: "footer", type: "Snippet", default: "\u2014" },
+        { prop: "leading", type: "Snippet", default: "\u2014" },
+        { prop: "trailing", type: "Snippet", default: "\u2014" },
         { prop: "children", type: "Snippet", default: "\u2014" },
     ]}
 />

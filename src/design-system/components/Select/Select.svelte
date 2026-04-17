@@ -26,8 +26,8 @@
         name?: string;
         id?: string;
         onchange?: (value: T) => void;
-        header?: Snippet;
-        footer?: Snippet;
+        leading?: Snippet;
+        trailing?: Snippet;
         palette?: PopoverPalette;
         rounded?: boolean;
         elevation?: PopoverElevation;
@@ -50,8 +50,8 @@
         name,
         id,
         onchange,
-        header,
-        footer,
+        leading,
+        trailing,
         palette = "tone",
         rounded = false,
         elevation = "none",
@@ -171,10 +171,10 @@
 
         {#snippet children()}
             <div role="listbox" aria-labelledby={uid}>
-                {#if header || searchable}
+                {#if leading || searchable}
                     <div class="select-header">
-                        {#if header}
-                            {@render header()}
+                        {#if leading}
+                            {@render leading()}
                         {:else if searchable}
                             <SearchField
                                 bind:value={search}
@@ -209,9 +209,9 @@
                     {/each}
                 </div>
 
-                {#if footer}
+                {#if trailing}
                     <div class="select-footer">
-                        {@render footer()}
+                        {@render trailing()}
                     </div>
                 {/if}
             </div>

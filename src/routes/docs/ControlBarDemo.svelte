@@ -94,7 +94,7 @@
     palette={bar_palette}
     bordered={bar_bordered}
     rounded={bar_rounded}
-    header={bar_header ? header_demo : undefined}
+    leading={bar_header ? header_demo : undefined}
 >
     <Selector
         label={placeholders?.control_bar?.lbl_layout}
@@ -158,7 +158,7 @@
 <p class="demo-label">{placeholders?.control_bar?.sect_swatches}</p>
 
 <ControlBar palette="tone">
-    {#snippet header()}
+    {#snippet leading()}
         <h4 class="header-demo">
             {placeholders?.control_bar?.selected_color}&nbsp;{color}
         </h4>
@@ -240,7 +240,7 @@
             language: "Svelte",
             code:
 `<ControlBar palette="tone">
-    {#snippet header()}
+    {#snippet leading()}
         Section title
     {/snippet}
     <Selector label="Layout" options={layouts} bind:value={layout} />
@@ -252,7 +252,7 @@
             code:
 `<!-- Drops the outer border; header's bottom border acts as separator -->
 <ControlBar palette="tone" bordered={false}>
-    {#snippet header()}
+    {#snippet leading()}
         Section title
     {/snippet}
     <Selector label="Layout" options={layouts} bind:value={layout} />
@@ -269,7 +269,7 @@
 <\/script>
 
 <ControlBar palette="tone">
-    {#snippet header()}
+    {#snippet leading()}
         Selected: {selected}
     {/snippet}
     {#each colors as c}
@@ -302,7 +302,7 @@
         { key: "default", label: "Default", cell: codeCell },
     ]}
     rows={[
-        { prop: "header", type: "Snippet", default: "\u2014" },
+        { prop: "leading", type: "Snippet", default: "\u2014" },
         { prop: "children", type: "Snippet", default: "\u2014" },
         { prop: "palette", type: '"accent" | "tone" | "accentbg"', default: '"tone"' },
         { prop: "rounded", type: "boolean", default: "false" },

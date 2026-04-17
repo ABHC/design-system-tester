@@ -346,8 +346,8 @@
         direction="top"
         palette="tone"
         elevation="subtle"
-        header={header_visible ? empty_nav : logo_in_nav}
-        footer={nav_trailing}
+        leading={header_visible ? empty_nav : logo_in_nav}
+        trailing={nav_trailing}
     >
         {#if !page.url.pathname.startsWith('/docs')}
             <Button 
@@ -404,8 +404,8 @@
         direction="top"
         palette="tone"
         elevation="subtle"
-        header={header_visible ? empty_nav : logo_in_nav}
-        footer={nav_trailing}
+        leading={header_visible ? empty_nav : logo_in_nav}
+        trailing={nav_trailing}
     >
         <Button
             variant="ghost" 

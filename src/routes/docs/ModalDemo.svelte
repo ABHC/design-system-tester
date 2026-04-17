@@ -43,13 +43,13 @@
 
     const code_confirm = `<!-- Confirmation dialog — tone palette -->
 <Modal palette="tone" open={open} onclose={() => open = false}>
-    {#snippet header()}
+    {#snippet leading()}
         <span class="modal-title">${placeholders.modal.tone_title}</span>
     {/snippet}
     {#snippet children()}
         <p>${placeholders.modal.tone_body}</p>
     {/snippet}
-    {#snippet footer()}
+    {#snippet trailing()}
         <Button palette="error" rounded onclick={() => open = false}>
             ${placeholders.modal.tone_confirm}
         </Button>
@@ -61,13 +61,13 @@
 
     const code_announce = `<!-- Announcement — accent palette -->
 <Modal palette="accent" open={open} onclose={() => open = false}>
-    {#snippet header()}
+    {#snippet leading()}
         <span class="modal-title">${placeholders.modal.accent_title}</span>
     {/snippet}
     {#snippet children()}
         <p>${placeholders.modal.accent_body}</p>
     {/snippet}
-    {#snippet footer()}
+    {#snippet trailing()}
         <Button palette="tone" rounded onclick={() => open = false}>
             ${placeholders.modal.accent_cta}
         </Button>
@@ -76,7 +76,7 @@
 
     const code_profile = `<!-- Profile composition — Avatar + Badge -->
 <Modal open={open} onclose={() => open = false}>
-    {#snippet header()}
+    {#snippet leading()}
         <Avatar size="md" circular label="${placeholders.modal.compose_name}" />
         <div>
             <strong>${placeholders.modal.compose_name}</strong>
@@ -89,7 +89,7 @@
             ${placeholders.modal.compose_skills.map(s => `<Badge variant="outlined" size="sm">${s}</Badge>`).join("\n ")}
         </div>
     {/snippet}
-    {#snippet footer()}
+    {#snippet trailing()}
         <Button animate="right" rounded>${placeholders.modal.compose_contact}</Button>
         <Button palette="tone" rounded onclick={() => open = false}>${placeholders.modal.compose_close}</Button>
     {/snippet}
@@ -97,13 +97,13 @@
 
     const code_terms = `<!-- Wide terms dialog — 680px -->
 <Modal width="680px" open={open} onclose={() => open = false}>
-    {#snippet header()}
+    {#snippet leading()}
         <span class="modal-title">${placeholders.modal.wide_title}</span>
     {/snippet}
     {#snippet children()}
         <p>${placeholders.modal.wide_body}</p>
     {/snippet}
-    {#snippet footer()}
+    {#snippet trailing()}
         <Button rounded>${placeholders.modal.wide_accept}</Button>
         <Button variant="outlined" palette="error" rounded>${placeholders.modal.wide_decline}</Button>
     {/snippet}
@@ -183,13 +183,13 @@
         open={demo_open}
         onclose={close}
     >
-        {#snippet header()}
+        {#snippet leading()}
             <span class="modal-title">{modal.tone_title}</span>
         {/snippet}
         {#snippet children()}
             <p class="modal-text">{modal.tone_body}</p>
         {/snippet}
-        {#snippet footer()}
+        {#snippet trailing()}
             <Button variant="flat" palette="error" rounded onclick={close}>
                 {modal.tone_confirm}
             </Button>
@@ -210,13 +210,13 @@
         open={demo_open}
         onclose={close}
     >
-        {#snippet header()}
+        {#snippet leading()}
             <span class="modal-title">{modal.accent_title}</span>
         {/snippet}
         {#snippet children()}
             <p class="modal-text">{modal.accent_body}</p>
         {/snippet}
-        {#snippet footer()}
+        {#snippet trailing()}
             <Button variant="flat" palette="tone" rounded onclick={close}>
                 {modal.accent_cta}
             </Button>
@@ -237,7 +237,7 @@
         open={demo_open}
         onclose={close}
     >
-        {#snippet header()}
+        {#snippet leading()}
             <Avatar size="md" circular label={modal.compose_name} palette="accent" />
             <div class="header-identity">
                 <span class="modal-title">{modal.compose_name}</span>
@@ -252,7 +252,7 @@
                 {/each}
             </div>
         {/snippet}
-        {#snippet footer()}
+        {#snippet trailing()}
             <Button variant="flat" animate="right" rounded onclick={close}>
                 {modal.compose_contact}
             </Button>
@@ -273,13 +273,13 @@
         open={demo_open}
         onclose={close}
     >
-        {#snippet header()}
+        {#snippet leading()}
             <span class="modal-title">{modal.wide_title}</span>
         {/snippet}
         {#snippet children()}
             <p class="modal-text">{modal.wide_body}</p>
         {/snippet}
-        {#snippet footer()}
+        {#snippet trailing()}
             <Button variant="flat" rounded onclick={close}>
                 {modal.wide_accept}
             </Button>
@@ -327,9 +327,9 @@
         { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"subtle"' },
         { prop: "rounded", type: "boolean", default: "false" },
         { prop: "width", type: "string", default: '"480px"' },
-        { prop: "header", type: "Snippet", default: "\u2014" },
+        { prop: "leading", type: "Snippet", default: "\u2014" },
         { prop: "children", type: "Snippet", default: "\u2014" },
-        { prop: "footer", type: "Snippet", default: "\u2014" },
+        { prop: "trailing", type: "Snippet", default: "\u2014" },
     ]}
 />
 

@@ -72,15 +72,15 @@
     searchPlaceholder="Filter languages…"
 />`;
 
-    const code_slots = `<!-- Custom header and footer via snippets -->
+    const code_slots = `<!-- Custom leading and trailing via snippets -->
 <Select bind:value={fruit} options={fruits} label="Fruit" placeholder="Pick a fruit">
-    {#snippet header()}
+    {#snippet leading()}
         <div style="padding: 0.25rem; font-size: 0.75rem; color: var(--text-muted);">
             Pick your favorite fruit
         </div>
     {/snippet}
 
-    {#snippet footer()}
+    {#snippet trailing()}
         <button onclick={() => { fruit = undefined; }}>
             Clear selection
         </button>
@@ -142,7 +142,7 @@
 
     <!-- Basic -->
     <Card variant="flat" rounded elevation="subtle">
-        {#snippet header()}
+        {#snippet leading()}
             <div class="card-section-header">
                 <span class="material-symbols-outlined">list</span>
                 <span>{ph.sect_basic}</span>
@@ -170,7 +170,7 @@
 
     <!-- Searchable -->
     <Card variant="flat" rounded elevation="subtle">
-        {#snippet header()}
+        {#snippet leading()}
             <div class="card-section-header">
                 <span class="material-symbols-outlined">search</span>
                 <span>{ph.sect_searchable}</span>
@@ -199,7 +199,7 @@
 
     <!-- With slots -->
     <Card variant="flat" rounded elevation="subtle">
-        {#snippet header()}
+        {#snippet leading()}
             <div class="card-section-header">
                 <span class="material-symbols-outlined">view_agenda</span>
                 <span>{ph.sect_slots}</span>
@@ -217,14 +217,14 @@
                 label={ph.lbl_fruit}
                 placeholder={ph.ph_fruit}
             >
-                {#snippet header()}
+                {#snippet leading()}
                     <div class="slot-header-content">
                         <span class="material-symbols-outlined slot-icon">info</span>
                         {ph.fruit_header}
                     </div>
                 {/snippet}
 
-                {#snippet footer()}
+                {#snippet trailing()}
                     <button
                         class="slot-footer-btn"
                         onclick={() => { fruit = undefined; }}
@@ -243,7 +243,7 @@
 
     <!-- Validation -->
     <Card variant="flat" rounded elevation="subtle">
-        {#snippet header()}
+        {#snippet leading()}
             <div class="card-section-header">
                 <span class="material-symbols-outlined">verified</span>
                 <span>{ph.sect_validation}</span>
@@ -410,8 +410,8 @@
         { prop: "name", type: "string", default: "\u2014" },
         { prop: "id", type: "string", default: "\u2014" },
         { prop: "onchange", type: "(value: T) => void", default: "\u2014" },
-        { prop: "header", type: "Snippet", default: "\u2014" },
-        { prop: "footer", type: "Snippet", default: "\u2014" },
+        { prop: "leading", type: "Snippet", default: "\u2014" },
+        { prop: "trailing", type: "Snippet", default: "\u2014" },
         { prop: "palette", type: '"tone" | "accent" | "accentbg"', default: '"tone"' },
         { prop: "rounded", type: "boolean", default: "false" },
         { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },

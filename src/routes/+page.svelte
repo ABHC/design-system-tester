@@ -31,7 +31,7 @@
 Header, body et footer indépendants.</p>
     </div>
   {/snippet}
-  {#snippet footer()}
+  {#snippet trailing()}
     <Button size="sm" palette="accent">
       Voir la doc
     </Button>

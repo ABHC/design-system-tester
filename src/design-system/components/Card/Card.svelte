@@ -16,9 +16,9 @@
         width?: string;
         rounded?: boolean;
         href?: string;
-        header?: Snippet;
+        leading?: Snippet;
         children?: Snippet;
-        footer?: Snippet;
+        trailing?: Snippet;
     }
 
     let {
@@ -27,9 +27,9 @@
         width = undefined,
         rounded = defaultCardConfig.rounded,
         href = undefined,
-        header,
+        leading,
         children,
-        footer,
+        trailing,
     }: Props = $props();
 
     // ── Helpers ───────────────────────────────────────────────────────────────
@@ -44,9 +44,9 @@
 <!-- ── Card inner markup (shared between <div> and <a> roots) ──────────────── -->
 
 {#snippet card_inner()}
-    {#if header}
+    {#if leading}
         <div class="card-header">
-            {@render header()}
+            {@render leading()}
         </div>
     {/if}
 
@@ -56,9 +56,9 @@
         </div>
     {/if}
 
-    {#if footer}
+    {#if trailing}
         <div class="card-footer">
-            {@render footer()}
+            {@render trailing()}
         </div>
     {/if}
 {/snippet}

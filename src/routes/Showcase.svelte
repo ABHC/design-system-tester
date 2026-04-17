@@ -124,7 +124,7 @@
                                 </div>
                             </div>
                         {/snippet}
-                        {#snippet footer()}
+                        {#snippet trailing()}
                             <Button size="sm" variant="flat" palette="accent">View profile</Button>
                             <Button size="sm" variant="ghost" palette="tone">Message</Button>
                         {/snippet}
@@ -176,7 +176,7 @@
                 {:else if index === 3}
                     <!-- Slide 3 — Switches + Callout -->
                     <Card variant="flat" width="320px">
-                        {#snippet header()}
+                        {#snippet leading()}
                             <div class="cs-settings-header">
                                 <span class="material-symbols-outlined">tune</span>
                                 <strong>Preferences</strong>
@@ -220,7 +220,7 @@
                 {:else if index === 4}
                     <!-- Slide 4 — Progress bars -->
                     <Card variant="flat" width="340px">
-                        {#snippet header()}
+                        {#snippet leading()}
                             <div class="cs-progress-header">
                                 <span class="material-symbols-outlined">bar_chart</span>
                                 <strong>Coverage</strong>
@@ -255,7 +255,7 @@
                 {:else if index === 5}
                     <!-- Slide 5 — Sliders -->
                     <Card variant="flat" width="320px">
-                        {#snippet header()}
+                        {#snippet leading()}
                             <div class="cs-slider-header">
                                 <span class="material-symbols-outlined">linear_scale</span>
                                 <strong>Controls</strong>
@@ -312,7 +312,7 @@
                 {:else if index === 6}
                     <!-- Slide 6 — ListItems -->
                     <Card variant="flat" width="320px">
-                        {#snippet header()}
+                        {#snippet leading()}
                             <div class="cs-list-header">
                                 <span class="material-symbols-outlined">list</span>
                                 <strong>Components</strong>

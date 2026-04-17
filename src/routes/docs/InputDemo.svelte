@@ -169,7 +169,7 @@
 <div class="forms-grid">
     <span></span>
     <Card variant="flat" rounded elevation="subtle">
-        {#snippet header()}
+        {#snippet leading()}
             <div class="card-form-header">
                 <span class="material-symbols-outlined">account_circle</span>
                 <span>{placeholders?.input_demo?.sect_signup}</span>
@@ -233,7 +233,7 @@
             />
         {/snippet}
 
-        {#snippet footer()}
+        {#snippet trailing()}
             <Button variant="flat" size={demo_size}>
                 {placeholders?.input_demo?.btn_signup}
             </Button>

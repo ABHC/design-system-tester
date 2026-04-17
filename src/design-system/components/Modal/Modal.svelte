@@ -14,9 +14,9 @@
                 Max-width is always capped at calc(100vw - 2rem).
 
         Slots :
-            header : Top zone — padded, bottom border.
+            leading : Top zone — padded, bottom border.
             children : Body zone — padded, scrollable.
-            footer : Bottom zone — padded, top border, flex row.
+            trailing : Bottom zone — padded, top border, flex row.
 
         Note: the modal renders inline in the component tree.
         Ensure no ancestor has overflow:hidden or a conflicting z-index.
@@ -29,9 +29,9 @@
         elevation?: Elevation;
         rounded?: boolean;
         width?: string;
-        header?: Snippet;
+        leading?: Snippet;
         children?: Snippet;
-        footer?: Snippet;
+        trailing?: Snippet;
     }
 
     let {
@@ -41,9 +41,9 @@
         elevation = defaultModalConfig.elevation,
         rounded = defaultModalConfig.rounded,
         width = "480px",
-        header,
+        leading,
         children,
-        footer,
+        trailing,
     }: Props = $props();
 
     const resolve = createVariant(modalConfig);
@@ -72,9 +72,9 @@
         role="dialog"
         aria-modal="true"
     >
-        {#if header}
+        {#if leading}
             <div class="modal-header">
-                {@render header()}
+                {@render leading()}
             </div>
         {/if}
 
@@ -84,9 +84,9 @@
             </div>
         {/if}
 
-        {#if footer}
+        {#if trailing}
             <div class="modal-footer">
-                {@render footer()}
+                {@render trailing()}
             </div>
         {/if}
     </div>

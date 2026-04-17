@@ -181,7 +181,7 @@
 
     <!-- Basic grouped -->
     <Card variant="flat" elevation="subtle">
-        {#snippet header()}
+        {#snippet leading()}
             <div class="card-section-header">
                 <span class="material-symbols-outlined">terminal</span>
                 <span>{ph.group_commands}</span>
@@ -208,7 +208,7 @@
 
     <!-- Custom item snippet -->
     <Card variant="flat" elevation="subtle">
-        {#snippet header()}
+        {#snippet leading()}
             <div class="card-section-header">
                 <span class="material-symbols-outlined">groups</span>
                 <span>{ph.custom_item}</span>
@@ -235,7 +235,7 @@
 
     <!-- Flat (no groups) -->
     <Card variant="flat" elevation="subtle">
-        {#snippet header()}
+        {#snippet leading()}
             <div class="card-section-header">
                 <span class="material-symbols-outlined">list</span>
                 <span>{ph.no_groups}</span>

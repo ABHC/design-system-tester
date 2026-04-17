@@ -15,9 +15,9 @@
         width?: string;
         height?: string;
         rounded?: boolean;
-        header?: Snippet;
+        leading?: Snippet;
         children?: Snippet;
-        footer?: Snippet;
+        trailing?: Snippet;
         onclose?: () => void;
         aria_label?: string;
     }
@@ -31,9 +31,9 @@
         width = "260px",
         height = "300px",
         rounded = false,
-        header,
+        leading,
         children,
-        footer,
+        trailing,
         onclose,
         aria_label = "Drawer",
     }: Props = $props();
@@ -79,9 +79,9 @@
     aria-label={aria_label}
     aria-hidden={!open}
 >
-    {#if header}
+    {#if leading}
         <div class="drawer-header">
-            {@render header()}
+            {@render leading()}
         </div>
     {/if}
 
@@ -89,9 +89,9 @@
         {@render children?.()}
     </div>
 
-    {#if footer}
+    {#if trailing}
         <div class="drawer-footer">
-            {@render footer()}
+            {@render trailing()}
         </div>
     {/if}
 </aside>

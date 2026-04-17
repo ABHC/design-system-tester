@@ -42,7 +42,7 @@
     const code_buttons = `<!-- Navigation with Buttons -->
 <Drawer direction="left" palette="accent" rounded open={open}
     onclose={() => { open = false; }}>
-    {#snippet header()}
+    {#snippet leading()}
         <div style="display:flex; align-items:center; gap:.5rem; width:100%">
             <span class="material-symbols-outlined">layers<\/span>
             <strong>My App<\/strong>
@@ -103,7 +103,7 @@
 <Drawer direction="top" height="200px" ...>Top sheet<\/Drawer>
 <Drawer direction="bottom" height="250px" ...>Bottom sheet<\/Drawer>`;
 
-    const code_header_footer = `<!-- Header + footer slots -->
+    const code_header_footer = `<!-- Leading + trailing slots -->
 {#snippet drawer_header()}
     <div style="display:flex; align-items:center; gap:.5rem; width:100%">
         <span class="material-symbols-outlined">layers<\/span>
@@ -122,8 +122,8 @@
 {/snippet}
 
 <Drawer direction="left" palette="accent" rounded {open}
-    header={drawer_header}
-    footer={drawer_footer}>
+    leading={drawer_header}
+    trailing={drawer_footer}>
     <!-- your content here -->
 <\/Drawer>`;
 
@@ -201,7 +201,7 @@
         open={demo_open}
         onclose={close}
     >
-        {#snippet header()}
+        {#snippet leading()}
             <div class="demo-drawer-head">
                 <span class="material-symbols-outlined">layers</span>
                 <strong>My App</strong>
@@ -236,7 +236,7 @@
             <span class="nav-label">Settings</span>
         </Button>
 
-        {#snippet footer()}
+        {#snippet trailing()}
             <div class="demo-drawer-foot">
                 <Avatar
                     palette={demo_palette === "accent" ? "tone" : "accent"}
@@ -256,7 +256,7 @@
         open={demo_open}
         onclose={close}
     >
-        {#snippet header()}
+        {#snippet leading()}
             <div class="demo-drawer-head">
                 <span class="material-symbols-outlined">folder_open</span>
                 <strong>Files</strong>
@@ -301,7 +301,7 @@
         open={demo_open}
         onclose={close}
     >
-        {#snippet header()}
+        {#snippet leading()}
             <div class="demo-drawer-head">
                 <span class="material-symbols-outlined">search</span>
                 <strong>Explorer</strong>
@@ -344,7 +344,7 @@
         { label: "list items", code: code_listitems, language: "Svelte" },
         { label: "mixed (search)", code: code_mixed, language: "Svelte" },
         { label: "directions", code: code_directions, language: "Svelte" },
-        { label: "header & footer", code: code_header_footer, language: "Svelte" },
+        { label: "leading & trailing", code: code_header_footer, language: "Svelte" },
     ]}
 />
 
@@ -367,9 +367,9 @@
         { prop: "width", type: "string", default: '"260px"' },
         { prop: "height", type: "string", default: '"300px"' },
         { prop: "rounded", type: "boolean", default: "false" },
-        { prop: "header", type: "Snippet", default: "\u2014" },
+        { prop: "leading", type: "Snippet", default: "\u2014" },
         { prop: "children", type: "Snippet", default: "\u2014" },
-        { prop: "footer", type: "Snippet", default: "\u2014" },
+        { prop: "trailing", type: "Snippet", default: "\u2014" },
         { prop: "onclose", type: "() => void", default: "\u2014" },
         { prop: "aria_label", type: "string", default: '"Drawer"' },
     ]}

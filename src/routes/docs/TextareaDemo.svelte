@@ -117,7 +117,7 @@
 <div class="forms-grid">
     <span></span>
     <Card variant="flat" rounded elevation="subtle">
-        {#snippet header()}
+        {#snippet leading()}
             <div class="card-form-header">
                 <span class="material-symbols-outlined">mail</span>
                 <span>{placeholders?.textarea_demo?.sect_contact}</span>
@@ -157,7 +157,7 @@
             />
         {/snippet}
 
-        {#snippet footer()}
+        {#snippet trailing()}
             <Button variant="flat" size={demo_size}>
                 {placeholders?.textarea_demo?.btn_send}
             </Button>

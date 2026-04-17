@@ -76,7 +76,7 @@
     palette="tone"
     width="300px"
     open={$drawer_open}
-    header={drawer_header}
+    leading={drawer_header}
     onclose={() => { $drawer_open = false; $drawer_menu = null; }}
 >
     {#if $drawer_menu === "theme"}

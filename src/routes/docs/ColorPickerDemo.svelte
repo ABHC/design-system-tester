@@ -140,9 +140,9 @@
             { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
             { prop: "alpha", type: "boolean", default: "false" },
             { prop: "onchange", type: "(hex: string, alpha: number) => void", default: "undefined" },
-            { prop: "header", type: "Snippet", default: "undefined" },
+            { prop: "leading", type: "Snippet", default: "undefined" },
             { prop: "extra", type: "Snippet", default: "undefined" },
-            { prop: "footer", type: "Snippet", default: "undefined" },
+            { prop: "trailing", type: "Snippet", default: "undefined" },
             { prop: "children", type: "Snippet", default: "undefined" },
         ]}
     />

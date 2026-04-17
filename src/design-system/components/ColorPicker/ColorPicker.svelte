@@ -17,10 +17,10 @@
         rounded?: boolean;
         elevation?: Elevation;
         alpha?: boolean;
-        header?: Snippet;
+        leading?: Snippet;
         children?: Snippet;
         extra?: Snippet;
-        footer?: Snippet;
+        trailing?: Snippet;
         onchange?: (hex: string, alpha: number) => void;
     }
 
@@ -30,10 +30,10 @@
         rounded = defaultColorPickerConfig.rounded,
         elevation = defaultColorPickerConfig.elevation,
         alpha: showAlpha = false,
-        header,
+        leading,
         children,
         extra,
-        footer,
+        trailing,
         onchange,
     }: Props = $props();
 
@@ -244,9 +244,9 @@
 />
 
 <div class={classes}>
-    {#if header}
+    {#if leading}
         <div class="color-picker-header">
-            {@render header()}
+            {@render leading()}
         </div>
     {/if}
 
@@ -466,9 +466,9 @@
         {/if}
     </div>
 
-    {#if footer}
+    {#if trailing}
         <div class="color-picker-footer">
-            {@render footer()}
+            {@render trailing()}
         </div>
     {/if}
 </div>

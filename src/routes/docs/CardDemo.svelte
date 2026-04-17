@@ -54,7 +54,7 @@
 </Card>`;
 
     const code_project = `<Card variant="outlined" elevation="hard" width="300px">
-    {#snippet header()}
+    {#snippet leading()}
         <img src="/project.jpg" alt="Project" />
     {/snippet}
     {#snippet children()}
@@ -62,13 +62,13 @@
         <h4>Project Name</h4>
         <p>Short description.</p>
     {/snippet}
-    {#snippet footer()}
+    {#snippet trailing()}
         <Button variant="flat" size="sm" rounded>View</Button>
     {/snippet}
 </Card>`;
 
     const code_profile = `<Card variant="flat" elevation="subtle" width="100%">
-    {#snippet header()}
+    {#snippet leading()}
         <div class="profile-header">
             <Avatar size="xl" circular label="JM" palette="accent" />
             <div>
@@ -82,7 +82,7 @@
         <p>Bio text…</p>
         <Badge variant="outlined" size="sm">dessin</Badge>
     {/snippet}
-    {#snippet footer()}
+    {#snippet trailing()}
         <Button variant="flat" size="sm" animate="right" rounded>
             Contact
         </Button>
@@ -92,7 +92,7 @@
     const code_testimonials = `<div class="testimonials-row">
     {#each testimonials as t}
         <Card variant="outlined" width="0">
-            {#snippet header()}
+            {#snippet leading()}
                 <div class="testi-header">
                     <Avatar size="md" circular label={t.initials} />
                     <div>
@@ -189,7 +189,7 @@
                     rounded={demo_rounded}
                     width="300px"
                 >
-                    {#snippet header()}
+                    {#snippet leading()}
                         <div class="demo-img-placeholder" class:accent={i === 0} class:muted={i === 1} aria-hidden="true">
                             {#if i != 2}
                                 <span class="material-symbols-outlined">
@@ -209,7 +209,7 @@
                         <h4 class="card-title">{tile.name}</h4>
                         <p class="card-text">{tile.description}</p>
                     {/snippet}
-                    {#snippet footer()}
+                    {#snippet trailing()}
                         {#if i === 2}
                             <Button variant="flat" size="sm" rounded>
                                 <a 
@@ -241,7 +241,7 @@
                 rounded={demo_rounded}
                 width="100%"
             >
-                {#snippet header()}
+                {#snippet leading()}
                     <div class="profile-header">
                         <Avatar size="xl" circular label={profile.initials} palette="accent" />
                         <div class="profile-identity">
@@ -277,7 +277,7 @@
                         </div>
                     </div>
                 {/snippet}
-                {#snippet footer()}
+                {#snippet trailing()}
                     <Button variant="flat" size="sm" animate="right" rounded>
                         {profile.contact_btn}
                     </Button>
@@ -303,7 +303,7 @@
                     rounded={demo_rounded}
                     width="0"
                 >
-                    {#snippet header()}
+                    {#snippet leading()}
                         <div class="testi-header">
                             <Avatar size="md" circular label={t.avatar_initial} />
                             <div>
@@ -354,9 +354,9 @@
         { prop: "width", type: "string", default: "undefined" },
         { prop: "rounded", type: "boolean", default: "false" },
         { prop: "href", type: "string", default: "undefined" },
-        { prop: "header", type: "Snippet", default: "\u2014" },
+        { prop: "leading", type: "Snippet", default: "\u2014" },
         { prop: "children", type: "Snippet", default: "\u2014" },
-        { prop: "footer", type: "Snippet", default: "\u2014" },
+        { prop: "trailing", type: "Snippet", default: "\u2014" },
     ]}
 />
 </div>

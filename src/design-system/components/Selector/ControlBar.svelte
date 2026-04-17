@@ -6,7 +6,7 @@
     type Palette = "accent" | "tone" | "accentbg";
 
     interface Props {
-        header?:  Snippet;
+        leading?: Snippet;
         children: Snippet;
         palette?: Palette;
         rounded?: boolean;
@@ -14,7 +14,7 @@
     }
 
     let {
-        header,
+        leading,
         children,
         palette,
         rounded  = false,
@@ -29,9 +29,9 @@
 </script>
 
 <div class="control-bar {wrapper_classes}">
-    {#if header}
+    {#if leading}
         <div class="control-header">
-            {@render header()}
+            {@render leading()}
         </div>
     {/if}
     <div class="control-body">

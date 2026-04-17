@@ -15,8 +15,8 @@
         rounded?: boolean;
         elevation?: Elevation;
         offset?: string;
-        header?: Snippet;
-        footer?: Snippet;
+        leading?: Snippet;
+        trailing?: Snippet;
         children: Snippet;
     }
 
@@ -27,8 +27,8 @@
         rounded = false,
         elevation = "none",
         offset = "0px",
-        header,
-        footer,
+        leading,
+        trailing,
         children,
     }: Props = $props();
 
@@ -53,9 +53,9 @@
     style="--nav-offset: {offset}"
     aria-label="Navigation"
 >
-    {#if header}
+    {#if leading}
         <div class="nav-header">
-            {@render header()}
+            {@render leading()}
         </div>
     {/if}
 
@@ -63,9 +63,9 @@
         {@render children()}
     </div>
 
-    {#if footer}
+    {#if trailing}
         <div class="nav-footer">
-            {@render footer()}
+            {@render trailing()}
         </div>
     {/if}
 </nav>

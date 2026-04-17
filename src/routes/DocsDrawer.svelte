@@ -112,7 +112,7 @@
     palette="tone"
     width="300px"
     open={$drawer_docs_open}
-    header={drawer_header}
+    leading={drawer_header}
     onclose={() => { $drawer_docs_open = false;}}
 >
     <div class="docs-menu">
