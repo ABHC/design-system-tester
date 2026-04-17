@@ -1,6 +1,5 @@
 /* ─── Design System — Default Tokens ─────────────────────────────────────────
-   Fallback values active before any theme is applied.
-   Override with a generated theme CSS (via generateCSS() from token-schema.ts).
+   Fallback values active before any theme is applied in the docs.
    ─────────────────────────────────────────────────────────────────────────── */
 
 :root {

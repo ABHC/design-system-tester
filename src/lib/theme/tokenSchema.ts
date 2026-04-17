@@ -153,7 +153,7 @@ export function deriveSemanticTokens(
         [`--${name}`]: hex,
         [`--${name}-hover`]: shiftLightness(hex, delta),
         [`--${name}-bg`]: computeBg(hex, bgHex, isDark),
-        [`--${name}-ghost-hover`]: hexToRgba(bestTextColor(hex, textPalette.light, textPalette.dark), 0.15),
+        [`--${name}-ghost-hover`]: hexToRgba(hex, 0.10),
         [`--text-${name}`]: bestTextColor(hex, textPalette.light, textPalette.dark),
         [`--${name}-muted`]: computeMuted(hex, cardHex),
     };
@@ -238,41 +238,4 @@ export function tokenValues(config: TokenConfig): Record<string, string> {
     }
 
     return tokens;
-}
-
-// ─── CSS generation ──────────────────────────────────────────────────────────
-
-function renderBlock(selector: string, vars: Record<string, string>): string {
-    const lines = Object.entries(vars)
-        .map(([k, v]) => `    ${k}: ${v};`)
-        .join('\n');
-    return `${selector} {\n${lines}\n}`;
-}
-
-export function generateCSS(
-    config: TokenConfig | DualTokenConfig,
-    mode: GenerateMode = 'single',
-): string {
-    if (mode === 'single') {
-        return renderBlock(':root', tokenValues(config as TokenConfig));
-    }
-
-    const { light, dark } = config as DualTokenConfig;
-
-    if (mode === 'dual') {
-        return [
-            renderBlock('[data-theme="light"]', tokenValues(light)),
-            renderBlock('[data-theme="dark"]', tokenValues(dark)),
-        ].join('\n\n');
-    }
-
-    // mode === 'media'
-    const lightBlock = renderBlock(':root', tokenValues(light));
-    const darkVars = Object.entries(tokenValues(dark))
-        .map(([k, v]) => `        ${k}: ${v};`)
-        .join('\n');
-    return [
-        lightBlock,
-        `@media (prefers-color-scheme: dark) {\n    :root {\n${darkVars}\n    }\n}`,
-    ].join('\n\n');
 }
