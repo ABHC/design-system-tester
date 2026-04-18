@@ -88,13 +88,13 @@
 {/snippet}
 
 <!-- Decorative trailing icon -->
-<Badge trailing_icon={icon_open_in_new}>Link</Badge>
+<Badge trailing={icon_open_in_new}>Link</Badge>
 
 <!-- Actionable trailing — on_trailing_click makes it a button -->
 <Badge
     pill={false}
-    trailing_icon={icon_close}
-    trailing_icon_label="Remove"
+    trailing={icon_close}
+    trailing_label="Remove"
     on_trailing_click={() => remove(item)}
 >
     Active filter
@@ -112,7 +112,7 @@
 <Badge onclick={toggle} selected={isActive}>Toggle me</Badge>
 
 <!-- href → root becomes <a> -->
-<Badge variant="outlined" href="/page" trailing_icon={icon_open_in_new}>
+<Badge variant="outlined" href="/page" trailing={icon_open_in_new}>
     Link
 </Badge>`;
 
@@ -248,7 +248,7 @@
                 pill={demo_pill}
                 uppercase={demo_uppercase}
                 elevation={demo_elevation}
-                trailing_icon={icon_add}
+                trailing={icon_add}
                 onclick={() => click_count++}
             >
                 {demo.add}
@@ -260,7 +260,7 @@
                 pill={demo_pill}
                 uppercase={demo_uppercase}
                 elevation={demo_elevation}
-                trailing_icon={icon_close}
+                trailing={icon_close}
                 onclick={() => click_count++}
             >
                 {demo.filter_remove}
@@ -272,7 +272,7 @@
                 pill={demo_pill}
                 uppercase={demo_uppercase}
                 elevation={demo_elevation}
-                trailing_icon={icon_schedule}
+                trailing={icon_schedule}
                 onclick={() => click_count++}
             >
                 {demo.pending}
@@ -284,7 +284,7 @@
                 pill={demo_pill}
                 uppercase={demo_uppercase}
                 elevation={demo_elevation}
-                trailing_icon={icon_check}
+                trailing={icon_check}
                 onclick={() => click_count++}
             >
                 {demo.confirm}
@@ -296,7 +296,7 @@
                 pill={demo_pill}
                 uppercase={demo_uppercase}
                 elevation={demo_elevation}
-                trailing_icon={icon_arrow_forward}
+                trailing={icon_arrow_forward}
                 onclick={() => click_count++}
             >
                 {demo.see_more}
@@ -342,7 +342,7 @@
                 pill={demo_pill}
                 uppercase={demo_uppercase}
                 elevation={demo_elevation}
-                trailing_icon={icon_arrow_forward}
+                trailing={icon_arrow_forward}
             >
                 {demo.delete}
             </Badge>
@@ -363,7 +363,7 @@
                 pill={demo_pill}
                 uppercase={demo_uppercase}
                 elevation={demo_elevation}
-                trailing_icon={icon_check}
+                trailing={icon_check}
             >
                 {demo.validated}
             </Badge>
@@ -403,8 +403,8 @@
             variant="flat"
             palette="accent"
             pill={false}
-            trailing_icon={icon_close}
-            trailing_icon_label="{demo.filter_remove} {f}"
+            trailing={icon_close}
+            trailing_label="{demo.filter_remove} {f}"
             on_trailing_click={() => remove_filter(f)}
         >
             {f}
@@ -424,7 +424,7 @@
         palette="accent"
         elevation="subtle"
         href="#" 
-        trailing_icon={icon_open_in_new}
+        trailing={icon_open_in_new}
     >
         {demo.link}
     </Badge>
@@ -498,9 +498,9 @@
         { prop: "href", type: "string", default: "undefined" },
         { prop: "onclick", type: "() => void", default: "undefined" },
         { prop: "selected", type: "boolean", default: "false" },
-        { prop: "trailing_icon", type: "Snippet", default: "undefined" },
+        { prop: "trailing", type: "Snippet", default: "undefined" },
         { prop: "on_trailing_click", type: "() => void", default: "undefined" },
-        { prop: "trailing_icon_label", type: "string", default: "undefined" },
+        { prop: "trailing_label", type: "string", default: "undefined" },
         { prop: "children", type: "Snippet", default: "\u2014" },
     ]}
 />

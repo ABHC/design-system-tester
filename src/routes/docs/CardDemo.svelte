@@ -285,7 +285,7 @@
                         {profile.cv_btn}
                     </Button>
                     <div class="footer-spacer"></div>
-                    <Badge variant="outlined" size="sm" href="#" trailing_icon={icon_mail}>
+                    <Badge variant="outlined" size="sm" href="#" trailing={icon_mail}>
                         {profile.contact_email}
                     </Badge>
                 {/snippet}

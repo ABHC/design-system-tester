@@ -19,9 +19,9 @@
                false → rounded rectangle
         href : Renders as <a>
         onclick: Renders as <button>. Implicit — no extra prop needed.
-        trailing_icon : Material Symbol name shown after the label
+        trailing : trailing slot for icons or other content
         on_trailing_click : Makes the trailing icon an actionable button
-        trailing_icon_label : aria-label for the trailing icon button
+        trailing_label : aria-label for the trailing slot
         children : Badge label content
     */
 
@@ -35,9 +35,9 @@
         href?: string;
         onclick?: () => void;
         selected?: boolean;
-        trailing_icon?: Snippet;
+        trailing?: Snippet;
         on_trailing_click?: () => void;
-        trailing_icon_label?: string;
+        trailing_label?: string;
         children?: Snippet;
     }
 
@@ -51,9 +51,9 @@
         href = undefined,
         onclick = undefined,
         selected = false,
-        trailing_icon = undefined,
+        trailing = undefined,
         on_trailing_click = undefined,
-        trailing_icon_label = undefined,
+        trailing_label = undefined,
         children,
     }: Props = $props();
 
@@ -82,23 +82,23 @@
 
 <!-- Trailing icon snippet ─────────────────────────────────────────────────── -->
 
-{#snippet trailing()}
-    {#if trailing_icon}
+{#snippet trailing_slot()}
+    {#if trailing}
         {#if on_trailing_click}
             <button
                 class="badge-trailing-btn"
                 onclick={handle_trailing}
                 tabindex={root_is_button ? -1 : 0}
-                aria-label={trailing_icon_label}
+                aria-label={trailing_label}
                 type="button"
             >
                 <span class="badge-trailing-icon" aria-hidden="true">
-                    {@render trailing_icon()}
+                    {@render trailing()}
                 </span>
             </button>
         {:else}
             <span class="badge-trailing-icon" aria-hidden="true">
-                {@render trailing_icon()}
+                {@render trailing()}
             </span>
         {/if}
     {/if}
@@ -109,17 +109,17 @@
 {#if href}
     <a {href} class={classes}>
         {@render children?.()}
-        {@render trailing()}
+        {@render trailing_slot()}
     </a>
 {:else if onclick}
     <button class={classes} {onclick} type="button" aria-pressed={selected}>
         {@render children?.()}
-        {@render trailing()}
+        {@render trailing_slot()}
     </button>
 {:else}
     <span class={classes}>
         {@render children?.()}
-        {@render trailing()}
+        {@render trailing_slot()}
     </span>
 {/if}
 
