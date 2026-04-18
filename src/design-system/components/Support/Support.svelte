@@ -111,7 +111,7 @@ import LogoSpektral from "./LogoSpektral.svelte";
         z-index: 5;
     }
 
-    /* 3-stop logo scales for mono modes — fully resolved solid colors so the
+    /* 3-stop logo scales for mono modes - fully resolved solid colors so the
        three paths don't blend through each other when stacked. Each pair is
        mixed with a high-contrast partner (bg for text, accent for text-accent)
        to guarantee a visible step between main / hover / muted. */

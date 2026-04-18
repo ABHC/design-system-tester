@@ -134,7 +134,7 @@
         z-index: 200;
     }
 
-    /* ── Pattern layer ────────────────────────────────────────────────────── */
+    /* Pattern layer -------------------------------------------------------- */
 
     .footer-pattern {
         position: absolute;
@@ -149,7 +149,7 @@
         z-index: -10;
     }
 
-    /* ── Effect layer ─────────────────────────────────────────────────────── */
+    /* Effect layer --------------------------------------------------------- */
 
     .footer-effect {
         position: absolute;
@@ -179,16 +179,16 @@
         );
     }
 
-    /* Rounded — top corners only */
+    /* Rounded - top corners only */
     .footer-rounded { border-radius: var(--radius-round) var(--radius-round) 0 0; }
 
-    /* Palette — accent (default: matches layout footer) */
+    /* Palette - accent (default: matches layout footer) */
     .footer-palette-accent {
         background: var(--accent);
         color: var(--text-accent);
     }
 
-    /* Palette — tone */
+    /* Palette - tone */
     .footer-palette-tone {
         background: var(--tone);
         color: var(--text);

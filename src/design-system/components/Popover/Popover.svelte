@@ -79,13 +79,13 @@
 </div>
 
 <style>
-    /* Anchor ────────────────────────────────────────────────────────── */
+    /* Anchor ---------------------------------------------------------- */
 
     .popover-anchor {
         position: relative;
     }
 
-    /* Panel ─────────────────────────────────────────────────────────── */
+    /* Panel ----------------------------------------------------------- */
 
     .popover {
         position: absolute;
@@ -96,7 +96,7 @@
         box-sizing: border-box;
     }
 
-    /* Direction — main axis ─────────────────────────────────────────── */
+    /* Direction - main axis ------------------------------------------- */
 
     .popover-direction-bottom {
         top: calc(100% + var(--popover-gap, 6px));
@@ -118,7 +118,7 @@
         animation: popover-in-right 0.12s ease;
     }
 
-    /* Align — cross axis for top/bottom ────────────────────────────── */
+    /* Align - cross axis for top/bottom ------------------------------- */
 
     .popover-direction-top.popover-align-start,
     .popover-direction-bottom.popover-align-start {
@@ -136,7 +136,7 @@
         right: 0;
     }
 
-    /* Align — cross axis for left/right ────────────────────────────── */
+    /* Align - cross axis for left/right ------------------------------- */
 
     .popover-direction-left.popover-align-start,
     .popover-direction-right.popover-align-start {
@@ -154,7 +154,7 @@
         bottom: 0;
     }
 
-    /* Match width — panel stretches to anchor width ──────────────────── */
+    /* Match width - panel stretches to anchor width -------------------- */
 
     .popover-match-width {
         left: 0;
@@ -162,7 +162,7 @@
         translate: none;
     }
 
-    /* Animations ────────────────────────────────────────────────────── */
+    /* Animations ------------------------------------------------------ */
 
     @keyframes popover-in-bottom {
         from { opacity: 0; transform: translateY(-4px); }
@@ -184,7 +184,7 @@
         to { opacity: 1; transform: translateX(0); }
     }
 
-    /* Palette — tone ───────────────────────────────────────────────── */
+    /* Palette - tone -------------------------------------------------- */
 
     .popover-palette-tone {
         background: var(--tone);
@@ -193,7 +193,7 @@
         scrollbar-color: var(--tone-hover) var(--tone)
     }
 
-    /* Palette — accent ─────────────────────────────────────────────── */
+    /* Palette - accent ------------------------------------------------ */
 
     .popover-palette-accent {
         background: var(--accent);
@@ -202,7 +202,7 @@
         scrollbar-color: var(--accent-muted) var(--accent)
     }
 
-    /* Palette — accentbg ───────────────────────────────────────────── */
+    /* Palette - accentbg ---------------------------------------------- */
 
     .popover-palette-accentbg {
         background: var(--accent-bg);
@@ -211,13 +211,13 @@
         scrollbar-color: var(--accent-hover) var(--accent-bg)
     }
 
-    /* Rounded ──────────────────────────────────────────────────────── */
+    /* Rounded --------------------------------------------------------- */
 
     .popover-rounded {
         border-radius: var(--radius-soft);
     }
 
-    /* Elevation ────────────────────────────────────────────────────── */
+    /* Elevation ------------------------------------------------------- */
 
     .popover-elevation-none {
         box-shadow: none;

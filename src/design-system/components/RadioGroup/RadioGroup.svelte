@@ -68,7 +68,7 @@
 </div>
 
 <style>
-    /* Hidden input ──────────────────────────────────────────────────────── */
+    /* Hidden input ---------------------------------------------------- */
 
     .radio-input {
         position: absolute;
@@ -78,7 +78,7 @@
         margin: 0;
     }
 
-    /* Group ─────────────────────────────────────────────────────────────── */
+    /* Group ----------------------------------------------------------- */
 
     .radio-group {
         display: flex;
@@ -94,7 +94,7 @@
         gap: 1.25rem;
     }
 
-    /* Item ──────────────────────────────────────────────────────────────── */
+    /* Item ------------------------------------------------------------ */
 
     .radio-item {
         display: inline-flex;
@@ -105,7 +105,7 @@
         line-height: 1.3;
     }
 
-    /* Label positions — flex direction on each item */
+    /* Label positions - flex direction on each item */
     .radio-label-right .radio-item { 
         flex-direction: row; 
     }
@@ -124,7 +124,7 @@
         align-items: center; 
     }
 
-    /* Control (custom radio circle) ─────────────────────────────────────── */
+    /* Control (custom radio circle) ----------------------------------- */
 
     .radio-control {
         position: relative;
@@ -167,7 +167,7 @@
         color: inherit;
     }
 
-    /* Sizes ─────────────────────────────────────────────────────────────── */
+    /* Sizes ----------------------------------------------------------- */
 
     .radio-size-sm {
         --radio-size: 14px;
@@ -190,7 +190,7 @@
         --radio-gap: 0.6rem;
     }
 
-    /* Palettes ──────────────────────────────────────────────────────────── */
+    /* Palettes -------------------------------------------------------- */
 
     .radio-palette-accent { 
         --radio-checked-color: var(--accent);
@@ -200,7 +200,7 @@
         --radio-checked-color: var(--text); 
     }
 
-    /* Disabled ──────────────────────────────────────────────────────────── */
+    /* Disabled -------------------------------------------------------- */
 
     /* Whole group disabled */
     .radio-disabled {
@@ -216,7 +216,7 @@
         pointer-events: none;
     }
 
-    /* Focus visible — keyboard nav ──────────────────────────────────────── */
+    /* Focus visible - keyboard nav ------------------------------------ */
 
     .radio-input:focus-visible ~ .radio-control {
         outline: 2px solid var(--accent);

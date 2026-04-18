@@ -18,7 +18,7 @@
         pill : true (default) → capsule shape
                false → rounded rectangle
         href : Renders as <a>
-        onclick: Renders as <button>. Implicit — no extra prop needed.
+        onclick: Renders as <button>. Implicit - no extra prop needed.
         trailing : trailing slot for icons or other content
         on_trailing_click : Makes the trailing icon an actionable button
         trailing_label : aria-label for the trailing slot
@@ -80,7 +80,7 @@
     }
 </script>
 
-<!-- Trailing icon snippet ─────────────────────────────────────────────────── -->
+<!-- Trailing icon snippet --------------------------------------------------- -->
 
 {#snippet trailing_slot()}
     {#if trailing}
@@ -104,7 +104,7 @@
     {/if}
 {/snippet}
 
-<!-- Root element ──────────────────────────────────────────────────────────── -->
+<!-- Root element ------------------------------------------------------------ -->
 
 {#if href}
     <a {href} class={classes}>
@@ -124,7 +124,7 @@
 {/if}
 
 <style>
-    /* Base ─────────────────────────────────────────────────────────────── */
+    /* Base --------------------------------------------------------------- */
 
     .badge {
         display: inline-flex;
@@ -146,12 +146,12 @@
         cursor: pointer;
     }
 
-    /* Shape ────────────────────────────────────────────────────────────── */
+    /* Shape -------------------------------------------------------------- */
 
     .badge-pill { border-radius: var(--radius-pill); }
     .badge-rect { border-radius: var(--radius-edge); }
 
-    /* Variants ─────────────────────────────────────────────────────────── */
+    /* Variants ----------------------------------------------------------- */
 
     .badge-flat {
         font-weight: 600;
@@ -161,7 +161,7 @@
         background: transparent;
     }
 
-    /* Palette ──────────────────────────────────────────────────────────── */
+    /* Palette ------------------------------------------------------------ */
 
     /* accent */
     .badge-palette-accent.badge-flat {
@@ -247,7 +247,7 @@
         color: var(--neutral-muted);
     }
 
-    /* Elevation ─────────────────────────────────────────────────────────── */
+    /* Elevation ----------------------------------------------------------- */
 
     .badge-elevation-subtle {
         box-shadow: 0 4px 12px var(--shadow-subtle);
@@ -257,7 +257,7 @@
         box-shadow: 0.3rem 0.3rem var(--shadow-hard);
     }
 
-    /* Uppercase ────────────────────────────────────────────────────────── */
+    /* Uppercase ---------------------------------------------------------- */
 
     .badge-uppercase {
         font-size: .875rem;
@@ -265,7 +265,7 @@
         text-transform: uppercase;
     }
 
-    /* Sizes ────────────────────────────────────────────────────────────── */
+    /* Sizes -------------------------------------------------------------- */
 
     .badge-lg {
         font-size: 1.125rem;
@@ -282,7 +282,7 @@
         padding: 0.3rem 0.6rem;
     }
 
-    /* Hover — interactive roots only ──────────────────────────────────── */
+    /* Hover - interactive roots only ------------------------------------ */
 
     /* accent */
     button.badge-flat.badge-palette-accent:hover,
@@ -383,7 +383,7 @@
         color: var(--text-neutral);
     }
 
-    /* Selected — mirrors hover styles ──────────────────────────────────── */
+    /* Selected - mirrors hover styles ------------------------------------ */
 
     /* accent */
     button.badge-flat.badge-palette-accent.badge-selected,
@@ -483,7 +483,7 @@
         color: var(--text-neutral);
     }
 
-    /* Trailing icon ────────────────────────────────────────────────────── */
+    /* Trailing icon ------------------------------------------------------ */
 
     .badge-trailing-icon {
         display: inline-flex;

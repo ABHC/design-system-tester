@@ -3,7 +3,7 @@
     import { createVariant } from "../../utils/builder";
     import { dataTableConfig, defaultDataTableConfig } from "./dataTable.config";
 
-    // -- Types ----------------------------------------------------------------
+    // Types ----------------------------------------------------------------
 
     type Variant = "flat" | "outlined" | "ghost";
     type Palette = "accent" | "tone" | "neutral";
@@ -16,7 +16,7 @@
         cell?: Snippet<[any]>;
     }
 
-    // -- Props ----------------------------------------------------------------
+    // Props ----------------------------------------------------------------
 
     interface Props {
         columns: Column[];
@@ -38,7 +38,7 @@
         rounded = defaultDataTableConfig.rounded,
     }: Props = $props();
 
-    // -- Helpers --------------------------------------------------------------
+    // Helpers --------------------------------------------------------------
 
     const resolve = createVariant(dataTableConfig);
 
@@ -100,7 +100,7 @@
 </div>
 
 <style>
-    /* Base ─────────────────────────────────────────────────────────────── */
+    /* Base --------------------------------------------------------------- */
 
     .data-table {
         width: 100%;
@@ -110,7 +110,7 @@
         color: var(--text);
     }
 
-    /* Palette ──────────────────────────────────────────────────────────── */
+    /* Palette ------------------------------------------------------------ */
 
     .data-table-palette-accent {
         --dt-border: var(--accent);
@@ -136,7 +136,7 @@
         --dt-hover: var(--tone-ghost-hover);
     }
 
-    /* Variants ─────────────────────────────────────────────────────────── */
+    /* Variants ----------------------------------------------------------- */
 
     .data-table-flat th {
         background: var(--dt-header-bg);
@@ -170,7 +170,7 @@
         border-top: 1px solid var(--dt-border);
     }
 
-    /* Sizes ────────────────────────────────────────────────────────────── */
+    /* Sizes -------------------------------------------------------------- */
 
     .data-table-sm th,
     .data-table-sm td {
@@ -190,7 +190,7 @@
         font-size: 0.95rem;
     }
 
-    /* Header ───────────────────────────────────────────────────────────── */
+    /* Header ------------------------------------------------------------- */
 
     th {
         text-align: left;
@@ -205,14 +205,14 @@
         vertical-align: top;
     }
 
-    /* Rounded ──────────────────────────────────────────────────────────── */
+    /* Rounded ------------------------------------------------------------ */
 
     .data-table-rounded {
         border-radius: var(--radius-soft);
         overflow: hidden;
     }
 
-    /* Elevation ────────────────────────────────────────────────────────── */
+    /* Elevation ---------------------------------------------------------- */
 
     .data-table-elevation-subtle {
         box-shadow: 0 4px 12px var(--shadow-subtle);
@@ -222,13 +222,13 @@
         box-shadow: 0.3rem 0.3rem var(--shadow-hard);
     }
 
-    /* Hover ────────────────────────────────────────────────────────────── */
+    /* Hover -------------------------------------------------------------- */
 
     tbody tr:hover td {
         background: var(--dt-hover);
     }
 
-    /* Responsive ───────────────────────────────────────────────────────── */
+    /* Responsive --------------------------------------------------------- */
 
     .data-table-desktop {
         display: table;

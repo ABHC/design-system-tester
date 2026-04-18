@@ -62,7 +62,7 @@
     );
 </script>
 
-<!-- Scrim — full-viewport translucent overlay -->
+<!-- Scrim - full-viewport translucent overlay -->
 {#if open}
     <div
         class="drawer-scrim"
@@ -97,7 +97,7 @@
 </aside>
 
 <style>
-    /* Base ───────────────────────────────────────────────────────────── */
+    /* Base ------------------------------------------------------------- */
 
     .drawer-component {
         display: flex;
@@ -112,7 +112,7 @@
             border-color 0.3s ease;
     }
 
-    /* Direction: left / right (vertical drawer) ─────────────────────── */
+    /* Direction: left / right (vertical drawer) ----------------------- */
 
     .drawer-direction-left,
     .drawer-direction-right {
@@ -128,11 +128,11 @@
     .drawer-direction-left.drawer-closed { transform: translateX(-100%); }
     .drawer-direction-right.drawer-closed { transform: translateX(100%); }
 
-    /* Rounded — inner edge only */
+    /* Rounded - inner edge only */
     .drawer-direction-left.drawer-rounded { border-radius: 0 var(--radius-round) var(--radius-round) 0; }
     .drawer-direction-right.drawer-rounded { border-radius: var(--radius-round) 0 0 var(--radius-round); }
 
-    /* Direction: top / bottom (horizontal drawer) ───────────────────── */
+    /* Direction: top / bottom (horizontal drawer) --------------------- */
 
     .drawer-direction-top,
     .drawer-direction-bottom {
@@ -148,15 +148,15 @@
     .drawer-direction-top.drawer-closed { transform: translateY(-100%); }
     .drawer-direction-bottom.drawer-closed { transform: translateY(100%); }
 
-    /* Rounded — inner edge only */
+    /* Rounded - inner edge only */
     .drawer-direction-top.drawer-rounded { border-radius: 0 0 var(--radius-round) var(--radius-round); }
     .drawer-direction-bottom.drawer-rounded { border-radius: var(--radius-round) var(--radius-round) 0 0; }
 
-    /* Open state (shared) ───────────────────────────────────────────── */
+    /* Open state (shared) --------------------------------------------- */
 
     .drawer-open { transform: translate(0, 0); }
 
-    /* Palette: accent ───────────────────────────────────────────────── */
+    /* Palette: accent ------------------------------------------------- */
 
     .drawer-palette-accent {
         background: var(--accent);
@@ -172,7 +172,7 @@
         --dot-bg: var(--accent);
     }
 
-    /* Palette: tone ─────────────────────────────────────────────────── */
+    /* Palette: tone --------------------------------------------------- */
 
     .drawer-palette-tone {
         background: var(--tone);
@@ -188,7 +188,7 @@
         --dot-bg: var(--tone);
     }
 
-    /* Slots ─────────────────────────────────────────────────────────── */
+    /* Slots ----------------------------------------------------------- */
 
     .drawer-header {
         display: flex;
@@ -217,7 +217,7 @@
         flex-shrink: 0;
     }
 
-    /* Scrim ─────────────────────────────────────────────────────────── */
+    /* Scrim ----------------------------------------------------------- */
 
     .drawer-scrim {
         position: fixed;

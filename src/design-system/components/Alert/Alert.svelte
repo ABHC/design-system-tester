@@ -151,7 +151,7 @@
         box-shadow: 0 4px 12px var(--shadow-subtle);
     }
 
-    /* Variants — set --al-color and --al-bg */
+    /* Variants - set --al-color and --al-bg */
     .alert-variant-neutral { 
         --al-color: var(--neutral); 
         --al-bg: var(--neutral-bg); 
@@ -225,7 +225,7 @@
         border-radius: var(--radius-edge);
     }
 
-    /* <a> inside content — inherits --al-color automatically */
+    /* <a> inside content - inherits --al-color automatically */
     .alert-content :global(a) {
         color: var(--al-color);
         font-weight: 600;
@@ -237,7 +237,7 @@
         opacity: 0.75;
     }
 
-    /* Button overrides — naked buttons inside an alert inherit --al-color */
+    /* Button overrides - naked buttons inside an alert inherit --al-color */
     .alert-base :global(.btn.btn-naked) {
         color: var(--al-color);
     }

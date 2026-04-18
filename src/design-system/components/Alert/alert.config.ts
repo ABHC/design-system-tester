@@ -3,7 +3,7 @@ export const alertConfig = {
     base: "alert-base",
 
     variants: {
-        // Semantic colour variant — drives --al-color, background, border and shadow.
+        // Semantic colour variant - drives --al-color, background, border and shadow.
         variant: {
             neutral: "alert-variant-neutral",
             info: "alert-variant-info",

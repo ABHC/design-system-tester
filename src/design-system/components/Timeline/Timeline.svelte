@@ -107,7 +107,7 @@
         align-items: stretch;
     }
 
-    /* Palette — set local custom properties ------------------------------- */
+    /* Palette - set local custom properties --------------------------- */
 
     .timeline-palette-accent {
         --tl-color: var(--accent);

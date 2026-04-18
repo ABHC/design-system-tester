@@ -130,14 +130,14 @@
 </div>
 
 <style>
-    /* Anchor ────────────────────────────────────────────────────────── */
+    /* Anchor ---------------------------------------------------------- */
 
     .tooltip-anchor {
         position: relative;
         display: inline-block;
     }
 
-    /* Panel ─────────────────────────────────────────────────────────── */
+    /* Panel ----------------------------------------------------------- */
 
     .tooltip {
         position: absolute;
@@ -167,7 +167,7 @@
         overflow-wrap: anywhere;
     }
 
-    /* Sizes ─────────────────────────────────────────────────────────── */
+    /* Sizes ----------------------------------------------------------- */
 
     .tooltip-sm {
         font-size: 0.75rem;
@@ -187,7 +187,7 @@
         --tooltip-arrow-size: 12px;
     }
 
-    /* Direction — main axis ─────────────────────────────────────────── */
+    /* Direction - main axis ------------------------------------------- */
 
     .tooltip-direction-bottom {
         top: calc(100% + var(--tooltip-gap, 8px));
@@ -209,7 +209,7 @@
         animation: tooltip-in-right 0.12s ease;
     }
 
-    /* Align — cross axis for top/bottom ────────────────────────────── */
+    /* Align - cross axis for top/bottom ------------------------------- */
 
     .tooltip-direction-top.tooltip-align-start,
     .tooltip-direction-bottom.tooltip-align-start {
@@ -227,7 +227,7 @@
         right: 0;
     }
 
-    /* Align — cross axis for left/right ────────────────────────────── */
+    /* Align - cross axis for left/right ------------------------------- */
 
     .tooltip-direction-left.tooltip-align-start,
     .tooltip-direction-right.tooltip-align-start {
@@ -245,7 +245,7 @@
         bottom: 0;
     }
 
-    /* Arrow ─ rotated square stuck to the panel edge ────────────────── */
+    /* Arrow - rotated square stuck to the panel edge ------------------ */
 
     .tooltip-has-arrow::before {
         content: "";
@@ -266,7 +266,7 @@
     .tooltip-direction-right.tooltip-has-arrow::before  { left: calc(var(--tooltip-arrow-size) / -2); }
     .tooltip-direction-left.tooltip-has-arrow::before   { right: calc(var(--tooltip-arrow-size) / -2); }
 
-    /* Arrow cross-axis position per align — top/bottom directions */
+    /* Arrow cross-axis position per align - top/bottom directions */
 
     .tooltip-direction-bottom.tooltip-align-start.tooltip-has-arrow::before,
     .tooltip-direction-top.tooltip-align-start.tooltip-has-arrow::before {
@@ -283,7 +283,7 @@
         right: 12px;
     }
 
-    /* Arrow cross-axis position per align — left/right directions */
+    /* Arrow cross-axis position per align - left/right directions */
 
     .tooltip-direction-right.tooltip-align-start.tooltip-has-arrow::before,
     .tooltip-direction-left.tooltip-align-start.tooltip-has-arrow::before {
@@ -300,7 +300,7 @@
         bottom: 12px;
     }
 
-    /* Bordered — apply border to panel and the two outward arrow edges */
+    /* Bordered - apply border to panel and the two outward arrow edges */
 
     .tooltip-bordered {
         border-color: var(--tooltip-border);
@@ -326,7 +326,7 @@
         border-right-color: var(--tooltip-border);
     }
 
-    /* Animations ────────────────────────────────────────────────────── */
+    /* Animations ------------------------------------------------------ */
 
     @keyframes tooltip-in-bottom {
         from { opacity: 0; transform: translateY(-4px); }
@@ -348,7 +348,7 @@
         to { opacity: 1; transform: translateX(0); }
     }
 
-    /* Palette ───────────────────────────────────────────────────────── */
+    /* Palette --------------------------------------------------------- */
 
     .tooltip-palette-tone {
         --tooltip-bg: var(--tone);
@@ -368,13 +368,13 @@
         --tooltip-text: var(--text-accent);
     }
 
-    /* Rounded ──────────────────────────────────────────────────────── */
+    /* Rounded --------------------------------------------------------- */
 
     .tooltip-rounded {
         border-radius: var(--radius-soft);
     }
 
-    /* Elevation ────────────────────────────────────────────────────── */
+    /* Elevation ------------------------------------------------------- */
 
     .tooltip-elevation-none {
         box-shadow: none;

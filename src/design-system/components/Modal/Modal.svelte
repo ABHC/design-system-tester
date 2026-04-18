@@ -14,9 +14,9 @@
                 Max-width is always capped at calc(100vw - 2rem).
 
         Slots :
-            leading : Top zone — padded, bottom border.
-            children : Body zone — padded, scrollable.
-            trailing : Bottom zone — padded, top border, flex row.
+            leading : Top zone - padded, bottom border.
+            children : Body zone - padded, scrollable.
+            trailing : Bottom zone - padded, top border, flex row.
 
         Note: the modal renders inline in the component tree.
         Ensure no ancestor has overflow:hidden or a conflicting z-index.
@@ -58,7 +58,7 @@
 <svelte:window onkeydown={open ? handle_keydown : undefined} />
 
 {#if open}
-    <!-- Scrim — click to close -->
+    <!-- Scrim - click to close -->
     <div
         class="modal-scrim"
         role="presentation"
@@ -128,7 +128,7 @@
         to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
     }
 
-    /* Palette — tone */
+    /* Palette - tone */
     .modal-palette-tone {
         background: var(--tone);
         color: var(--text);
@@ -136,7 +136,7 @@
         --modal-muted:  var(--text-muted);
     }
 
-    /* Palette — accent */
+    /* Palette - accent */
     .modal-palette-accent {
         background: var(--accent);
         color: var(--text-accent);
@@ -144,7 +144,7 @@
         --modal-muted: var(--text-accent);
     }
 
-    /* Palette — accentbg */
+    /* Palette - accentbg */
     .modal-palette-accentbg {
         background: var(--accent-bg);
         color: var(--text-accent);

@@ -1,9 +1,9 @@
-// ─── Modal configuration ──────────────────────────────────────────────────────
+// Modal configuration ------------------------------------------------------
 
 /*
     palette
-    — tone   : --card background, --text color (default)
-    — accent : --accent background, --text-accent color
+    - tone   : --card background, --text color (default)
+    - accent : --accent background, --text-accent color
 
     rounded
     Applies border-radius (16px).
@@ -19,9 +19,9 @@
     Called when the user clicks the scrim or presses Escape.
 
     Slots
-    header   : Top zone — padded, bottom border.
-    children : Body zone — padded, scrollable.
-    footer   : Bottom zone — padded, top border, flex row.
+    header   : Top zone - padded, bottom border.
+    children : Body zone - padded, scrollable.
+    footer   : Bottom zone - padded, top border, flex row.
 */
 
 export type Elevation = "none" | "subtle" | "hard";

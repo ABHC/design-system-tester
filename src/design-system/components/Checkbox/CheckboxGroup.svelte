@@ -68,7 +68,7 @@
 </div>
 
 <style>
-    /* Hidden input ──────────────────────────────────────────────────────── */
+    /* Hidden input -------------------------------------------------------- */
 
     .checkbox-input {
         position: absolute;
@@ -78,7 +78,7 @@
         margin: 0;
     }
 
-    /* Group ─────────────────────────────────────────────────────────────── */
+    /* Group --------------------------------------------------------------- */
 
     .checkbox-group {
         display: flex;
@@ -94,7 +94,7 @@
         gap: 1.25rem;
     }
 
-    /* Item ──────────────────────────────────────────────────────────────── */
+    /* Item ---------------------------------------------------------------- */
 
     .checkbox-item {
         display: inline-flex;
@@ -105,7 +105,7 @@
         line-height: 1.3;
     }
 
-    /* Label positions — flex direction on each item */
+    /* Label positions - flex direction on each item */
     .checkbox-label-right .checkbox-item {
         flex-direction: row;
     }
@@ -124,7 +124,7 @@
         align-items: center;
     }
 
-    /* Control (custom checkbox square) ──────────────────────────────────── */
+    /* Control (custom checkbox square) ------------------------------------ */
 
     .checkbox-control {
         position: relative;
@@ -170,7 +170,7 @@
         color: inherit;
     }
 
-    /* Sizes ─────────────────────────────────────────────────────────────── */
+    /* Sizes --------------------------------------------------------------- */
 
     .checkbox-size-sm {
         --checkbox-size: 14px;
@@ -196,7 +196,7 @@
         --checkbox-gap: 0.6rem;
     }
 
-    /* Palettes ──────────────────────────────────────────────────────────── */
+    /* Palettes ------------------------------------------------------------ */
 
     .checkbox-palette-accent {
         --checkbox-checked-color: var(--accent);
@@ -208,7 +208,7 @@
         --checkbox-check-color: var(--tone-bg);
     }
 
-    /* Disabled ──────────────────────────────────────────────────────────── */
+    /* Disabled ------------------------------------------------------------ */
 
     /* Whole group disabled */
     .checkbox-disabled {
@@ -224,7 +224,7 @@
         pointer-events: none;
     }
 
-    /* Focus visible — keyboard nav ──────────────────────────────────────── */
+    /* Focus visible - keyboard nav ---------------------------------------- */
 
     .checkbox-input:focus-visible ~ .checkbox-control {
         outline: 2px solid var(--accent);

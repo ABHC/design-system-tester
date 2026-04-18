@@ -228,7 +228,7 @@
 </div>
 
 <style>
-    /* Root ──────────────────────────────────────────────────────────── */
+    /* Root ------------------------------------------------------------ */
 
     .select-root {
         display: flex;
@@ -238,7 +238,7 @@
         position: relative;
     }
 
-    /* Label ─────────────────────────────────────────────────────────── */
+    /* Label ----------------------------------------------------------- */
 
     .select-label {
         font-size: 0.85rem;
@@ -251,7 +251,7 @@
         color: var(--error);
     }
 
-    /* Trigger ───────────────────────────────────────────────────────── */
+    /* Trigger --------------------------------------------------------- */
 
     .select-trigger {
         display: flex;
@@ -292,7 +292,7 @@
         opacity: 0.7;
     }
 
-    /* Chevron ───────────────────────────────────────────────────────── */
+    /* Chevron --------------------------------------------------------- */
 
     .select-chevron {
         width: 1.1em;
@@ -306,7 +306,7 @@
         transform: rotate(180deg);
     }
 
-    /* Header ────────────────────────────────────────────────────────── */
+    /* Header ---------------------------------------------------------- */
 
     .select-header {
         padding: 0.5rem;
@@ -314,7 +314,7 @@
         flex-shrink: 0;
     }
 
-    /* Options list ──────────────────────────────────────────────────── */
+    /* Options list ---------------------------------------------------- */
 
     .select-options {
         flex: 1;
@@ -322,7 +322,7 @@
         padding: 0.25rem;
     }
 
-    /* Single option ─────────────────────────────────────────────────── */
+    /* Single option --------------------------------------------------- */
 
     .select-option {
         display: flex;
@@ -350,7 +350,7 @@
         flex-shrink: 0;
     }
 
-    /* ── Option palette — tone ──────────────────────────────────────── */
+    /* Option palette - tone ------------------------------------------- */
 
     .select-option-tone .select-option:hover {
         background: var(--tone-ghost-hover);
@@ -361,7 +361,7 @@
         color: var(--accent-muted);
     }
 
-    /* ── Option palette — accent ────────────────────────────────────── */
+    /* Option palette - accent ----------------------------------------- */
 
     .select-option-accent .select-option:hover {
         background: var(--accent-hover);
@@ -372,7 +372,7 @@
         color: var(--text-accent);
     }
 
-    /* ── Option palette — accentbg ──────────────────────────────────── */
+    /* Option palette - accentbg --------------------------------------- */
 
     .select-option-accentbg .select-option:hover {
         background: var(--accent-ghost-hover);
@@ -383,7 +383,7 @@
         color: var(--text-accent);
     }
 
-    /* Empty state ───────────────────────────────────────────────────── */
+    /* Empty state ----------------------------------------------------- */
 
     .select-empty {
         padding: 0.75rem;
@@ -392,7 +392,7 @@
         font-size: 0.85rem;
     }
 
-    /* Footer ────────────────────────────────────────────────────────── */
+    /* Footer ---------------------------------------------------------- */
 
     .select-footer {
         padding: 0.5rem;
@@ -400,7 +400,7 @@
         flex-shrink: 0;
     }
 
-    /* Message ───────────────────────────────────────────────────────── */
+    /* Message --------------------------------------------------------- */
 
     .select-message {
         font-size: 0.75rem;
@@ -416,7 +416,7 @@
         color: var(--success);
     }
 
-    /* ── Sizes ──────────────────────────────────────────────────────── */
+    /* Sizes ----------------------------------------------------------- */
 
     .select-sm .select-trigger {
         font-size: 0.8rem;
@@ -462,7 +462,7 @@
         padding: 0.55rem 0.75rem;
     }
 
-    /* Validation states ──────────────────────────────────────────── */
+    /* Validation states ----------------------------------------------- */
 
     .select-has-error .select-trigger {
         border-color: var(--error);
@@ -482,7 +482,7 @@
         box-shadow: 0 0 0 3px var(--success-ghost-hover);
     }
 
-    /* Disabled ───────────────────────────────────────────────────── */
+    /* Disabled -------------------------------------------------------- */
 
     .select-disabled {
         opacity: 0.5;

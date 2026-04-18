@@ -1,5 +1,5 @@
 <script lang="ts">
-    // ── Props ────────────────────────────────────────────────────────────────
+    // Props
     interface Props {
         /**
          * Height (and width) of the logo in pixels. The viewBox is square.
@@ -31,7 +31,7 @@
 </script>
 
 <!--
-    LogoSpektral — Diamond K logo for the Spektral design system.
+    LogoSpektral - Diamond K logo for the Spektral design system.
     Geometry preserved verbatim from logo_spektral3.svg (Inkscape, 3rd revision).
 
     Structural change vs previous version: the nested group hierarchy (g13 /
@@ -45,12 +45,12 @@
       -accent-muted → var(--accent-muted) fill on Triangle-3
 
     Render order (painter's algorithm, back to front):
-      1. Triangle-1  (accent)       — large background triangle
-      2. K-1         (accent-hover) — upper K arm
-      3. K-2         (accent-hover) — lower K arm
-      4. Outline     (accent)       — diamond frame, drawn on top
-      5. Triangle-2  (accent-hover) — mid triangle
-      6. Triangle-3  (accent-muted) — small muted triangle
+      1. Triangle-1  (accent)       - large background triangle
+      2. K-1         (accent-hover) - upper K arm
+      3. K-2         (accent-hover) - lower K arm
+      4. Outline     (accent)       - diamond frame, drawn on top
+      5. Triangle-2  (accent-hover) - mid triangle
+      6. Triangle-3  (accent-muted) - small muted triangle
 
     No linearGradient → no MutationObserver needed. All fills/strokes are
     resolved natively by the browser via CSS custom properties.
@@ -69,7 +69,7 @@
     -->
     <g transform="translate(-0.34820308,-43.848212)">
 
-        <!-- ── Triangle-1 (accent) ────────────────────────────────────────── -->
+        <!-- Triangle-1 (accent) -->
         <path
             fill={fill_main}
             stroke="none"
@@ -77,7 +77,7 @@
             d="M -225.6617,355.02002 V 502.4941 l -74.64038,-73.73704 z"
         />
 
-        <!-- ── K-1 — upper arm (accent-hover) ────────────────────────────── -->
+        <!-- K-1 - upper arm (accent-hover) -->
         <path
             fill={fill_hover}
             stroke="none"
@@ -85,7 +85,7 @@
             d="m 326.45353,65.809488 -117.41461,73.404302 -1.47485,1.47485 143.38519,-50.383043 z"
         />
 
-        <!-- ── K-2 — lower arm (accent-hover) ────────────────────────────── -->
+        <!-- K-2 - lower arm (accent-hover) -->
         <path
             fill={fill_hover}
             stroke="none"
@@ -93,7 +93,7 @@
             d="m 325.77341,217.64193 25.69998,-25.68775 -143.90777,-49.78294 1.62006,1.62005 z"
         />
 
-        <!-- ── Outline — diamond frame (accent, stroke only) ─────────────── -->
+        <!-- Outline - diamond frame (accent, stroke only) -->
 
         <rect
             fill="none"
@@ -107,7 +107,7 @@
             transform="rotate(45,125.23159,346.38349)"
         />
 
-        <!-- ── Triangle-2 (accent-hover) ─────────────────────────────────── -->
+        <!-- Triangle-2 (accent-hover) -->
 
         <path
             fill={fill_hover}
@@ -116,7 +116,7 @@
             d="m -236.25032,389.63127 -0.019,79.22795 -64.03276,-40.10216 z"
         />
 
-        <!-- ── Triangle-3 (accent-muted) ─────────────────────────────────── -->
+        <!-- Triangle-3 (accent-muted) -->
 
         <path
             fill={fill_muted}
@@ -127,10 +127,10 @@
 
     </g>
 
-    <!-- ── Token annotation labels (annotate prop) ────────────────────────── -->
+    <!-- Token annotation labels (annotate prop) -->
    
     {#if annotate}
-        <!-- Top — Outline label -->
+        <!-- Top - Outline label -->
         <text
             x="104"
             y="10"
@@ -140,7 +140,7 @@
             fill="var(--accent)"
         >--accent (stroke)</text>
 
-        <!-- Left — Triangle-1 label -->
+        <!-- Left - Triangle-1 label -->
         <text
             x="-2"
             y="105"
@@ -150,7 +150,7 @@
             fill="var(--accent)"
         >--accent</text>
 
-        <!-- Left — Triangle-2 label -->
+        <!-- Left - Triangle-2 label -->
         <text
             x="-2"
             y="130"
@@ -160,7 +160,7 @@
             fill="var(--accent-hover)"
         >--accent-hover</text>
 
-        <!-- Left — Triangle-3 label -->
+        <!-- Left - Triangle-3 label -->
         <text
             x="-2"
             y="152"
@@ -170,7 +170,7 @@
             fill="var(--accent-muted)"
         >--accent-muted</text>
 
-        <!-- Right — K arms label -->
+        <!-- Right - K arms label -->
         <text
             x="213"
             y="105"

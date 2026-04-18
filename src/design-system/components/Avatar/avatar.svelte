@@ -86,13 +86,13 @@
         padding: 0;
     }
 
-    /* Palette — accent */
+    /* Palette - accent */
     .avatar-palette-accent {
         background: var(--accent);
         color: var(--text-accent);
     }
 
-    /* Palette — tone */
+    /* Palette - tone */
     .avatar-palette-tone {
         background: var(--tone-hover);
         color: var(--text-muted);
@@ -154,7 +154,7 @@
         border: 2px solid var(--dot-bg, var(--tone-bg));
     }
 
-    /* State dot — position 85%/85% = edge of the circle 45° */
+    /* State dot - position 85%/85% = edge of the circle 45° */
     .avatar-circular .state-dot {
         left: 85%;
         top: 85%;

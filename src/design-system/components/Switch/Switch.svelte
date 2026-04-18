@@ -59,7 +59,7 @@
         </span>
     {/if}
 
-    <!-- Track + knob — aria-hidden because the input carries semantics -->
+    <!-- Track + knob - aria-hidden because the input carries semantics -->
     <span 
         class="switch-track" 
         class:switch-checked={checked} 
@@ -76,7 +76,7 @@
 </label>
 
 <style>
-    /* Hidden input ──────────────────────────────────────────────────── */
+    /* Hidden input ---------------------------------------------------- */
 
     .switch-input {
         position: absolute;
@@ -86,7 +86,7 @@
         margin:   0;
     }
 
-    /* Wrapper ───────────────────────────────────────────────────────── */
+    /* Wrapper --------------------------------------------------------- */
 
     .switch-wrapper {
         display:     inline-flex;
@@ -106,7 +106,7 @@
         color:       inherit;
     }
 
-    /* Track ─────────────────────────────────────────────────────────── */
+    /* Track ----------------------------------------------------------- */
 
     .switch-track {
         position:    relative;
@@ -115,17 +115,17 @@
         transition:  background 0.2s ease, box-shadow 0.2s ease;
     }
 
-    /* OFF state — outline and knob adapt via currentColor.
+    /* OFF state - outline and knob adapt via currentColor.
        Works automatically on any background (neutral or accent). */
     .switch-track:not(.switch-checked) {
         background: transparent;
         box-shadow: 0 0 0 2px var(--text-muted);
     }
 
-    /* Knob ──────────────────────────────────────────────────────────── */
+    /* Knob ------------------------------------------------------------ */
 
     /*
-        Knob is always 20 × 20 px — fixed across all sizes.
+        Knob is always 20 × 20 px - fixed across all sizes.
         Size affects only the TRACK; in `sm` the knob intentionally protrudes
         above and below the track.
     */
@@ -146,9 +146,9 @@
         transform: translate(var(--switch-travel), -50%);
     }
 
-    /* Sizes ─────────────────────────────────────────────────────────── */
+    /* Sizes ----------------------------------------------------------- */
 
-    /* sm : 36 × 18 — knob (20 px) protrudes 1 px each side */
+    /* sm : 36 × 18 - knob (20 px) protrudes 1 px each side */
     .switch-sm .switch-track {
         width: 36px;
         height: 14px;
@@ -156,7 +156,7 @@
         --switch-travel: 21px;
     }
 
-    /* md : 48 × 26 — knob fits flush */
+    /* md : 48 × 26 - knob fits flush */
     .switch-md .switch-track {
         width: 48px;
         height: 26px;
@@ -164,7 +164,7 @@
         --switch-travel: 24px;
     }
 
-    /* lg : 60 × 34 — knob with comfortable clearance */
+    /* lg : 60 × 34 - knob with comfortable clearance */
     .switch-lg .switch-track {
         width: 60px;
         height: 34px;
@@ -172,7 +172,7 @@
         --switch-travel: 30px;
     }
 
-    /* Shapes ────────────────────────────────────────────────────────── */
+    /* Shapes ---------------------------------------------------------- */
 
     /* circle=true  → pill track + round knob */
     .switch-circle .switch-track { border-radius: var(--radius-pill); }
@@ -182,7 +182,7 @@
     .switch-wrapper:not(.switch-circle) .switch-track { border-radius: var(--radius-edge); }
     .switch-wrapper:not(.switch-circle) .switch-knob  { border-radius: var(--radius-edge); }
 
-    /* Palette — ON state (track fill + knob color) ──────────────────── */
+    /* Palette - ON state (track fill + knob color) -------------------- */
 
     /* Accent */
     .switch-palette-accent .switch-checked {
@@ -254,7 +254,7 @@
         background: var(--text-neutral);
     }
 
-    /* Disabled ──────────────────────────────────────────────────────── */
+    /* Disabled -------------------------------------------------------- */
 
     .switch-disabled {
         opacity:        0.45;
@@ -262,7 +262,7 @@
         pointer-events: none;
     }
 
-    /* Focus visible — keyboard nav ──────────────────────────────────── */
+    /* Focus visible - keyboard nav ------------------------------------ */
 
     .switch-input:focus-visible ~ .switch-track {
         outline:        2px solid var(--accent);

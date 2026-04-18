@@ -6,7 +6,7 @@ export interface MarqueeConfig {
     elevation: "none" | "subtle" | "hard";
     orientation: "horizontal" | "vertical";
     direction: "normal" | "reverse";
-    // Seconds per loop cycle — lower = faster scroll.
+    // Seconds per loop cycle - lower = faster scroll.
     duration: number;
     // Number of times `children` is rendered inside each group.
     // Use >1 when the content is narrower than the viewport so the loop
@@ -14,7 +14,7 @@ export interface MarqueeConfig {
     repeat: number;
     pauseOnHover: boolean;
     fade: "none" | "start" | "end" | "both";
-    // Any CSS length (e.g. "1rem", "24px") — applied between items and between duplicated groups.
+    // Any CSS length (e.g. "1rem", "24px") - applied between items and between duplicated groups.
     gap: string;
     rounded: boolean;
 }

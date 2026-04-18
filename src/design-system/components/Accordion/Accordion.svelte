@@ -3,14 +3,14 @@
     import { createVariant } from "../../utils/builder";
     import { accordionConfig, defaultAccordionConfig } from "./accordion.config";
 
-    // -- Types ----------------------------------------------------------------
+    // Types ----------------------------------------------------------------
 
     type Variant = "flat" | "outlined" | "ghost";
     type Palette = "accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info";
     type Size = "sm" | "md" | "lg";
     type Elevation = "none" | "subtle" | "hard";
 
-    // -- Props ----------------------------------------------------------------
+    // Props ----------------------------------------------------------------
 
     interface Props {
         variant?: Variant;
@@ -30,7 +30,7 @@
         children,
     }: Props = $props();
 
-    // -- Helpers --------------------------------------------------------------
+    // Helpers --------------------------------------------------------------
 
     const resolve = createVariant(accordionConfig);
 
@@ -59,7 +59,7 @@
         color: var(--text);
     }
 
-    /* Palette — set local custom properties ------------------------------- */
+    /* Palette - set local custom properties ------------------------------- */
 
     .accordion-palette-accent {
         --acc-color: var(--accent);

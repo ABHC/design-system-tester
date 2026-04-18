@@ -9,7 +9,7 @@
 
     /*
         Props _________________________________________________________
-        badges : Array of BadgeItem — each needs { value, label }
+        badges : Array of BadgeItem - each needs { value, label }
         selected : Bindable array of active `value` strings
                    Bind this to your own state to drive filtering logic.
                    ex : bind:selected={activeSkills}
@@ -18,7 +18,7 @@
         variant : Passed through to every Badge
         size : Passed through to every Badge
         pill : Passed through to every Badge
-        gap : Flex gap between badges — any valid CSS length
+        gap : Flex gap between badges - any valid CSS length
     */
 
     interface Props {
@@ -45,7 +45,7 @@
         gap = "0.5rem",
     }: Props = $props();
 
-    // ── Selection logic ───────────────────────────────────────────────────────
+    // Selection logic --------------------------------------------------------
 
     function toggle(value: string) {
         if (multiple) {

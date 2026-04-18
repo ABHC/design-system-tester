@@ -201,7 +201,7 @@
 </div>
 
 <style>
-    /* Container ──────────────────────────────────────────────────────── */
+    /* Container ------------------------------------------------------- */
 
     .slider-container {
         width: 100%;
@@ -215,7 +215,7 @@
         pointer-events: none;
     }
 
-    /* Track ───────────────────────────────────────────────────────────── */
+    /* Track ----------------------------------------------------------- */
 
     .slider-base {
         width: 100%;
@@ -225,30 +225,30 @@
         cursor: pointer;
     }
 
-    /* Size ────────────────────────────────────────────────────────────── */
+    /* Size ------------------------------------------------------------ */
 
     .slider-sm { height: 4px; }
     .slider-md { height: 8px; }
     .slider-lg { height: 16px; }
 
-    /* Rounded ─────────────────────────────────────────────────────────── */
+    /* Rounded --------------------------------------------------------- */
 
     .slider-rounded { border-radius: var(--radius-pill); }
     .slider-rounded .slider-fill { border-radius: var(--radius-pill); }
 
-    /* Outlined ────────────────────────────────────────────────────────── */
+    /* Outlined -------------------------------------------------------- */
 
     .slider-outlined {
         background: transparent;
         border: 2px solid var(--tone-hover);
     }
 
-    /* Elevation ───────────────────────────────────────────────────────── */
+    /* Elevation ------------------------------------------------------- */
 
     .slider-elevation-subtle { box-shadow: 0 4px 12px var(--shadow-subtle); }
     .slider-elevation-hard { box-shadow: 0.3rem 0.3rem var(--shadow-hard); }
 
-    /* Fill ────────────────────────────────────────────────────────────── */
+    /* Fill ------------------------------------------------------------ */
 
     .slider-fill {
         position: absolute;
@@ -266,7 +266,7 @@
     .slider-fill-success { background: var(--success); }
     .slider-fill-info { background: var(--info); }
 
-    /* Thumb ───────────────────────────────────────────────────────────── */
+    /* Thumb ----------------------------------------------------------- */
 
     .slider-thumb {
         position: absolute;
@@ -302,7 +302,7 @@
     .slider-sm .slider-thumb { width: 14px; height: 14px; }
     .slider-lg .slider-thumb { width: 24px; height: 24px; }
 
-    /* Labels ──────────────────────────────────────────────────────────── */
+    /* Labels ---------------------------------------------------------- */
 
     .slider-labels {
         display: flex;

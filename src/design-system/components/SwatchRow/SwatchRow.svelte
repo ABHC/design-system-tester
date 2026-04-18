@@ -5,7 +5,7 @@
     import { hexToOklch } from "$lib/utils/contrast";
     import CopyButton from "../Button/CopyButton.svelte";
 
-    // ── Props ─────────────────────────────────────────────────────────────────
+    // Props
 
     interface Props {
         swatches: Swatch[];
@@ -19,7 +19,7 @@
         rounded = defaultSwatchRowConfig.rounded
     }: Props = $props();
 
-    // ── Helpers ────────────────────────────────────────────────────────────────
+    // Helpers
 
     const resolve = createVariant(swatchRowConfig);
     const classes = $derived(resolve({ compact, rounded }));
@@ -108,7 +108,7 @@
         opacity: 0.6;
     }
 
-    /* Compact ────────────────────────────────────────────────────────────── */
+    /* Compact --------------------------------------------------------- */
 
     .swatch-row-compact {
         grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
@@ -136,7 +136,7 @@
         font-size: 0.45rem;
     }
 
-    /* Rounded ────────────────────────────────────────────────────────────── */
+    /* Rounded --------------------------------------------------------- */
 
     .swatch-row-rounded .sw {
         border-radius: var(--radius-edge);

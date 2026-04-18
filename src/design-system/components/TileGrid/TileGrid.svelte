@@ -18,24 +18,24 @@
     type Mask = "none" | "ellipse" | "fade";
     type MaskDirection = "top" | "bottom" | "left" | "right";
 
-    // ── Props ─────────────────────────────────────────────────────────────────
+    // Props
 
     /*
         Props
         tiles : Array of tiles to display. Accepts any object satisfying the Tile interface
         locale : Current locale key used to resolve `tile.abstract[locale]`.
-        image_mode : "image" | "mock-up" | "flat" — default: "image"
+        image_mode : "image" | "mock-up" | "flat" - default: "image"
         image_position : In image mode: CSS background-position ("center", "top"…).
                          In mock-up mode: anchor for the floating image
                          ("top-right" | "top-left" | "top-center" | "right" | "left").
         image_size : Mock-up mode only. CSS size value passed as --tg-deco-size.
                      Controls width for top-* positions, height for side positions.
                      e.g. "280px", "60%", "18rem". Default: CSS fallback (55% / 90%).
-        columns : Number of columns on desktop (>= 1024px) — default: 3
-        hero_span : How hero tiles span on desktop — default: "half"
-        gap : Gap between tiles — any valid CSS length — default: "1.5rem"
-        show_hero_badge : Show "Featured" badge on hero tiles — default: true
-        show_hero_border : Show accent border on hero tiles — default: true
+        columns : Number of columns on desktop (>= 1024px) - default: 3
+        hero_span : How hero tiles span on desktop - default: "half"
+        gap : Gap between tiles - any valid CSS length - default: "1.5rem"
+        show_hero_badge : Show "Featured" badge on hero tiles - default: true
+        show_hero_border : Show accent border on hero tiles - default: true
         excerpt_length : Max characters for the abstract excerpt on normal tiles (Default: 52)
         href_base : Base path for tile hrefs: "{href_base}/{tile.id}"
     */
@@ -94,7 +94,7 @@
         pattern_mask_size = 70,
     }: Props = $props();
 
-    // -- Helpers
+    // Helpers
 
     const pattern_bg = $derived.by(() => {
         if (!pattern || pattern === "none") return "none";
@@ -249,7 +249,7 @@
                         <div class="tg-pattern"></div>
                     {/if}
 
-                    <!-- Decorative image — anchored to a corner/edge, clipped by tile -->
+                    <!-- Decorative image - anchored to a corner/edge, clipped by tile -->
                     {#if use_decorative}
                         <img
                             class="tg-deco-img"
@@ -323,13 +323,13 @@
     }
 
     /*
-        -- Grid
+        Grid
         Mobile  (< 640px)  : 1 column, forced
-        Tablet  (640–1023) : 2 columns, forced
-        Desktop (≥ 1024px) : --tg-columns (2, 3, or 4), injected via style=""
+        Tablet  (640-1023) : 2 columns, forced
+        Desktop (>= 1024px) : --tg-columns (2, 3, or 4), injected via style=""
     */
 
-    /* ── Effect layer ─────────────────────────────────────────────────────── */
+    /* Effect layer ---------------------------------------------------- */
 
     .tg-effect {
         position: absolute;
@@ -381,10 +381,10 @@
     }
 
     /*
-        -- Hero span
-        Mobile (< 640px)  : pas de span, le hero = 1 colonne comme les autres.
-        Tablet (640–1023) : 2-col grid → span 2 = rangée complète.
-        Desktop (≥ 1024px): span 2 sur N colonnes, ou 1/-1 pour hero-full.
+        Hero span
+        Mobile (< 640px)  : no span, hero = 1 column like the others.
+        Tablet (640-1023) : 2-col grid, span 2 = full row.
+        Desktop (>= 1024px): span 2 over N columns, or 1/-1 for hero-full.
     */
 
     @media (min-width: 640px) {
@@ -417,7 +417,7 @@
         border-radius: var(--radius-round);
     }
 
-    /* ---- Elevation — hover only (default) ---- */
+    /* Elevation - hover only (default) -------------------------------- */
 
     .tg-elevation-subtle:hover {
         box-shadow: 0 4px 12px var(--shadow-subtle);
@@ -427,7 +427,7 @@
         box-shadow: 0.4rem 0.4rem var(--shadow-hard);
     }
 
-    /* ---- Elevation — constant (raised=true) ---- */
+    /* Elevation - constant (raised=true) ------------------------------ */
 
     .tg-raised.tg-elevation-subtle {
         box-shadow: 0 4px 12px var(--shadow-subtle);
@@ -437,7 +437,7 @@
         box-shadow: 0.4rem 0.4rem var(--shadow-hard);
     }
 
-    /* ---- Hero badge ---- */
+    /* Hero badge ------------------------------------------------------ */
 
     .tg-hero-badge-anchor {
         position: absolute;
@@ -452,7 +452,7 @@
         line-height: 1;
     }
 
-    /* ---- IMAGE TILE ---- */
+    /* IMAGE TILE ------------------------------------------------------ */
 
     .tg-tile-image {
         aspect-ratio: 4 / 3;
@@ -468,7 +468,7 @@
         }
     }
 
-    /* ---- FLAT TILE ---- */
+    /* FLAT TILE ------------------------------------------------------- */
 
     .tg-tile-flat {
         aspect-ratio: 4 / 3;
@@ -495,7 +495,7 @@
         }
     }
 
-    /* ---- MOCK-UP TILE ---- */
+    /* MOCK-UP TILE ---------------------------------------------------- */
     /*
         Flat card look + a <img> anchored to a corner/edge via position:absolute.
         The tile's overflow:hidden clips the image at the border-radius boundary,
@@ -586,12 +586,12 @@
     .tg-deco-right .tg-layout { padding-right: 42%; }
     .tg-deco-left  .tg-layout { padding-left:  42%; }
 
-    /* ---- Hero sizing ---- */
+    /* Hero sizing ----------------------------------------------------- */
 
     /*
-        Desktop (≥ 1024px), hero-half, aspect-ratio auto
-        Desktop (≥ 1024px), hero-full, aspect-ratio 8/3, hero alone in its line
-        Tablet (640–1023px), aspect-ratio 8/3, hero alone in its line
+        Desktop (>= 1024px), hero-half, aspect-ratio auto
+        Desktop (>= 1024px), hero-full, aspect-ratio 8/3, hero alone in its line
+        Tablet (640-1023px), aspect-ratio 8/3, hero alone in its line
         Mobile (< 640px), aspect-ratio 4/3, like other tiles
     */
 
@@ -617,7 +617,7 @@
         }
     }
 
-    /* ---- Inside styles of the tile (layout, overlay, content, etc...) ---- */
+    /* Inside styles of the tile (layout, overlay, content, etc...) --- */
     .tg-layout {
         display: flex;
         flex-direction: column;

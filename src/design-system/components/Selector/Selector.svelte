@@ -2,7 +2,7 @@
 
     import Button from "../Button/Button.svelte";
 
-    // Types ─────────────────────────────────────────────────────────────────
+    // Types
 
     type Palette = "accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info";
     type Variant = "flat" | "outlined" | "ghost" | "naked";
@@ -23,7 +23,7 @@
         onchange?: (value: T) => void;
     }
 
-    // Props ─────────────────────────────────────────────────────────────────
+    // Props
 
     let {
         label,
@@ -38,7 +38,7 @@
         onchange
     }: Props = $props();
 
-    // Normalisation ─────────────────────────────────────────────────────────
+    // Normalisation
 
     function to_entry(o: T | OptionEntry): OptionEntry {
         if (typeof o === 'object' && o !== null) return o as OptionEntry;
@@ -47,7 +47,7 @@
 
     const entries = $derived(options.map(to_entry));
 
-    // Interaction ───────────────────────────────────────────────────────────
+    // Interaction
 
     function select(v: T) {
         value = v;

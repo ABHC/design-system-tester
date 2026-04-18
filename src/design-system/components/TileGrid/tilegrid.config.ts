@@ -1,14 +1,14 @@
-// ─── TileGrid configuration ───────────────────────────────────────────────────
+// TileGrid configuration
 
-/* 
-    -- Tile interface 
+/*
+    Tile interface
     Minimal shape that TileGrid requires. Any object that structurally matches
     this interface is accepted.
 */
 
-/* 
-    -- TileMedia
-    src : Relative or absolute URL to the image asset 
+/*
+    TileMedia
+    src : Relative or absolute URL to the image asset
     type :  Media type ex: "image", "video". Currently only "image" is rendered.
 */
 
@@ -17,12 +17,12 @@ export interface TileMedia {
     type: string;
 }
 
-/* 
-    -- Tile
-    id : Unique identifier 
+/*
+    Tile
+    id : Unique identifier
     name : Short display name shown on the tile
-    origin : Badge label indicating origin (client, personal, open source…) — optional
-    years : Year or range string, e.g. "2023" or "2022–24" — optional
+    origin : Badge label indicating origin (client, personal, open source...) - optional
+    years : Year or range string, e.g. "2023" or "2022-24" - optional
     display : Whether this tile should be rendered at all
     hero : Whether this tile is a featured/hero item.
     media : Array of media assets. The first item is used as the background image, in "background" image mode
@@ -44,12 +44,12 @@ export interface Tile {
     abstract: Record<string, string>;
 }
 
-// ── Config types 
+// Config types
 
 /*
     Controls image placement.
-    — In "background" mode: CSS background-position value ("center", "top", etc.)
-    — In "decorative" mode: anchor corner/edge for the floating image element.
+    - In "background" mode: CSS background-position value ("center", "top", etc.)
+    - In "decorative" mode: anchor corner/edge for the floating image element.
       "top-right" | "top-left" | "top-center" | "right" | "left"
     Accepts any string so callers can pass arbitrary CSS bg-position values.
 */
@@ -80,14 +80,14 @@ export type Columns = 2 | 3 | 4;
 */
 export type HeroSpan = "half" | "full";
 
-// ── Config interface 
+// Config interface
 
 /*
-    image_mode : Image display mode — controls the entire grid, not individual tiles
+    image_mode : Image display mode - controls the entire grid, not individual tiles
     image_position : CSS background-position applied to all image-mode tiles
     columns : Number of columns on the desktop breakpoint
     hero_span : How hero tiles span on desktop
-    gap : Gap between tiles — any valid CSS length value
+    gap : Gap between tiles - any valid CSS length value
     show_hero_badge : Show a "Featured" badge on hero tiles at all breakpoints
     show_hero_border : Show an accent border on hero tiles
     excerpt_length : Maximum number of characters for the localised abstract excerpt on normal tiles.
@@ -111,7 +111,7 @@ export interface TileGridConfig {
     raised: boolean;
 }
 
-// ── Defaults ──────────────────────────────────────────────────────────────────
+// Defaults
 
 export const defaultTileGridConfig: TileGridConfig = {
     image_mode: "image",

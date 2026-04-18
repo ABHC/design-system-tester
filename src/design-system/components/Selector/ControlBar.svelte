@@ -53,7 +53,7 @@
         border-radius: var(--radius-soft);
     }
 
-    /* Header — separator only, no box border */
+    /* Header - separator only, no box border */
     .control-header {
         padding-bottom: 0.6rem;
         border-bottom:  2px solid var(--tone-hover);
@@ -66,7 +66,7 @@
         gap: 1rem 2rem;
     }
 
-    /* Palette — tone ──────────────────────────────────────────────── */
+    /* Palette - tone -------------------------------------------------- */
 
     .control-palette-tone {
         background: var(--tone);
@@ -84,7 +84,7 @@
         border-color: var(--tone-hover);
     }
 
-    /* Palette — accent ────────────────────────────────────────────── */
+    /* Palette - accent ------------------------------------------------ */
 
     .control-palette-accent {
         background: var(--accent);
@@ -107,7 +107,7 @@
         border-bottom-color: var(--accent-muted);
     }
 
-    /* Palette — accent-bg ─────────────────────────────────────────── */
+    /* Palette - accent-bg --------------------------------------------- */
 
     .control-palette-accent-bg {
         background: var(--accent-bg);

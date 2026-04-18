@@ -83,7 +83,7 @@
     .callout-align-center { align-items: center; }
     .callout-align-start { align-items: flex-start; }
 
-    /* Variants — set --cb-color, --cb-bg, --cb-border */
+    /* Variants - set --cb-color, --cb-bg, --cb-border */
     .callout-variant-accent { 
         --cb-color: var(--accent); 
         --cb-bg: var(--accent-bg); 

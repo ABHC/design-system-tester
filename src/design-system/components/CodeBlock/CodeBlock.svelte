@@ -25,10 +25,10 @@
         copyable : show copy button
         line_numbers : show line numbers
         rounded : apply border-radius (default true)
-        width : CSS width value — if omitted, takes full available width
-        max_height : CSS max-height for the body area — enables scrolling when content overflows
+        width : CSS width value - if omitted, takes full available width
+        max_height : CSS max-height for the body area - enables scrolling when content overflows
 
-        -- Layout modes (derived automatically, no prop needed)
+        Layout modes (derived automatically, no prop needed)
         code + description  → split layout (description panel on left, code on right)
         code only → code fills the body (default)
         description only → description fills the full body width
@@ -93,7 +93,7 @@
     // Clipboard feedback state
     let copied = $state(false);
 
-    // File-loaded content (fetched at runtime, content displayed as-is — never executed)
+    // File-loaded content (fetched at runtime, content displayed as-is - never executed)
     let loaded_code = $state<string | undefined>(undefined);
     let loaded_description = $state<string | undefined>(undefined);
 
@@ -140,7 +140,7 @@
     // Whether the floating copy button is shown (simple variant, no header)
     const has_float_copy = $derived(copyable && variant === "simple");
 
-    // Layout modes — derived from content presence, no prop needed
+    // Layout modes - derived from content presence, no prop needed
     const is_split = $derived(!!effective_description && !!code_snippet);
     const is_description_only = $derived(!!effective_description && !code_snippet);
 
@@ -456,7 +456,7 @@
         font-family: var(--font-body);
     }
 
-    /* Copy button — "simple" variant: flex row, code left, button right */
+    /* Copy button - "simple" variant: flex row, code left, button right */
     .codeblock-code-row {
         display: flex;
         align-items: flex-start;

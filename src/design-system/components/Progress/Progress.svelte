@@ -74,7 +74,7 @@
 </div>
 
 <style>
-    /* Track ──────────────────────────────────────────────────────────── */
+    /* Track ----------------------------------------------------------- */
 
     .progress-base {
         width: 100%;
@@ -84,7 +84,7 @@
         margin: 10px 0;
     }
 
-    /* Size ───────────────────────────────────────────────────────────── */
+    /* Size ------------------------------------------------------------ */
 
     .progress-sm { 
         height: 4px; 
@@ -98,7 +98,7 @@
         height: 16px; 
     }
 
-    /* Rounded ────────────────────────────────────────────────────────── */
+    /* Rounded --------------------------------------------------------- */
 
     .progress-rounded {
         border-radius: var(--radius-pill);
@@ -108,7 +108,7 @@
         border-radius: var(--radius-pill);
     }
 
-    /* Outlined ───────────────────────────────────────────────────────── */
+    /* Outlined -------------------------------------------------------- */
 
     .progress-outlined {
         background: transparent;
@@ -116,7 +116,7 @@
         /*box-shadow: inset 0 0 0 2px var(--tone-hover);*/
     }
 
-    /* Elevation ──────────────────────────────────────────────────────── */
+    /* Elevation ------------------------------------------------------- */
 
     .progress-elevation-subtle { 
         box-shadow: 0 4px 12px var(--shadow-subtle); 
@@ -126,7 +126,7 @@
         box-shadow: 0.3rem 0.3rem var(--shadow-hard);
     }
 
-    /* Fill — base ────────────────────────────────────────────────────── */
+    /* Fill - base ------------------------------------------------------ */
 
     .progress-fill {
         height: 100%;
@@ -134,16 +134,16 @@
         transition: width 0.4s ease;
     }
 
-    /* Entry animation: 0 → value when first rendered */
+    /* Entry animation: 0 to value when first rendered */
     @starting-style {
         .progress-fill {
             width: 0;
         }
     }
 
-    /* Fill — palette ─────────────────────────────────────────────────── */
+    /* Fill - palette --------------------------------------------------- */
 
-    .progress-fill-accent  { 
+    .progress-fill-accent  {
         background: var(--accent);  
     }
 
@@ -171,7 +171,7 @@
         background: var(--info);
     }
 
-    /* Value — base ────────────────────────────────────────────────────── */
+    /* Value - base ----------------------------------------------------- */
 
     .progress-value {
         display: flex;
@@ -180,9 +180,9 @@
         margin-right: 10px;
     }
 
-    /* Fill — palette ─────────────────────────────────────────────────── */
+    /* Fill - palette --------------------------------------------------- */
 
-    .progress-value-accent  { 
+    .progress-value-accent  {
         color: var(--accent-muted);  
     }
 
@@ -210,7 +210,7 @@
         color: var(--info-muted);
     }
 
-    /* Indeterminate ──────────────────────────────────────────────────── */
+    /* Indeterminate --------------------------------------------------- */
 
     .progress-fill.progress-indeterminate {
         width: 40%;

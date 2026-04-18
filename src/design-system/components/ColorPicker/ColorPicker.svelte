@@ -4,12 +4,12 @@
     import { colorPickerConfig, defaultColorPickerConfig } from "./colorPicker.config";
     import { hexToOklch, oklchToHex, hexToRgbChannels } from "$lib/utils/contrast";
 
-    // ── Types ─────────────────────────────────────────────────────────────────
+    // Types ------------------------------------------------------------------
 
     type Elevation = "none" | "subtle" | "hard";
     type Mode = "full" | "achromatic";
 
-    // ── Props ─────────────────────────────────────────────────────────────────
+    // Props ------------------------------------------------------------------
 
     interface Props {
         value?: string;
@@ -37,12 +37,12 @@
         onchange,
     }: Props = $props();
 
-    // ── Variant resolver ──────────────────────────────────────────────────────
+    // Variant resolver -------------------------------------------------------
 
     const resolve = createVariant(colorPickerConfig);
     const classes = $derived(resolve({ rounded, elevation }));
 
-    // ── Internal OKLCH state ──────────────────────────────────────────────────
+    // Internal OKLCH state ---------------------------------------------------
 
     let lightness = $state(0.5);
     let chroma = $state(0.15);
@@ -50,7 +50,7 @@
     let alphaValue = $state(1);
     let internalChange = false;
 
-    // Sync from external value prop — skip when the change originated from our own sliders
+    // Sync from external value prop - skip when the change originated from our own sliders
     $effect(() => {
         if (value) {
             if (internalChange) {
@@ -66,7 +66,7 @@
         }
     });
 
-    // ── Derived values ────────────────────────────────────────────────────────
+    // Derived values ---------------------------------------------------------
 
     const currentHex = $derived(oklchToHex(lightness, mode === "achromatic" ? 0 : chroma, hue));
     const rgbChannels = $derived(hexToRgbChannels(currentHex));
@@ -77,7 +77,7 @@
         `${(lightness * 100).toFixed(1)}% ${(mode === "achromatic" ? 0 : chroma).toFixed(3)} ${hue.toFixed(1)}°`
     );
 
-    // ── Canvas rendering ──────────────────────────────────────────────────────
+    // Canvas rendering -------------------------------------------------------
 
     let spectrumCanvas: HTMLCanvasElement | undefined = $state();
     let canvasWidth = 280;
@@ -123,7 +123,7 @@
         drawSpectrum(lightness);
     });
 
-    // ── Canvas interaction ────────────────────────────────────────────────────
+    // Canvas interaction -----------------------------------------------------
 
     let draggingCanvas = $state(false);
 
@@ -150,12 +150,12 @@
         draggingCanvas = false;
     }
 
-    // ── Cursor position ───────────────────────────────────────────────────────
+    // Cursor position --------------------------------------------------------
 
     const cursorX = $derived(`${(hue / 360) * 100}%`);
     const cursorY = $derived(`${(1 - chroma / 0.4) * 100}%`);
 
-    // ── Slider handlers ───────────────────────────────────────────────────────
+    // Slider handlers --------------------------------------------------------
 
     function onLightnessInput(e: Event) {
         lightness = parseFloat((e.target as HTMLInputElement).value);
@@ -183,7 +183,7 @@
         onchange?.(hex, alphaValue);
     }
 
-    // ── Hex input ─────────────────────────────────────────────────────────────
+    // Hex input --------------------------------------------------------------
 
     let hexInput = $state("");
     $effect(() => { hexInput = currentHex; });
@@ -202,7 +202,7 @@
         if (e.key === "Enter") applyHexInput();
     }
 
-    // ── Slider track gradients ────────────────────────────────────────────────
+    // Slider track gradients -------------------------------------------------
 
     const lightnessGradient = $derived.by(() => {
         const c = mode === "achromatic" ? 0 : chroma;
@@ -474,7 +474,7 @@
 </div>
 
 <style>
-    /* ── Base ─────────────────────────────────────────────────────────────── */
+    /* Base ----------------------------------------------------------------- */
 
     .color-picker {
         --cp-radius: 10px;
@@ -488,13 +488,13 @@
         box-sizing: border-box;
     }
 
-    /* ── Rounded ──────────────────────────────────────────────────────────── */
+    /* Rounded -------------------------------------------------------------- */
 
     .color-picker-rounded {
         border-radius: var(--cp-radius);
     }
 
-    /* ── Elevation ────────────────────────────────────────────────────────── */
+    /* Elevation ------------------------------------------------------------ */
 
     .color-picker-elevation-none {
         box-shadow: none;
@@ -508,7 +508,7 @@
         box-shadow: 0.4rem 0.4rem var(--shadow-hard);
     }
 
-    /* ── Zones ────────────────────────────────────────────────────────────── */
+    /* Zones ---------------------------------------------------------------- */
 
     .color-picker-header {
         flex-shrink: 0;
@@ -550,7 +550,7 @@
         flex-shrink: 0;
     }
 
-    /* ── Spectrum ─────────────────────────────────────────────────────────── */
+    /* Spectrum ------------------------------------------------------------- */
 
     .cp-spectrum-wrap {
         position: relative;
@@ -578,7 +578,7 @@
         pointer-events: none;
     }
 
-    /* ── Preview ──────────────────────────────────────────────────────────── */
+    /* Preview -------------------------------------------------------------- */
 
     .cp-preview-row {
         display: flex;
@@ -644,7 +644,7 @@
         outline-offset: -1px;
     }
 
-    /* ── Sliders ──────────────────────────────────────────────────────────── */
+    /* Sliders -------------------------------------------------------------- */
 
     .cp-sliders {
         display: flex;
@@ -738,7 +738,7 @@
         flex-shrink: 0;
     }
 
-    /* ── Extra ────────────────────────────────────────────────────────────── */
+    /* Extra ---------------------------------------------------------------- */
 
     .color-picker-extra {
         display: flex;

@@ -80,14 +80,14 @@
         z-index: 200;
     }
 
-    /* Rounded corners — only when rounded prop is passed */
+    /* Rounded corners - only when rounded prop is passed */
     .nav-rounded { border-radius: var(--radius-round); }
 
     /* Top / bottom bars only round the inner edge */
     .nav-direction-top.nav-rounded    { border-radius: 0 0 var(--radius-round) var(--radius-round); }
     .nav-direction-bottom.nav-rounded { border-radius: var(--radius-round) var(--radius-round) 0 0; }
 
-    /* Layout directions — derived from direction prop */
+    /* Layout directions - derived from direction prop */
     .nav-layout-column {
         flex-direction: column;
         padding: 0.5rem 0.5rem;
@@ -165,7 +165,7 @@
         max-width: 100%;
     }
 
-    /* Padding zones — keep items off the edges */
+    /* Padding zones - keep items off the edges */
     .nav-direction-top .nav-items,
     .nav-direction-bottom .nav-items { 
         padding: 0.5rem 0.5rem; 
@@ -186,7 +186,7 @@
         width: fit-content;
     }
 
-    /*  Direction anchors — fixed mode */
+    /*  Direction anchors - fixed mode */
     .nav-direction-left.nav-fixed {
         top: 50%;
         left: 1rem;
@@ -213,7 +213,7 @@
         width: 100%;
     }
 
-    /*  Direction anchors — floating (sticky) mode */
+    /*  Direction anchors - floating (sticky) mode */
     .nav-direction-left.nav-floating,
     .nav-direction-right.nav-floating {
         /* Stick to the top of the scroll container, vertically centred via  */
@@ -232,17 +232,17 @@
         width: 100%;
     }
 
-    /*  Palette — accent (portfolio side-nav style)  */
+    /*  Palette - accent (portfolio side-nav style)  */
     .nav-palette-accent {
         background: var(--accent);
     }
 
-    /*  Palette — tone (styleguide card/highlight style)*/
+    /*  Palette - tone (styleguide card/highlight style)*/
     .nav-palette-tone {
         background: var(--tone);
     }
 
-    /* ── Elevation ────────────────────────────────────────────────────────── */
+    /* Elevation ------------------------------------------------------------ */
 
     .nav-elevation-subtle {
         box-shadow: 0 4px 12px var(--shadow-subtle);

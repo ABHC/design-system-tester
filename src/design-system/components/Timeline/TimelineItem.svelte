@@ -3,7 +3,7 @@
     import { getContext } from "svelte";
     import { TIMELINE_KEY, type TimelineContext } from "./timeline.config";
 
-    // -- Props ----------------------------------------------------------------
+    // Props
 
     interface Props {
         marker: Snippet;
@@ -23,14 +23,14 @@
         children,
     }: Props = $props();
 
-    // -- Context --------------------------------------------------------------
+    // Context
 
     const ctx = getContext<TimelineContext>(TIMELINE_KEY);
-    // Stable index captured once at init — not reactive to re-renders.
+    // Stable index captured once at init - not reactive to re-renders.
     const my_index = ctx.register();
 
     // Reverse lights the last N items. Since lit items are contiguous from
-    // the end, "my item is lit" already implies "next item is lit too" —
+    // the end, "my item is lit" already implies "next item is lit too" -
     // except for the last item, whose trailing connector is hidden by CSS.
     const is_on = $derived(
         ctx.reverse
@@ -185,7 +185,7 @@
     /* Connector ----------------------------------------------------------- */
 
     /* The connector color is driven by a single custom property so that
-       the solid and dashed variants share one source of truth — lit state
+       the solid and dashed variants share one source of truth - lit state
        just overrides --tl-conn via .timeline-connector-on. */
 
     .timeline-connector {
@@ -208,7 +208,7 @@
         margin-left: 0.5rem;
     }
 
-    /* Dashed connector: repeating gradient — independent of border quirks */
+    /* Dashed connector: repeating gradient - independent of border quirks */
     :global(.timeline-vertical.timeline-connector-dashed) .timeline-connector {
         background: repeating-linear-gradient(
             to bottom,

@@ -86,13 +86,13 @@
     /* Rounded */
     .header-rounded { border-radius: 0 0 var(--radius-round) var(--radius-round); }
 
-    /* Palette — tone (default: card background) */
+    /* Palette - tone (default: card background) */
     .header-palette-tone {
         background: var(--tone);
         color: var(--text);
     }
 
-    /* Palette — accent */
+    /* Palette - accent */
     .header-palette-accent {
         background: var(--accent);
         color: var(--text-accent);

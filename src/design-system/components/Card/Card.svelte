@@ -3,12 +3,12 @@
     import { createVariant } from "../../utils/builder";
     import { cardConfig, defaultCardConfig } from "./card.config";
 
-    // ── Types ─────────────────────────────────────────────────────────────────
+    // Types ------------------------------------------------------------------
 
     type Variant = "flat" | "outlined" | "ghost";
     type Elevation = "none" | "subtle" | "hard";
 
-    // ── Props ─────────────────────────────────────────────────────────────────
+    // Props ------------------------------------------------------------------
 
     interface Props {
         variant?: Variant;
@@ -32,7 +32,7 @@
         trailing,
     }: Props = $props();
 
-    // ── Helpers ───────────────────────────────────────────────────────────────
+    // Helpers ----------------------------------------------------------------
 
     const resolve = createVariant(cardConfig);
 
@@ -41,7 +41,7 @@
     const style = $derived(width ? `width: ${width};` : undefined);
 </script>
 
-<!-- ── Card inner markup (shared between <div> and <a> roots) ──────────────── -->
+<!-- Card inner markup (shared between <div> and <a> roots) ------------------- -->
 
 {#snippet card_inner()}
     {#if leading}
@@ -63,7 +63,7 @@
     {/if}
 {/snippet}
 
-<!-- ── Root element ──────────────────────────────────────────────────────────── -->
+<!-- Root element -------------------------------------------------------------- -->
 
 {#if href}
     <a {href} class={classes} {style}>
@@ -76,7 +76,7 @@
 {/if}
 
 <style>
-    /* ── Base ─────────────────────────────────────────────────────────────── */
+    /* Base ----------------------------------------------------------------- */
 
     .card {
         --card-radius:  12px;
@@ -89,7 +89,7 @@
         text-decoration: none; /* reset if <a> */
     }
 
-    /* ── Variants ─────────────────────────────────────────────────────────── */
+    /* Variants ------------------------------------------------------------- */
 
     .card-flat {
         background: var(--tone);
@@ -104,13 +104,13 @@
         background: transparent;
     }
 
-    /* ── Rounded ──────────────────────────────────────────────────────────── */
+    /* Rounded -------------------------------------------------------------- */
 
     .card-rounded {
         border-radius: var(--card-radius);
     }
 
-    /* ── Elevation ────────────────────────────────────────────────────────── */
+    /* Elevation ------------------------------------------------------------ */
 
     .card-elevation-none {
         box-shadow: none;
@@ -125,17 +125,17 @@
         transition: box-shadow 0.15s ease, transform 0.15s ease;
     }
 
-    /* ── Hover — link cards only ──────────────────────────────────────────── */
+    /* Hover - link cards only ---------------------------------------------- */
 
     a.card-outlined:hover {
         border-color: var(--accent);
         transition: border-color 0.2s ease;
     }
 
-    /* ── Zones ────────────────────────────────────────────────────────────── */
+    /* Zones ---------------------------------------------------------------- */
 
     /*
-        Header: no padding — images or custom content fill edge-to-edge.
+        Header: no padding - images or custom content fill edge-to-edge.
         If you need a padded header (e.g. avatar + name), add padding
         directly inside the snippet.
     */

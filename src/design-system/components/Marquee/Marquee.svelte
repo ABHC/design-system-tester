@@ -3,7 +3,7 @@
     import { createVariant } from "../../utils/builder";
     import { marqueeConfig, defaultMarqueeConfig } from "./marquee.config";
 
-    // ── Types ─────────────────────────────────────────────────────────────────
+    // Types ------------------------------------------------------------------
 
     type Variant = "flat" | "outlined" | "ghost";
     type Palette = "accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info";
@@ -12,7 +12,7 @@
     type Direction = "normal" | "reverse";
     type Fade = "none" | "start" | "end" | "both";
 
-    // ── Props ─────────────────────────────────────────────────────────────────
+    // Props ------------------------------------------------------------------
 
     interface Props {
         variant?: Variant;
@@ -44,7 +44,7 @@
         children,
     }: Props = $props();
 
-    // ── Helpers ───────────────────────────────────────────────────────────────
+    // Helpers ----------------------------------------------------------------
 
     const resolve = createVariant(marqueeConfig);
 
@@ -86,7 +86,7 @@
 </div>
 
 <style>
-    /* ── Base ─────────────────────────────────────────────────────────────── */
+    /* Base ----------------------------------------------------------------- */
 
     .marquee {
         --marquee-radius: 12px;
@@ -108,7 +108,7 @@
         height: 100%;
     }
 
-    /* Viewport — holds overflow clipping and the fade mask so they don't
+    /* Viewport - holds overflow clipping and the fade mask so they don't
        clip the outer shadow/border. */
     .marquee-viewport {
         flex: 1;
@@ -122,7 +122,7 @@
         height: 100%;
     }
 
-    /* ── Palette — set local custom properties ────────────────────────────── */
+    /* Palette - set local custom properties -------------------------------- */
 
     .marquee-palette-accent {
         --mrq-bg: var(--accent-bg);
@@ -159,7 +159,7 @@
         --mrq-border: var(--info-hover);
     }
 
-    /* ── Variants ─────────────────────────────────────────────────────────── */
+    /* Variants ------------------------------------------------------------- */
 
     .marquee-flat {
         background: var(--mrq-bg);
@@ -174,13 +174,13 @@
         background: transparent;
     }
 
-    /* ── Rounded ──────────────────────────────────────────────────────────── */
+    /* Rounded -------------------------------------------------------------- */
 
     .marquee-rounded {
         border-radius: var(--marquee-radius);
     }
 
-    /* ── Elevation ────────────────────────────────────────────────────────── */
+    /* Elevation ------------------------------------------------------------ */
 
     .marquee-elevation-none {
         box-shadow: none;
@@ -194,7 +194,7 @@
         box-shadow: 0.4rem 0.4rem var(--shadow-hard);
     }
 
-    /* ── Track & groups ───────────────────────────────────────────────────── */
+    /* Track & groups ------------------------------------------------------- */
 
     .marquee-track {
         display: flex;
@@ -226,19 +226,19 @@
         flex-direction: column;
     }
 
-    /* ── Direction ────────────────────────────────────────────────────────── */
+    /* Direction ------------------------------------------------------------ */
 
     .marquee-direction-reverse .marquee-track {
         animation-direction: reverse;
     }
 
-    /* ── Pause on hover ───────────────────────────────────────────────────── */
+    /* Pause on hover ------------------------------------------------------- */
 
     .marquee-pause-on-hover:hover .marquee-track {
         animation-play-state: paused;
     }
 
-    /* ── Fade (mask) ──────────────────────────────────────────────────────── */
+    /* Fade (mask) ---------------------------------------------------------- */
 
     .marquee-horizontal.marquee-fade-start .marquee-viewport {
         mask-image: linear-gradient(to right, transparent, black 12%);
@@ -270,7 +270,7 @@
         -webkit-mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
     }
 
-    /* ── Keyframes ────────────────────────────────────────────────────────── */
+    /* Keyframes ------------------------------------------------------------ */
 
     @keyframes marquee-scroll-x {
         from {
@@ -290,7 +290,7 @@
         }
     }
 
-    /* ── Reduced motion ───────────────────────────────────────────────────── */
+    /* Reduced motion ------------------------------------------------------- */
 
     @media (prefers-reduced-motion: reduce) {
         .marquee-track {

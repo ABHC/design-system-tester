@@ -83,7 +83,7 @@
 {/if}
 
 <style>
-    /* Base ────────────────────────────────────────────────────────────── */
+    /* Base -------------------------------------------------------------- */
 
     a.btn {
         text-decoration: none;
@@ -107,20 +107,20 @@
         font-family: var(--font-body);
     }
 
-    /* Variant structure (style only, no color) ────────────────────────── */
+    /* Variant structure (style only, no color) -------------------------- */
 
-    /* Flat — solid fill */
+    /* Flat - solid fill */
     .btn-flat {
         border: 2px solid transparent;
     }
 
-    /* Outlined — transparent bg, visible border */
+    /* Outlined - transparent bg, visible border */
     .btn-outlined {
         background: transparent;
         border: 2px solid transparent;
     }
 
-    /* Ghost — transparent, nav-style bg-on-hover + active indicator */
+    /* Ghost - transparent, nav-style bg-on-hover + active indicator */
     .btn-ghost {
         background: transparent;
         border: none;
@@ -130,7 +130,7 @@
         border-bottom: 2px solid transparent;
     }
 
-    /* Textual — transparent, opacity-only hover */
+    /* Textual - transparent, opacity-only hover */
     .btn-naked {
         border: none;
         background: transparent;
@@ -147,7 +147,7 @@
         border-radius: var(--radius-soft) var(--radius-soft) 0 0;
     }
 
-    /* Palette × Variant colors ────────────────────────────────────────── */
+    /* Palette × Variant colors ------------------------------------------ */
 
     /* accent */
     .btn-palette-accent.btn-flat {
@@ -573,7 +573,7 @@
         border-color: var(--neutral);
     }
 
-    /* Elevation — hover only (default) ───────────────────────────────── */
+    /* Elevation - hover only (default) --------------------------------- */
 
     .btn-elevation-subtle:hover {
         box-shadow: 0 4px 12px var(--shadow-subtle);
@@ -583,7 +583,7 @@
         box-shadow: 0.4rem 0.4rem var(--shadow-hard);
     }
 
-    /* Elevation — constant (raised=true) ─────────────────────────────── */
+    /* Elevation - constant (raised=true) ------------------------------- */
 
     .btn-raised.btn-elevation-subtle {
         box-shadow: 0 4px 12px var(--shadow-subtle);
@@ -593,7 +593,7 @@
         box-shadow: 0.4rem 0.4rem var(--shadow-hard);
     }
 
-    /* Sizes ───────────────────────────────────────────────────────────── */
+    /* Sizes ------------------------------------------------------------- */
 
     .btn-lg {
         font-size: 1.125rem;
@@ -620,19 +620,19 @@
     .btn-naked.btn-md { padding: 0.25rem 0.5rem; }
     .btn-naked.btn-sm { font-size: 0.75rem; padding: 0.15rem 0.35rem; }
 
-    /* Rounded ─────────────────────────────────────────────────────────── */
+    /* Rounded ----------------------------------------------------------- */
 
     .btn-rounded {
         border-radius: var(--radius-soft);
     }
 
-    /* Direction ────────────────────────────────────────────────────────── */
+    /* Direction --------------------------------------------------------- */
 
     .btn-row {
         flex-direction: row;
     }
 
-    /* column — icon + label stacked, square aspect ratio */
+    /* column - icon + label stacked, square aspect ratio */
     .btn-column {
         flex-direction: column;
         aspect-ratio: 1;
@@ -653,14 +653,14 @@
         font-size : 1rem
     }
 
-    /* Animate ─────────────────────────────────────────────────────────── */
+    /* Animate ----------------------------------------------------------- */
 
     .btn-animate-left:hover  { transform: translateX(-4px); }
     .btn-animate-right:hover { transform: translateX(4px); }
     .btn-animate-top:hover { transform: translateY(-4px); }
     .btn-animate-bottom:hover { transform: translateY(4px); }
 
-    /* Uppercase ───────────────────────────────────────────────────────── */
+    /* Uppercase --------------------------------------------------------- */
 
     .btn-uppercase {
         letter-spacing: 0.5px;

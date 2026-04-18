@@ -3,7 +3,7 @@ export const calloutConfig = {
     base: "callout-base",
 
     variants: {
-        // Semantic colour variant — drives --cb-color, background, and border.
+        // Semantic colour variant - drives --cb-color, background, and border.
         variant: {
             accent: "callout-variant-accent",
             neutral: "callout-variant-neutral",

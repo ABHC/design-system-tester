@@ -2,7 +2,7 @@
     import type { Snippet } from "svelte";
     import { type PatternPreset, PATTERN_PRESETS, tintPattern } from "../../utils/patterns";
 
-    // ── Types ─────────────────────────────────────────────────────────────────
+    // Types ------------------------------------------------------------------
 
     type Layout = "single" | "two-cols" | "two-rows" | "main-left" | "main-right" | "grid-2x2";
     type Palette = "transparent" | "tone" | "accent" | "accent-bg";
@@ -10,7 +10,7 @@
     type Mask = "none" | "ellipse" | "fade";
     type MaskDirection = "top" | "bottom" | "left" | "right";
 
-    // ── Props ─────────────────────────────────────────────────────────────────
+    // Props ------------------------------------------------------------------
 
     interface Props {
         layout?: Layout;
@@ -52,7 +52,7 @@
         cell_4,
     }: Props = $props();
 
-    // ── Derived values ────────────────────────────────────────────────────────
+    // Derived values ---------------------------------------------------------
 
     const pattern_bg = $derived.by(() => {
         if (pattern === "none" || !pattern) return "none";
@@ -89,7 +89,7 @@
     );
 </script>
 
-<!-- ── Markup ──────────────────────────────────────────────────────────────── -->
+<!-- Markup ------------------------------------------------------------------- -->
 
 <section
     class="hero hero-palette-{palette}"
@@ -138,7 +138,7 @@
         width: 100%;
     }
 
-    /* ── Palette ──────────────────────────────────────────────────────────── */
+    /* Palette -------------------------------------------------------------- */
 
     .hero-palette-transparent {
         background: var(--tone-bg);
@@ -170,7 +170,7 @@
         color: var(--text);
     }
 
-    /* ── Pattern layer ────────────────────────────────────────────────────── */
+    /* Pattern layer -------------------------------------------------------- */
 
     .hero-pattern {
         position: absolute;
@@ -184,7 +184,7 @@
         pointer-events: none;
     }
 
-    /* ── Effect layer ─────────────────────────────────────────────────────── */
+    /* Effect layer --------------------------------------------------------- */
 
     .hero-effect {
         position: absolute;
@@ -213,7 +213,7 @@
         );
     }
 
-    /* ── Content wrapper (flex layouts) ───────────────────────────────────── */
+    /* Content wrapper (flex layouts) --------------------------------------- */
 
     .hero-content {
         position: relative;
@@ -231,7 +231,7 @@
         flex-direction: column;
     }
 
-    /* ── Layouts ──────────────────────────────────────────────────────────── */
+    /* Layouts -------------------------------------------------------------- */
 
     .hero-layout-single {
         flex-direction: column;
@@ -276,7 +276,7 @@
         min-height: calc(var(--hero-height) / 2 - var(--hero-gap) / 2);
     }
 
-    /* ── Mobile collapse (< 640px) ────────────────────────────────────────── */
+    /* Mobile collapse (< 640px) -------------------------------------------- */
 
     @media (max-width: 639px) {
         .hero-content {

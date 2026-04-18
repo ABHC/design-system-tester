@@ -56,7 +56,7 @@
 {/if}
 
 <style>
-    /* Container — carries the left border indicator */
+    /* Container - carries the left border indicator */
     .explorer-link {
         margin-left: 0.35rem;
         border-left: 2px solid var(--explorer-hover-bg);
@@ -70,7 +70,7 @@
         border-left-color: transparent;
     }
 
-    /* Item — the interactive a/button inside the container */
+    /* Item - the interactive a/button inside the container */
     .explorer-link-item {
         display: flex;
         align-items: center;

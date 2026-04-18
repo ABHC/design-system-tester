@@ -98,7 +98,7 @@
         transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
-    /* Palette — tone ──────────────────────────────────────────────────── */
+    /* Palette - tone ---------------------------------------------------- */
 
     .list-item-tone {
         background: var(--tone);
@@ -113,7 +113,7 @@
         border-color: var(--accent);
     }
 
-    /* Palette — accent ────────────────────────────────────────────────── */
+    /* Palette - accent -------------------------------------------------- */
 
     .list-item-accent {
         background: var(--accent);
@@ -128,7 +128,7 @@
         border-color: var(--accent-muted);
     }
 
-    /* Palette — ghost (adapts to context via currentColor) ────────────── */
+    /* Palette - ghost (adapts to context via currentColor) -------------- */
 
     .list-item-ghost {
         background: color-mix(in srgb, currentColor 8%, transparent);
@@ -143,7 +143,7 @@
         border-color: color-mix(in srgb, currentColor 30%, transparent);
     }
 
-    /* Palette — error ─────────────────────────────────────────────────── */
+    /* Palette - error --------------------------------------------------- */
 
     .list-item-error {
         background: var(--error);
@@ -158,7 +158,7 @@
         border-color: var(--error-muted);
     }
 
-    /* Palette — warning ───────────────────────────────────────────────── */
+    /* Palette - warning ------------------------------------------------- */
 
     .list-item-warning {
         background: var(--warning);
@@ -173,7 +173,7 @@
         border-color: var(--warning-muted);
     }
 
-    /* Palette — success ───────────────────────────────────────────────── */
+    /* Palette - success ------------------------------------------------- */
 
     .list-item-success {
         background: var(--success);
@@ -188,7 +188,7 @@
         border-color: var(--success-muted);
     }
 
-    /* Palette — info ──────────────────────────────────────────────────── */
+    /* Palette - info ---------------------------------------------------- */
 
     .list-item-info {
         background: var(--info);
@@ -203,7 +203,7 @@
         border-color: var(--info-muted);
     }
 
-    /* Palette — neutral ───────────────────────────────────────────────── */
+    /* Palette - neutral ------------------------------------------------- */
 
     .list-item-neutral {
         background: var(--neutral);
@@ -218,7 +218,7 @@
         border-color: var(--neutral-muted);
     }
 
-    /* Elevation ───────────────────────────────────────────────────────── */
+    /* Elevation --------------------------------------------------------- */
 
     .list-item-elevation-subtle {
         box-shadow: 0 4px 12px var(--shadow-subtle);
@@ -228,13 +228,13 @@
         box-shadow: 0.4rem 0.4rem var(--shadow-hard);
     }
 
-    /* Rounded ─────────────────────────────────────────────────────────── */
+    /* Rounded ----------------------------------------------------------- */
 
     .list-item-rounded {
         border-radius: var(--radius-soft);
     }
 
-    /* Inner elements ──────────────────────────────────────────────────── */
+    /* Inner elements ---------------------------------------------------- */
 
     .leading {
         display: flex;
@@ -266,7 +266,7 @@
         white-space: pre-line;
     }
 
-    /* Sizes ───────────────────────────────────────────────────────────── */
+    /* Sizes ------------------------------------------------------------- */
 
     /* small */
     .list-item-sm {
