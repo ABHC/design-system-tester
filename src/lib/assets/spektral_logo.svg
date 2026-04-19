@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="209.3036mm"
+   height="209.3036mm"
+   viewBox="0 0 209.30361 209.30361"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.3 (1:1.4.3+202512261035+0d15f75042)"
+   sodipodi:docname="logo_spektral3.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.70710678"
+     inkscape:cx="163.34167"
+     inkscape:cy="463.15494"
+     inkscape:window-width="1920"
+     inkscape:window-height="1047"
+     inkscape:window-x="3840"
+     inkscape:window-y="840"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-0.34820308,-43.848212)">
+    <path
+       id="Triangle-1"
+       style="fill:#366336;fill-opacity:1;stroke-width:2;stroke-linecap:square;paint-order:stroke fill markers"
+       d="M -225.6617,355.02002 V 502.4941 l -74.64038,-73.73704 z"
+       sodipodi:nodetypes="cccc"
+       inkscape:label="Triangle-1-accent"
+       transform="translate(304.89433,-280.25802)" />
+    <path
+       d="m 326.45353,65.809488 -117.41461,73.404302 -1.47485,1.47485 143.38519,-50.383043 z"
+       style="fill:#48783e;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:square;paint-order:stroke fill markers"
+       id="K-1"
+       sodipodi:nodetypes="ccccc"
+       inkscape:label="K-1-accent-hover"
+       transform="translate(-200.81692,7.070112)" />
+    <path
+       d="m 325.77341,217.64193 25.69998,-25.68775 -143.90777,-49.78294 1.62006,1.62005 z"
+       style="fill:#48783e;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:square;paint-order:stroke fill markers"
+       id="K-2"
+       sodipodi:nodetypes="ccccc"
+       inkscape:label="K-2-accent-hover"
+       transform="translate(-200.81692,7.070112)" />
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#366336;stroke-width:8;stroke-linecap:square;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+       id="Outline"
+       width="140"
+       height="140"
+       x="-98.999046"
+       y="150.76463"
+       transform="rotate(45,125.23159,346.38349)"
+       inkscape:label="Outline-accent" />
+    <path
+       id="Triangle-2"
+       style="fill:#48783e;fill-opacity:1;stroke-width:2;stroke-linecap:square;paint-order:stroke fill markers"
+       d="m -236.25032,389.63127 -0.019,79.22795 -64.03276,-40.10216 z"
+       sodipodi:nodetypes="cccc"
+       inkscape:label="Triangle-2-accent-hover"
+       transform="translate(304.89433,-280.25802)" />
+    <path
+       id="Triangle-3"
+       style="fill:#81a978;fill-opacity:1;stroke-width:2;stroke-linecap:square;paint-order:stroke fill markers"
+       d="m -225.66419,402.78407 v 51.94598 l -74.1117,-25.97299 z"
+       sodipodi:nodetypes="cccc"
+       inkscape:label="Triangle-3-accent-muted"
+       transform="translate(304.89433,-280.25802)" />
+  </g>
+</svg>
