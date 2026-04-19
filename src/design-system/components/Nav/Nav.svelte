@@ -54,7 +54,7 @@
     aria-label="Navigation"
 >
     {#if leading}
-        <div class="nav-header">
+        <div class="nav-leading">
             {@render leading()}
         </div>
     {/if}
@@ -64,14 +64,14 @@
     </div>
 
     {#if trailing}
-        <div class="nav-footer">
+        <div class="nav-trailing">
             {@render trailing()}
         </div>
     {/if}
 </nav>
 
 <style>
-    /* Base wrapper */
+    /* Base wrapper -------------------------------------------------------- */
     .nav-component {
         display: flex;
         align-items: center;
@@ -80,14 +80,21 @@
         z-index: 200;
     }
 
-    /* Rounded corners - only when rounded prop is passed */
+    /* Rounded ------------------------------------------------------------- */
     .nav-rounded { border-radius: var(--radius-round); }
 
     /* Top / bottom bars only round the inner edge */
-    .nav-direction-top.nav-rounded    { border-radius: 0 0 var(--radius-round) var(--radius-round); }
-    .nav-direction-bottom.nav-rounded { border-radius: var(--radius-round) var(--radius-round) 0 0; }
+    .nav-direction-top.nav-rounded    { 
+            border-radius: 0 0 var(--radius-round) var(--radius-round); 
+    }
+    
+    .nav-direction-bottom.nav-rounded { 
+        border-radius: var(--radius-round) var(--radius-round) 0 0; 
+    }
 
-    /* Layout directions - derived from direction prop */
+    /* Layouts & Itemps ---------------------------------------------------- */
+
+    /* Layout directions */
     .nav-layout-column {
         flex-direction: column;
         padding: 0.5rem 0.5rem;
@@ -97,9 +104,9 @@
         flex-direction: row;
     }
 
-    /* Header / footer slots always stack perpendicular to the nav axis */
-    .nav-header,
-    .nav-footer {
+    /* leading / trailing slots always stack perpendicular to the nav axis */
+    .nav-leading,
+    .nav-trailing {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -109,8 +116,8 @@
     }
 
     @media (max-width: 639px) {
-        .nav-header,
-        .nav-footer {
+        .nav-leading,
+        .nav-trailing {
             margin: 0 4px;
         }
     }
@@ -165,7 +172,7 @@
         max-width: 100%;
     }
 
-    /* Padding zones - keep items off the edges */
+    /* Padding zones - keep items off the edges --------------------------- */
     .nav-direction-top .nav-items,
     .nav-direction-bottom .nav-items { 
         padding: 0.5rem 0.5rem; 
@@ -176,7 +183,8 @@
         padding: 0.5rem 0;       
     }
 
-    /*  Positioning  */
+    /* Positionning -------------------------------------------------------- */
+
     .nav-fixed { 
         position: fixed;  
     }
@@ -186,7 +194,9 @@
         width: fit-content;
     }
 
-    /*  Direction anchors - fixed mode */
+    /* Direction anchors ---------------------------------------------------- */
+
+    /* fixed mode */
     .nav-direction-left.nav-fixed {
         top: 50%;
         left: 1rem;
@@ -213,7 +223,7 @@
         width: 100%;
     }
 
-    /*  Direction anchors - floating (sticky) mode */
+    /* floating (sticky) mode */
     .nav-direction-left.nav-floating,
     .nav-direction-right.nav-floating {
         /* Stick to the top of the scroll container, vertically centred via  */
@@ -232,12 +242,14 @@
         width: 100%;
     }
 
-    /*  Palette - accent (portfolio side-nav style)  */
+    /* Palette -------------------------------------------------------------- */
+
+    /* accent */
     .nav-palette-accent {
         background: var(--accent);
     }
 
-    /*  Palette - tone (styleguide card/highlight style)*/
+    /* tone */
     .nav-palette-tone {
         background: var(--tone);
     }
