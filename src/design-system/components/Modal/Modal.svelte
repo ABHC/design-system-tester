@@ -55,7 +55,7 @@
 
     const title_id = `spektral-modal-${Math.random().toString(36).slice(2, 10)}`;
 
-    let dialog_el: HTMLElement | undefined = $state();
+    let modal_el: HTMLElement | undefined = $state();
     let last_trigger: HTMLElement | null = null;
 
     const FOCUSABLE = [
@@ -68,8 +68,8 @@
     ].join(",");
 
     function get_focusables(): HTMLElement[] {
-        if (!dialog_el) return [];
-        return Array.from(dialog_el.querySelectorAll<HTMLElement>(FOCUSABLE));
+        if (!modal_el) return [];
+        return Array.from(modal_el.querySelectorAll<HTMLElement>(FOCUSABLE));
     }
 
     function handle_keydown(e: KeyboardEvent) {
@@ -77,19 +77,19 @@
             onclose?.();
             return;
         }
-        if (e.key !== "Tab" || !dialog_el) return;
+        if (e.key !== "Tab" || !modal_el) return;
 
         const focusables = get_focusables();
         if (focusables.length === 0) {
             e.preventDefault();
-            dialog_el.focus();
+            modal_el.focus();
             return;
         }
 
         const first = focusables[0];
         const last = focusables[focusables.length - 1];
         const active = document.activeElement as HTMLElement | null;
-        const inside = !!active && dialog_el.contains(active);
+        const inside = !!active && modal_el.contains(active);
 
         if (!inside) {
             e.preventDefault();
@@ -110,7 +110,7 @@
         last_trigger = document.activeElement as HTMLElement | null;
         queueMicrotask(() => {
             const focusables = get_focusables();
-            (focusables[0] ?? dialog_el)?.focus();
+            (focusables[0] ?? modal_el)?.focus();
         });
         return () => {
             last_trigger?.focus?.();
@@ -130,7 +130,7 @@
 
     <!-- Dialog -->
     <div
-        bind:this={dialog_el}
+        bind:this={modal_el}
         class={modal_classes}
         {style}
         role="dialog"
@@ -160,7 +160,7 @@
 {/if}
 
 <style>
-    /* Scrim */
+    /* Scrim ---------------------------------------------------------------- */
     .modal-scrim {
         position: fixed;
         inset: 0;
@@ -169,7 +169,7 @@
         animation: scrim-in 0.18s ease;
     }
 
-    /* Dialog */
+    /* Dialog --------------------------------------------------------------- */
     .modal-dialog {
         position: fixed;
         top: 50%;
@@ -206,7 +206,9 @@
         }
     }
 
-    /* Palette - tone */
+    /* Palette ------------------------------------------------------------- */
+
+    /* tone */
     .modal-palette-tone {
         background: var(--tone);
         color: var(--text);
@@ -214,7 +216,7 @@
         --modal-muted:  var(--text-muted);
     }
 
-    /* Palette - accent */
+    /* accent */
     .modal-palette-accent {
         background: var(--accent);
         color: var(--text-accent);
@@ -222,7 +224,7 @@
         --modal-muted: var(--text-accent);
     }
 
-    /* Palette - accentbg */
+    /* accentbg */
     .modal-palette-accentbg {
         background: var(--accent-bg);
         color: var(--text-accent);
@@ -230,13 +232,12 @@
         --modal-muted: var(--text-accent);
     }
 
-
-    /* Rounded */
+    /* Rounded -------------------------------------------------------------- */
     .modal-rounded {
         border-radius: var(--radius-round);
     }
 
-    /* Elevation */
+    /* Elevation ------------------------------------------------------------ */
     .modal-elevation-none {
         box-shadow: none;
     }
@@ -249,7 +250,7 @@
         box-shadow: 0.4rem 0.4rem var(--shadow-hard);
     }
 
-    /* Header */
+    /* Header -------------------------------------------------------------- */
     .modal-header {
         padding: 1.25rem;
         border-bottom: 2px solid var(--modal-border);
@@ -259,7 +260,7 @@
         gap: 0.75rem;
     }
 
-    /* Body */
+    /* Body ---------------------------------------------------------------- */
     .modal-body {
         flex: 1;
         padding: 1.25rem;
@@ -269,7 +270,7 @@
         gap: 0.75rem;
     }
 
-    /* Footer */
+    /* Footer -------------------------------------------------------------- */
     .modal-footer {
         padding: 1rem 1.25rem;
         /*border-top: 1px solid var(--modal-border);*/
