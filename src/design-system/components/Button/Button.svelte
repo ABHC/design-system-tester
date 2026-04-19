@@ -107,6 +107,12 @@
         font-family: var(--font-body);
     }
 
+    .btn:focus { outline: none; }
+    .btn:focus-visible {
+        outline: var(--focus-ring-width) solid var(--focus-ring);
+        outline-offset: var(--focus-ring-offset);
+    }
+
     /* Variant structure (style only, no color) -------------------------- */
 
     /* Flat - solid fill */

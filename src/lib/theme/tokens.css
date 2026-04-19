@@ -80,6 +80,11 @@
     --shadow-hard : #000000;
     --shadow-subtle: rgba(0, 0, 0, 0.2);
     --muted-shadow: rgba(176, 176, 176, 0.3);
+
+    /* ── Focus ring ── */
+    --focus-ring: var(--text);
+    --focus-ring-width: 2px;
+    --focus-ring-offset: 2px;
 }
 
 /* ── Typography ── */

@@ -89,6 +89,12 @@
         text-decoration: none; /* reset if <a> */
     }
 
+    a.card:focus { outline: none; }
+    a.card:focus-visible {
+        outline: var(--focus-ring-width) solid var(--focus-ring);
+        outline-offset: var(--focus-ring-offset);
+    }
+
     /* Variants ------------------------------------------------------------- */
 
     .card-flat {

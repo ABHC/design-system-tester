@@ -27,7 +27,7 @@ import {
 } from '../../routes/store';
 import { tokenValues, type TokenConfig } from './tokenSchema';
 
-// ─── Icon set registry ───────────────────────────────────────────────────────
+// Icon set registry -------------------------------------------------
 
 interface IconSetConfig {
     id: IconSet;
@@ -81,7 +81,7 @@ export const iconSetOptions: ReadonlyArray<{
     preview?: { className: string; content?: string };
 }> = Object.values(ICON_SETS).map(({ id, label, preview }) => ({ id, label, preview }));
 
-// ─── Store → palette resolvers ───────────────────────────────────────────────
+// Store → palette resolvers ---------------------------------------------
 
 function resolveTone(mode: 'light' | 'dark'): ToneTheme {
     const base = (palettes[mode] as ToneTheme[]).filter((t) => t.display);
@@ -124,7 +124,7 @@ function resolveFont(idx: number): FontConfig {
     return available_fonts[idx] ?? available_fonts[0];
 }
 
-// ─── Config + CSS assembly ───────────────────────────────────────────────────
+// Config + CSS assembly -----------------------------------------------
 
 function buildConfig(mode: 'light' | 'dark'): TokenConfig {
     const tone = resolveTone(mode);
@@ -255,11 +255,17 @@ const CATEGORIES: Category[] = [
 ];
 
 const RADII: Record<string, string> = {
-    '--radius-edge':   '4px',
-    '--radius-soft':   '8px',
-    '--radius-round':  '12px',
-    '--radius-pill':   '999px',
+    '--radius-edge': '4px',
+    '--radius-soft': '8px',
+    '--radius-round': '12px',
+    '--radius-pill': '999px',
     '--radius-circle': '50%',
+};
+
+const FOCUS: Record<string, string> = {
+    '--focus-ring': 'var(--text)',
+    '--focus-ring-width': '2px',
+    '--focus-ring-offset': '2px',
 };
 
 const ROOT_SHARED_KEYS = new Set(['--font-body', '--font-heading', '--shadow-subtle']);
@@ -276,7 +282,7 @@ function renderBlock(
             .map((k) => `    ${k}: ${vars[k]};`);
         if (catLines.length === 0) continue;
         sections.push('');
-        sections.push(`    /* ─── ${cat.title} ─── */`);
+        sections.push(`    /* --- ${cat.title} --- */`);
         sections.push(...catLines);
     }
     return `${selector} {\n${sections.join('\n')}\n}`;
@@ -284,18 +290,22 @@ function renderBlock(
 
 function renderRoot(shared: Record<string, string>): string {
     const lines: string[] = [];
-    lines.push('    /* ─── Border radius ─── */');
+    lines.push('    /* --- Border radius --- */');
     for (const [k, v] of Object.entries(RADII)) lines.push(`    ${k}: ${v};`);
+
+    lines.push('');
+    lines.push('    /* --- Focus ring --- */');
+    for (const [k, v] of Object.entries(FOCUS)) lines.push(`    ${k}: ${v};`);
 
     if ('--font-body' in shared || '--font-heading' in shared) {
         lines.push('');
-        lines.push('    /* ─── Typography ─── */');
+        lines.push('    /* --- Typography --- */');
         if ('--font-body' in shared) lines.push(`    --font-body: ${shared['--font-body']};`);
         if ('--font-heading' in shared) lines.push(`    --font-heading: ${shared['--font-heading']};`);
     }
     if ('--shadow-subtle' in shared) {
         lines.push('');
-        lines.push('    /* ─── Shadows ─── */');
+        lines.push('    /* --- Shadows --- */');
         lines.push(`    --shadow-subtle: ${shared['--shadow-subtle']};`);
     }
     return `:root {\n${lines.join('\n')}\n}`;
@@ -338,7 +348,7 @@ function buildFontsImport(): string {
     return `https://fonts.googleapis.com/css2?${parts.join('&')}&display=swap`;
 }
 
-const TYPOGRAPHY_CSS = `/* ─── Typography ─── */
+const TYPOGRAPHY_CSS = `/* --- Typography --- */
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
     font-weight: 600;
@@ -361,7 +371,7 @@ body {
 
 function buildHeader(icons: IconSetConfig, fontsUrl: string): string {
     const lines: string[] = [];
-    lines.push('/* ─── Spektral UI — Exported Tokens ───────────────────────────');
+    lines.push('/* --- Spektral UI - Exported Tokens ---------------------------');
     lines.push('   Dual theme. Toggle via [data-theme="light"] / [data-theme="dark"]');
     lines.push('   on <html> (e.g. document.documentElement.dataset.theme = "dark").');
     lines.push('');
@@ -376,7 +386,7 @@ function buildHeader(icons: IconSetConfig, fontsUrl: string): string {
     if (icons.linkTag) {
         lines.push(`     ${icons.linkTag}`);
     }
-    lines.push('   ───────────────────────────────────────────────────────────── */');
+    lines.push('   ----------------------------------------------------------- */');
     return lines.join('\n');
 }
 
@@ -403,7 +413,7 @@ export function generateExportCSS(): string {
     parts.push(TYPOGRAPHY_CSS);
     if (icons.helperCss) {
         parts.push('');
-        parts.push(`/* ─── ${icons.label} ─── */`);
+        parts.push(`/* --- ${icons.label} --- */`);
         parts.push(icons.helperCss);
     }
     parts.push('');
@@ -411,7 +421,7 @@ export function generateExportCSS(): string {
     return parts.join('\n');
 }
 
-// ─── Download ────────────────────────────────────────────────────────────────
+// Download -------------------------------------------------------------
 
 export function downloadThemeCSS(filename: string = 'tokens.css'): void {
     const css = generateExportCSS();

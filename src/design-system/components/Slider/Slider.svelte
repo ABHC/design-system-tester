@@ -287,7 +287,8 @@
     }
 
     .slider-thumb:focus-visible {
-        box-shadow: 0 0 0 3px var(--tone-hover);
+        outline: var(--focus-ring-width) solid var(--focus-ring);
+        outline-offset: var(--focus-ring-offset);
     }
 
     .slider-thumb-accent { background: var(--accent); }

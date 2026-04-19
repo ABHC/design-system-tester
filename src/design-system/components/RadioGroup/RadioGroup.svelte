@@ -219,7 +219,7 @@
     /* Focus visible - keyboard nav ------------------------------------ */
 
     .radio-input:focus-visible ~ .radio-control {
-        outline: 2px solid var(--accent);
-        outline-offset: 3px;
+        outline: var(--focus-ring-width) solid var(--focus-ring);
+        outline-offset: var(--focus-ring-offset);
     }
 </style>

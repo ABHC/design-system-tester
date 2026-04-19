@@ -89,6 +89,12 @@
         cursor: pointer;
     }
 
+    button.list-item:focus { outline: none; }
+    button.list-item:focus-visible {
+        outline: var(--focus-ring-width) solid var(--focus-ring);
+        outline-offset: var(--focus-ring-offset);
+    }
+
     /* Base */
     .list-item {
         display: flex;

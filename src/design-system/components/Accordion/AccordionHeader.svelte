@@ -107,6 +107,12 @@
         background: var(--acc-hover, rgba(128, 128, 128, 0.1));
     }
 
+    .accordion-header-btn:focus { outline: none; }
+    .accordion-header-btn:focus-visible {
+        outline: var(--focus-ring-width) solid var(--focus-ring);
+        outline-offset: calc(var(--focus-ring-offset) * -1);
+    }
+
     /* Flat variant: header gets palette color */
     :global(.accordion-flat) .accordion-header-btn {
         background: var(--acc-header-flat, var(--tone-hover));
