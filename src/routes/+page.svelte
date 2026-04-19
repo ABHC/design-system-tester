@@ -8,6 +8,15 @@
     import CodeBlock from "../design-system/components/CodeBlock/CodeBlock.svelte";
     import Showcase from "./Showcase.svelte";
 
+    import { selected_tone, selected_text } from "./store";
+
+    let pattern_color: string = $state(
+        $selected_tone === 'dark' ? $selected_text.light : $selected_text.dark
+    );
+    $effect(() => {
+        pattern_color = $selected_tone === 'dark' ? $selected_text.light : $selected_text.dark;
+    });
+
     // Code showcase ─────────────────────────────────────────────────────────
 
     const showcase_code = [
@@ -58,9 +67,9 @@ Header, body et footer indépendants.</p>
     layout="two-cols"
     palette="transparent"
     pattern="scallops"
-    pattern_color="#aea03f"
+    pattern_color={pattern_color}
     pattern_size="150px"
-    pattern_opacity={0.3}
+    pattern_opacity={0.15}
     pattern_mask="ellipse"
     pattern_mask_size={70}
     gap="0"
@@ -123,9 +132,9 @@ Header, body et footer indépendants.</p>
     layout="single"
     palette="accent"
     pattern="sunrise"
-    pattern_color="#aea03f"
+    pattern_color={pattern_color}
     pattern_size="100px"
-    pattern_opacity={0.15}
+    pattern_opacity={0.1}
     pattern_mask="none"
     pattern_mask_size={30}
     pattern_mask_direction="top"
@@ -167,7 +176,7 @@ Header, body et footer indépendants.</p>
     layout="two-cols"
     palette="transparent"
     pattern="grid"
-    pattern_color="#aea03f"
+    pattern_color={pattern_color}
     pattern_size="80px"
     pattern_effect="fade"
     pattern_effect_opacity={0.55}
