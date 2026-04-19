@@ -184,6 +184,15 @@
         to { opacity: 1; transform: translateX(0); }
     }
 
+    @media (prefers-reduced-motion: reduce) {
+        .popover-direction-bottom,
+        .popover-direction-top,
+        .popover-direction-left,
+        .popover-direction-right {
+            animation: none;
+        }
+    }
+
     /* Palette - tone -------------------------------------------------- */
 
     .popover-palette-tone {

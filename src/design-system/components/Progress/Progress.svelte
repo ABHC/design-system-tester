@@ -221,4 +221,17 @@
         0% { transform: translateX(-60%) scaleX(0.5); }
         100% { transform: translateX(260%)  scaleX(0.5); }
     }
+
+    @keyframes progress-indeterminate-pulse {
+        0%, 100% { opacity: 0.5; }
+        50% { opacity: 1; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .progress-fill.progress-indeterminate {
+            width: 100%;
+            transform: none;
+            animation: progress-indeterminate-pulse 2s ease-in-out infinite;
+        }
+    }
 </style>

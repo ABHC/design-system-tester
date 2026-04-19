@@ -232,4 +232,15 @@
         from { opacity: 0; }
         to { opacity: 1; }
     }
+
+    /* Reduced motion --------------------------------------------------- */
+
+    @media (prefers-reduced-motion: reduce) {
+        .drawer-component {
+            transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .drawer-scrim {
+            animation: none;
+        }
+    }
 </style>

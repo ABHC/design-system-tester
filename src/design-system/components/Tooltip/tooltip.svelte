@@ -348,6 +348,15 @@
         to { opacity: 1; transform: translateX(0); }
     }
 
+    @media (prefers-reduced-motion: reduce) {
+        .tooltip-direction-bottom,
+        .tooltip-direction-top,
+        .tooltip-direction-left,
+        .tooltip-direction-right {
+            animation: none;
+        }
+    }
+
     /* Palette --------------------------------------------------------- */
 
     .tooltip-palette-tone {
