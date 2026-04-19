@@ -327,6 +327,7 @@
         { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"subtle"' },
         { prop: "rounded", type: "boolean", default: "false" },
         { prop: "width", type: "string", default: '"480px"' },
+        { prop: "label", type: "string", default: "\u2014" },
         { prop: "leading", type: "Snippet", default: "\u2014" },
         { prop: "children", type: "Snippet", default: "\u2014" },
         { prop: "trailing", type: "Snippet", default: "\u2014" },
