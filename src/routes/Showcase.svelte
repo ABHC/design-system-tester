@@ -541,7 +541,7 @@
     }
 
     .showcase-nav-active {
-        color: var(--accent) !important;
+        color: var(--accent-muted) !important;
         background: color-mix(in oklch, var(--accent) 12%, transparent) !important;
     }
 
@@ -740,7 +740,6 @@
 
     .cs-list-body :global(.material-symbols-outlined) {
         font-size: 1.1rem;
-        color: var(--text-muted);
     }
 
     /* Slide 7 — Timeline ──────────────────────────────────────────────────── */

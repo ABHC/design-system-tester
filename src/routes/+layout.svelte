@@ -3,7 +3,7 @@
     import '$lib/theme/tokens.css';
     import fontsData from '$lib/data/fonts.json';
     import { preconnectGoogleFonts } from '$lib/utils/fontLoader';
-    import favicon from '$lib/assets/favicon.svg';
+    import favicon from '$lib/assets/spektral_logo.svg';
     import BrandABHC from '$lib/brand/BrandABHC.svelte';
     import LogoSpektral from '../design-system/components/Support/LogoSpektral.svelte';
     import Alert from '../design-system/components/Alert/Alert.svelte';
@@ -647,6 +647,7 @@
         position: relative;
         z-index: 1;
         transition: all 0.3s ease;
+        fill: var(--text-accent);
     }
 
     .social-link:hover {

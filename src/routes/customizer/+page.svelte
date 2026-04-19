@@ -351,7 +351,7 @@
 </script>
 
 <svelte:head>
-    <title>Design System Tester - Contrast</title>
+    <title>Customizer - Spektral UI</title>
 </svelte:head>
 
 <!-- Shared snippets ────────────────────────────────────────────── -->

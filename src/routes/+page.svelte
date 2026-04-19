@@ -10,12 +10,9 @@
 
     import { selected_tone, selected_text } from "./store";
 
-    let pattern_color: string = $state(
-        $selected_tone === 'dark' ? $selected_text.light : $selected_text.dark
-    );
-    $effect(() => {
-        pattern_color = $selected_tone === 'dark' ? $selected_text.light : $selected_text.dark;
-    });
+  const pattern_color = $derived(                                                                                                                                                                                                     
+      $selected_tone === 'dark' ? $selected_text.light : $selected_text.dark
+  );   
 
     // Code showcase ─────────────────────────────────────────────────────────
 
@@ -312,7 +309,7 @@ Header, body et footer indépendants.</p>
         font-size: 1.5rem;
         font-weight: 700;
         font-family: var(--font-heading);
-        color: var(--accent);
+        color: var(--accent-muted);
         line-height: 1;
         text-transform: uppercase;
     }
@@ -419,9 +416,9 @@ Header, body et footer indépendants.</p>
         font-size: 0.7rem;
         font-weight: 700;
         font-family: var(--font-heading);
-        color: var(--accent);
-        background: color-mix(in oklch, var(--accent) 12%, transparent);
-        border: 1px solid color-mix(in oklch, var(--accent) 30%, transparent);
+        color: var(--accent-muted);
+        background: color-mix(in oklch, var(--accent-muted) 12%, transparent);
+        border: 1px solid color-mix(in oklch, var(--accent-muted) 30%, transparent);
         border-radius: 4px;
         padding: 0.2rem 0.4rem;
         letter-spacing: 0.05em;
