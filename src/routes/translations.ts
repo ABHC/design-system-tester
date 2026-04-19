@@ -109,6 +109,8 @@ export const translations = {
             icons: "Icônes",
             icon_none: "Aucune",
             export: "Exporter",
+            style: "Options de style",
+            docs_menu: "Menu des composants"
         },
         palette: {
             title: "Palette de couleurs",
@@ -483,6 +485,8 @@ export const translations = {
             icons: "Icons",
             icon_none: "None",
             export: "Export",
+            style: "Styling options",
+            docs_menu: "Components menu"
         },
         palette: {
             title: "Color palette",

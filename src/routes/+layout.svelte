@@ -10,9 +10,9 @@
     import Header from '../design-system/components/Header/Header.svelte';
     import Footer from '../design-system/components/Footer/Footer.svelte';
     import BackToTop from '../design-system/components/Button/BackToTop.svelte';
-    import ModeToggle from '../design-system/components/Button/ModeToggle.svelte';
     import Nav from '../design-system/components/Nav/Nav.svelte';
     import Button from '../design-system/components/Button/Button.svelte';
+    import Tooltip from '../design-system/components/Tooltip/tooltip.svelte';
     import StylePopover from './StylePopover.svelte';
     import LangPopover from './LangPopover.svelte';
     import ThemeDrawer from './ThemeDrawer.svelte';
@@ -57,6 +57,9 @@
     let headerElement: HTMLElement | undefined = $state(undefined);
     let header_visible: boolean = $state(true);
     let googleFontsUrl = $state('');
+    let style_tooltip: boolean = $state(false);
+    let docs_tooltip: boolean = $state(false);
+    let customizer_tooltip: boolean = $state(false);
 
     // ---------- CSS variables (global, shared across all routes) ----------
     const css_variables = $derived(tokenValues({
@@ -273,7 +276,24 @@
 {#snippet nav_trailing()}
     <div class="nav-trailing-group">
         {#if $responsive.isAbove(1024)}
-            <StylePopover />
+            <Tooltip
+                bind:open={style_tooltip}
+                showDelay={800}
+                hideDelay={0}
+                palette="tone"
+                direction="bottom"
+                align="end"
+                bordered
+                arrow
+            >
+                {#snippet trigger()}
+                    <StylePopover />
+                {/snippet}
+
+                {#snippet children()}
+                    {$trans?.control.style}
+                {/snippet}
+            </Tooltip>
         {/if}
         <LangPopover />
     </div>
@@ -350,53 +370,123 @@
         trailing={nav_trailing}
     >
         {#if !page.url.pathname.startsWith('/docs')}
-            <Button 
-                variant="ghost" 
+            <Tooltip
+                bind:open={docs_tooltip}
+                showDelay={800}
+                hideDelay={0}
                 palette="tone"
-                aria_label={$trans?.nav.docs}
-                active={page.url.pathname.startsWith('/docs')}
-                href="/docs"
+                direction="bottom"
+                align="center"
+                bordered
+                arrow
             >
-                <span class="nav-icon" aria-hidden="true">
-                    <span class="material-symbols-outlined">book_5</span>
-                </span>
-            </Button>
+                {#snippet trigger()}
+                    <Button 
+                        variant="ghost" 
+                        palette="tone"
+                        aria_label={$trans?.nav.docs}
+                        active={page.url.pathname.startsWith('/docs')}
+                        href="/docs"
+                    >
+                        <span class="nav-icon" aria-hidden="true">
+                            <span class="material-symbols-outlined">book_5</span>
+                        </span>
+                    </Button>
+                {/snippet}
+
+                {#snippet children()}
+                    {$trans?.nav.docs}
+                {/snippet}
+            </Tooltip>
         {:else}
-            <Button 
-                variant="ghost" 
+            <Tooltip
+                bind:open={docs_tooltip}
+                showDelay={800}
+                hideDelay={0}
                 palette="tone"
-                aria_label={$trans?.nav.docs}
-                onclick={() => { $drawer_docs_open = true; }}
+                direction="bottom"
+                align="center"
+                maxWidth="120px"
+                bordered
+                arrow
             >
-                <span class="nav-icon" aria-hidden="true">
-                    <span class="material-symbols-outlined">book_5</span>
-                </span>
-            </Button>
+                {#snippet trigger()}
+                    <Button 
+                        variant="ghost" 
+                        palette="tone"
+                        aria_label={$trans?.nav.docs}
+                        onclick={() => { $drawer_docs_open = true; }}
+                    >
+                        <span class="nav-icon" aria-hidden="true">
+                            <span class="material-symbols-outlined">book_5</span>
+                        </span>
+                    </Button>
+                {/snippet}
+
+                {#snippet children()}
+                    {$trans?.control.docs_menu}
+                {/snippet}
+            </Tooltip>
         {/if}
 
+        <Tooltip
+                bind:open={customizer_tooltip}
+                showDelay={800}
+                hideDelay={0}
+                palette="tone"
+                direction="bottom"
+                align="center"
+                bordered
+                arrow
+            >
+                {#snippet trigger()}
+                    <Button 
+                        variant="ghost" 
+                        palette="tone"
+                        aria_label={$trans?.nav.customizer}
+                        active={page.url.pathname.startsWith('/customizer')}
+                        href="/customizer"
+                    >
+                        <span class="nav-icon" aria-hidden="true">
+                            <span class="material-symbols-outlined">
+                                palette
+                            </span>
+                        </span>
+                    </Button>
+                {/snippet}
 
-        <Button 
-            variant="ghost" 
-            palette="tone"
-            aria_label={$trans?.nav.customizer}
-            active={page.url.pathname.startsWith('/customizer')}
-            href="/customizer"
-        >
-            <span class="nav-icon" aria-hidden="true">
-                <span class="material-symbols-outlined">palette</span>
-            </span>
-        </Button>
+                {#snippet children()}
+                    {$trans?.nav.customizer}
+                {/snippet}
+        </Tooltip>
 
-        <Button 
-            variant="ghost" 
+        <Tooltip
+            bind:open={style_tooltip}
+            showDelay={800}
+            hideDelay={0}
             palette="tone"
-            aria_label={$trans?.control.settings}
-            onclick={() => { $drawer_menu = "theme"; $drawer_open = true; }}
+            direction="bottom"
+            align="center"
+            bordered
+            arrow
         >
-            <span class="nav-icon" aria-hidden="true">
-                <span class="material-symbols-outlined">style</span>
-            </span>
-        </Button>
+            {#snippet trigger()}
+                <Button 
+                    variant="ghost" 
+                    palette="tone"
+                    aria_label={$trans?.control.settings}
+                    onclick={() => { $drawer_menu = "theme"; $drawer_open = true; }}
+                >
+                    <span class="nav-icon" aria-hidden="true">
+                        <span class="material-symbols-outlined">style</span>
+                    </span>
+                </Button>
+            {/snippet}
+
+            {#snippet children()}
+                {$trans?.control.style}
+            {/snippet}
+        </Tooltip>
     </Nav>
 {:else}
     <Nav
