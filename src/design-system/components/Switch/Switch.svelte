@@ -47,6 +47,7 @@
     -->
     <input
         type="checkbox"
+        role="switch"
         class="switch-input"
         bind:checked
         {disabled}
