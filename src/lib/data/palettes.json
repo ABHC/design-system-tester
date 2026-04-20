@@ -7,8 +7,13 @@
         },
         {
             "name": "Viridian",
+            "display": false,
+            "accent": "#006a42"
+        },
+        {
+            "name": "Pistachio",
             "display": true,
-            "accent": "#1d8660"
+            "accent": "#93C572"
         },
         {
             "name": "Emerald",
@@ -46,14 +51,24 @@
             "accent": "#55bf88"
         },
         {
+            "name": "Iris",
+            "display": true,
+            "accent": "#5D3FD3"
+        },
+        {
             "name": "Amethyst",
             "display": true,
-            "accent": "#9771f9"
+            "accent": "#a382ff"
         },
         {
             "name": "Cyan",
-            "display": true,
+            "display": false,
             "accent": "#4ddfff"
+        },
+        {
+            "name": "Sapphire",
+            "display": true,
+            "accent": "#0F52BA"
         },
         {
             "name": "Azure",
@@ -67,7 +82,7 @@
         },
         {
             "name": "Gold",
-            "display": true,
+            "display": false,
             "accent": "#fbbf24"
         },
         {
@@ -79,6 +94,16 @@
             "name": "Tangerine",
             "display": true,
             "accent": "#F08000"
+        },
+        {
+            "name": "Salmon",
+            "display": true,
+            "accent": "#FA8072"
+        },
+        {
+            "name": "Byzantium",
+            "display": false,
+            "accent": "#702963"
         }
     ],
     "light": [
@@ -155,6 +180,18 @@
             "display": true,
             "bg": "#1e2a3a",
             "card": "#2a3a4a"
+        },
+        {
+            "name": "Taupe",
+            "display": true,
+            "bg": "#1d1816",
+            "card": "#211b19"
+        },
+        {
+            "name": "Olive",
+            "display": true,
+            "bg": "#1d1d16",
+            "card": "#212118"
         },
         {
             "name": "Carbon I",
