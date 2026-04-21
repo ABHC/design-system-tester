@@ -1,14 +1,14 @@
 <script lang="ts">
     import { trans } from "./store";
-    import LogoSpektral from "../design-system/components/Support/LogoSpektral.svelte";
-    import Badge from "../design-system/components/Badge/Badge.svelte";
-    import Button from "../design-system/components/Button/Button.svelte";
-    import Card from "../design-system/components/Card/Card.svelte";
-    import Hero from "../design-system/components/Hero/Hero.svelte";
-    import CodeBlock from "../design-system/components/CodeBlock/CodeBlock.svelte";
-    import Showcase from "./Showcase.svelte";
-
     import { selected_tone, selected_text } from "./store";
+    import Showcase from "./Showcase.svelte";
+    import { 
+        LogoSpektral, 
+        Badge, 
+        Button, 
+        Hero, 
+        CodeBlock 
+    } from "@abhc/spektral-ui";
 
   const pattern_color = $derived(                                                                                                                                                                                                     
       $selected_tone === 'dark' ? $selected_text.light : $selected_text.dark
@@ -18,7 +18,7 @@
 
     const showcase_code = [
         `<Button palette="accent">
-  Commencer
+  Start
 </Button>
 
 <Button variant="outlined" palette="accent">
@@ -217,22 +217,29 @@ Header, body et footer indépendants.</p>
     {/snippet}
     {#snippet cell_2()}
         <div class="quickstart-code">
-            <CodeBlock variant="terminal" size="sm" code="npm install @spektral/ui" copyable />
+            <CodeBlock 
+                variant="terminal" 
+                size="sm" 
+                code="npm install @abhc/spektral-ui" 
+                copyable 
+            />
+
             <CodeBlock
                 variant="filename"
                 filename="App.svelte"
                 size="sm"
                 language="Svelte"
-                code={`import { Button, Card, Badge } from '@spektral/ui';`}
+                code={`import { Button, Card, Badge } from '@abhc/spektral-ui';`}
                 copyable
             />
+
             <CodeBlock
                 variant="filename"
                 filename="MyComponent.svelte"
                 size="sm"
                 language="Svelte"
                 code={`<Button palette="accent">
-  Commencer
+  Start
 </Button>`}
                 copyable
             />

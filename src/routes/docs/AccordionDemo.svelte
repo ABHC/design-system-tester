@@ -1,13 +1,15 @@
 <script lang="ts">
-    import Accordion from "../../design-system/components/Accordion/Accordion.svelte";
-    import AccordionHeader from "../../design-system/components/Accordion/AccordionHeader.svelte";
-    import Headline from "../../design-system/components/Headline/Headline.svelte";
-    import CodeBlock from "../../design-system/components/CodeBlock/CodeBlock.svelte";
-    import DataTable from "../../design-system/components/DataTable/DataTable.svelte";
-    import Selector from "../../design-system/components/Selector/Selector.svelte";
-    import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
     import type { Translation } from "$lib/types/translations";
     import type { PlaceholdersType } from "../placeholders";
+    import { 
+        Accordion, 
+        AccordionHeader, 
+        Headline, 
+        CodeBlock, 
+        DataTable, 
+        Selector, 
+        ControlBar 
+    } from "@abhc/spektral-ui";
 
     interface Props {
         trans: Translation | null;

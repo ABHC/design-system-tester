@@ -1,14 +1,16 @@
 <script lang="ts">
-    import Hero from "../../design-system/components/Hero/Hero.svelte";
-    import Headline from "../../design-system/components/Headline/Headline.svelte";
-    import CodeBlock from "../../design-system/components/CodeBlock/CodeBlock.svelte";
-    import DataTable from "../../design-system/components/DataTable/DataTable.svelte";
-    import Selector from "../../design-system/components/Selector/Selector.svelte";
-    import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
-    import Slider from "../../design-system/components/Slider/Slider.svelte";
     import type { Translation } from "$lib/types/translations";
     import type { PlaceholdersType } from "../placeholders";
-    import type { PatternPreset } from "../../design-system/utils/patterns";
+    import type { PatternPreset } from "@abhc/spektral-ui";
+    import { 
+        Hero, 
+        Headline, 
+        CodeBlock, 
+        DataTable, 
+        Selector, 
+        ControlBar, 
+        Slider 
+    } from "@abhc/spektral-ui";
 
     interface Props {
         trans: Translation | null;

@@ -1,13 +1,16 @@
 <script lang="ts">
     import type { Translation } from "$lib/types/translations";
     import type { PlaceholdersType } from "../placeholders";
-    import Headline from "../../design-system/components/Headline/Headline.svelte";
-    import SwatchRow from "../../design-system/components/SwatchRow/SwatchRow.svelte";
-    import type { Swatch } from "../../design-system/components/SwatchRow/swatchRow.config";
-    import CodeBlock from "../../design-system/components/CodeBlock/CodeBlock.svelte";
-    import DataTable from "../../design-system/components/DataTable/DataTable.svelte";
-    import Selector from "../../design-system/components/Selector/Selector.svelte";
-    import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
+    import type { Swatch } from '@abhc/spektral-ui';
+    import {
+        Headline,
+        SwatchRow,
+        Callout,
+        CodeBlock,
+        DataTable,
+        Selector,
+        ControlBar
+    } from "@abhc/spektral-ui";
 
     interface Props {
         trans: Translation | null;
@@ -182,6 +185,18 @@
 <div data-summary="api" data-summary-label={trans?.doc.api ?? "API"}>
     <Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
 
+    <div style="margin-bottom: 1rem;">
+        <Callout variant="info">
+            {#snippet leading()}
+                <span class="material-symbols-outlined">package_2</span>
+            {/snippet}
+            {#snippet children()}
+                {trans?.doc.types_notice}<br />
+                <code>import type &lbrace; Swatch &rbrace; from '@abhc/spektral-ui';</code>
+            {/snippet}
+        </Callout>
+    </div>
+
     <h4 class="api-subtitle">SwatchRow</h4>
     <DataTable
         variant="ghost" palette="tone" size="sm"
@@ -213,6 +228,7 @@
             { prop: "isText", type: "boolean", default: "no" },
         ]}
     />
+
 </div>
 
 <style>

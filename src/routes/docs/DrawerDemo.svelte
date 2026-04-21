@@ -1,17 +1,18 @@
 <script lang="ts">
-    import { createRawSnippet } from "svelte";
     import type { Translation } from "$lib/types/translations";
     import type { PlaceholdersType } from "../placeholders";
-    import Headline from "../../design-system/components/Headline/Headline.svelte";
-    import Avatar from "../../design-system/components/Avatar/avatar.svelte";
-    import Drawer from "../../design-system/components/Drawer/Drawer.svelte";
-    import Button from "../../design-system/components/Button/Button.svelte";
-    import ListItem from "../../design-system/components/ListItem/ListItem.svelte";
-    import SearchField from "../../design-system/components/SearchField/SearchField.svelte";
-    import Selector from "../../design-system/components/Selector/Selector.svelte";
-    import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
-    import CodeBlock from "../../design-system/components/CodeBlock/CodeBlock.svelte";
-    import DataTable from "../../design-system/components/DataTable/DataTable.svelte";
+    import { 
+        Headline, 
+        Avatar, 
+        Drawer, 
+        Button, 
+        ListItem, 
+        SearchField, 
+        Selector, 
+        ControlBar, 
+        CodeBlock, 
+        DataTable 
+    } from "@abhc/spektral-ui";
 
     interface Props {
         trans: Translation | null;

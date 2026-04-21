@@ -1,17 +1,18 @@
 <script lang="ts">
     import type { Translation } from "$lib/types/translations";
     import type { PlaceholdersType } from "../placeholders";
-    import type { CommandItem, CommandGroup } from "../../design-system/components/Command/command.config";
-
-    import Headline from "../../design-system/components/Headline/Headline.svelte";
-    import Command from "../../design-system/components/Command/Command.svelte";
-    import Button from "../../design-system/components/Button/Button.svelte";
-    import Badge from "../../design-system/components/Badge/Badge.svelte";
-    import Card from "../../design-system/components/Card/Card.svelte";
-    import CodeBlock from "../../design-system/components/CodeBlock/CodeBlock.svelte";
-    import Selector from "../../design-system/components/Selector/Selector.svelte";
-    import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
-    import DataTable from "../../design-system/components/DataTable/DataTable.svelte";
+    import type { CommandItem, CommandGroup } from '@abhc/spektral-ui';      import {
+        Headline,
+        Command,
+        Button,
+        Badge,
+        Card,
+        CodeBlock,
+        Callout,
+        Selector,
+        ControlBar,
+        DataTable
+    } from "@abhc/spektral-ui";
 
     interface Props {
         trans: Translation | null;
@@ -330,6 +331,19 @@
 
 <div data-summary="api" data-summary-label={trans?.doc.api ?? "API"}>
 <Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
+
+<div style="margin-bottom: 1rem;">
+    <Callout variant="info">
+        {#snippet leading()}
+            <span class="material-symbols-outlined">package_2</span>
+        {/snippet}
+        {#snippet children()}
+            {trans?.doc.types_notice}<br />
+            <code>import type &lbrace; CommandItem, CommandGroup &rbrace; from '@abhc/spektral-ui';</code>
+        {/snippet}
+    </Callout>
+</div>
+
 <DataTable
     variant="ghost" palette="tone" size="sm"
     columns={[
@@ -353,6 +367,7 @@
         { prop: "width", type: "string", default: '"560px"' },
     ]}
 />
+
 </div>
 
 <style>

@@ -1,11 +1,14 @@
 <script lang="ts">
-    import DataTable from "../../design-system/components/DataTable/DataTable.svelte";
-    import Headline from "../../design-system/components/Headline/Headline.svelte";
-    import CodeBlock from "../../design-system/components/CodeBlock/CodeBlock.svelte";
-    import Selector from "../../design-system/components/Selector/Selector.svelte";
-    import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
     import type { Translation } from "$lib/types/translations";
     import type { PlaceholdersType } from "../placeholders";
+    import { 
+        DataTable, 
+        Headline,
+        CodeBlock, 
+        Selector, 
+        ControlBar 
+    } from "@abhc/spektral-ui";
+
 
     interface Props {
         trans: Translation | null;

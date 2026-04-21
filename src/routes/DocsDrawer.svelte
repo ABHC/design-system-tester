@@ -1,14 +1,13 @@
 <script lang="ts">
     import { page } from "$app/state";
-    import { createRawSnippet } from 'svelte';
-    import Drawer from '../design-system/components/Drawer/Drawer.svelte';
-    import Button from '../design-system/components/Button/Button.svelte';
-    import ListItem from '../design-system/components/ListItem/ListItem.svelte';
-    import SearchField from '../design-system/components/SearchField/SearchField.svelte';
-    import Explorer from '../design-system/components/Explorer/Explorer.svelte';
-    import ExplorerGroup from '../design-system/components/Explorer/ExplorerGroup.svelte';
-    import ExplorerLink from '../design-system/components/Explorer/ExplorerLink.svelte';
     import { docs, categories } from './docs/registry';
+    import { 
+        Drawer, 
+        SearchField, 
+        Explorer, 
+        ExplorerGroup, 
+        ExplorerLink 
+    } from '@abhc/spektral-ui';
 
     import {
         trans,

@@ -1,17 +1,19 @@
 <script lang="ts">
     import type { Translation } from "$lib/types/translations";
     import type { PlaceholdersType } from "../placeholders";
-    import type { Elevation } from "../../design-system/components/Modal/modal.config";
-
-    import Modal from "../../design-system/components/Modal/Modal.svelte";
-    import Avatar from "../../design-system/components/Avatar/avatar.svelte";
-    import Badge from "../../design-system/components/Badge/Badge.svelte";
-    import Button from "../../design-system/components/Button/Button.svelte";
-    import Headline from "../../design-system/components/Headline/Headline.svelte";
-    import CodeBlock from "../../design-system/components/CodeBlock/CodeBlock.svelte";
-    import Selector from "../../design-system/components/Selector/Selector.svelte";
-    import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
-    import DataTable from "../../design-system/components/DataTable/DataTable.svelte";
+    import type { Elevation } from '@abhc/spektral-ui';
+    import {
+        Modal,
+        Avatar,
+        Badge,
+        Button,
+        Headline,
+        Callout,
+        CodeBlock,
+        Selector,
+        ControlBar,
+        DataTable
+    } from "@abhc/spektral-ui";
 
     interface Props {
         trans: Translation | null;
@@ -313,6 +315,18 @@
     <Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
 </div>
 
+<div style="margin-bottom: 1rem;">
+    <Callout variant="info">
+        {#snippet leading()}
+            <span class="material-symbols-outlined">package_2</span>
+        {/snippet}
+        {#snippet children()}
+            {trans?.doc.types_notice}<br />
+            <code>import type &lbrace; Elevation &rbrace; from '@abhc/spektral-ui';</code>
+        {/snippet}
+    </Callout>
+</div>
+
 <DataTable
     variant="ghost" palette="tone" size="sm"
     columns={[
@@ -333,6 +347,7 @@
         { prop: "trailing", type: "Snippet", default: "\u2014" },
     ]}
 />
+
 
 <style>
     .open-row {

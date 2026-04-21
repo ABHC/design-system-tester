@@ -1,14 +1,18 @@
 <script lang="ts">
     import type { Translation } from "$lib/types/translations";
     import type { PlaceholdersType } from "../placeholders";
-    import Headline from "../../design-system/components/Headline/Headline.svelte";
-    import Tooltip from "../../design-system/components/Tooltip/tooltip.svelte";
-    import Button from "../../design-system/components/Button/Button.svelte";
-    import CopyButton from "../../design-system/components/Button/CopyButton.svelte";
-    import Selector from "../../design-system/components/Selector/Selector.svelte";
-    import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
-    import CodeBlock from "../../design-system/components/CodeBlock/CodeBlock.svelte";
-    import DataTable from "../../design-system/components/DataTable/DataTable.svelte";
+    import type { TooltipPalette, TooltipElevation, TooltipDirection, TooltipAlign, TooltipSize } from '@abhc/spektral-ui';
+    import {
+        Headline,
+        Tooltip,
+        Button,
+        CopyButton,
+        Callout,
+        Selector,
+        ControlBar,
+        CodeBlock,
+        DataTable
+    } from "@abhc/spektral-ui";
 
     interface Props {
         trans: Translation | null;
@@ -276,6 +280,18 @@
     <Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
 </div>
 
+<div style="margin-bottom: 1rem;">
+    <Callout variant="info">
+        {#snippet leading()}
+            <span class="material-symbols-outlined">package_2</span>
+        {/snippet}
+        {#snippet children()}
+            {trans?.doc.types_notice}<br />
+            <code>import type &lbrace; TooltipPalette, TooltipElevation, TooltipDirection, TooltipAlign, TooltipSize &rbrace; from '@abhc/spektral-ui';</code>
+        {/snippet}
+    </Callout>
+</div>
+
 <DataTable
     variant="ghost" palette="tone" size="sm"
     columns={[
@@ -303,6 +319,7 @@
         { prop: "children", type: "Snippet", default: "\u2014" },
     ]}
 />
+
 
 <style>
     .tooltip-preview {

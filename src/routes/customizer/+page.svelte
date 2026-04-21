@@ -8,13 +8,9 @@
     import Contrast from "./Contrast.svelte";
     import Colorblind from './Colorblind.svelte';
     import ThemeSwatches from './ThemeSwatches.svelte';
-    import Headline from "../../design-system/components/Headline/Headline.svelte";
-    import Button from "../../design-system/components/Button/Button.svelte";
-    import Switch from "../../design-system/components/Switch/Switch.svelte";
-    import ColorPicker from "../../design-system/components/ColorPicker/ColorPicker.svelte";
-    import SwatchRow from "../../design-system/components/SwatchRow/SwatchRow.svelte";
+    import { Headline, Button, Switch, ColorPicker, SwatchRow } from "@abhc/spektral-ui";
     import { tokenValues, deriveSemanticTokens, computeMuted } from '$lib/theme/tokenSchema';
-    import type { Swatch } from '../../design-system/components/SwatchRow/swatchRow.config';
+    import type { Swatch } from '@abhc/spektral-ui';
 
     import {
         trans,

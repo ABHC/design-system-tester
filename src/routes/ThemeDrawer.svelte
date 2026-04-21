@@ -1,8 +1,6 @@
 <script lang="ts">
     import { createRawSnippet } from 'svelte';
-    import Drawer from '../design-system/components/Drawer/Drawer.svelte';
-    import Button from '../design-system/components/Button/Button.svelte';
-    import ListItem from '../design-system/components/ListItem/ListItem.svelte';
+    import { Drawer, Button, ListItem } from '@abhc/spektral-ui';
 
     import {
         trans,

@@ -2,12 +2,15 @@
     import type { Snippet } from "svelte";
     import { onMount } from "svelte";
     import { page } from "$app/state";
-    import Explorer from "../../design-system/components/Explorer/Explorer.svelte";
-    import ExplorerGroup from "../../design-system/components/Explorer/ExplorerGroup.svelte";
-    import ExplorerLink from "../../design-system/components/Explorer/ExplorerLink.svelte";
-    import SearchField from "../../design-system/components/SearchField/SearchField.svelte";
     import { trans } from "../store";
     import { docs, categories } from "./registry";
+    import { 
+        Explorer, 
+        ExplorerGroup, 
+        ExplorerLink, 
+        SearchField 
+    } from "@abhc/spektral-ui";
+
 
     let { children }: { children?: Snippet | null } = $props();
     let search: string = $state("");

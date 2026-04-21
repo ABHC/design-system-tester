@@ -1,14 +1,18 @@
 <script lang="ts">
     import type { Translation } from "$lib/types/translations";
     import type { PlaceholdersType } from "../placeholders";
-    import Headline from "../../design-system/components/Headline/Headline.svelte";
-    import Popover from "../../design-system/components/Popover/Popover.svelte";
-    import Button from "../../design-system/components/Button/Button.svelte";
-    import ListItem from "../../design-system/components/ListItem/ListItem.svelte";
-    import Selector from "../../design-system/components/Selector/Selector.svelte";
-    import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
-    import CodeBlock from "../../design-system/components/CodeBlock/CodeBlock.svelte";
-    import DataTable from "../../design-system/components/DataTable/DataTable.svelte";
+    import type { PopoverPalette, PopoverElevation, PopoverDirection, PopoverAlign } from '@abhc/spektral-ui';
+    import {
+        Headline,
+        Popover,
+        Button,
+        ListItem,
+        Callout,
+        Selector,
+        ControlBar,
+        CodeBlock,
+        DataTable
+    } from "@abhc/spektral-ui";
 
     interface Props {
         trans: Translation | null;
@@ -299,6 +303,18 @@
     <Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
 </div>
 
+<div style="margin-bottom: 1rem;">
+    <Callout variant="info">
+        {#snippet leading()}
+            <span class="material-symbols-outlined">package_2</span>
+        {/snippet}
+        {#snippet children()}
+            {trans?.doc.types_notice}<br />
+            <code>import type &lbrace; PopoverPalette, PopoverElevation, PopoverDirection, PopoverAlign &rbrace; from '@abhc/spektral-ui';</code>
+        {/snippet}
+    </Callout>
+</div>
+
 <DataTable
     variant="ghost" palette="tone" size="sm"
     columns={[
@@ -322,6 +338,7 @@
         { prop: "children", type: "Snippet", default: "\u2014" },
     ]}
 />
+
 
 <style>
     .popover-preview {

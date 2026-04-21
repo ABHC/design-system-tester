@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { Translation } from "$lib/types/translations";
     import { getContrastRatio, getWcagLevel } from "$lib/utils/contrast";
-    import Badge from "../../design-system/components/Badge/Badge.svelte";
+    import { Badge } from "@abhc/spektral-ui";
 
     export interface ContrastRule {
         label: string;

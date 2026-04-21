@@ -1,16 +1,17 @@
 <script lang="ts">
     import type { Translation } from "$lib/types/translations";
     import type { PlaceholdersType } from "../placeholders";
-
-    import Headline from "../../design-system/components/Headline/Headline.svelte";
-    import Footer from "../../design-system/components/Footer/Footer.svelte";
-    import Button from "../../design-system/components/Button/Button.svelte";
-    import Callout from "../../design-system/components/Callout/Callout.svelte";
-    import Selector from "../../design-system/components/Selector/Selector.svelte";
-    import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
-    import Slider from "../../design-system/components/Slider/Slider.svelte";
-    import CodeBlock  from "../../design-system/components/CodeBlock/CodeBlock.svelte";
-    import DataTable from "../../design-system/components/DataTable/DataTable.svelte";
+    import { 
+        Headline, 
+        Footer, 
+        Button, 
+        Callout, 
+        Selector, 
+        ControlBar, 
+        Slider, 
+        CodeBlock, 
+        DataTable 
+    } from "@abhc/spektral-ui";
 
     interface Props {
         trans: Translation | null;

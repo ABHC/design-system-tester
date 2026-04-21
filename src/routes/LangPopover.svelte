@@ -1,10 +1,11 @@
 <script lang="ts">
-    import Popover from '../design-system/components/Popover/Popover.svelte';
-    import Button from '../design-system/components/Button/Button.svelte';
-
     import { locale, trans } from './store';
     import { translations } from './translations';
     import type { Locale } from "$lib/types/translations";
+    import { 
+        Popover, 
+        Button 
+    } from '@abhc/spektral-ui';
 
     let lang_open: boolean = $state(false);
     let locales: Locale[] = Object.keys(translations) as Locale[];

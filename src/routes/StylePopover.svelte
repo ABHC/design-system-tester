@@ -1,10 +1,12 @@
 <script lang="ts">
     import { createRawSnippet } from 'svelte';
-    import Popover from '../design-system/components/Popover/Popover.svelte';
-    import Button from '../design-system/components/Button/Button.svelte';
-    import ListItem from '../design-system/components/ListItem/ListItem.svelte';
-    import Headline from '../design-system/components/Headline/Headline.svelte';
-    import Select from '../design-system/components/Select/Select.svelte';
+    import { 
+        Popover, 
+        Button, 
+        ListItem, 
+        Headline, 
+        Select 
+    } from '@abhc/spektral-ui';
 
     import {
         trans,

@@ -2,22 +2,23 @@
     import { onMount, onDestroy } from "svelte";
     import { fade } from "svelte/transition";
     import { responsive } from "./store";
-
-    import Avatar from "../design-system/components/Avatar/avatar.svelte";
-    import Accordion from "../design-system/components/Accordion/Accordion.svelte";
-    import AccordionHeader from "../design-system/components/Accordion/AccordionHeader.svelte";
-    import Badge from "../design-system/components/Badge/Badge.svelte";
-    import Button from "../design-system/components/Button/Button.svelte";
-    import Callout from "../design-system/components/Callout/Callout.svelte";
-    import Card from "../design-system/components/Card/Card.svelte";
-    import ListItem from "../design-system/components/ListItem/ListItem.svelte";
-    import Progress from "../design-system/components/Progress/Progress.svelte";
-    import Slider from "../design-system/components/Slider/Slider.svelte";
-    import Switch from "../design-system/components/Switch/Switch.svelte";
-    import TileGrid from "../design-system/components/TileGrid/TileGrid.svelte";
-    import Timeline from "../design-system/components/Timeline/Timeline.svelte";
-    import TimelineItem from "../design-system/components/Timeline/TimelineItem.svelte";
-    import type { Tile } from "../design-system/components/TileGrid/tilegrid.config";
+    import type { Tile } from '@abhc/spektral-ui';
+    import { 
+        Avatar, 
+        Accordion, 
+        AccordionHeader, 
+        Badge, 
+        Button, 
+        Callout, 
+        Card, 
+        ListItem, 
+        Progress, 
+        Slider, 
+        Switch, 
+        TileGrid, 
+        Timeline, 
+        TimelineItem 
+    } from "@abhc/spektral-ui";
 
     //  imer ─────────────────────────────────────────────────────────────────
 

@@ -43,6 +43,7 @@ export const translations = {
             CopyButton: "CopyButton",
             states: "États",
             swatches: "Swatches",
+            types_notice: "L'usage de ce composant peut nécessiter l'import des types suivants :",
         },
 
         // Landing page -----------------------------------------------------
@@ -419,6 +420,7 @@ export const translations = {
             CopyButton: "CopyButton",
             states: "States",
             swatches: "Swatches",
+            types_notice: "Using this component may require importing the following types:",
         },
 
         // Landing page -----------------------------------------------------

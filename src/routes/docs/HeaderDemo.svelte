@@ -1,15 +1,16 @@
 <script lang="ts">
     import type { Translation } from "$lib/types/translations";
     import type { PlaceholdersType } from "../placeholders";
-
-    import Headline from "../../design-system/components/Headline/Headline.svelte";
-    import Header  from "../../design-system/components/Header/Header.svelte";
-    import Button  from "../../design-system/components/Button/Button.svelte";
-    import Callout from "../../design-system/components/Callout/Callout.svelte";
-    import Selector from "../../design-system/components/Selector/Selector.svelte";
-    import ControlBar from "../../design-system/components/Selector/ControlBar.svelte";
-    import CodeBlock from "../../design-system/components/CodeBlock/CodeBlock.svelte";
-    import DataTable from "../../design-system/components/DataTable/DataTable.svelte";
+    import { 
+        Headline, 
+        Header, 
+        Button, 
+        Callout, 
+        Selector, 
+        ControlBar, 
+        CodeBlock, 
+        DataTable 
+    } from "@abhc/spektral-ui";
 
     interface Props {
         trans: Translation | null;
@@ -144,7 +145,12 @@ let header_visible = $state(true);
         </div>
         <div class="demo-actions">
             {#each nav_labels as label}
-                <Button variant="naked" palette={demo_palette}>{label}</Button>
+                <Button 
+                    variant="naked" 
+                    palette="tone"
+                >
+                    {label}
+                </Button>
             {/each}
             <Button 
                 variant="flat" 
@@ -213,7 +219,12 @@ let header_visible = $state(true);
         </div>
         <nav class="demo-nav">
             {#each nav_labels as label}
-                <Button variant="naked" palette={demo_palette}>{label}</Button>
+               <Button 
+                    variant="naked" 
+                    palette="tone"
+                >
+                    {label}
+                </Button>
             {/each}
         </nav>
         <div class="demo-actions">
