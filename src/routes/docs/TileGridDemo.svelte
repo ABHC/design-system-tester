@@ -60,15 +60,16 @@
     ] as const;
     const pattern_presets: PatternPreset[] = [
         "none", 
-        "scallops", 
-        "grid", 
-        "chevrons", 
-        "sunburst", 
+        "grid",
+        "sunburst",
+        "scallops",
+        "waves",   
         "sunrise", 
         "atoms", 
-        "complex", 
-        "prisms", 
-        "lozenge", 
+        "lozenge",  
+        "diamonds", 
+        "shippo", 
+        "kumi_kikko"
     ];
 
     function set_mode(m: Mode) {
@@ -641,7 +642,7 @@
         { prop: "rounded", type: "boolean", default: "false" },
         { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
         { prop: "raised", type: "boolean", default: "false" },
-        { prop: "pattern", type: '"none" | "scallops" | "grid" | "chevrons" | "sunburst" | "sunrise" | "atoms" | "complex" | "prisms" | "lozenge" | string', default: '"none"' },
+        { prop: "pattern", type: '"none" | "scallops" | "grid" | "sunburst" | "sunrise" | "atoms" | "lozenge" | "waves" | "diamonds" | "shippo" | "kumi_kikko" | string', default: '"none"' },
         { prop: "pattern_color", type: "string", default: '"white"' },
         { prop: "pattern_opacity", type: "number", default: "0.4" },
         { prop: "pattern_size", type: "string", default: "undefined" },

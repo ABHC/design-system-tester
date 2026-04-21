@@ -132,15 +132,16 @@
         label="Pattern"
         options={[
             "none", 
-            "grid", 
-            "scallops", 
-            "lozenge",
-            "sunburst", 
+            "grid",
+            "sunburst",
+            "scallops",
+            "waves",   
             "sunrise", 
             "atoms", 
-            "prisms",
-            "complex",
-            "chevrons",
+            "lozenge",  
+            "diamonds", 
+            "shippo", 
+            "kumi_kikko"
         ]}
         bind:value={demo_pattern}
     />
@@ -261,7 +262,7 @@
         rows={[
             { prop: "layout", type: '"single" | "two-cols" | "two-rows" | "main-left" | "main-right" | "grid-2x2"', default: '"single"' },
             { prop: "palette", type: '"transparent" | "tone" | "accent" | "accent-bg"', default: '"transparent"' },
-            { prop: "pattern", type: '"none" | "grid" | "scallops" | "chevrons" | "sunburst" | "sunrise" | "atoms" | "complex" | "prisms" | "lozenge"', default: '"none"' },
+            { prop: "pattern", type: '"none" | "grid" | "scallops" | "lozenge" | "sunburst" | "sunrise" | "atoms" | "waves" | "diamonds" | "shippo" | "kumi_kikko"', default: '"none"' },
             { prop: "pattern_color", type: "string", default: '"white"' },
             { prop: "pattern_opacity", type: "number", default: "0.6" },
             { prop: "pattern_size", type: "string", default: "undefined" },

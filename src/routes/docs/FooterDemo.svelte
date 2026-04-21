@@ -21,15 +21,26 @@
 
     type Palette = "accent" | "tone";
     type Preset  = "social" | "minimal" | "brand";
-    type PatternPreset = "none" | "scallops" | "grid" | "chevrons" | "sunburst" | "sunrise" | "atoms" | "complex" | "prisms" | "lozenge";
     type Effect = "none" | "glow" | "blur" | "fade";
     type Mask = "none" | "fade" | "ellipse";
     type MaskDirection = "top" | "bottom" | "left" | "right";
+    type PatternPreset = 
+        "none" | 
+        "scallops" | 
+        "grid" | 
+        "sunburst" | 
+        "sunrise" | 
+        "atoms" | 
+        "lozenge" | 
+        "waves" | 
+        "diamonds" | 
+        "shippo" | 
+        "kumi_kikko";
 
-    let demo_palette:  Palette = $state("accent");
-    let demo_rounded:  boolean = $state(false);
-    let demo_preset:   Preset  = $state("social");
-    let demo_pattern:  PatternPreset = $state("none");
+    let demo_palette: Palette = $state("accent");
+    let demo_rounded: boolean = $state(false);
+    let demo_preset: Preset  = $state("social");
+    let demo_pattern: PatternPreset = $state("none");
     let demo_pattern_color: string = $state("white");
     let demo_pattern_size: string = $state("auto");
     let demo_pattern_opacity: number = $state(40);
@@ -178,7 +189,19 @@
     />
     <Selector
         label="Pattern"
-        options={["none", "scallops", "grid", "chevrons", "sunburst", "sunrise", "atoms", "complex", "prisms", "lozenge"]}
+        options={[
+            "none", 
+            "grid",
+            "sunburst",
+            "scallops",
+            "waves",   
+            "sunrise", 
+            "atoms", 
+            "lozenge",  
+            "diamonds", 
+            "shippo", 
+            "kumi_kikko"
+        ]}
         bind:value={demo_pattern}
     />
     <Selector
@@ -329,7 +352,7 @@
             { prop: "palette", type: '"accent" | "tone"', default: '"accent"' },
             { prop: "rounded", type: "boolean", default: "false" },
             { prop: "style", type: "string", default: "\u2014" },
-            { prop: "pattern", type: '"none" | "scallops" | "grid" | "chevrons" | "sunburst" | "sunrise" | "atoms" | "complex" | "prisms" | "lozenge" | string', default: '"none"' },
+            { prop: "pattern", type: '"none" | "scallops" | "grid" | "sunburst" | "sunrise" | "atoms" | "lozenge" | "waves" | "diamonds" | "shippo" | "kumi_kikko" | string', default: '"none"' },
             { prop: "pattern_color", type: "string", default: '"white"' },
             { prop: "pattern_opacity", type: "number", default: "0.4" },
             { prop: "pattern_size", type: "string", default: "undefined" },
