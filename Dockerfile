@@ -44,7 +44,7 @@ RUN npm ci --omit=dev \
  && npm cache clean --force
 
 USER nodejs
-EXPOSE 3000
+EXPOSE 3002
 ENV NODE_ENV=production
 
 HEALTHCHECK --interval=10s --timeout=3s --start-period=5s --retries=3 \
