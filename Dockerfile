@@ -1,6 +1,5 @@
 # Build stage
 FROM node:20-bookworm-slim AS builder
-
 WORKDIR /app
 
 # Required for native Node modules
@@ -12,22 +11,20 @@ RUN apt-get update && apt-get install -y \
  && rm -rf /var/lib/apt/lists/*
 
 # Copy package files first for caching
-COPY frontend/package*.json ./
+COPY package*.json ./
 
 # Reproducible dependency install
 RUN npm ci
 
 # Copy source
-COPY frontend/ ./
+COPY . .
 
 # Build Svelte app
 RUN npm run build
 
 # -------------------------------------------------
-
 # Production stage
 FROM node:20-bookworm-slim
-
 WORKDIR /app
 
 # dumb-init for signal handling
@@ -47,7 +44,6 @@ RUN npm ci --omit=dev \
  && npm cache clean --force
 
 USER nodejs
-
 EXPOSE 3000
 ENV NODE_ENV=production
 
