@@ -252,8 +252,5 @@
         margin: 0px 5px 10px 5px;
     }
 
-    .content {
-        padding: 10px 40px 40px;
-        min-width: 0;
-    }
+
 </style>

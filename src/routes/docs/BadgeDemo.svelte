@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { untrack } from 'svelte';
     import type { Translation } from "$lib/types/translations";
     import type { PlaceholdersType } from "../placeholders";
     import type { BadgeItem } from '@abhc/spektral-ui';
@@ -43,7 +44,7 @@
     // ── Interactive state ────────────────────────────────────────────────────
 
     let click_count = $state(0);
-    let active_filters: string[] = $state([...placeholders.badges.filters]);
+    let active_filters: string[] = $state(untrack(() => [...placeholders.badges.filters]));
 
     function remove_filter(label: string) {
         active_filters = active_filters.filter(f => f !== label);

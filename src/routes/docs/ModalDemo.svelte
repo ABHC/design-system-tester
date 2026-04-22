@@ -43,7 +43,7 @@
 
     // ── Code examples ───────────────────────────────────────────────────────
 
-    const code_confirm = `<!-- Confirmation dialog — tone palette -->
+    const code_confirm = $derived(`<!-- Confirmation dialog — tone palette -->
 <Modal palette="tone" open={open} onclose={() => open = false}>
     {#snippet leading()}
         <span class="modal-title">${placeholders.modal.tone_title}</span>
@@ -59,9 +59,9 @@
             ${placeholders.modal.tone_cancel}
         </Button>
     {/snippet}
-</Modal>`;
+</Modal>`);
 
-    const code_announce = `<!-- Announcement — accent palette -->
+    const code_announce = $derived(`<!-- Announcement — accent palette -->
 <Modal palette="accent" open={open} onclose={() => open = false}>
     {#snippet leading()}
         <span class="modal-title">${placeholders.modal.accent_title}</span>
@@ -74,9 +74,9 @@
             ${placeholders.modal.accent_cta}
         </Button>
     {/snippet}
-</Modal>`;
+</Modal>`);
 
-    const code_profile = `<!-- Profile composition — Avatar + Badge -->
+    const code_profile = $derived(`<!-- Profile composition — Avatar + Badge -->
 <Modal open={open} onclose={() => open = false}>
     {#snippet leading()}
         <Avatar size="md" circular label="${placeholders.modal.compose_name}" />
@@ -95,9 +95,9 @@
         <Button animate="right" rounded>${placeholders.modal.compose_contact}</Button>
         <Button palette="tone" rounded onclick={() => open = false}>${placeholders.modal.compose_close}</Button>
     {/snippet}
-</Modal>`;
+</Modal>`);
 
-    const code_terms = `<!-- Wide terms dialog — 680px -->
+    const code_terms = $derived(`<!-- Wide terms dialog — 680px -->
 <Modal width="680px" open={open} onclose={() => open = false}>
     {#snippet leading()}
         <span class="modal-title">${placeholders.modal.wide_title}</span>
@@ -109,7 +109,7 @@
         <Button rounded>${placeholders.modal.wide_accept}</Button>
         <Button variant="outlined" palette="error" rounded>${placeholders.modal.wide_decline}</Button>
     {/snippet}
-</Modal>`;
+</Modal>`);
 
     const code_elevation = `<!-- Elevation prop -->
 <Modal elevation="none">...</Modal>    <!-- no shadow -->

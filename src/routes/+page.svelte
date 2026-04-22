@@ -143,7 +143,11 @@ Header, body et footer indépendants.</p>
     {#snippet cell_1()}
         <div class="feature-block">
             <div class="feature-item">
-                <img id="svelte-icon" src="src/lib/assets/favicon.svg" alt="svelte icon" />
+                <img 
+                    id="svelte-icon" 
+                    src="/assets/svelte.svg" 
+                    alt="svelte icon" 
+                />
                 <div class="feature-text">
                     <h3>{$trans?.features.f1_title}</h3>
                     <span>{$trans?.features.f1_desc}</span>
