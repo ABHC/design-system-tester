@@ -86,9 +86,14 @@
         "/assets/minitel.jpeg",
         "/assets/ariane3.jpeg",
         "/assets/renault.jpeg",
+        "/assets/taaf2.png",
+        "/assets/hay_match2.png",
+        "/assets/fonk2.png",
+        "/assets/brutalist2.png",
+        "/assets/cogip2.png",
     ];
 
-    const tiles = $derived([
+    const tiles: Tile[] = $derived([
         {
             ...placeholders.grid.tgv,
             display: true,
@@ -128,7 +133,47 @@
         },
     ]);
 
-    // Code examples — with id 
+    const tiles_mockup: Tile[] = $derived([
+        {
+            ...placeholders.grid.taaf,
+            display: true,
+            hero: true,
+            hero_text: { en: placeholders.grid.hero_text },
+            hero_icon: "star",
+            media: [{ src: tile_media[5], type: "image" }] as TileMedia[],
+            abstract: { en: placeholders.grid.taaf.abstract },
+        },
+        {
+            ...placeholders.grid.haymatch,
+            display: true,
+            hero: false,
+            media: [{ src: tile_media[6], type: "image" }] as TileMedia[],
+            abstract: { en: placeholders.grid.haymatch.abstract },
+        },
+        {
+            ...placeholders.grid.fonk,
+            display: true,
+            hero: false,
+            media: [{ src: tile_media[7], type: "image" }] as TileMedia[],
+            abstract: { en: placeholders.grid.fonk.abstract },
+        },
+        {
+            ...placeholders.grid.brutalist,
+            display: true,
+            hero: false,
+            media: [{ src: tile_media[8], type: "image" }] as TileMedia[],
+            abstract: { en: placeholders.grid.brutalist.abstract },
+        },
+        {
+            ...placeholders.grid.cogip,
+            display: true,
+            hero: false,
+            media: [{ src: tile_media[9], type: "image" }] as TileMedia[],
+            abstract: { en: placeholders.grid.cogip.abstract },
+        },
+    ]);
+
+    // Code examples — with id
 
     const code_background = `<TileGrid
     tiles={[
@@ -474,7 +519,7 @@
 
 <div class="tg-preview">
     <TileGrid
-        {tiles}
+        tiles={demo_mode === "mock-up" ? tiles_mockup : tiles}
         locale="en"
         image_mode={demo_mode}
         image_position={demo_position}

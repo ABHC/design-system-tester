@@ -116,6 +116,36 @@ export const placeholders = {
                 years: "1983",
                 abstract: "Ne viens pas du futur mais peut-être De Lorraine",
             },
+            taaf: {
+                name: "Aller aux TAAF",
+                origin: "Tourisme",
+                years: "1983",
+                abstract: "Découvrez les Kerguelen, Crozet et bien sûr la Terre Adélie !",
+            },
+            haymatch: {
+                name: "Hay Match",
+                origin: "Élevage",
+                years: "2024",
+                abstract: "Trouvez votre bel étalon !",
+            },
+            fonk: {
+                name: "La Puissance de la Fonk",
+                origin: "Musique",
+                years: "2016",
+                abstract: "La mixtape préféré du DisKer de PAF",
+            },
+            brutalist: {
+                name: "Brutalist Me",
+                origin: "Culture",
+                years: "2022",
+                abstract: "L'architecture qui fait mal",
+            },
+            cogip: {
+                name: "Catalogue Cogip",
+                origin: "Vintage",
+                years: "1978",
+                abstract: "Moquette orange et senteur tabac froid",
+            },
             attribution: {
                 header: "Photographies sous licence CC-BY-SA (3.0 et 4.0)",
                 tgv: "TGV : joost.j bakker",
@@ -711,6 +741,36 @@ export const placeholders = {
                 origin: "France",
                 years: "1983",
                 abstract: "Not from the future, but possibly from Lorraine",
+            },
+            taaf: {
+                name: "France at the end of the world",
+                origin: "Tourism",
+                years: "1983",
+                abstract: "Discover the French Southern and Antarctic Lands (TAAF) !",
+            },
+            haymatch: {
+                name: "Hay Match",
+                origin: "Breeding",
+                years: "2024",
+                abstract: "Find your handsome stallion!",
+            },
+            fonk: {
+                name: "The Power of Fonk",
+                origin: "Music",
+                years: "2016",
+                abstract: "The favorite mixtape in French retirements homes",
+            },
+            brutalist: {
+                name: "Brutalist Me",
+                origin: "Culture",
+                years: "2022",
+                abstract: "Architecture that hurts",
+            },
+            cogip: {
+                name: "Cogip Catalog",
+                origin: "Vintage",
+                years: "1978",
+                abstract: "Orange carpet and cold tobacco scent",
             },
             attribution: {
                 header: "Pictures under CC-BY-SA (3.0 and 4.0) license",
