@@ -1,94 +1,183 @@
-/* ─── Design System — Default Tokens ─────────────────────────────────────────
-   Fallback values active before any theme is applied in the docs.
-   ─────────────────────────────────────────────────────────────────────────── */
+/* --- Spektral UI - Exported Tokens ---------------------------
+   Dual theme. Toggle via [data-theme="light"] / [data-theme="dark"]
+   on <html> (e.g. document.documentElement.dataset.theme = "dark").
+
+   Icon set: Material Symbols
+
+   Fonts and icons are loaded via @import so this file works
+   out of the box. For better performance, remove the @import
+   lines and add these tags in your HTML <head> instead
+   (in Svelte, wrap them in <svelte:head>…</svelte:head>):
+
+     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+   ----------------------------------------------------------- */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
 
 :root {
-    /* ── Tone surface ── */
-    --tone-bg: #1a1a1a;
-    --tone: #282828;
-    --tone-hover: #333333;
-    --tone-muted: #3a3a3a;
-    --tone-ghost: rgba(250, 250, 250, 0.08);
-    --tone-ghost-hover: rgba(250, 250, 250, 0.15);
-
-    /* ── Accent ── */
-    --accent: #4d834d;
-    --accent-hover: #5a945a;
-    --accent-bg: #1f2b1f;
-    --accent-ghost-hover: rgba(77, 131, 77, 0.10);
-    --text-accent: #ffffff;
-    --accent-muted: #4d834d;
-
-    /* ── Error ── */
-    --error: #dc2626;
-    --error-hover: #e84040;
-    --error-bg: #2b1a1a;
-    --error-ghost-hover: rgba(220, 38, 38, 0.10);
-    --text-error: #ffffff;
-    --error-muted: #dc2626;
-
-    /* ── Warning ── */
-    --warning: #F39C12;
-    --warning-hover: #f5ac35;
-    --warning-bg: #2b251a;
-    --warning-ghost-hover: rgba(243, 156, 18, 0.10);
-    --text-warning: #000000;
-    --warning-muted: #F39C12;
-
-    /* ── Success ── */
-    --success: #15803d;
-    --success-hover: #1d9a4d;
-    --success-bg: #1a2b1f;
-    --success-ghost-hover: rgba(21, 128, 61, 0.10);
-    --text-success: #ffffff;
-    --success-muted: #15803d;
-
-    /* ── Info ── */
-    --info: #6b7280;
-    --info-hover: #7d8491;
-    --info-bg: #1e2025;
-    --info-ghost-hover: rgba(107, 114, 128, 0.10);
-    --text-info: #ffffff;
-    --info-muted: #6b7280;
-
-    /* ── Neutral ── */
-    --neutral: #737373;
-    --neutral-hover: #858585;
-    --neutral-bg: #222222;
-    --neutral-ghost-hover: rgba(115, 115, 115, 0.10);
-    --text-neutral: #ffffff;
-    --neutral-muted: #737373;
-
-    /* ── text ── */
-    --text: #fafafa;
-    --text-light: #fafafa;
-    --text-dark: #0a0a0a;
-    --text-muted: #b0b0b0;
-
-    /* ── Typography ── */
-    --font-body: 'Inter', sans-serif;
-    --font-heading: 'Space Grotesk', sans-serif;
-
-    /* ── Border radius ── */
+    /* --- Border radius --- */
     --radius-edge: 4px;
     --radius-soft: 8px;
     --radius-round: 12px;
     --radius-pill: 999px;
     --radius-circle: 50%;
 
-    /* ── Shadows ── */
-    --shadow-hard : #000000;
-    --shadow-subtle: rgba(0, 0, 0, 0.2);
-    --muted-shadow: rgba(176, 176, 176, 0.3);
-
-    /* ── Focus ring ── */
+    /* --- Focus ring --- */
     --focus-ring: var(--text);
     --focus-ring-width: 2px;
     --focus-ring-offset: 2px;
+
+    /* --- Typography --- */
+    --font-body: 'Inter', sans-serif;
+    --font-heading: 'Space Grotesk', sans-serif;
+
+    /* --- Shadows --- */
+    --shadow-subtle: rgba(0, 0, 0, 0.2);
 }
 
-/* ── Typography ── */
+[data-theme="light"] {
+    color-scheme: light;
 
+    /* --- Tone surface --- */
+    --tone-bg: #e8e4d8;
+    --tone: #d0c9b8;
+    --tone-hover: #b9b49d;
+    --tone-muted: #4c4839;
+    --tone-ghost: rgba(28, 25, 23, 0.08);
+    --tone-ghost-hover: rgba(28, 25, 23, 0.15);
+
+    /* --- Accent --- */
+    --accent: #366336;
+    --accent-hover: #215016;
+    --accent-bg: #aab9a7;
+    --accent-ghost-hover: rgba(54, 99, 54, 0.1);
+    --accent-muted: #15380d;
+    --text-accent: #f5f5f4;
+
+    /* --- Error --- */
+    --error: #f26a84;
+    --error-hover: #d95370;
+    --error-bg: #d2a7ac;
+    --error-ghost-hover: rgba(242, 106, 132, 0.1);
+    --error-muted: #86223c;
+    --text-error: #1c1917;
+
+    /* --- Warning --- */
+    --warning: #ca8a04;
+    --warning-hover: #a97a00;
+    --warning-bg: #c3b191;
+    --warning-ghost-hover: rgba(202, 138, 4, 0.1);
+    --warning-muted: #604300;
+    --text-warning: #1c1917;
+
+    /* --- Success --- */
+    --success: #2da796;
+    --success-hover: #00927c;
+    --success-bg: #9ebbb3;
+    --success-ghost-hover: rgba(45, 167, 150, 0.1);
+    --success-muted: #005245;
+    --text-success: #1c1917;
+
+    /* --- Info --- */
+    --info: #379de7;
+    --info-hover: #1e86d4;
+    --info-bg: #9eb7cf;
+    --info-ghost-hover: rgba(55, 157, 231, 0.1);
+    --info-muted: #004b7f;
+    --text-info: #1c1917;
+
+    /* --- Neutral --- */
+    --neutral: #8a99ae;
+    --neutral-hover: #758498;
+    --neutral-bg: #b0b4bb;
+    --neutral-ghost-hover: rgba(138, 153, 174, 0.1);
+    --neutral-muted: #3f4958;
+    --text-neutral: #1c1917;
+
+    /* --- Text --- */
+    --text: #1c1917;
+    --text-light: #f5f5f4;
+    --text-dark: #1c1917;
+    --text-muted: #484848;
+
+    /* --- Shadows --- */
+    --shadow-hard: #989685;
+    --muted-shadow: rgba(72, 72, 72, 0.3);
+}
+
+[data-theme="dark"] {
+    color-scheme: dark;
+
+    /* --- Tone surface --- */
+    --tone-bg: #1a1a1a;
+    --tone: #282828;
+    --tone-hover: #393a39;
+    --tone-muted: #9e9e9d;
+    --tone-ghost: rgba(245, 245, 244, 0.08);
+    --tone-ghost-hover: rgba(245, 245, 244, 0.15);
+
+    /* --- Accent --- */
+    --accent: #366336;
+    --accent-hover: #48783e;
+    --accent-bg: #374334;
+    --accent-ghost-hover: rgba(54, 99, 54, 0.1);
+    --accent-muted: #81a978;
+    --text-accent: #f5f5f4;
+
+    /* --- Error --- */
+    --error: #f26a84;
+    --error-hover: #ff8a9e;
+    --error-bg: #563439;
+    --error-ghost-hover: rgba(242, 106, 132, 0.1);
+    --error-muted: #ffb6c0;
+    --text-error: #1c1917;
+
+    /* --- Warning --- */
+    --warning: #ca8a04;
+    --warning-hover: #dea300;
+    --warning-bg: #4c3d20;
+    --warning-ghost-hover: rgba(202, 138, 4, 0.1);
+    --warning-muted: #f1bf5c;
+    --text-warning: #1c1917;
+
+    /* --- Success --- */
+    --success: #2da796;
+    --success-hover: #48bea7;
+    --success-bg: #2b453f;
+    --success-ghost-hover: rgba(45, 167, 150, 0.1);
+    --success-muted: #7ed4c0;
+    --text-success: #1c1917;
+
+    /* --- Info --- */
+    --info: #379de7;
+    --info-hover: #59b2ff;
+    --info-bg: #2c4156;
+    --info-ghost-hover: rgba(55, 157, 231, 0.1);
+    --info-muted: #93cbff;
+    --text-info: #1c1917;
+
+    /* --- Neutral --- */
+    --neutral: #8a99ae;
+    --neutral-hover: #9fafc4;
+    --neutral-bg: #3c3f45;
+    --neutral-ghost-hover: rgba(138, 153, 174, 0.1);
+    --neutral-muted: #bbc8da;
+    --text-neutral: #1c1917;
+
+    /* --- Text --- */
+    --text: #f5f5f4;
+    --text-light: #f5f5f4;
+    --text-dark: #1c1917;
+    --text-muted: #9e9e9e;
+
+    /* --- Shadows --- */
+    --shadow-hard: #090908;
+    --muted-shadow: rgba(158, 158, 158, 0.3);
+}
+
+/* --- Typography --- */
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
     font-weight: 600;
@@ -96,33 +185,20 @@ h1, h2, h3, h4, h5, h6 {
     margin: 1em 0 0.5em;
 }
 
-h1 { 
-    font-size: 2.5rem;  
-    font-weight: 700; 
+h1 { font-size: 2.5rem; font-weight: 700; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.25rem; }
+h5 { font-size: 1.125rem; }
+h6 { font-size: 1rem; font-weight: 500; }
+
+body {
+    background: var(--tone-bg);
+    color: var(--text);
+    font-family: var(--font-body);
 }
 
-h2 { 
-    font-size: 2rem; 
-}
-
-h3 { 
-    font-size: 1.5rem; 
-}
-
-h4 { 
-    font-size: 1.25rem; 
-}
-
-h5 { 
-    font-size: 1.125rem; 
-}
-
-h6 { 
-    font-size: 1rem; 
-    font-weight: 500; 
-}
-
-/* ─── Support of material symbols ── */
+/* --- Material Symbols --- */
 .material-symbols-outlined {
     font-family: 'Material Symbols Outlined';
     font-variation-settings:

@@ -84,31 +84,52 @@ function shiftLightness(hex: string, delta: number): string {
     );
 }
 
+const HOVER_L_HIGH = 0.85;
+const HOVER_L_LOW = 0.15;
+
+// Hover variant: shifts L by HOVER_DELTA, but flips direction at extremes
+// so the shift stays perceptible instead of clamping at 0 or 1.
+function hoverShift(hex: string, isDark: boolean): string {
+    const oklch = hexToOklch(hex);
+    if (!oklch) return hex;
+    let delta = isDark ? HOVER_DELTA : -HOVER_DELTA;
+    if (oklch.l > HOVER_L_HIGH) delta = -HOVER_DELTA;
+    else if (oklch.l < HOVER_L_LOW) delta = HOVER_DELTA;
+    return oklchToHex(
+        Math.max(0, Math.min(1, oklch.l + delta)),
+        oklch.c,
+        oklch.h,
+    );
+}
+
 /**
  * Compute a muted variant: readable as text on surfaceHex.
- * Targets 4.5:1 contrast (AA minimum) to keep muted visually distinct from base text.
- * Reduces chroma to 80% for a softer, more "muted" appearance.
+ * Reduces chroma and shifts L away from surface to stay perceptibly distinct from base.
  */
 
 const TEXT_MUTED_TARGET_RATIO = 5.5;
 const MUTED_TARGET_RATIO = 5.5;
 const MUTED_CHROMA_FACTOR = 0.8;
+const MUTED_MIN_L_SHIFT = 0.15;
 
 export function computeMuted(hex: string, surfaceHex: string): string {
     const oklch = hexToOklch(hex);
     if (!oklch) return hex;
 
     const mutedC = oklch.c * MUTED_CHROMA_FACTOR;
-    const mutedHex = oklchToHex(oklch.l, mutedC, oklch.h);
-
-    if (parseFloat(getContrastRatio(mutedHex, surfaceHex)) >= MUTED_TARGET_RATIO) return mutedHex;
-
     const surfaceOklch = hexToOklch(surfaceHex);
     const goLighter = (surfaceOklch?.l ?? 0.5) < 0.5;
 
-    let lo = goLighter ? oklch.l : 0;
-    let hi = goLighter ? 1 : oklch.l;
-    let best = mutedHex;
+    // Force a minimum L shift away from base so muted is visually distinct,
+    // even when contrast on the surface is already met at base lightness.
+    const startL = Math.max(0, Math.min(1, oklch.l + (goLighter ? MUTED_MIN_L_SHIFT : -MUTED_MIN_L_SHIFT)));
+    const startHex = oklchToHex(startL, mutedC, oklch.h);
+
+    if (parseFloat(getContrastRatio(startHex, surfaceHex)) >= MUTED_TARGET_RATIO) return startHex;
+
+    let lo = goLighter ? startL : 0;
+    let hi = goLighter ? 1 : startL;
+    let best = startHex;
 
     for (let i = 0; i < 30; i++) {
         const mid = (lo + hi) / 2;
@@ -148,10 +169,9 @@ export function deriveSemanticTokens(
     bgHex: string,
     textPalette: TextTokens,
 ): Record<string, string> {
-    const delta = isDark ? HOVER_DELTA : -HOVER_DELTA;
     return {
         [`--${name}`]: hex,
-        [`--${name}-hover`]: shiftLightness(hex, delta),
+        [`--${name}-hover`]: hoverShift(hex, isDark),
         [`--${name}-bg`]: computeBg(hex, bgHex, isDark),
         [`--${name}-ghost-hover`]: hexToRgba(hex, 0.10),
         [`--text-${name}`]: bestTextColor(hex, textPalette.light, textPalette.dark),
