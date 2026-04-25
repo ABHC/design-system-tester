@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { ToneTheme } from "$lib/types/palettes";
     import { SwatchRow } from '@abhc/spektral-ui';
-    import type { Swatch } from '@abhc/spektral-ui/dist/components/SwatchRow/swatchRow.config';
+    import type { Swatch } from '@abhc/spektral-ui';
     import { blendColor } from '$lib/utils/contrast';
 
     const SEMANTIC_NAMES = ['accent', 'error', 'warning', 'success', 'info', 'neutral'] as const;

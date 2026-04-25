@@ -31,6 +31,7 @@ contrast-analysis.js
 SPINACH_UI_NPM_PUBLISHING.md
 color-override-concept.md
 src/routes/AccentBgLab.svelte
+src/lib/tests/
 patterns/
 SPEKTRAL_UI_INDEX.draft.ts
 SPEKTRAL_UI_README.draft.md

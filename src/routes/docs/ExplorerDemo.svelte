@@ -29,6 +29,7 @@
     let demo_collapsible: boolean = $state(true);
     let demo_headline: boolean = $state(true);
     let demo_active: string = $state("themes");
+    let demo_naked: boolean = $state(false);
 
     const bool_opts = [{ value: true, label: "true" }, { value: false, label: "false" }] as const;
 
@@ -36,7 +37,7 @@
 
     const code_basic = `<Explorer palette="tone">
     <ExplorerGroup label="Getting started">
-        {#snippet icon()}
+        {#snippet leading()}
             <span class="material-symbols-outlined">rocket_launch</span>
         {/snippet}
 
@@ -46,7 +47,7 @@
     </ExplorerGroup>
 
     <ExplorerGroup label="Components">
-        {#snippet icon()}
+        {#snippet leading()}
             <span class="material-symbols-outlined">widgets</span>
         {/snippet}
 
@@ -111,31 +112,42 @@
         options={bool_opts}
         bind:value={demo_headline}
     />
+    <Selector
+        label="Naked"
+        options={bool_opts}
+        bind:value={demo_naked}
+    />
 </ControlBar>
 
-<div class="explorer-preview">
+<div 
+    class="explorer-preview" 
+    style={demo_palette === "accent" ? "background: var(--accent);":""}
+    >
     <Explorer palette={demo_palette}>
         <ExplorerGroup
             label={ex.group_start}
-            icon={icon_rocket}
+            leading={icon_rocket}
             collapsible={demo_collapsible}
             headline={demo_headline}
         >
             <ExplorerLink
                 label={ex.link_install}
                 href="#"
+                naked={demo_naked}
                 active={demo_active === "install"}
                 onclick={() => { demo_active = "install"; }}
             />
             <ExplorerLink
                 label={ex.link_themes}
                 href="#"
+                naked={demo_naked}
                 active={demo_active === "themes"}
                 onclick={() => { demo_active = "themes"; }}
             />
             <ExplorerLink
                 label={ex.link_tokens}
                 href="#"
+                naked={demo_naked}
                 active={demo_active === "tokens"}
                 onclick={() => { demo_active = "tokens"; }}
             />
@@ -143,25 +155,28 @@
 
         <ExplorerGroup
             label={ex.group_components}
-            icon={icon_widgets}
+            leading={icon_widgets}
             collapsible={demo_collapsible}
             headline={demo_headline}
         >
             <ExplorerLink
                 label={ex.link_button}
                 href="#"
+                naked={demo_naked}
                 active={demo_active === "button"}
                 onclick={() => { demo_active = "button"; }}
             />
             <ExplorerLink
                 label={ex.link_card}
                 href="#"
+                naked={demo_naked}
                 active={demo_active === "card"}
                 onclick={() => { demo_active = "card"; }}
             />
             <ExplorerLink
                 label={ex.link_modal}
                 href="#"
+                naked={demo_naked}
                 active={demo_active === "modal"}
                 onclick={() => { demo_active = "modal"; }}
             />
@@ -169,7 +184,7 @@
 
         <ExplorerGroup
             label={ex.group_theming}
-            icon={icon_palette}
+            leading={icon_palette}
             collapsible={demo_collapsible}
             headline={demo_headline}
             open={false}
@@ -177,12 +192,14 @@
             <ExplorerLink
                 label={ex.link_palettes}
                 href="#"
+                naked={demo_naked}
                 active={demo_active === "palettes"}
                 onclick={() => { demo_active = "palettes"; }}
             />
             <ExplorerLink
                 label={ex.link_fonts}
                 href="#"
+                naked={demo_naked}
                 active={demo_active === "fonts"}
                 onclick={() => { demo_active = "fonts"; }}
             />
@@ -236,7 +253,7 @@
         ]}
         rows={[
             { prop: "label", type: "string", default: "required" },
-            { prop: "icon", type: "Snippet", default: "undefined" },
+            { prop: "leading", type: "Snippet", default: "undefined" },
             { prop: "collapsible", type: "boolean", default: "true" },
             { prop: "headline", type: "boolean", default: "true" },
             { prop: "open", type: "boolean", default: "true" },
@@ -255,7 +272,7 @@
         rows={[
             { prop: "label", type: "string", default: "required" },
             { prop: "href", type: "string", default: "undefined" },
-            { prop: "icon", type: "Snippet", default: "undefined" },
+            { prop: "leading", type: "Snippet", default: "undefined" },
             { prop: "active", type: "boolean", default: "false" },
             { prop: "naked", type: "boolean", default: "false" },
             { prop: "onclick", type: "() => void", default: "undefined" },
