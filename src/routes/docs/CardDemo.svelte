@@ -31,7 +31,7 @@
     type Preset = "none" | "projects" | "profile" | "testimonials";
 
     let demo_variant: Variant = $state("flat");
-    let demo_elevation: Elevation = $state("hard");
+    let demo_elevation: Elevation = $state("none");
     let demo_rounded: boolean = $state(false);
     let demo_preset: Preset = $state("projects");
 
@@ -57,7 +57,9 @@
 
     const code_project = `<Card variant="outlined" elevation="hard" width="300px">
     {#snippet leading()}
-        <img src="/project.jpg" alt="Project" />
+        <div class="project-cover">
+            <img src="/project.jpg" alt="Project" />
+        </div>
     {/snippet}
     {#snippet children()}
         <Badge size="sm">Design</Badge>
@@ -65,7 +67,12 @@
         <p>Short description.</p>
     {/snippet}
     {#snippet trailing()}
-        <Button variant="flat" size="sm" rounded>View</Button>
+        <div class="project-actions">
+            <Button variant="flat" size="sm" rounded>View</Button>
+            <Button variant="flat" palette="tone" size="sm" rounded>
+                Archives
+            </Button>
+        </div>
     {/snippet}
 </Card>`;
 
@@ -85,9 +92,11 @@
         <Badge variant="outlined" size="sm">dessin</Badge>
     {/snippet}
     {#snippet trailing()}
-        <Button variant="flat" size="sm" animate="right" rounded>
-            Contact
-        </Button>
+        <div class="profile-actions">
+            <Button variant="flat" size="sm" animate="right" rounded>
+                Contact
+            </Button>
+        </div>
     {/snippet}
 </Card>`;
 
@@ -139,7 +148,7 @@
 <ControlBar palette="tone">
     <Selector 
         label="Preset" 
-        options={["none", "projects", "profile", "testimonials"]}
+        options={["projects", "profile", "testimonials"]}
         bind:value={demo_preset} 
     />
     <Selector 
@@ -192,7 +201,11 @@
                     width="300px"
                 >
                     {#snippet leading()}
-                        <div class="demo-img-placeholder" class:accent={i === 0} class:muted={i === 1} aria-hidden="true">
+                        <div class="demo-img-placeholder" 
+                            class:accent={i === 0} 
+                            class:muted={i === 1} 
+                            aria-hidden="true"
+                        >
                             {#if i != 2}
                                 <span class="material-symbols-outlined">
                                     {i === 0 ? "palette" : i === 1 ? "computer" : "image"}
@@ -212,22 +225,26 @@
                         <p class="card-text">{tile.description}</p>
                     {/snippet}
                     {#snippet trailing()}
-                        {#if i === 2}
-                            <Button variant="flat" size="sm" rounded>
-                                <a 
-                                    href="https://fr.wikipedia.org/wiki/Jean_Bertin_(ing%C3%A9nieur)#/media/Fichier:A%C3%A9rotrain_i80_250.jpg"
-                                    target="_blank"
-                                    style="text-decoration: none; color:inherit"
-                                >
+                        <div class="trailing-demo">
+                            {#if i === 2}
+                                <Button variant="flat" size="sm" rounded>
+                                    <a 
+                                        href="https://fr.wikipedia.org/wiki/Jean_Bertin_(ing%C3%A9nieur)#/media/Fichier:A%C3%A9rotrain_i80_250.jpg"
+                                        target="_blank"
+                                        style="text-decoration: none; color:inherit"
+                                    >
+                                        {tile.btn}
+                                    </a>
+                                </Button>
+                            {:else}
+                                <Button variant="flat" size="sm" rounded>
                                     {tile.btn}
-                                </a>
+                                </Button>
+                            {/if}
+                            <Button variant="flat" palette="tone" size="sm" rounded>
+                                Archives
                             </Button>
-                        {:else}
-                            <Button variant="flat" size="sm" rounded>
-                                {tile.btn}
-                            </Button>
-                        {/if}
-                        <Button variant="flat" palette="tone" size="sm" rounded>Archives</Button>
+                        </div>
                     {/snippet}
                 </Card>
             {/each}
@@ -280,16 +297,33 @@
                     </div>
                 {/snippet}
                 {#snippet trailing()}
-                    <Button variant="flat" size="sm" animate="right" rounded>
-                        {profile.contact_btn}
-                    </Button>
-                    <Button variant="flat" palette="tone" size="sm" rounded>
-                        {profile.cv_btn}
-                    </Button>
-                    <div class="footer-spacer"></div>
-                    <Badge variant="outlined" size="sm" href="#" trailing={icon_mail}>
-                        {profile.contact_email}
-                    </Badge>
+                    <div class="trailing-demo">
+                        <Button 
+                            variant="flat" 
+                            size="sm" 
+                            animate="right" 
+                            rounded
+                        >
+                            {profile.contact_btn}
+                        </Button>
+                        <Button 
+                            variant="flat" 
+                            palette="tone" 
+                            size="sm" 
+                            rounded
+                        >
+                            {profile.cv_btn}
+                        </Button>
+                        <div class="footer-spacer"></div>
+                        <Badge 
+                            variant="outlined" 
+                            size="sm" 
+                            href="#" 
+                            trailing={icon_mail}
+                        >
+                            {profile.contact_email}
+                        </Badge>
+                    </div>
                 {/snippet}
             </Card>
         </div>
@@ -352,7 +386,7 @@
     ]}
     rows={[
         { prop: "variant", type: '"flat" | "outlined" | "ghost"', default: '"flat"' },
-        { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"hard"' },
+        { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
         { prop: "width", type: "string", default: "undefined" },
         { prop: "rounded", type: "boolean", default: "false" },
         { prop: "href", type: "string", default: "undefined" },
@@ -484,6 +518,15 @@
         margin-top: 0.25rem;
     }
 
+    /* ── Trailing ─────────────────────────────────────────────────────────── */
+
+    .trailing-demo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.95rem 1.25rem;
+    }
+
     /* ── Experience ───────────────────────────────────────────────────────── */
 
     .xp-list {
@@ -557,7 +600,7 @@
 
     /* ── Hidden Border ────────────────────────────────────────────────────── */
 
-    .hidden-border :global(.card-header) {
+    .hidden-border :global(.card-leading) {
         border-bottom-color: transparent
     }
 </style>
