@@ -97,6 +97,23 @@
     </nav>
 </Header>`;
 
+    const code_padding = `<!-- Custom padding — overrides the default "0 5%" inner spacing -->
+
+<!-- Tighter horizontal rails (e.g. inside a narrow container) -->
+<Header palette="tone" padding="0 1rem">
+    <!-- header content -->
+</Header>
+
+<!-- Add vertical breathing room without touching horizontal rails -->
+<Header palette="tone" padding="0.5rem 5%">
+    <!-- header content -->
+</Header>
+
+<!-- Any valid CSS padding shorthand works -->
+<Header palette="tone" padding="12px 24px 12px 32px">
+    <!-- header content -->
+</Header>`;
+
     const code_scroll_aware = `<!-- Scroll-aware — logo appears in the Nav once the Header scrolls out of view -->
 
 <!-- In +layout.svelte (or parent component): -->
@@ -276,7 +293,7 @@ let header_visible = $state(true);
     <Header
         palette={demo_palette}
         rounded={demo_rounded}
-        style="padding: 0 1.5rem"
+        padding= "0px 1.5rem"
         children={demo_preset === "editorial" ? editorial : demo_preset === "app" ? app : mixed}
     />
 
@@ -329,10 +346,7 @@ let header_visible = $state(true);
     <div class="sim-preview">
         <!-- Simulated page header -->
         <div class="sim-header-area" class:sim-collapsed={!header_sim_visible}>
-            <Header
-                palette="tone"
-                style="padding: 0 1.5rem"
-            >
+            <Header palette="tone" padding= "0px 1.5rem">
                 <div class="demo-row">
                     <div class="mock-wordmark">
                         <span class="material-symbols-outlined mock-icon">hexagon</span>
@@ -385,6 +399,7 @@ let header_visible = $state(true);
         { label: "editorial", code: code_editorial, language: "Svelte" },
         { label: "app", code: code_app, language: "Svelte" },
         { label: "mixed", code: code_mixed, language: "Svelte" },
+        { label: "padding", code: code_padding, language: "Svelte" },
         { label: "scroll-aware", code: code_scroll_aware, language: "Svelte" },
     ]}
 />
@@ -405,7 +420,7 @@ let header_visible = $state(true);
         { prop: "palette", type: '"accent" | "tone"', default: '"tone"' },
         { prop: "rounded", type: "boolean", default: "false" },
         { prop: "visible", type: "boolean", default: "true" },
-        { prop: "style", type: "string", default: "\u2014" },
+        { prop: "padding", type: "string", default: '"0 5%"' },
         { prop: "leading", type: "Snippet", default: "\u2014" },
         { prop: "children", type: "Snippet", default: "\u2014" },
         { prop: "trailing", type: "Snippet", default: "\u2014" },
@@ -415,6 +430,8 @@ let header_visible = $state(true);
 <style>
     /* ---- Preview ---- */
     .header-preview {
+        position: relative;
+        z-index: 190;
         border: 2px solid var(--tone-hover);
         overflow: hidden;
         margin-bottom: 0.75rem;
@@ -502,6 +519,8 @@ let header_visible = $state(true);
     }
 
     .sim-preview {
+        position: relative;
+        z-index: 190;
         border: 2px solid var(--tone-hover);
         overflow: hidden;
         background: var(--tone-bg);

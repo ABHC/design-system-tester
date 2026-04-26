@@ -111,6 +111,46 @@
         <a href="/contact">Contact</a>
     </nav>
 </Footer>`;
+
+    const code_padding = `<!-- Custom padding — overrides the default "10px 3%" inner spacing -->
+
+<!-- Tighter horizontal rails (e.g. inside a narrow container) -->
+<Footer palette="accent" padding="10px 1.5rem">
+    <!-- footer content -->
+</Footer>
+
+<!-- Taller footer with generous vertical room -->
+<Footer palette="accent" padding="2rem 3%">
+    <!-- footer content -->
+</Footer>
+
+<!-- Any valid CSS padding shorthand works -->
+<Footer palette="accent" padding="1.5rem 2rem 1rem">
+    <!-- footer content -->
+</Footer>`;
+
+    const code_scroll_aware = `<!-- Scroll-aware — floating CTA hides itself once the Footer comes into view -->
+
+<!-- In +layout.svelte (or parent component): -->
+let footer_visible = $state(false);
+
+<!-- Footer manages its own IntersectionObserver internally -->
+<Footer bind:visible={footer_visible}>
+    <!-- footer content -->
+</Footer>
+
+<!-- Floating CTA reacts: visible while reading, hidden once footer is in view
+     (avoids overlapping the footer's own actions) -->
+{#if !footer_visible}
+    <Button
+        variant="flat"
+        palette="accent"
+        rounded
+        style="position: fixed; bottom: 1.5rem; right: 1.5rem;"
+    >
+        Get in touch
+    </Button>
+{/if}`;
 </script>
 
 {#snippet codeCell(value: string)}<code>{value}</code>{/snippet}
@@ -291,7 +331,6 @@
         pattern_mask={demo_pattern_mask}
         pattern_mask_direction={demo_pattern_mask_direction}
         pattern_mask_size={demo_pattern_mask_size}
-        style="padding: 10px 1.5rem"
         children={
             demo_preset === "social"   ? social_preset  :
             demo_preset === "minimal"  ? minimal_preset :
@@ -336,6 +375,8 @@
         { label: "social", code: code_social, language: "Svelte" },
         { label: "minimal", code: code_minimal, language: "Svelte" },
         { label: "brand", code: code_brand, language: "Svelte" },
+        { label: "padding", code: code_padding, language: "Svelte" },
+        { label: "scroll-aware", code: code_scroll_aware, language: "Svelte" },
     ]}
 />
 
@@ -352,7 +393,8 @@
         rows={[
             { prop: "palette", type: '"accent" | "tone"', default: '"accent"' },
             { prop: "rounded", type: "boolean", default: "false" },
-            { prop: "style", type: "string", default: "\u2014" },
+            { prop: "visible", type: "boolean", default: "true" },
+            { prop: "padding", type: "string", default: '"10px 3%"' },
             { prop: "pattern", type: '"none" | "scallops" | "grid" | "sunburst" | "sunrise" | "atoms" | "lozenge" | "waves" | "diamonds" | "shippo" | "kumi_kikko" | string', default: '"none"' },
             { prop: "pattern_color", type: "string", default: '"white"' },
             { prop: "pattern_opacity", type: "number", default: "0.4" },
@@ -372,6 +414,8 @@
 <style>
     /* Preview */
     .footer-preview {
+        position: relative;
+        z-index: 190;
         border: 2px solid var(--tone-hover);
         overflow: hidden;
         margin-bottom: 1.5rem;
