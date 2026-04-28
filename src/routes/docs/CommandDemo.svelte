@@ -347,9 +347,9 @@
 <DataTable
     variant="ghost" palette="tone" size="sm"
     columns={[
-        { key: "prop", label: "Prop" },
+        { key: "prop", label: "Prop", width: "20%" },
         { key: "type", label: "Type", cell: codeCell },
-        { key: "default", label: "Default", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell, width: "10%" },
     ]}
     rows={[
         { prop: "open", type: "boolean", default: "false" },
@@ -389,15 +389,15 @@
 
     .demo-value {
         font-size: 0.8rem;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         padding: 0.5rem 0.6rem;
-        background: var(--tone-bg);
+        background: var(--spk-tone-bg);
         border-radius: 5px;
         margin-top: 0.5rem;
     }
 
     .demo-value code {
-        color: var(--accent);
+        color: var(--spk-accent);
         font-weight: 600;
     }
 

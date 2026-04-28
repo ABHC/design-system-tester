@@ -159,33 +159,33 @@
         return [
             { 
                 label: 'bg', 
-                value: tk[`--${name}-bg`], 
-                bg: tk[`--${name}-bg`], 
+                value: tk[`--spk-${name}-bg`], 
+                bg: tk[`--spk-${name}-bg`], 
                 color: txtColor 
             },
             { 
                 label: 'base', 
-                value: tk[`--${name}`], 
-                bg: tk[`--${name}`], 
-                color: tk[`--text-${name}`] 
+                value: tk[`--spk-${name}`], 
+                bg: tk[`--spk-${name}`], 
+                color: tk[`--spk-text-${name}`] 
             },
             { 
                 label: 'hover', 
-                value: tk[`--${name}-hover`], 
-                bg: tk[`--${name}-hover`], 
-                color: tk[`--text-${name}`] 
+                value: tk[`--spk-${name}-hover`], 
+                bg: tk[`--spk-${name}-hover`], 
+                color: tk[`--spk-text-${name}`] 
             },
             { 
                 label: 'muted', 
-                value: tk[`--${name}-muted`], 
-                bg: tk[`--${name}-muted`], 
-                color: tk[`--text-${name}`] 
+                value: tk[`--spk-${name}-muted`], 
+                bg: tk[`--spk-${name}-muted`], 
+                color: tk[`--spk-text-${name}`] 
             },
             { 
                 label: 'text', 
-                value: tk[`--text-${name}`], 
-                bg: tk[`--${name}`], 
-                color: tk[`--text-${name}`], 
+                value: tk[`--spk-text-${name}`], 
+                bg: tk[`--spk-${name}`], 
+                color: tk[`--spk-text-${name}`], 
                 isText: true 
             },
         ];
@@ -628,7 +628,7 @@
         selected_accent={$selected_accent}
         selected_ctx={$selected_ctx}
         selected_text={$selected_text}
-        tone_hover={tokens['--tone-hover']}
+        tone_hover={tokens['--spk-tone-hover']}
         text_color={text_color}
     />
 </div>
@@ -666,7 +666,7 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.06em;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         margin-top: 6px;
         margin-bottom: 2px;
     }
@@ -680,22 +680,22 @@
     .footer-divider {
         width: 1px;
         align-self: stretch;
-        background: var(--tone-hover);
+        background: var(--spk-tone-hover);
         margin: 0 4px;
     }
 
     .footer-hint {
         font-size: 11px;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         line-height: 1.3;
     }
 
     .slot-select,
     .ctx-select {
         padding: 4px 8px;
-        border: 1px solid var(--tone-hover);
-        background: var(--tone-bg);
-        color: var(--text);
+        border: 1px solid var(--spk-tone-hover);
+        background: var(--spk-tone-bg);
+        color: var(--spk-text);
         border-radius: 4px;
         font-size: 13px;
     }
@@ -713,9 +713,9 @@
     .opposite-select,
     .select-like {
         padding: 8px 12px;
-        border: 2px solid var(--tone-hover);
-        background: var(--tone-bg);
-        color: var(--text);
+        border: 2px solid var(--spk-tone-hover);
+        background: var(--spk-tone-bg);
+        color: var(--spk-text);
         border-radius: 6px;
         font-size: 14px;
         width: 100%;
@@ -724,7 +724,7 @@
 
     .opposite-select:focus {
         outline: none;
-        border-color: var(--accent);
+        border-color: var(--spk-accent);
     }
 
     @media (max-width: 1024px) {

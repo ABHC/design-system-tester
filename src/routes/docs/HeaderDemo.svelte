@@ -412,9 +412,9 @@ let header_visible = $state(true);
 <DataTable
     variant="ghost" palette="tone" size="sm"
     columns={[
-        { key: "prop", label: "Prop" },
+        { key: "prop", label: "Prop", width: "20%" },
         { key: "type", label: "Type", cell: codeCell },
-        { key: "default", label: "Default", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell, width: "10%" },
     ]}
     rows={[
         { prop: "palette", type: '"accent" | "tone"', default: '"tone"' },
@@ -432,10 +432,10 @@ let header_visible = $state(true);
     .header-preview {
         position: relative;
         z-index: 190;
-        border: 2px solid var(--tone-hover);
+        border: 2px solid var(--spk-tone-hover);
         overflow: hidden;
         margin-bottom: 0.75rem;
-        background: var(--tone-bg);
+        background: var(--spk-tone-bg);
     }
 
     .demo-row {
@@ -469,7 +469,7 @@ let header_visible = $state(true);
 
     .mock-line {
         height: 10px;
-        background: var(--tone-hover);
+        background: var(--spk-tone-hover);
         border-radius: 4px;
         width: 100%;
     }
@@ -487,7 +487,7 @@ let header_visible = $state(true);
         align-items: center;
         gap: 0.5rem;
         font-weight: 800;
-        font-family: var(--font-heading);
+        font-family: var(--spk-font-heading);
         letter-spacing: 0.5px;
     }
 
@@ -496,11 +496,11 @@ let header_visible = $state(true);
     }
 
     :global(.mock-icon-accent) {
-        color: var(--accent);
+        color: var(--spk-accent);
     }
 
     :global(.mock-icon-tone) {
-        color: var(--text-accent);
+        color: var(--spk-text-accent);
     }
 
     :global(.mock-name) {
@@ -521,9 +521,9 @@ let header_visible = $state(true);
     .sim-preview {
         position: relative;
         z-index: 190;
-        border: 2px solid var(--tone-hover);
+        border: 2px solid var(--spk-tone-hover);
         overflow: hidden;
-        background: var(--tone-bg);
+        background: var(--spk-tone-bg);
         margin-top: 0.75rem;
     }
 
@@ -545,9 +545,9 @@ let header_visible = $state(true);
         align-items: center;
         gap: 1rem;
         padding: 0.5rem 1.25rem;
-        background: var(--tone);
-        border-top: 1.5px solid var(--tone-hover);
-        border-bottom: 1.5px solid var(--tone-hover);
+        background: var(--spk-tone);
+        border-top: 1.5px solid var(--spk-tone-hover);
+        border-bottom: 1.5px solid var(--spk-tone-hover);
         min-height: 52px;
         transition: all 0.3s ease;
     }
@@ -560,7 +560,7 @@ let header_visible = $state(true);
 
     .sim-nav-empty {
         font-size: 0.7rem;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         font-style: italic;
     }
 
@@ -572,10 +572,10 @@ let header_visible = $state(true);
     .sim-nav-item {
         font-size: 0.78rem;
         font-weight: 700;
-        font-family: var(--font-heading);
+        font-family: var(--spk-font-heading);
         text-transform: uppercase;
         letter-spacing: 0.4px;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
     }
 
     /* Controls row */
@@ -589,9 +589,9 @@ let header_visible = $state(true);
     .sim-toggle {
         padding: 0.35rem 0.85rem;
         border-radius: 6px;
-        border: 1.5px solid var(--tone-hover);
+        border: 1.5px solid var(--spk-tone-hover);
         background: transparent;
-        color: var(--text);
+        color: var(--spk-text);
         font-size: 0.75rem;
         font-weight: 600;
         cursor: pointer;
@@ -600,8 +600,8 @@ let header_visible = $state(true);
     }
 
     .sim-toggle:hover {
-        border-color: var(--accent);
-        color: var(--accent);
+        border-color: var(--spk-accent);
+        color: var(--spk-accent);
     }
 
     .sim-badge {
@@ -614,13 +614,13 @@ let header_visible = $state(true);
     }
 
     .badge-on {
-        background: var(--success-ghost-hover);
-        color: var(--success);
+        background: var(--spk-success-ghost-hover);
+        color: var(--spk-success);
     }
 
     .badge-off {
-        background: var(--warning-ghost-hover);
-        color: var(--warning);
+        background: var(--spk-warning-ghost-hover);
+        color: var(--spk-warning);
     }
 
     /* sim-logo inside sim-nav reuses mock-wordmark global styles */

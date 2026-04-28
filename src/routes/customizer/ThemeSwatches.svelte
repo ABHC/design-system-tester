@@ -31,95 +31,95 @@
     function buildGroups(tk: Record<string, string>, cardHex: string): SwatchGroup[] {
         const groups: SwatchGroup[] = [];
 
-        const toneSubtleBlended = blendColor(tk['--text'], cardHex, TONE_SUBTLE_ALPHA);
-        const toneSubtleHoverBlended = blendColor(tk['--text'], cardHex, TONE_SUBTLE_HOVER_ALPHA);
+        const toneSubtleBlended = blendColor(tk['--spk-text'], cardHex, TONE_SUBTLE_ALPHA);
+        const toneSubtleHoverBlended = blendColor(tk['--spk-text'], cardHex, TONE_SUBTLE_HOVER_ALPHA);
 
         groups.push({
             label: 'Tone',
             swatches: [
                 {
-                    label: '--tone-ghost',
+                    label: '--spk-tone-ghost',
                     value: toneSubtleBlended,
                     bg: toneSubtleBlended,
-                    color: tk['--text']
+                    color: tk['--spk-text']
                 },
                 { 
-                    label: '--tone-bg', 
-                    value: tk['--tone-bg'], 
-                    bg: tk['--tone-bg'], 
-                    color: tk['--text'] 
+                    label: '--spk-tone-bg', 
+                    value: tk['--spk-tone-bg'], 
+                    bg: tk['--spk-tone-bg'], 
+                    color: tk['--spk-text'] 
                 },
                 { 
-                    label: '--tone', 
-                    value: tk['--tone'], 
-                    bg: tk['--tone'], 
-                    color: tk['--text'] 
+                    label: '--spk-tone', 
+                    value: tk['--spk-tone'], 
+                    bg: tk['--spk-tone'], 
+                    color: tk['--spk-text'] 
                 },
                 { 
-                    label: '--tone-hover', 
-                    value: tk['--tone-hover'], 
-                    bg: tk['--tone-hover'], 
-                    color: tk['--text'] 
+                    label: '--spk-tone-hover', 
+                    value: tk['--spk-tone-hover'], 
+                    bg: tk['--spk-tone-hover'], 
+                    color: tk['--spk-text'] 
                 },
                 { 
-                    label: '--tone-muted', 
-                    value: tk['--tone-muted'], 
-                    bg: tk['--tone-muted'], 
-                    color: tk['--tone-bg'] 
+                    label: '--spk-tone-muted', 
+                    value: tk['--spk-tone-muted'], 
+                    bg: tk['--spk-tone-muted'], 
+                    color: tk['--spk-tone-bg'] 
                 },
                 { 
-                    label: '--text', 
-                    value: tk['--text'], 
-                    bg: tk['--tone'], 
-                    color: tk['--text'], 
+                    label: '--spk-text', 
+                    value: tk['--spk-text'], 
+                    bg: tk['--spk-tone'], 
+                    color: tk['--spk-text'], 
                     isText: true 
                 },
                 { 
-                    label: '--text-muted', 
-                    value: tk['--text-muted'], 
-                    bg: tk['--tone'], 
-                    color: tk['--text-muted'], 
+                    label: '--spk-text-muted', 
+                    value: tk['--spk-text-muted'], 
+                    bg: tk['--spk-tone'], 
+                    color: tk['--spk-text-muted'], 
                     isText: true 
                 },
             ],
         });
 
         for (const name of SEMANTIC_NAMES) {
-            const ghostHoverRgba = tk[`--${name}-ghost-hover`];
+            const ghostHoverRgba = tk[`--spk-${name}-ghost-hover`];
 
             groups.push({
                 label: name,
-                labelColor: tk[`--${name}-muted`],
+                labelColor: tk[`--spk-${name}-muted`],
                 swatches: [
                     { 
-                        label: `--${name}-bg`, 
-                        value: tk[`--${name}-bg`], 
-                        bg: tk[`--${name}-bg`], 
-                        color: tk[`--text`] 
+                        label: `--spk-${name}-bg`, 
+                        value: tk[`--spk-${name}-bg`], 
+                        bg: tk[`--spk-${name}-bg`], 
+                        color: tk[`--spk-text`] 
                     },
                     { 
-                        label: `--${name}`, 
-                        value: tk[`--${name}`], 
-                        bg: tk[`--${name}`], 
-                        color: tk[`--text-${name}`] 
+                        label: `--spk-${name}`, 
+                        value: tk[`--spk-${name}`], 
+                        bg: tk[`--spk-${name}`], 
+                        color: tk[`--spk-text-${name}`] 
                     },
                     { 
-                        label: `--${name}-hover`, 
-                        value: tk[`--${name}-hover`], 
-                        bg: tk[`--${name}-hover`], 
-                        color: tk[`--text-${name}`] 
+                        label: `--spk-${name}-hover`, 
+                        value: tk[`--spk-${name}-hover`], 
+                        bg: tk[`--spk-${name}-hover`], 
+                        color: tk[`--spk-text-${name}`] 
                     },
                     { 
-                        label: `--${name}-muted`, 
-                        value: tk[`--${name}-muted`], 
-                        bg: tk[`--${name}-muted`], 
-                        color: tk[`--text-${name}`] 
+                        label: `--spk-${name}-muted`, 
+                        value: tk[`--spk-${name}-muted`], 
+                        bg: tk[`--spk-${name}-muted`], 
+                        color: tk[`--spk-text-${name}`] 
                     },
                     { 
-                        label: `--text-${name}`, 
-                        value: tk[`--text-${name}`], 
-                        bg: tk[`--${name}`], 
-                        color: tk[`--text-${name}`], 
+                        label: `--text-spk-${name}`, 
+                        value: tk[`--text-spk-${name}`], 
+                        bg: tk[`--spk-${name}`], 
+                        color: tk[`--text-spk-${name}`], 
                         isText: true 
                     },
                 ],
@@ -207,13 +207,13 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.06em;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
     }
 
     .ts-group-palette {
         font-size: 0.6rem;
         font-weight: 600;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         opacity: 0.7;
         white-space: nowrap;
         overflow: hidden;

@@ -295,9 +295,9 @@
 <DataTable
     variant="ghost" palette="tone" size="sm"
     columns={[
-        { key: "prop", label: "Prop" },
+        { key: "prop", label: "Prop", width: "20%" },
         { key: "type", label: "Type", cell: codeCell },
-        { key: "default", label: "Default", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell, width: "10%" },
     ]}
     rows={[
         { prop: "open", type: "boolean", default: "false" },
@@ -327,8 +327,8 @@
         align-items: center;
         justify-content: center;
         min-height: 260px;
-        background: var(--tone-bg);
-        border: 2px solid var(--tone-hover);
+        background: var(--spk-tone-bg);
+        border: 2px solid var(--spk-tone-hover);
         overflow: visible;
         margin-bottom: 1.5rem;
         padding: 10px;
@@ -355,12 +355,12 @@
     .preset-label {
         font-size: 0.75rem;
         font-family: monospace;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
     }
 
     .anchor-note {
         font-size: 0.875rem;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         margin-bottom: 1.5rem;
         line-height: 1.5;
     }

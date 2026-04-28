@@ -160,115 +160,150 @@ interface Category {
 }
 
 const CATEGORIES: Category[] = [
-    { 
-        title: 'Tone surface', 
+    {
+        title: 'Tone surface',
         keys: [
-            '--tone-bg', 
-            '--tone', 
-            '--tone-hover', 
-            '--tone-muted', 
-            '--tone-ghost', 
-            '--tone-ghost-hover'
-        ] 
-    },
-    { 
-        title: 'Accent',
-        keys: [
-            '--accent', 
-            '--accent-hover', 
-            '--accent-bg', 
-            '--accent-ghost-hover', 
-            '--accent-muted', 
-            '--text-accent'
-        ] 
-    },
-    { 
-        title: 'Error', 
-        keys: [
-            '--error', 
-            '--error-hover', 
-            '--error-bg', 
-            '--error-ghost-hover', 
-            '--error-muted', 
-            '--text-error'
+            '--spk-tone-bg',
+            '--spk-tone',
+            '--spk-tone-hover',
+            '--spk-tone-muted',
+            '--spk-tone-ghost',
+            '--spk-tone-ghost-hover'
         ]
     },
-    { 
+    {
+        title: 'Accent',
+        keys: [
+            '--spk-accent',
+            '--spk-accent-hover',
+            '--spk-accent-bg',
+            '--spk-accent-ghost-hover',
+            '--spk-accent-muted',
+            '--spk-text-accent'
+        ]
+    },
+    {
+        title: 'Error',
+        keys: [
+            '--spk-error',
+            '--spk-error-hover',
+            '--spk-error-bg',
+            '--spk-error-ghost-hover',
+            '--spk-error-muted',
+            '--spk-text-error'
+        ]
+    },
+    {
         title: 'Warning', keys: [
-            '--warning', 
-            '--warning-hover', 
-            '--warning-bg', 
-            '--warning-ghost-hover', 
-            '--warning-muted', 
-            '--text-warning'
-        ] 
+            '--spk-warning',
+            '--spk-warning-hover',
+            '--spk-warning-bg',
+            '--spk-warning-ghost-hover',
+            '--spk-warning-muted',
+            '--spk-text-warning'
+        ]
     },
-    { 
-        title: 'Success', 
+    {
+        title: 'Success',
         keys: [
-            '--success', 
-            '--success-hover', 
-            '--success-bg', 
-            '--success-ghost-hover', 
-            '--success-muted', 
-            '--text-success'
-        ] 
+            '--spk-success',
+            '--spk-success-hover',
+            '--spk-success-bg',
+            '--spk-success-ghost-hover',
+            '--spk-success-muted',
+            '--spk-text-success'
+        ]
     },
-    { 
-        title: 'Info', 
+    {
+        title: 'Info',
         keys: [
-            '--info', 
-            '--info-hover', 
-            '--info-bg', 
-            '--info-ghost-hover', 
-            '--info-muted', 
-            '--text-info'
-        ] 
+            '--spk-info',
+            '--spk-info-hover',
+            '--spk-info-bg',
+            '--spk-info-ghost-hover',
+            '--spk-info-muted',
+            '--spk-text-info'
+        ]
     },
-    { 
-        title: 'Neutral', 
+    {
+        title: 'Neutral',
         keys: [
-            '--neutral', 
-            '--neutral-hover', 
-            '--neutral-bg', 
-            '--neutral-ghost-hover', 
-            '--neutral-muted', 
-            '--text-neutral'
-        ] 
+            '--spk-neutral',
+            '--spk-neutral-hover',
+            '--spk-neutral-bg',
+            '--spk-neutral-ghost-hover',
+            '--spk-neutral-muted',
+            '--spk-text-neutral'
+        ]
     },
-    { 
-        title: 'Text', 
+    {
+        title: 'Text',
         keys: [
-            '--text', 
-            '--text-light', 
-            '--text-dark', 
-            '--text-muted'
-        ] 
+            '--spk-text',
+            '--spk-text-light',
+            '--spk-text-dark',
+            '--spk-text-muted'
+        ]
     },
-    { 
-        title: 'Shadows', 
+    {
+        title: 'Shadows',
         keys: [
-            '--shadow-hard', 
-            '--muted-shadow'
-        ] 
+            '--spk-shadow-hard',
+            '--spk-muted-shadow'
+        ]
     },
 ];
 
 const RADII: Record<string, string> = {
-    '--radius-edge': '4px',
-    '--radius-soft': '8px',
-    '--radius-round': '12px',
-    '--radius-pill': '999px',
-    '--radius-circle': '50%',
+    '--spk-radius-edge': '4px',
+    '--spk-radius-soft': '8px',
+    '--spk-radius-round': '12px',
+    '--spk-radius-pill': '999px',
+    '--spk-radius-circle': '50%',
+};
+
+const Z_INDEX: Record<string, string> = {
+    '--spk-z-behind': '-1',
+    '--spk-z-floating': '100',
+    '--spk-z-sticky': '200',
+    '--spk-z-panel': '300',
+    '--spk-z-dialog': '400',
+    '--spk-z-notification': '1000',
+};
+
+const MOTION: Record<string, string> = {
+    '--spk-duration-quick': '0.15s',
+    '--spk-duration-base': '0.2s',
+    '--spk-duration-slow': '0.3s',
+    '--spk-ease-out': 'ease-out',
+    '--spk-ease-glide': 'cubic-bezier(0.4, 0, 0.2, 1)',
+};
+
+const ELEVATION: Record<string, string> = {
+    '--spk-elevation-subtle': '0 4px 12px',
+    '--spk-elevation-hard': '0.3rem 0.3rem',
+};
+
+const BORDER: Record<string, string> = {
+    '--spk-border': '2px',
+    '--spk-border-thin': '1px',
+    '--spk-border-accent': '4px',
+};
+
+const OPACITY: Record<string, string> = {
+    '--spk-opacity-disabled': '0.5',
+    '--spk-opacity-faded': '0.6',
+    '--spk-opacity-muted': '0.7',
+    '--spk-opacity-overlay': '0.85',
 };
 
 const FOCUS: Record<string, string> = {
-    '--focus-ring': 'var(--text)',
-    '--focus-ring-width': '2px',
-    '--focus-ring-offset': '2px',
+    '--spk-focus-ring': 'var(--spk-text)',
+    '--spk-focus-ring-width': '2px',
+    '--spk-focus-ring-offset': '2px',
 };
 
-const ROOT_SHARED_KEYS = new Set(['--font-body', '--font-heading', '--shadow-subtle']);
+const ROOT_SHARED_KEYS = new Set(['--spk-font-body', '--spk-font-heading', '--spk-shadow-subtle']);
 
 function renderBlock(
     selector: string,
@@ -294,19 +329,39 @@ function renderRoot(shared: Record<string, string>): string {
     for (const [k, v] of Object.entries(RADII)) lines.push(`    ${k}: ${v};`);
 
     lines.push('');
+    lines.push('    /* --- Z-index ladder --- */');
+    for (const [k, v] of Object.entries(Z_INDEX)) lines.push(`    ${k}: ${v};`);
+
+    lines.push('');
+    lines.push('    /* --- Motion --- */');
+    for (const [k, v] of Object.entries(MOTION)) lines.push(`    ${k}: ${v};`);
+
+    lines.push('');
+    lines.push('    /* --- Elevation (shape only — color is provided by --spk-shadow-*) --- */');
+    for (const [k, v] of Object.entries(ELEVATION)) lines.push(`    ${k}: ${v};`);
+
+    lines.push('');
+    lines.push('    /* --- Border width --- */');
+    for (const [k, v] of Object.entries(BORDER)) lines.push(`    ${k}: ${v};`);
+
+    lines.push('');
+    lines.push('    /* --- Opacity --- */');
+    for (const [k, v] of Object.entries(OPACITY)) lines.push(`    ${k}: ${v};`);
+
+    lines.push('');
     lines.push('    /* --- Focus ring --- */');
     for (const [k, v] of Object.entries(FOCUS)) lines.push(`    ${k}: ${v};`);
 
-    if ('--font-body' in shared || '--font-heading' in shared) {
+    if ('--spk-font-body' in shared || '--spk-font-heading' in shared) {
         lines.push('');
         lines.push('    /* --- Typography --- */');
-        if ('--font-body' in shared) lines.push(`    --font-body: ${shared['--font-body']};`);
-        if ('--font-heading' in shared) lines.push(`    --font-heading: ${shared['--font-heading']};`);
+        if ('--spk-font-body' in shared) lines.push(`    --spk-font-body: ${shared['--spk-font-body']};`);
+        if ('--spk-font-heading' in shared) lines.push(`    --spk-font-heading: ${shared['--spk-font-heading']};`);
     }
-    if ('--shadow-subtle' in shared) {
+    if ('--spk-shadow-subtle' in shared) {
         lines.push('');
         lines.push('    /* --- Shadows --- */');
-        lines.push(`    --shadow-subtle: ${shared['--shadow-subtle']};`);
+        lines.push(`    --spk-shadow-subtle: ${shared['--spk-shadow-subtle']};`);
     }
     return `:root {\n${lines.join('\n')}\n}`;
 }
@@ -350,9 +405,9 @@ function buildFontsImport(): string {
 
 const TYPOGRAPHY_CSS = `/* --- Typography --- */
 h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading);
+    font-family: var(--spk-font-heading);
     font-weight: 600;
-    color: var(--text);
+    color: var(--spk-text);
     margin: 1em 0 0.5em;
 }
 
@@ -364,9 +419,20 @@ h5 { font-size: 1.125rem; }
 h6 { font-size: 1rem; font-weight: 500; }
 
 body {
-    background: var(--tone-bg);
-    color: var(--text);
-    font-family: var(--font-body);
+    background: var(--spk-tone-bg);
+    color: var(--spk-text);
+    font-family: var(--spk-font-body);
+}`;
+
+const REDUCED_MOTION_CSS = `/* --- Reduced motion ---------------------------------------------------
+   Collapses the tokenized durations to a near-zero value so transitionend
+   and animationend events still fire, while motion stays imperceptible. */
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --spk-duration-quick: 0.01ms;
+        --spk-duration-base: 0.01ms;
+        --spk-duration-slow: 0.01ms;
+    }
 }`;
 
 function buildHeader(icons: IconSetConfig, fontsUrl: string): string {
@@ -411,6 +477,8 @@ export function generateExportCSS(): string {
     parts.push(renderBlock('[data-theme="dark"]', darkOnly, 'dark'));
     parts.push('');
     parts.push(TYPOGRAPHY_CSS);
+    parts.push('');
+    parts.push(REDUCED_MOTION_CSS);
     if (icons.helperCss) {
         parts.push('');
         parts.push(`/* --- ${icons.label} --- */`);

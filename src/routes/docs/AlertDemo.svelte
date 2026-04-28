@@ -376,9 +376,9 @@
 <DataTable
     variant="ghost" palette="tone" size="sm"
     columns={[
-        { key: "prop", label: "Prop" },
+        { key: "prop", label: "Prop", width: "20%" },
         { key: "type", label: "Type", cell: codeCell },
-        { key: "default", label: "Default", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell, width: "10%" },
     ]}
     rows={[
         { prop: "variant", type: '"neutral" | "info" | "success" | "warning" | "error"', default: '"info"' },
@@ -414,7 +414,7 @@
         border: none;
         /*border-radius: 10px;*/
         cursor: pointer;
-        font-family: var(--font-body);
+        font-family: var(--spk-font-body);
         transition: all 0.2s;
         min-width: 160px;
     }
@@ -438,37 +438,37 @@
     }
 
     .trigger-info {
-        background: var(--info-bg);
-        color: var(--info-muted);
-        border-left: 3px solid var(--info);
+        background: var(--spk-info-bg);
+        color: var(--spk-info-muted);
+        border-left: 3px solid var(--spk-info);
     }
 
     .trigger-success {
-        background: var(--success-bg);
-        color: var(--success-muted);
-        border-left: 3px solid var(--success);
+        background: var(--spk-success-bg);
+        color: var(--spk-success-muted);
+        border-left: 3px solid var(--spk-success);
     }
 
     .trigger-warning {
-        background: var(--warning-bg);
-        color: var(--warning-muted);
-        border-left: 3px solid var(--warning);
+        background: var(--spk-warning-bg);
+        color: var(--spk-warning-muted);
+        border-left: 3px solid var(--spk-warning);
     }
 
     .trigger-error {
-        background: var(--error-bg);
-        color: var(--error-muted);
-        border-left: 3px solid var(--error);
+        background: var(--spk-error-bg);
+        color: var(--spk-error-muted);
+        border-left: 3px solid var(--spk-error);
     }
 
     .trigger-neutral {
-        background: var(--neutral-bg);
-        color: var(--neutral-muted);
-        border-left: 3px solid var(--neutral);
+        background: var(--spk-neutral-bg);
+        color: var(--spk-neutral-muted);
+        border-left: 3px solid var(--spk-neutral);
     }
 
     .trigger-meta {
-        color: var(--text);
+        color: var(--spk-text);
     }
 
     /* Interactive preview layout */
@@ -478,7 +478,7 @@
         align-items: center;
         gap: 1.5rem;
         padding: 1.5rem;
-        border: 2px solid var(--tone-hover);
+        border: 2px solid var(--spk-tone-hover);
         margin-bottom: 0.75rem;
     }
 
@@ -492,19 +492,19 @@
         max-width: 420px;
         background: var(--al-bg);
         border-left: 4px solid var(--al-color);
-        color: var(--text);
-        box-shadow: 0 4px 12px var(--shadow-subtle);
+        color: var(--spk-text);
+        box-shadow: 0 4px 12px var(--spk-shadow-subtle);
         transition: background 0.2s, border-color 0.2s;
         flex: 1;
     }
 
-    .alert-mock-rounded { border-radius: var(--radius-soft); }
+    .alert-mock-rounded { border-radius: var(--spk-radius-soft); }
 
-    .alert-mock-neutral { --al-color: var(--neutral); --al-bg: var(--neutral-bg); }
-    .alert-mock-info { --al-color: var(--info); --al-bg: var(--info-bg); }
-    .alert-mock-success { --al-color: var(--success); --al-bg: var(--success-bg); }
-    .alert-mock-warning { --al-color: var(--warning); --al-bg: var(--warning-bg); }
-    .alert-mock-error { --al-color: var(--error); --al-bg: var(--error-bg); }
+    .alert-mock-neutral { --al-color: var(--spk-neutral); --al-bg: var(--spk-neutral-bg); }
+    .alert-mock-info { --al-color: var(--spk-info); --al-bg: var(--spk-info-bg); }
+    .alert-mock-success { --al-color: var(--spk-success); --al-bg: var(--spk-success-bg); }
+    .alert-mock-warning { --al-color: var(--spk-warning); --al-bg: var(--spk-warning-bg); }
+    .alert-mock-error { --al-color: var(--spk-error); --al-bg: var(--spk-error-bg); }
 
     .alert-mock-leading {
         color: var(--al-color);

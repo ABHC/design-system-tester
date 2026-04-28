@@ -126,14 +126,32 @@
                             </div>
                         {/snippet}
                         {#snippet trailing()}
-                            <Button size="sm" variant="flat" palette="accent">View profile</Button>
-                            <Button size="sm" variant="ghost" palette="tone">Message</Button>
+                            <div class="cs-trailing">
+                                <Button 
+                                    size="sm" 
+                                    variant="flat" 
+                                    palette="accent"
+                                >
+                                    View profile
+                                </Button>
+                                <Button 
+                                    size="sm" 
+                                    variant="ghost" 
+                                    palette="tone"
+                                >
+                                    Message
+                                </Button>
+                            </div>
                         {/snippet}
                     </Card>
 
                 {:else if index === 1}
                     <!-- Slide 1 — TileGrid -->
-                    <Card variant="flat" width="500px">
+                    <Card 
+                        variant="flat"
+                        elevation="hard" 
+                        width="500px"
+                    >
                         {#snippet children()}
                             <div class="cs-tilegrid">
                                 <TileGrid
@@ -151,7 +169,11 @@
 
                 {:else if index === 2}
                     <!-- Slide 2 — Accordion -->
-                    <Card variant="flat" width="360px">
+                    <Card 
+                        variant="flat" 
+                        elevation="hard" 
+                        width="360px"
+                    >
                         {#snippet children()}
                             <div class="cs-accordion">
                                 <Accordion 
@@ -176,7 +198,11 @@
 
                 {:else if index === 3}
                     <!-- Slide 3 — Switches + Callout -->
-                    <Card variant="flat" width="320px">
+                    <Card 
+                        variant="flat" 
+                        elevation="hard"
+                        width="320px"
+                    >
                         {#snippet leading()}
                             <div class="cs-settings-header">
                                 <span class="material-symbols-outlined">tune</span>
@@ -220,7 +246,11 @@
 
                 {:else if index === 4}
                     <!-- Slide 4 — Progress bars -->
-                    <Card variant="flat" width="340px">
+                    <Card 
+                        variant="flat" 
+                        elevation="hard"
+                        width="340px"
+                    >
                         {#snippet leading()}
                             <div class="cs-progress-header">
                                 <span class="material-symbols-outlined">bar_chart</span>
@@ -255,7 +285,11 @@
 
                 {:else if index === 5}
                     <!-- Slide 5 — Sliders -->
-                    <Card variant="flat" width="320px">
+                    <Card 
+                        variant="flat" 
+                        elevation="hard"
+                        width="320px"
+                    >
                         {#snippet leading()}
                             <div class="cs-slider-header">
                                 <span class="material-symbols-outlined">linear_scale</span>
@@ -312,7 +346,11 @@
 
                 {:else if index === 6}
                     <!-- Slide 6 — ListItems -->
-                    <Card variant="flat" width="320px">
+                    <Card 
+                        variant="flat" 
+                        elevation="hard"
+                        width="320px"
+                    >
                         {#snippet leading()}
                             <div class="cs-list-header">
                                 <span class="material-symbols-outlined">list</span>
@@ -443,7 +481,6 @@
                             palette="accent"
                             size="sm"
                             completed={2}
-                            rounded
                         >
                             <TimelineItem marker={tl_step_1} title="Cart" meta="Step 1">
                                 Review the items and their quantities before checkout.
@@ -530,20 +567,20 @@
         border: none;
         border-radius: 4px;
         background: transparent;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         cursor: pointer;
         transition: color 0.2s ease, background 0.2s ease;
-        font-family: var(--font-body);
+        font-family: var(--spk-font-body);
     }
 
     .showcase-nav-btn:hover {
-        color: var(--text);
-        background: var(--tone-hover);
+        color: var(--spk-text);
+        background: var(--spk-tone-hover);
     }
 
     .showcase-nav-active {
-        color: var(--accent-muted) !important;
-        background: color-mix(in oklch, var(--accent) 12%, transparent) !important;
+        color: var(--spk-accent-muted) !important;
+        background: color-mix(in oklch, var(--spk-accent) 12%, transparent) !important;
     }
 
     /* Slide 0 — Card / profile ─────────────────────────────────────────────── */
@@ -570,7 +607,7 @@
 
     .cs-profile-info span {
         font-size: 0.8rem;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
     }
 
     .cs-profile-badges {
@@ -595,7 +632,7 @@
     .cs-accordion :global(p) {
         margin: 0;
         font-size: 0.8rem;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         line-height: 1.55;
     }
 
@@ -611,7 +648,7 @@
 
     .cs-settings-header .material-symbols-outlined {
         font-size: 1.1rem;
-        color: var(--accent);
+        color: var(--spk-accent);
     }
 
     .cs-settings-body {
@@ -629,7 +666,7 @@
 
     .cs-switch-row :global(span) {
         font-size: 0.85rem;
-        color: var(--text);
+        color: var(--spk-text);
     }
 
     /* Slide 4 — Progress ───────────────────────────────────────────────────── */
@@ -644,7 +681,7 @@
 
     .cs-progress-header .material-symbols-outlined {
         font-size: 1.1rem;
-        color: var(--accent);
+        color: var(--spk-accent);
     }
 
     .cs-progress-body {
@@ -662,7 +699,7 @@
 
     .cs-progress-label {
         font-size: 0.75rem;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         width: 5rem;
         flex-shrink: 0;
     }
@@ -683,7 +720,7 @@
 
     .cs-slider-header .material-symbols-outlined {
         font-size: 1.1rem;
-        color: var(--accent);
+        color: var(--spk-accent);
     }
 
     .cs-slider-body {
@@ -707,14 +744,21 @@
 
     .cs-slider-label {
         font-size: 0.75rem;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
     }
 
     .cs-slider-value {
         font-size: 0.75rem;
         font-weight: 600;
-        color: var(--accent);
-        font-family: var(--font-heading);
+        color: var(--spk-accent);
+        font-family: var(--spk-font-heading);
+    }
+
+    .cs-trailing {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.95rem 1.25rem;
     }
 
     /* Slide 6 — ListItems ──────────────────────────────────────────────────── */
@@ -729,7 +773,7 @@
 
     .cs-list-header .material-symbols-outlined {
         font-size: 1.1rem;
-        color: var(--accent);
+        color: var(--spk-accent);
     }
 
     .cs-list-body {

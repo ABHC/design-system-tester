@@ -85,6 +85,9 @@ Header, body et footer indépendants.</p>
                 <Badge variant="outlined" palette="tone" size="sm" pill>
                     {$trans?.hero.badge_2}
                 </Badge>
+                <Badge variant="outlined" palette="tone" size="sm" pill>
+                    {$trans?.hero.badge_3}
+                </Badge>
             </div>
             <div class="hero-actions">
                 <Button palette="accent" href="/docs">
@@ -224,7 +227,7 @@ Header, body et footer indépendants.</p>
             <CodeBlock 
                 variant="terminal" 
                 size="sm" 
-                code="npm install @abhc/spektral-ui" 
+                code="npm i @abhc/spektral-ui" 
                 copyable 
             />
 
@@ -272,7 +275,7 @@ Header, body et footer indépendants.</p>
     .hero-subtitle {
         font-size: 1.1rem;
         line-height: 1.7;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         max-width: 480px;
     }
 
@@ -304,9 +307,9 @@ Header, body et footer indépendants.</p>
         flex-wrap: wrap;
         gap: 2rem;
         padding: 1.5rem 2rem;
-        background: var(--tone);
-        border-top: 2px solid var(--tone-hover);
-        border-bottom: 2px solid var(--tone-hover);
+        background: var(--spk-tone);
+        border-top: 2px solid var(--spk-tone-hover);
+        border-bottom: 2px solid var(--spk-tone-hover);
     }
 
     .stat-item {
@@ -319,15 +322,15 @@ Header, body et footer indépendants.</p>
     .stat-number {
         font-size: 1.5rem;
         font-weight: 700;
-        font-family: var(--font-heading);
-        color: var(--accent-muted);
+        font-family: var(--spk-font-heading);
+        color: var(--spk-accent-muted);
         line-height: 1;
         text-transform: uppercase;
     }
 
     .stat-label {
         font-size: 0.75rem;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         text-transform: uppercase;
         letter-spacing: 0.05em;
         font-weight: 500;
@@ -336,7 +339,7 @@ Header, body et footer indépendants.</p>
     .stat-divider {
         width: 1px;
         height: 2rem;
-        background: var(--tone-hover);
+        background: var(--spk-tone-hover);
     }
 
     @media (max-width: 520px) {
@@ -426,10 +429,10 @@ Header, body et footer indépendants.</p>
     .quickstart-num {
         font-size: 0.7rem;
         font-weight: 700;
-        font-family: var(--font-heading);
-        color: var(--accent-muted);
-        background: color-mix(in oklch, var(--accent-muted) 12%, transparent);
-        border: 1px solid color-mix(in oklch, var(--accent-muted) 30%, transparent);
+        font-family: var(--spk-font-heading);
+        color: var(--spk-accent-muted);
+        background: color-mix(in oklch, var(--spk-accent-muted) 12%, transparent);
+        border: 1px solid color-mix(in oklch, var(--spk-accent-muted) 30%, transparent);
         border-radius: 4px;
         padding: 0.2rem 0.4rem;
         letter-spacing: 0.05em;
@@ -446,12 +449,12 @@ Header, body et footer indépendants.</p>
     .quickstart-text strong {
         font-size: 0.95rem;
         font-weight: 600;
-        color: var(--text);
+        color: var(--spk-text);
     }
 
     .quickstart-text span {
         font-size: 0.85rem;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         line-height: 1.5;
     }
 

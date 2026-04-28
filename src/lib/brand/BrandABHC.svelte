@@ -60,7 +60,7 @@
     }
 
     .brand-container:hover {
-        background: var(--accent-ghost-hover);
+        background: var(--spk-accent-ghost-hover);
     }
 
     .brand-name {
@@ -68,7 +68,7 @@
         flex-direction: column;
         text-align: end;
         font-weight: 700;
-        font-family: var(--font-heading);
+        font-family: var(--spk-font-heading);
         line-height: 1.1;
     }
 
@@ -86,17 +86,17 @@
 
     .fill-accent span,
     .fill-accent {
-        color: var(--accent);
+        color: var(--spk-accent);
     }
 
     .fill-text-accent span,
     .fill-text-accent {
-        color: var(--text-accent);
+        color: var(--spk-text-accent);
     }
 
     .fill-text span,
     .fill-text {
-        color: var(--text);
+        color: var(--spk-text);
     }
 
     .logo-container {

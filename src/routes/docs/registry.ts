@@ -1,6 +1,9 @@
 import type { Component } from "svelte";
 import type { Translation } from "$lib/types/translations";
 
+import TokensDemo from "./TokensDemo.svelte";
+import ChangelogDemo from "./ChangelogDemo.svelte";
+
 import HeaderDemo from "./HeaderDemo.svelte";
 import FooterDemo from "./FooterDemo.svelte";
 import NavDemo from "./NavDemo.svelte";
@@ -44,7 +47,7 @@ import MarqueeDemo from "./MarqueeDemo.svelte";
 import SupportDemo from "./SupportDemo.svelte";
 import SwatchRowDemo from "./SwatchRowDemo.svelte";
 
-export type Category = "layout" | "controls" | "overlays" | "feedback" | "content";
+export type Category = "references" | "layout" | "controls" | "overlays" | "feedback" | "content";
 
 export interface DocEntry {
     slug: string;
@@ -55,14 +58,29 @@ export interface DocEntry {
 }
 
 export const categories: { key: Category; get_label: (trans: Translation | null) => string }[] = [
-    { key: "layout",   get_label: (t) => t?.welcome.cat_layout   ?? "Layout" },
-    { key: "controls", get_label: (t) => t?.welcome.cat_controls ?? "Controls" },
-    { key: "overlays", get_label: (t) => t?.welcome.cat_overlays ?? "Overlays" },
-    { key: "feedback", get_label: (t) => t?.welcome.cat_feedback ?? "Feedback" },
-    { key: "content",  get_label: (t) => t?.welcome.cat_content  ?? "Content" },
+    { key: "references", get_label: (t) => t?.welcome.cat_ref ?? "References" },
+    { key: "layout",     get_label: (t) => t?.welcome.cat_layout ?? "Layout" },
+    { key: "controls",   get_label: (t) => t?.welcome.cat_controls ?? "Controls" },
+    { key: "overlays",   get_label: (t) => t?.welcome.cat_overlays ?? "Overlays" },
+    { key: "feedback",   get_label: (t) => t?.welcome.cat_feedback ?? "Feedback" },
+    { key: "content",    get_label: (t) => t?.welcome.cat_content ?? "Content" },
 ];
 
 export const docs: DocEntry[] = [
+    // References ───────────────────────────────────────────────────────────
+    {
+        slug: "tokens",
+        label: "Tokens",
+        category: "references",
+        component: TokensDemo, get_label: (t) => t?.tokens_demo?.title ?? "Tokens"
+    },
+    {
+        slug: "changelog",
+        label: "Changelog",
+        category: "references",
+        component: ChangelogDemo, get_label: (t) => t?.changelog_demo?.title ?? "Changelog"
+    },
+
     // Layout ────────────────────────────────────────────────────────────────
     {
         slug: "header",

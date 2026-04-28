@@ -279,7 +279,7 @@
         align-items: center;
         gap: 1rem;
         width: 100%;
-        font-family: var(--font-heading);
+        font-family: var(--spk-font-heading);
     }
 
     :global(.sb-head-title) {
@@ -343,7 +343,7 @@
     }
 
     :global(.drawer-group) :global(.nav-label) {
-        font-family: var(--font-heading);
+        font-family: var(--spk-font-heading);
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.4px;
@@ -371,6 +371,6 @@
         height: 20px;
         border-radius: 20%;
         flex-shrink: 0;
-        border: 2px solid var(--text-muted);
+        border: 2px solid var(--spk-text-muted);
     }
 </style>

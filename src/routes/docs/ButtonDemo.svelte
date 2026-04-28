@@ -459,9 +459,9 @@
 <DataTable
     variant="ghost" palette="tone" size="sm"
     columns={[
-        { key: "prop", label: "Prop" },
+        { key: "prop", label: "Prop", width: "20%" },
         { key: "type", label: "Type", cell: codeCell },
-        { key: "default", label: "Default", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell, width: "10%" },
     ]}
     rows={[
         { prop: "variant", type: '"flat" | "outlined" | "ghost" | "naked"', default: '"flat"' },
@@ -485,9 +485,9 @@
 <DataTable
     variant="ghost" palette="tone" size="sm"
     columns={[
-        { key: "prop", label: "Prop" },
+        { key: "prop", label: "Prop", width: "20%" },
         { key: "type", label: "Type", cell: codeCell },
-        { key: "default", label: "Default", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell, width: "10%" },
     ]}
     rows={[
         { prop: "variant", type: '"flat" | "outlined"', default: '"flat"' },
@@ -507,9 +507,9 @@
 <DataTable
     variant="ghost" palette="tone" size="sm"
     columns={[
-        { key: "prop", label: "Prop" },
+        { key: "prop", label: "Prop", width: "20%" },
         { key: "type", label: "Type", cell: codeCell },
-        { key: "default", label: "Default", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell, width: "10%" },
     ]}
     rows={[
         { prop: "mode", type: '"light" | "dark"', default: '"dark"' },
@@ -530,9 +530,9 @@
 <DataTable
     variant="ghost" palette="tone" size="sm"
     columns={[
-        { key: "prop", label: "Prop" },
+        { key: "prop", label: "Prop", width: "20%" },
         { key: "type", label: "Type", cell: codeCell },
-        { key: "default", label: "Default", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell, width: "10%" },
     ]}
     rows={[
         { prop: "to_copy", type: "string", default: "undefined" },
@@ -545,7 +545,7 @@
 
 <style>
     .btn-preview {
-        border: 2px solid var(--tone-hover);
+        border: 2px solid var(--spk-tone-hover);
         padding: 1.5rem;
         margin-bottom: 0.75rem;
         display: flex;
@@ -578,14 +578,14 @@
 
     .demo-label {
         font-size: 0.8rem;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         margin: 0.75rem 0 0.4rem;
         font-style: italic;
     }
 
     .demo-label code {
         font-style: normal;
-        background: var(--tone-hover);
+        background: var(--spk-tone-hover);
         padding: 0.1em 0.35em;
         border-radius: 4px;
         font-size: 0.9em;
@@ -599,6 +599,6 @@
         font-size: 0.9rem;
         font-weight: 700;
         margin: 1rem 0 0.5rem;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
     }
 </style>

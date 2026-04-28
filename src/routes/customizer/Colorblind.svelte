@@ -107,10 +107,10 @@
             return {
                 label,
                 base: simHex,
-                textOn: tk[`--text-${name}`],
-                hover: tk[`--${name}-hover`],
-                muted: tk[`--${name}-muted`],
-                bg: tk[`--${name}-bg`],
+                textOn: tk[`--spk-text-${name}`],
+                hover: tk[`--spk-${name}-hover`],
+                muted: tk[`--spk-${name}-muted`],
+                bg: tk[`--spk-${name}-bg`],
                 text: simText,
                 card: simCard,
                 toneBg: simBg,
@@ -337,7 +337,7 @@
                                     <div class="cb-change-row">
                                         <div
                                             class="cb-change-swatch"
-                                            style="background: {pair.bg}; color: {pair.fg}; {pair.bg === tone_hover ? ' border: 1px solid var(--tone);' : ''}"
+                                            style="background: {pair.bg}; color: {pair.fg}; {pair.bg === tone_hover ? ' border: 1px solid var(--spk-tone);' : ''}"
                                         >Aa</div>
                                         <div class="cb-change-info">
                                             <div class="cb-change-pair">{pair.accent_name} {trans?.colorblind.score_on} {pair.surface_name}</div>
@@ -364,7 +364,7 @@
     }
 
     .colorblind-info {
-        background: var(--tone);
+        background: var(--spk-tone);
         padding: 20px;
         margin-top: 20px;
     }
@@ -389,12 +389,12 @@
     .col-title {
         font-size: 1rem;
         font-weight: 700;
-        color: var(--text);
+        color: var(--spk-text);
     }
 
     .col-desc {
         font-size: 0.75rem;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         font-style: italic;
     }
 
@@ -403,7 +403,7 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.06em;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         margin-top: 4px;
     }
 
@@ -421,7 +421,7 @@
         border-radius: 6px;
         font-size: 0.75rem;
         font-family: 'Courier New', monospace;
-        color: var(--text);
+        color: var(--spk-text);
     }
 
     .cb-swatch-label {
@@ -465,7 +465,7 @@
         height: 75px;
         margin-top: 10px;
         padding: 8px 10px;
-        background: var(--tone-hover);
+        background: var(--spk-tone-hover);
         border-radius: 6px;
         display: flex;
         flex-direction: column;
@@ -494,12 +494,12 @@
 
     .cb-score-value {
         font-weight: 700;
-        color: var(--text);
+        color: var(--spk-text);
         min-width: 2.5em;
     }
 
     .cb-score-label {
-        color: var(--text);
+        color: var(--spk-text);
         flex: 1;
     }
 
@@ -527,7 +527,7 @@
 
     .cb-score-hint {
         font-size: 0.7rem;
-        color: var(--text);
+        color: var(--spk-text);
         margin-top: 2px;
     }
 
@@ -548,7 +548,7 @@
         align-items: center;
         gap: 8px;
         padding: 6px 8px;
-        background: var(--tone-hover);
+        background: var(--spk-tone-hover);
         border-radius: 5px;
         font-size: 0.72rem;
     }
@@ -571,7 +571,7 @@
     }
 
     .cb-change-pair {
-        color: var(--text);
+        color: var(--spk-text);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -585,7 +585,7 @@
     }
 
     .cb-change-level-old {
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         text-decoration: line-through;
         font-size: 0.68rem;
     }

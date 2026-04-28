@@ -74,8 +74,8 @@
 <Avatar size="lg" circular label="AB"  status="absent" />
 <Avatar size="lg" circular label="DND" status="do-not-disturb" />
 
-<!-- --dot-bg: border colour of the state dot, defaults to var(--tone-bg) -->
-<div style="--dot-bg: var(--tone)">
+<!-- --dot-bg: border colour of the state dot, defaults to var(--spk-tone-bg) -->
+<div style="--dot-bg: var(--spk-tone)">
     <Avatar size="lg" circular label="ON" status="online" />
 </div>`;
 
@@ -217,9 +217,9 @@
 <DataTable
     variant="ghost" palette="tone" size="sm"
     columns={[
-        { key: "prop", label: "Prop" },
+        { key: "prop", label: "Prop", width: "20%" },
         { key: "type", label: "Type", cell: codeCell },
-        { key: "default", label: "Default", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell, width: "10%" },
     ]}
     rows={[
         { prop: "size", type: '"xs" | "sm" | "md" | "lg" | "xl"', default: '"md"' },
@@ -235,10 +235,10 @@
 
 <style>
     .avatar-preview {
-        border: 2px solid var(--tone-hover);
+        border: 2px solid var(--spk-tone-hover);
         padding: 1.5rem;
         margin-bottom: 0.75rem;
-        background: var(--tone-bg);
+        background: var(--spk-tone-bg);
         display: flex;
         flex-wrap: wrap;
         gap: 1.5rem;
@@ -266,14 +266,14 @@
 
     .demo-label {
         font-size: 0.8rem;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         margin: 0.75rem 0 0.4rem;
         font-style: italic;
     }
 
     .demo-label :global(code) {
         font-style: normal;
-        background: var(--tone-hover);
+        background: var(--spk-tone-hover);
         padding: 0.1em 0.35em;
         border-radius: 4px;
         font-size: 0.9em;
@@ -288,13 +288,13 @@
 
     .status-label {
         font-size: 0.7rem;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         font-family: monospace;
     }
 
     .click-result {
         font-size: 0.8rem;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         font-style: italic;
         align-self: center;
     }

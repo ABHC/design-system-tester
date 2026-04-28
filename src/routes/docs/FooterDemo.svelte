@@ -386,9 +386,9 @@ let footer_visible = $state(false);
     <DataTable
         variant="ghost" palette="tone" size="sm"
         columns={[
-            { key: "prop", label: "Prop" },
+            { key: "prop", label: "Prop", width: "20%" },
             { key: "type", label: "Type", cell: codeCell },
-            { key: "default", label: "Default", cell: codeCell },
+            { key: "default", label: "Default", cell: codeCell, width: "10%" },
         ]}
         rows={[
             { prop: "palette", type: '"accent" | "tone"', default: '"accent"' },
@@ -416,10 +416,10 @@ let footer_visible = $state(false);
     .footer-preview {
         position: relative;
         z-index: 190;
-        border: 2px solid var(--tone-hover);
+        border: 2px solid var(--spk-tone-hover);
         overflow: hidden;
         margin-bottom: 1.5rem;
-        background: var(--tone-bg);
+        background: var(--spk-tone-bg);
     }
 
     .preview-body {
@@ -431,7 +431,7 @@ let footer_visible = $state(false);
 
     .mock-line {
         height: 10px;
-        background: var(--tone-hover);
+        background: var(--spk-tone-hover);
         border-radius: 4px;
         width: 100%;
     }
@@ -474,7 +474,7 @@ let footer_visible = $state(false);
     .mock-footer-link {
         font-size: 0.78rem;
         font-weight: 600;
-        font-family: var(--font-heading);
+        font-family: var(--spk-font-heading);
         text-transform: uppercase;
         letter-spacing: 0.4px;
         opacity: 0.8;
@@ -497,6 +497,6 @@ let footer_visible = $state(false);
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
     }
 </style>

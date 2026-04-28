@@ -121,7 +121,7 @@
 
 <div 
     class="explorer-preview" 
-    style={demo_palette === "accent" ? "background: var(--accent);":""}
+    style={demo_palette === "accent" ? "background: var(--spk-accent);":""}
     >
     <Explorer palette={demo_palette}>
         <ExplorerGroup
@@ -232,9 +232,9 @@
     <DataTable
         variant="ghost" palette="tone" size="sm"
         columns={[
-            { key: "prop", label: "Prop" },
+            { key: "prop", label: "Prop", width: "20%" },
             { key: "type", label: "Type", cell: codeCell },
-            { key: "default", label: "Default", cell: codeCell },
+            { key: "default", label: "Default", cell: codeCell, width: "10%" },
         ]}
         rows={[
             { prop: "palette", type: '"accent" | "tone"', default: '"tone"' },
@@ -247,9 +247,9 @@
     <DataTable
         variant="ghost" palette="tone" size="sm"
         columns={[
-            { key: "prop", label: "Prop" },
+            { key: "prop", label: "Prop", width: "20%" },
             { key: "type", label: "Type", cell: codeCell },
-            { key: "default", label: "Default", cell: codeCell },
+            { key: "default", label: "Default", cell: codeCell, width: "10%" },
         ]}
         rows={[
             { prop: "label", type: "string", default: "required" },
@@ -265,9 +265,9 @@
     <DataTable
         variant="ghost" palette="tone" size="sm"
         columns={[
-            { key: "prop", label: "Prop" },
+            { key: "prop", label: "Prop", width: "20%" },
             { key: "type", label: "Type", cell: codeCell },
-            { key: "default", label: "Default", cell: codeCell },
+            { key: "default", label: "Default", cell: codeCell, width: "10%" },
         ]}
         rows={[
             { prop: "label", type: "string", default: "required" },
@@ -282,10 +282,10 @@
 
 <style>
     .explorer-preview {
-        border: 2px solid var(--tone-hover);
+        border: 2px solid var(--spk-tone-hover);
         padding: 1.5rem;
         margin-bottom: 0.75rem;
-        background: var(--tone-bg);
+        background: var(--spk-tone-bg);
         max-width: 320px;
     }
 
@@ -298,6 +298,6 @@
         font-size: 0.9rem;
         font-weight: 700;
         margin: 1rem 0 0.5rem;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
     }
 </style>

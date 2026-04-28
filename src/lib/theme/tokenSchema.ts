@@ -170,12 +170,12 @@ export function deriveSemanticTokens(
     textPalette: TextTokens,
 ): Record<string, string> {
     return {
-        [`--${name}`]: hex,
-        [`--${name}-hover`]: hoverShift(hex, isDark),
-        [`--${name}-bg`]: computeBg(hex, bgHex, isDark),
-        [`--${name}-ghost-hover`]: hexToRgba(hex, 0.10),
-        [`--text-${name}`]: bestTextColor(hex, textPalette.light, textPalette.dark),
-        [`--${name}-muted`]: computeMuted(hex, cardHex),
+        [`--spk-${name}`]: hex,
+        [`--spk-${name}-hover`]: hoverShift(hex, isDark),
+        [`--spk-${name}-bg`]: computeBg(hex, bgHex, isDark),
+        [`--spk-${name}-ghost-hover`]: hexToRgba(hex, 0.10),
+        [`--spk-text-${name}`]: bestTextColor(hex, textPalette.light, textPalette.dark),
+        [`--spk-${name}-muted`]: computeMuted(hex, cardHex),
     };
 }
 
@@ -220,27 +220,27 @@ export function tokenValues(config: TokenConfig): Record<string, string> {
 
     const tokens: Record<string, string> = {
         // Tone surface
-        '--tone-bg': tone.bg,
-        '--tone': tone.card,
-        '--tone-hover': shiftLightness(tone.card, hoverDelta),
-        '--tone-muted': computeMuted(tone.card, tone.card),
-        '--tone-ghost': hexToRgba(text, 0.08),
-        '--tone-ghost-hover': hexToRgba(text, 0.15),
+        '--spk-tone-bg': tone.bg,
+        '--spk-tone': tone.card,
+        '--spk-tone-hover': shiftLightness(tone.card, hoverDelta),
+        '--spk-tone-muted': computeMuted(tone.card, tone.card),
+        '--spk-tone-ghost': hexToRgba(text, 0.08),
+        '--spk-tone-ghost-hover': hexToRgba(text, 0.15),
 
         // Global
-        '--text': text,
-        '--text-light': text_palette.light,
-        '--text-dark': text_palette.dark,
-        '--text-muted': text_muted,
+        '--spk-text': text,
+        '--spk-text-light': text_palette.light,
+        '--spk-text-dark': text_palette.dark,
+        '--spk-text-muted': text_muted,
 
         // Typography
-        '--font-body': typography.body,
-        '--font-heading': typography.heading,
+        '--spk-font-body': typography.body,
+        '--spk-font-heading': typography.heading,
 
         // Shadows
-        '--shadow-hard' : shadow_hard,
-        '--shadow-subtle': 'rgba(0, 0, 0, 0.2)',
-        '--muted-shadow': hexToRgba(text_muted, shadow_opacity),
+        '--spk-shadow-hard' : shadow_hard,
+        '--spk-shadow-subtle': 'rgba(0, 0, 0, 0.2)',
+        '--spk-muted-shadow': hexToRgba(text_muted, shadow_opacity),
     };
 
     const names = ['accent', 'error', 'warning', 'success', 'info', 'neutral'] as const;

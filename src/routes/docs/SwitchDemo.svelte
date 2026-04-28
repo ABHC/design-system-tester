@@ -364,9 +364,9 @@
 <DataTable
     variant="ghost" palette="tone" size="sm"
     columns={[
-        { key: "prop", label: "Prop" },
+        { key: "prop", label: "Prop", width: "20%" },
         { key: "type", label: "Type", cell: codeCell },
-        { key: "default", label: "Default", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell, width: "10%" },
     ]}
     rows={[
         { prop: "checked", type: "boolean", default: "false" },
@@ -384,7 +384,7 @@
 <style>
     /* Preview box */
     .switch-preview {
-        border: 2px solid var(--tone-hover);
+        border: 2px solid var(--spk-tone-hover);
         padding: 1.5rem;
         margin-bottom: 0.75rem;
     }
@@ -418,7 +418,7 @@
         display: flex;
         flex-direction: column;
         gap: 0.85rem;
-        border-left: 1.5px solid var(--tone-hover);
+        border-left: 1.5px solid var(--spk-tone-hover);
         padding-left: 2rem;
     }
 
@@ -433,7 +433,7 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         /* align with switch widths — approximate */
         flex: 0 0 auto;
     }
@@ -447,7 +447,7 @@
     .pal-label {
         font-size: 0.75rem;
         font-weight: 600;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         margin-left: 0.25rem;
     }
 </style>

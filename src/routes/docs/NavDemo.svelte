@@ -360,9 +360,9 @@
 <DataTable
     variant="ghost" palette="tone" size="sm"
     columns={[
-        { key: "prop", label: "Prop" },
+        { key: "prop", label: "Prop", width: "20%" },
         { key: "type", label: "Type", cell: codeCell },
-        { key: "default", label: "Default", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell, width: "10%" },
     ]}
     rows={[
         { prop: "position", type: '"fixed" | "floating"', default: '"fixed"' },
@@ -390,8 +390,8 @@
         grid-template-columns: auto 1fr auto;
         grid-template-rows: auto 1fr auto;
         min-height: 320px;
-        background: var(--tone-bg);
-        border: 2px solid var(--tone-hover);
+        background: var(--spk-tone-bg);
+        border: 2px solid var(--spk-tone-hover);
         overflow: hidden;
         margin-bottom: 1.5rem;
         padding: 10px;
@@ -409,7 +409,7 @@
 
     .mock-line {
         height: 10px;
-        background: var(--tone-hover);
+        background: var(--spk-tone-hover);
         border-radius: 4px;
         width: 100%;
     }
@@ -466,11 +466,11 @@
         left: 50%;
         transform: translateX(-50%);
         font-size: 0.7rem;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         padding: 0.3rem 0.75rem;
-        background: var(--tone);
+        background: var(--spk-tone);
         border-radius: 6px;
-        border: 1px solid var(--tone-hover);
+        border: 1px solid var(--spk-tone-hover);
         white-space: nowrap;
         pointer-events: none;
         z-index: 10;
@@ -479,6 +479,6 @@
     .fixed-note code {
         font-size: 0.68rem;
         font-family: monospace;
-        color: var(--accent-muted);
+        color: var(--spk-accent-muted);
     }
 </style>

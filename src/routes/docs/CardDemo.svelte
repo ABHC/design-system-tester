@@ -380,9 +380,9 @@
 <DataTable
     variant="ghost" palette="tone" size="sm"
     columns={[
-        { key: "prop", label: "Prop" },
+        { key: "prop", label: "Prop", width: "20%" },
         { key: "type", label: "Type", cell: codeCell },
-        { key: "default", label: "Default", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell, width: "10%" },
     ]}
     rows={[
         { prop: "variant", type: '"flat" | "outlined" | "ghost"', default: '"flat"' },
@@ -401,10 +401,10 @@
     /* ── Preview container ────────────────────────────────────────────────── */
 
     .card-preview {
-        border: 2px solid var(--tone-hover);
+        border: 2px solid var(--spk-tone-hover);
         padding: 1.5rem;
         margin-bottom: 0.75rem;
-        background: var(--tone-bg);
+        background: var(--spk-tone-bg);
     }
 
     .card-row {
@@ -419,12 +419,12 @@
     .demo-variant-label {
         font-weight: 600;
         margin: 0;
-        color: var(--text);
+        color: var(--spk-text);
     }
 
     .demo-variant-sub {
         font-size: 0.75rem;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         margin: 0;
         font-family: monospace;
     }
@@ -433,20 +433,20 @@
 
     .demo-img-placeholder {
         height: 140px;
-        background: var(--tone-hover);
+        background: var(--spk-tone-hover);
         display: flex;
         align-items: center;
         justify-content: center;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
     }
 
     .demo-img-placeholder.accent {
-        background: var(--accent-ghost-hover);
-        color: var(--accent);
+        background: var(--spk-accent-ghost-hover);
+        color: var(--spk-accent);
     }
 
     .demo-img-placeholder.muted {
-        background: var(--tone-hover);
+        background: var(--spk-tone-hover);
     }
 
     .demo-img-placeholder .material-symbols-outlined {
@@ -464,7 +464,7 @@
 
     .card-text {
         font-size: 0.875rem;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         margin: 0;
         line-height: 1.5;
     }
@@ -479,7 +479,7 @@
         font-size: 0.75rem;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         margin: 0 0 0.5rem;
         font-weight: 600;
     }
@@ -491,7 +491,7 @@
         align-items: center;
         gap: 1.5rem;
         padding: 1.5rem;
-        background: var(--accent-ghost-hover);
+        background: var(--spk-accent-ghost-hover);
     }
 
     .profile-identity {
@@ -508,7 +508,7 @@
 
     .profile-role {
         font-size: 0.875rem;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         margin: 0;
     }
 
@@ -542,13 +542,13 @@
     }
 
     .xp-date {
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         white-space: nowrap;
         min-width: 7rem;
     }
 
     .xp-role {
-        color: var(--text);
+        color: var(--spk-text);
     }
 
     /* ── Footer spacer ────────────────────────────────────────────────────── */
@@ -585,7 +585,7 @@
 
     .testi-role {
         font-size: 0.75rem;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         margin: 0;
     }
 
@@ -593,7 +593,7 @@
         font-style: italic;
         font-size: 0.875rem;
         line-height: 1.6;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         margin: 0;
         quotes: none;
     }

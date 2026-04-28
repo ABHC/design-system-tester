@@ -79,7 +79,7 @@
     const code_slots = `<!-- Custom leading and trailing via snippets -->
 <Select bind:value={fruit} options={fruits} label="Fruit" placeholder="Pick a fruit">
     {#snippet leading()}
-        <div style="padding: 0.25rem; font-size: 0.75rem; color: var(--text-muted);">
+        <div style="padding: 0.25rem; font-size: 0.75rem; color: var(--spk-text-muted);">
             Pick your favorite fruit
         </div>
     {/snippet}
@@ -407,9 +407,9 @@
 <DataTable
     variant="ghost" palette="tone" size="sm"
     columns={[
-        { key: "prop", label: "Prop" },
+        { key: "prop", label: "Prop", width: "20%" },
         { key: "type", label: "Type", cell: codeCell },
-        { key: "default", label: "Default", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell, width: "10%" },
     ]}
     rows={[
         { prop: "value", type: "T", default: "\u2014" },
@@ -457,14 +457,14 @@
 
     .demo-value {
         font-size: 0.8rem;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         padding: 0.5rem 0.6rem;
-        background: var(--tone-bg);
+        background: var(--spk-tone-bg);
         border-radius: 5px;
     }
 
     .demo-value code {
-        color: var(--accent-muted);
+        color: var(--spk-accent-muted);
         font-weight: 600;
     }
 
@@ -473,7 +473,7 @@
         align-items: center;
         gap: 0.4rem;
         font-size: 0.8rem;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         padding: 0.15rem 0.25rem;
     }
 
@@ -483,8 +483,8 @@
         gap: 0.35rem;
         background: none;
         border: none;
-        color: var(--text-muted);
-        font-family: var(--font-body);
+        color: var(--spk-text-muted);
+        font-family: var(--spk-font-body);
         font-size: 0.8rem;
         cursor: pointer;
         padding: 0.15rem 0.25rem;
@@ -493,8 +493,8 @@
     }
 
     .slot-footer-btn:hover {
-        color: var(--error);
-        background: var(--error-ghost-hover);
+        color: var(--spk-error);
+        background: var(--spk-error-ghost-hover);
     }
 
     .slot-icon {
@@ -506,7 +506,7 @@
         display: flex;
         flex-direction: column;
         gap: 0.75rem;
-        border: 2px solid var(--tone-hover);
+        border: 2px solid var(--spk-tone-hover);
         padding: 1.5rem;
         margin-bottom: 0.75rem;
     }
@@ -516,7 +516,7 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.6px;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
     }
 
     .states-grid {
@@ -534,7 +534,7 @@
     .state-label {
         font-size: 0.7rem;
         font-weight: 600;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         text-transform: uppercase;
         letter-spacing: 0.4px;
     }

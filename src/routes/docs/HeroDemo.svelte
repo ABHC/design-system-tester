@@ -257,9 +257,9 @@
     <DataTable
         variant="ghost" palette="tone" size="sm"
         columns={[
-            { key: "prop", label: "Prop" },
+            { key: "prop", label: "Prop", width: "20%" },
             { key: "type", label: "Type", cell: codeCell },
-            { key: "default", label: "Default", cell: codeCell },
+            { key: "default", label: "Default", cell: codeCell, width: "10%" },
         ]}
         rows={[
             { prop: "layout", type: '"single" | "two-cols" | "two-rows" | "main-left" | "main-right" | "grid-2x2"', default: '"single"' },
@@ -285,7 +285,7 @@
 
 <style>
     .hero-preview {
-        border: 2px solid var(--tone-hover);
+        border: 2px solid var(--spk-tone-hover);
         padding: 0;
         margin-bottom: 0.75rem;
         overflow: hidden;
@@ -305,14 +305,14 @@
     }
 
     .demo-cell-label {
-        outline: 1px dashed color-mix(in oklch, var(--text) 20%, transparent);
+        outline: 1px dashed color-mix(in oklch, var(--spk-text) 20%, transparent);
         outline-offset: -8px;
     }
 
     .demo-cell-index {
         font-family: monospace;
         font-size: 0.875rem;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         letter-spacing: 0.5px;
     }
 
@@ -328,6 +328,6 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
     }
 </style>

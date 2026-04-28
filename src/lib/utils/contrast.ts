@@ -64,45 +64,45 @@ export function getWcagLevel(ratio: string, size: WcagSize = 'normal'): WcagResu
         if (r >= 7)   return {
             level: 'AAA',
             pass: true,
-            colour: 'var(--text-success)',
-            bg: 'var(--success-hover)'
+            colour: 'var(--spk-text-success)',
+            bg: 'var(--spk-success-hover)'
         };
         if (r >= 4.5) return {
             level: 'AA',
             pass: true,
-            colour: 'var(--text-success)',
-            bg: 'var(--success)'
+            colour: 'var(--spk-text-success)',
+            bg: 'var(--spk-success)'
         };
         if (r >= 3)   return {
             level: 'AA Large',
             pass: true,
-            colour: 'var(--text-warning)',
-            bg: 'var(--warning)'
+            colour: 'var(--spk-text-warning)',
+            bg: 'var(--spk-warning)'
         };
         return {
             level: 'Fail',
             pass: false,
-            colour: 'var(--text-error)',
-            bg: 'var(--error)'
+            colour: 'var(--spk-text-error)',
+            bg: 'var(--spk-error)'
         };
     } else {
         if (r >= 4.5) return {
             level: 'AAA',
             pass: true,
-            colour: 'var(--text-success)',
-            bg: 'var(--success-hover)'
+            colour: 'var(--spk-text-success)',
+            bg: 'var(--spk-success-hover)'
         };
         if (r >= 3)   return {
             level: 'AA',
             pass: true,
-            colour: 'var(--text-success)',
-            bg: 'var(--success)'
+            colour: 'var(--spk-text-success)',
+            bg: 'var(--spk-success)'
         };
         return {
             level: 'Fail',
             pass: false,
-            colour: 'var(--text-error)',
-            bg: 'var(--error)'
+            colour: 'var(--spk-text-error)',
+            bg: 'var(--spk-error)'
         };
     }
 }

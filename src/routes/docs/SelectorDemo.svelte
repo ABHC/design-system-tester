@@ -221,9 +221,9 @@
 <DataTable
     variant="ghost" palette="tone" size="sm"
     columns={[
-        { key: "prop", label: "Prop" },
+        { key: "prop", label: "Prop", width: "20%" },
         { key: "type", label: "Type", cell: codeCell },
-        { key: "default", label: "Default", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell, width: "10%" },
     ]}
     rows={[
         { prop: "label", type: "string", default: "\u2014" },
@@ -243,7 +243,7 @@
 <style>
     .demo-label {
         font-size: 0.8rem;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         margin: 0.75rem 0 0.4rem;
         font-style: italic;
     }
@@ -259,7 +259,7 @@
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
         gap: 1rem;
-        border: 2px solid var(--tone-hover);
+        border: 2px solid var(--spk-tone-hover);
         padding: 1.5rem;
         margin-bottom: 0.75rem;
     }
@@ -275,6 +275,6 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
     }
 </style>

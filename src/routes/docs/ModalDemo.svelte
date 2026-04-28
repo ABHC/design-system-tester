@@ -330,9 +330,9 @@
 <DataTable
     variant="ghost" palette="tone" size="sm"
     columns={[
-        { key: "prop", label: "Prop" },
+        { key: "prop", label: "Prop", width: "20%" },
         { key: "type", label: "Type", cell: codeCell },
-        { key: "default", label: "Default", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell, width: "10%" },
     ]}
     rows={[
         { prop: "open", type: "boolean", default: "false" },
@@ -377,7 +377,7 @@
         font-size: 0.875rem;
         line-height: 1.6;
         margin: 0;
-        color: var(--modal-muted, var(--text-muted));
+        color: var(--modal-muted, var(--spk-text-muted));
     }
 
     .skills-row {

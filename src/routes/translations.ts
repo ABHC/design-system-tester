@@ -49,6 +49,7 @@ export const translations = {
         // Landing page -----------------------------------------------------
 
         welcome: {
+            cat_ref: "références",
             cat_layout: "layout",
             cat_controls: "contrôles",
             cat_overlays: "overlays",
@@ -60,6 +61,7 @@ export const translations = {
             subtitle: "Un design system construit avec Svelte 5. Composable, personnalisable et accessible.",
             badge_1: "Svelte 5",
             badge_2: "WCAG",
+            badge_3: "Tokens",
             cta_docs: "Documentation",
             cta_customizer: "Personnaliser",
         },
@@ -315,6 +317,10 @@ export const translations = {
         },
         data_table_demo: {
             title: "DataTable",
+            column_callout: "Alignement des colonnes",
+            column1: "Par défaut, le DataTable laisse le navigateur calculer les largeurs en fonction du contenu. Dès qu'au moins une colonne déclare une width, le composant bascule en table-layout: fixed et émet un <colgroup> : les largeurs sont alors strictement respectées.",
+            column2: "Les colonnes sans width se partagent à parts égales l'espace restant - pour un contrôle fin, déclarez la largeur sur toutes les colonnes (mélange % et px autorisé).",
+            column3: "Le rendu mobile (sous 640 px) n'est pas affecté.",
         },
         explorer_demo: {
             title: "Explorer",
@@ -330,6 +336,19 @@ export const translations = {
         },
         headline_demo: {
             title: "Headline",
+        },
+        tokens_demo: {
+            title: "Tokens",
+            intro: "Liste exhaustive des design tokens publics exposés par Spektral UI. Tous les tokens sont préfixés par --spk- pour éviter les collisions avec vos propres variables CSS.",
+            callout_title: "Utilisables hors composants",
+            callout_body: "Ces tokens sont déclarés en :root (ou sur [data-theme=\"light\"] / [data-theme=\"dark\"]) une fois tokens.css importé. Vous pouvez les appeler depuis votre propre CSS — par exemple background: var(--spk-tone-bg) — pour rester cohérent avec le thème actif, sans dépendre des composants du design system.",
+            section_constants: "Constantes",
+            section_theme: "Thème",
+        },
+        changelog_demo: {
+            title: "Changelog",
+            intro: "Versions publiées de @abhc/spektral-ui sur npm.",
+            issue: "Merci de faire remonter les issues ou de contacter l'auteur via GitHub : ",
         },
 
         // Customizer -------------------------------------------------------
@@ -384,7 +403,7 @@ export const translations = {
         // Layout -----------------------------------------------------------
 
         header: {
-            project: "Styleguide",
+            project: "Spektral UI",
         },
         nav: {
             title: "Nav",
@@ -426,6 +445,7 @@ export const translations = {
         // Landing page -----------------------------------------------------
 
         welcome: {
+            cat_ref: "references",
             cat_layout: "layout",
             cat_controls: "controls",
             cat_overlays: "overlays",
@@ -437,6 +457,7 @@ export const translations = {
             subtitle: "A themeable design system built with Svelte 5. Composable, customizable and accessible.",
             badge_1: "Svelte 5",
             badge_2: "WCAG",
+            badge_3: "Tokenized",
             cta_docs: "Documentation",
             cta_customizer: "Customize",
         },
@@ -692,6 +713,10 @@ export const translations = {
         },
         data_table_demo: {
             title: "DataTable",
+            column_callout: "Column alignment",
+            column1: "By default, the DataTable allows the browser to calculate column widths based on the content. As soon as at least one column specifies a width, the component switches to `table-layout: fixed` and emits a `colgroup`; column widths are then strictly enforced.",
+            column2: "Columns without a width share the remaining space equally - for fine control, specify the width for all columns (a mix of % and px is permitted).",
+            column3: "The mobile rendering (below 640px) is not affected.",
         },
         explorer_demo: {
             title: "Explorer",
@@ -707,6 +732,19 @@ export const translations = {
         },
         headline_demo: {
             title: "Headline",
+        },
+        tokens_demo: {
+            title: "Tokens",
+            intro: "Full reference of the public design tokens exposed by Spektral UI. Every token is prefixed with --spk- to avoid collisions with your own CSS variables.",
+            callout_title: "Usable outside components",
+            callout_body: "These tokens are declared on :root (or [data-theme=\"light\"] / [data-theme=\"dark\"]) once tokens.css is imported. You can reference them from your own CSS — e.g. background: var(--spk-tone-bg) — to stay consistent with the active theme, without depending on the design system components.",
+            section_constants: "Constants",
+            section_theme: "Theme",
+        },
+        changelog_demo: {
+            title: "Changelog",
+            intro: "Published versions of @abhc/spektral-ui on npm.",
+            issue: "Please report any issues or contact the author via GitHub : ",
         },
 
         // Customizer -------------------------------------------------------

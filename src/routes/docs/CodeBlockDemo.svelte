@@ -68,7 +68,7 @@
             language: "CSS",
             code: `.codeblock {
     border-radius: 10px;
-    border: 1px solid var(--tone-hover);
+    border: 1px solid var(--spk-tone-hover);
     overflow: hidden;
     position: relative;
 }`,
@@ -371,9 +371,9 @@
 <DataTable
     variant="ghost" palette="tone" size="sm"
     columns={[
-        { key: "prop", label: "Prop" },
+        { key: "prop", label: "Prop", width: "20%" },
         { key: "type", label: "Type", cell: codeCell },
-        { key: "default", label: "Default", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell, width: "10%" },
     ]}
     rows={[
         { prop: "variant", type: '"simple" | "titled" | "filename" | "tabbed" | "terminal"', default: '"simple"' },
@@ -408,7 +408,7 @@
 
     .demo-label {
         font-size: 0.8rem;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         margin: 1.5rem 0 0.75rem;
         font-style: italic;
     }

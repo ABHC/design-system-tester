@@ -466,9 +466,9 @@
     <DataTable
         variant="ghost" palette="tone" size="sm"
         columns={[
-            { key: "prop", label: "Prop" },
+            { key: "prop", label: "Prop", width: "20%" },
             { key: "type", label: "Type", cell: codeCell },
-            { key: "default", label: "Default", cell: codeCell },
+            { key: "default", label: "Default", cell: codeCell, width: "10%" },
         ]}
         rows={[
             { prop: "variant", type: '"flat" | "outlined" | "ghost"', default: '"ghost"' },
@@ -488,9 +488,9 @@
     <DataTable
         variant="ghost" palette="tone" size="sm"
         columns={[
-            { key: "prop", label: "Prop" },
+            { key: "prop", label: "Prop", width: "20%" },
             { key: "type", label: "Type", cell: codeCell },
-            { key: "default", label: "Default", cell: codeCell },
+            { key: "default", label: "Default", cell: codeCell, width: "10%" },
         ]}
         rows={[
             { prop: "marker", type: "Snippet", default: "required" },
@@ -506,10 +506,10 @@
 
 <style>
     .timeline-preview {
-        border: 2px solid var(--tone-hover);
+        border: 2px solid var(--spk-tone-hover);
         padding: 1.5rem;
         margin-bottom: 0.75rem;
-        background: var(--tone-bg);
+        background: var(--spk-tone-bg);
     }
 
     .timeline-preview-horizontal {
@@ -557,7 +557,7 @@
         font-size: 0.9rem;
         font-weight: 700;
         margin: 1rem 0 0.5rem;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
     }
 
     .slider-control {
@@ -572,6 +572,6 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
     }
 </style>

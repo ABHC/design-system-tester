@@ -35,56 +35,56 @@
             label: sr.surface_bg,
             value: "var(--bg)", 
             bg: "var(--bg)", 
-            color: "var(--text)" 
+            color: "var(--spk-text)" 
         },
         { 
             label: sr.surface_tone, 
-            value: "var(--tone)",
-            bg: "var(--tone)", 
-            color: "var(--text)" 
+            value: "var(--spk-tone)",
+            bg: "var(--spk-tone)", 
+            color: "var(--spk-text)" 
         },
         { 
             label: sr.surface_card, 
             value: "var(--card)", 
             bg: "var(--card)", 
-            color: "var(--text)" 
+            color: "var(--spk-text)" 
         },
     ]);
 
     const accents: Swatch[] = $derived([
         { 
             label: sr.accent_main, 
-            value: "var(--accent)", 
-            bg: "var(--accent)", 
-            color: "var(--text-accent)" 
+            value: "var(--spk-accent)", 
+            bg: "var(--spk-accent)", 
+            color: "var(--spk-text-accent)" 
         },
         { 
             label: sr.accent_hover, 
-            value: "var(--accent-hover)", 
-            bg: "var(--accent-hover)", 
-            color: "var(--text-accent)" 
+            value: "var(--spk-accent-hover)", 
+            bg: "var(--spk-accent-hover)", 
+            color: "var(--spk-text-accent)" 
         },
         { 
             label: sr.accent_muted, 
-            value: "var(--accent-muted)", 
-            bg: "var(--accent-muted)", 
-            color: "var(--text-accent)" 
+            value: "var(--spk-accent-muted)", 
+            bg: "var(--spk-accent-muted)", 
+            color: "var(--spk-text-accent)" 
         },
     ]);
 
     const text_on_tone: Swatch[] = $derived([
         { 
             label: sr.text_main, 
-            value: "var(--text)", 
-            bg: "var(--tone)", 
-            color: "var(--text)", 
+            value: "var(--spk-text)", 
+            bg: "var(--spk-tone)", 
+            color: "var(--spk-text)", 
             isText: true 
         },
         { 
             label: sr.text_muted, 
-            value: "var(--text-muted)", 
-            bg: "var(--tone)", 
-            color: "var(--text-muted)", 
+            value: "var(--spk-text-muted)", 
+            bg: "var(--spk-tone)", 
+            color: "var(--spk-text-muted)", 
             isText: true 
         },
     ]);
@@ -96,9 +96,9 @@
     import SwatchRow from "./SwatchRow/SwatchRow.svelte";
 
     const swatches: Swatch[] = [
-        { label: "Background", value: "var(--bg)", bg: "var(--bg)", color: "var(--text)" },
-        { label: "Tone", value: "var(--tone)", bg: "var(--tone)", color: "var(--text)" },
-        { label: "Card", value: "var(--card)", bg: "var(--card)", color: "var(--text)" },
+        { label: "Background", value: "var(--bg)", bg: "var(--bg)", color: "var(--spk-text)" },
+        { label: "Tone", value: "var(--spk-tone)", bg: "var(--spk-tone)", color: "var(--spk-text)" },
+        { label: "Card", value: "var(--card)", bg: "var(--card)", color: "var(--spk-text)" },
     ];
 <\/script>
 
@@ -106,8 +106,8 @@
 
     const code_text = `<!-- isText: true displays a large Aa sample on the swatch. -->
 <SwatchRow swatches={[
-    { label: "Text", value: "var(--text)", bg: "var(--tone)", color: "var(--text)", isText: true },
-    { label: "Muted", value: "var(--text-muted)", bg: "var(--tone)", color: "var(--text-muted)", isText: true },
+    { label: "Text", value: "var(--spk-text)", bg: "var(--spk-tone)", color: "var(--spk-text)", isText: true },
+    { label: "Muted", value: "var(--spk-text-muted)", bg: "var(--spk-tone)", color: "var(--spk-text-muted)", isText: true },
 ]} />`;
 
     const code_compact = `<!-- compact shrinks padding, font size and gaps for dense lists. -->
@@ -201,9 +201,9 @@
     <DataTable
         variant="ghost" palette="tone" size="sm"
         columns={[
-            { key: "prop", label: "Prop" },
+            { key: "prop", label: "Prop", width: "20%" },
             { key: "type", label: "Type", cell: codeCell },
-            { key: "default", label: "Default", cell: codeCell },
+            { key: "default", label: "Default", cell: codeCell, width: "10%" },
         ]}
         rows={[
             { prop: "swatches", type: "Swatch[]", default: "required" },
@@ -216,9 +216,9 @@
     <DataTable
         variant="ghost" palette="tone" size="sm"
         columns={[
-            { key: "prop", label: "Field" },
+            { key: "prop", label: "Field", width: "20%" },
             { key: "type", label: "Type", cell: codeCell },
-            { key: "default", label: "Required", cell: codeCell },
+            { key: "default", label: "Required", cell: codeCell, width: "10%" },
         ]}
         rows={[
             { prop: "label", type: "string", default: "yes" },
@@ -233,10 +233,10 @@
 
 <style>
     .swatch-row-preview {
-        border: 2px solid var(--tone-hover);
+        border: 2px solid var(--spk-tone-hover);
         padding: 1.5rem;
         margin-bottom: 0.75rem;
-        background: var(--tone-bg);
+        background: var(--spk-tone-bg);
         display: flex;
         flex-direction: column;
         gap: 1rem;
@@ -253,13 +253,13 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
     }
 
     .api-subtitle {
         font-size: 0.9rem;
         font-weight: 700;
         margin: 1rem 0 0.5rem;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
     }
 </style>

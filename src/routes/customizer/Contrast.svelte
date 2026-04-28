@@ -130,7 +130,7 @@
                 { 
                     label: t?.text ?? 'Text', 
                     sublabel: 'tone-bg', 
-                    fg: tk['--text'], 
+                    fg: tk['--spk-text'], 
                     bg: palette.bg, 
                     target: 7, 
                     priority: 'satisfactory' 
@@ -138,7 +138,7 @@
                 { 
                     label: t?.text ?? 'Text', 
                     sublabel: 'tone', 
-                    fg: tk['--text'], 
+                    fg: tk['--spk-text'], 
                     bg: palette.card, 
                     target: 4.5, 
                     priority: 'mandatory' 
@@ -146,15 +146,15 @@
                 { 
                     label: t?.text ?? 'Text', 
                     sublabel: 'tone-hover', 
-                    fg: tk['--text'], 
-                    bg: tk['--tone-hover'], 
+                    fg: tk['--spk-text'], 
+                    bg: tk['--spk-tone-hover'], 
                     target: 4.5, 
                     priority: 'mandatory' 
                 },
                 { 
                     label: t?.text_muted_label ?? 'Text Muted', 
                     sublabel: 'tone', 
-                    fg: tk['--text-muted'], 
+                    fg: tk['--spk-text-muted'], 
                     bg: palette.card, 
                     target: 4.5, 
                     priority: 'satisfactory' 
@@ -162,7 +162,7 @@
                 { 
                     label: 'Tone Muted', 
                     sublabel: 'tone', 
-                    fg: tk['--tone-muted'], 
+                    fg: tk['--spk-tone-muted'], 
                     bg: palette.card, 
                     target: 4.5, 
                     priority: 'mandatory' 
@@ -173,12 +173,12 @@
         // Per semantic color
         for (const name of SEMANTIC_NAMES) {
             const base_hex = getSemanticHex(name);
-            const text_on_color = tk[`--text-${name}`];
-            const hover_hex = tk[`--${name}-hover`];
-            const muted_hex = tk[`--${name}-muted`];
+            const text_on_color = tk[`--spk-text-${name}`];
+            const hover_hex = tk[`--spk-${name}-hover`];
+            const muted_hex = tk[`--spk-${name}-muted`];
             const label = getSemanticLabel(name);
 
-            const bg_hex = tk[`--${name}-bg`];
+            const bg_hex = tk[`--spk-${name}-bg`];
 
             groups.push({
                 title: label,
@@ -219,7 +219,7 @@
                     {
                         label: t?.text ?? 'Text',
                         sublabel: `${name}-bg`,
-                        fg: tk['--text'],
+                        fg: tk['--spk-text'],
                         bg: bg_hex, target: 4.5,
                         priority: 'mandatory'
                     },
@@ -264,10 +264,10 @@
     ): boolean {
         const tp = { light: selected_text.light, dark: selected_text.dark };
         const tk = deriveSemanticTokens(name, candidate_hex, ctx.isDark, ctx.palette.card, ctx.palette.bg, tp);
-        const text_on = tk[`--text-${name}`];
-        const hover = tk[`--${name}-hover`];
-        const muted = tk[`--${name}-muted`];
-        const bg_token = tk[`--${name}-bg`];
+        const text_on = tk[`--spk-text-${name}`];
+        const hover = tk[`--spk-${name}-hover`];
+        const muted = tk[`--spk-${name}-muted`];
+        const bg_token = tk[`--spk-${name}-bg`];
 
         return (
             parseFloat(getContrastRatio(text_on, candidate_hex)) >= 4.5 &&
@@ -288,10 +288,10 @@
         for (const ctx of contexts) {
             const tp = { light: selected_text.light, dark: selected_text.dark };
             const tk = deriveSemanticTokens(name, base_hex, ctx.isDark, ctx.palette.card, ctx.palette.bg, tp);
-            const text_on = tk[`--text-${name}`];
-            const hover = tk[`--${name}-hover`];
-            const muted = tk[`--${name}-muted`];
-            const bg_token = tk[`--${name}-bg`];
+            const text_on = tk[`--spk-text-${name}`];
+            const hover = tk[`--spk-${name}-hover`];
+            const muted = tk[`--spk-${name}-muted`];
+            const bg_token = tk[`--spk-${name}-bg`];
 
             if (parseFloat(getContrastRatio(text_on, base_hex)) < 4.5) fails++;
             if (parseFloat(getContrastRatio(text_on, hover)) < 4.5) fails++;
@@ -374,11 +374,11 @@
                 name,
                 label: getSemanticLabel(name),
                 current_hex: base_hex,
-                current_text_on: currentTk[`--text-${name}`],
-                current_muted: currentTk[`--${name}-muted`],
+                current_text_on: currentTk[`--spk-text-${name}`],
+                current_muted: currentTk[`--spk-${name}-muted`],
                 suggested_hex: suggestion.hex,
-                suggested_text_on: suggestedTk[`--text-${name}`],
-                suggested_muted: suggestedTk[`--${name}-muted`],
+                suggested_text_on: suggestedTk[`--spk-text-${name}`],
+                suggested_muted: suggestedTk[`--spk-${name}-muted`],
                 delta_L: suggestion.delta_L,
                 fail_count,
             });
@@ -447,11 +447,11 @@
 <div class="demo-section">
     <div class="contrast-info">
         <p class="contrast-legend">
-            <span style="color: var(--info-muted);">■</span> AAA ≥ 7:1 &nbsp;
-            <span style="color: var(--success-muted);">■</span> AA ≥ 4.5:1 &nbsp;
-            <span style="color: var(--warning-muted);">■</span> AA Large ≥ 3:1 &nbsp;
-            <span style="color: var(--error-muted);">■</span> Fail &lt; 3:1 &nbsp;
-            <span style="color: var(--info-muted);">■</span> {trans?.contrast.surface_badge}
+            <span style="color: var(--spk-info-muted);">■</span> AAA ≥ 7:1 &nbsp;
+            <span style="color: var(--spk-success-muted);">■</span> AA ≥ 4.5:1 &nbsp;
+            <span style="color: var(--spk-warning-muted);">■</span> AA Large ≥ 3:1 &nbsp;
+            <span style="color: var(--spk-error-muted);">■</span> Fail &lt; 3:1 &nbsp;
+            <span style="color: var(--spk-info-muted);">■</span> {trans?.contrast.surface_badge}
         </p>
 
         <!-- Surface separation card -->
@@ -467,11 +467,11 @@
                     {#each [
                         { label: 'tone-bg', hex: palette.bg },
                         { label: 'tone', hex: palette.card },
-                        { label: 'tone-hover', hex: tk['--tone-hover'] },
+                        { label: 'tone-hover', hex: tk['--spk-tone-hover'] },
                     ] as s}
                         <div
                             class="sem-surface-swatch"
-                            style="background: {s.hex}; color: {tk['--text']}"
+                            style="background: {s.hex}; color: {tk['--spk-text']}"
                         >
                             <span class="sem-surface-label">{s.label}</span>
                             <span class="sem-surface-hex">{s.hex}</span>
@@ -489,13 +489,13 @@
                         {
                             label: 'tone-hover',
                             sublabel: 'tone-bg',
-                            c1: tk['--tone-hover'],
+                            c1: tk['--spk-tone-hover'],
                             c2: palette.bg
                         },
                         {
                             label: 'tone-hover',
                             sublabel: 'tone',
-                            c1: tk['--tone-hover'],
+                            c1: tk['--spk-tone-hover'],
                             c2: palette.card
                         },
                     ] as check}
@@ -524,37 +524,37 @@
                         {
                             label: 'text',
                             sublabel: 'tone-bg',
-                            fg: tk['--text'],
+                            fg: tk['--spk-text'],
                             bg: palette.bg
                         },
                         {
                             label: 'text',
                             sublabel: 'tone',
-                            fg: tk['--text'],
+                            fg: tk['--spk-text'],
                             bg: palette.card
                         },
                         {
                             label: 'text',
                             sublabel: 'tone-hover',
-                            fg: tk['--text'],
-                            bg: tk['--tone-hover']
+                            fg: tk['--spk-text'],
+                            bg: tk['--spk-tone-hover']
                         },
                         {
                             label: 'text-muted',
                             sublabel: 'tone',
-                            fg: tk['--text-muted'],
+                            fg: tk['--spk-text-muted'],
                             bg: palette.card
                         },
                         {
                             label: 'text-muted',
                             sublabel: 'tone-bg',
-                            fg: tk['--text-muted'],
+                            fg: tk['--spk-text-muted'],
                             bg: palette.bg
                         },
                         {
                             label: 'tone-muted',
                             sublabel: 'tone',
-                            fg: tk['--tone-muted'],
+                            fg: tk['--spk-tone-muted'],
                             bg: palette.card
                         },
                     ] as check}
@@ -589,10 +589,10 @@
         <p class="contrast-note">{trans?.contrast.semantic_note}</p>
         {#snippet semCard(name: string, palette: ToneTheme, tk: Record<string, string>)}
             {@const base_hex = getSemanticHex(name)}
-            {@const text_on_color = tk[`--text-${name}`]}
-            {@const muted_hex = tk[`--${name}-muted`]}
-            {@const hover_hex = tk[`--${name}-hover`]}
-            {@const bg_hex = tk[`--${name}-bg`]}
+            {@const text_on_color = tk[`--spk-text-${name}`]}
+            {@const muted_hex = tk[`--spk-${name}-muted`]}
+            {@const hover_hex = tk[`--spk-${name}-hover`]}
+            {@const bg_hex = tk[`--spk-${name}-bg`]}
             {@const checks = [
                 {
                     label: `text-${name}`,
@@ -625,7 +625,7 @@
                 {
                     label: 'Text',
                     sublabel: `${name}-bg`,
-                    fg: tk['--text'],
+                    fg: tk['--spk-text'],
                     bg: bg_hex,
                     target: 4.5
                 },
@@ -734,7 +734,7 @@
                                 </div>
                                 <div 
                                     class="suggest-swatch suggest-swatch-muted" 
-                                    style="background: var(--tone); color: {s.current_muted};"
+                                    style="background: var(--spk-tone); color: {s.current_muted};"
                                 >
                                     Aa
                                 </div>
@@ -752,7 +752,7 @@
                                 </div>
                                 <div
                                     class="suggest-swatch suggest-swatch-muted"
-                                    style="background: var(--tone); color: {s.suggested_muted};"
+                                    style="background: var(--spk-tone); color: {s.suggested_muted};"
                                 >
                                     Aa
                                 </div>
@@ -796,13 +796,13 @@
     }
 
     .contrast-info {
-        background: var(--tone);
+        background: var(--spk-tone);
         padding: 20px;
         margin-top: 20px;
     }
 
     .contrast-legend {
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         margin-top: 0px;
     }
 
@@ -811,15 +811,15 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.08em;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         margin: 1.5rem 0 0.5rem 0;
         padding-bottom: 0.25rem;
-        border-bottom: 1px solid var(--tone-hover);
+        border-bottom: 1px solid var(--spk-tone-hover);
     }
 
     .contrast-note {
         font-size: 0.75rem;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         font-style: italic;
         margin-bottom: 0.5rem;
     }
@@ -857,7 +857,7 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        border: 1px solid var(--tone-ghost-hover);
+        border: 1px solid var(--spk-tone-ghost-hover);
         min-height: 2.5rem;
     }
 
@@ -893,7 +893,7 @@
     }
 
     .sem-card {
-        background: var(--tone-hover);
+        background: var(--spk-tone-hover);
         padding: 0.75rem;
     }
 
@@ -945,7 +945,7 @@
 
     .sem-check-label {
         font-size: 0.65rem;
-        color: var(--text);
+        color: var(--spk-text);
         flex: 1;
         min-width: 0;
         white-space: nowrap;
@@ -956,7 +956,7 @@
     .sem-check-ratio {
         font-size: 0.65rem;
         font-weight: 700;
-        color: var(--text);
+        color: var(--spk-text);
         font-family: monospace;
         min-width: 2.5rem;
         text-align: right;
@@ -977,9 +977,9 @@
     }
 
     .suggest-item {
-        background: var(--tone-hover);
+        background: var(--spk-tone-hover);
         padding: 0.75rem;
-        border-left: 3px solid var(--warning);
+        border-left: 3px solid var(--spk-warning);
     }
 
     .suggest-header {
@@ -997,7 +997,7 @@
 
     .suggest-fail-count {
         font-size: 0.65rem;
-        color: var(--error-muted);
+        color: var(--spk-error-muted);
         font-weight: 600;
     }
 
@@ -1044,26 +1044,26 @@
     .suggest-hex {
         font-size: 0.65rem;
         font-family: monospace;
-        color: var(--text);
+        color: var(--spk-text);
     }
 
     .suggest-oklch {
         font-size: 0.55rem;
         font-family: monospace;
-        color: var(--text);
+        color: var(--spk-text);
         opacity: 0.6;
     }
 
     .suggest-arrow {
         font-size: 1rem;
-        color: var(--text);
+        color: var(--spk-text);
         flex-shrink: 0;
     }
 
     .suggest-detail {
         margin-top: 0.35rem;
         font-size: 0.7rem;
-        color: var(--text);
+        color: var(--spk-text);
         font-style: italic;
         font-family: monospace;
     }

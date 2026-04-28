@@ -611,9 +611,9 @@
 
 <style>
     :global(body) {
-        background: var(--tone-bg);
-        color: var(--text);
-        font-family: var(--font-body);
+        background: var(--spk-tone-bg);
+        color: var(--spk-text);
+        font-family: var(--spk-font-body);
         font-size: 14px;
     }
 
@@ -630,7 +630,7 @@
         font-size: 0.75rem;
         font-weight: 700;
         letter-spacing: 0.5px;
-        color: var(--text);
+        color: var(--spk-text);
     }
 
     .nav-trailing-group {
@@ -664,11 +664,11 @@
         position: relative;
         z-index: 1;
         transition: all 0.3s ease;
-        fill: var(--text-accent);
+        fill: var(--spk-text-accent);
     }
 
     .social-link:hover {
-        background-color: var(--accent-ghost-hover);
+        background-color: var(--spk-accent-ghost-hover);
         transform: scale(1.1);
     }
 
@@ -693,8 +693,8 @@
     }
 
     .return-landing:hover {
-        background: var(--tone-ghost);
-        box-shadow: 0 4px 12px var(--shadow-subtle);
+        background: var(--spk-tone-ghost);
+        box-shadow: 0 4px 12px var(--spk-shadow-subtle);
     }
 
     #license {

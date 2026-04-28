@@ -106,7 +106,10 @@
 
         <Explorer palette="tone" aria_label="Component navigation">
             {#each by_category as cat}
-                <ExplorerGroup label={cat.get_label($trans)} headline={true}>
+                <ExplorerGroup 
+                    label={cat.get_label($trans)} 
+                    headline={true}
+                >
                     {#each cat.entries as entry}
                         <ExplorerLink
                             href="/docs/{entry.slug}"
@@ -163,8 +166,8 @@
         overflow-y: auto;
         padding: 1rem 0.75rem;
         scrollbar-width: thin;
-        scrollbar-color: var(--tone-hover) transparent;
-        border-right: 2px solid var(--tone-hover);
+        scrollbar-color: var(--spk-tone-hover) transparent;
+        border-right: 2px solid var(--spk-tone-hover);
     }
 
     .search-container {
@@ -185,8 +188,8 @@
         overflow-y: auto;
         padding: 1rem 0.75rem;
         scrollbar-width: thin;
-        scrollbar-color: var(--tone-hover) transparent;
-        border-left: 2px solid var(--tone-hover);
+        scrollbar-color: var(--spk-tone-hover) transparent;
+        border-left: 2px solid var(--spk-tone-hover);
     }
 
     @media (max-width: 1024px) {
@@ -216,18 +219,18 @@
     :global(.api-table th) {
         text-align: left;
         padding: 0.6rem 0.75rem;
-        border-bottom: 2px solid var(--tone-hover);
+        border-bottom: 2px solid var(--spk-tone-hover);
         font-weight: 700;
-        font-family: var(--font-heading);
+        font-family: var(--spk-font-heading);
         text-transform: uppercase;
         font-size: 0.75rem;
         letter-spacing: 0.5px;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
     }
 
     :global(.api-table td) {
         padding: 0.5rem 0.75rem;
-        border-bottom: 1px solid var(--tone-hover);
+        border-bottom: 1px solid var(--spk-tone-hover);
         vertical-align: top;
     }
 

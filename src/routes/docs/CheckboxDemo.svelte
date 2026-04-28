@@ -186,9 +186,9 @@
 <DataTable
     variant="ghost" palette="tone" size="sm"
     columns={[
-        { key: "prop", label: "Prop" },
+        { key: "prop", label: "Prop", width: "20%" },
         { key: "type", label: "Type", cell: codeCell },
-        { key: "default", label: "Default", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell, width: "10%" },
     ]}
     rows={[
         { prop: "value", type: "string[]", default: "[]" },
@@ -205,7 +205,7 @@
 
 <style>
     .checkbox-preview {
-        border: 2px solid var(--tone-hover);
+        border: 2px solid var(--spk-tone-hover);
         padding: 1.5rem;
         margin-bottom: 0.75rem;
     }
@@ -225,7 +225,7 @@
 
     .preview-col + .preview-col {
         padding-left: 2rem;
-        border-left: 2px solid var(--tone-hover);
+        border-left: 2px solid var(--spk-tone-hover);
     }
 
     .col-label {
@@ -233,6 +233,6 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
     }
 </style>

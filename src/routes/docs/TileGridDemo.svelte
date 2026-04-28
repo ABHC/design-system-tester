@@ -680,9 +680,9 @@
 <DataTable
     variant="ghost" palette="tone" size="sm"
     columns={[
-        { key: "prop", label: "Prop" },
+        { key: "prop", label: "Prop", width: "20%" },
         { key: "type", label: "Type", cell: codeCell },
-        { key: "default", label: "Default", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell, width: "10%" },
     ]}
     rows={[
         { prop: "tiles", type: "readonly Tile[]", default: "\u2014" },
@@ -718,8 +718,8 @@
     /* Preview */
 
     .tg-preview {
-        background: var(--tone-bg);
-        border: 2px solid var(--tone-hover);
+        background: var(--spk-tone-bg);
+        border: 2px solid var(--spk-tone-hover);
         padding: 1rem;
         margin-bottom: 1.5rem;
         overflow: hidden;
@@ -736,13 +736,13 @@
     .tg-id-note-title {
         font-size: 0.82rem;
         font-weight: 700;
-        color: var(--accent);
+        color: var(--spk-accent);
     }
 
     .tg-id-note-body {
         margin: 0;
         font-size: 0.85rem;
-        color: var(--text);
+        color: var(--spk-text);
         line-height: 1.55;
         opacity: 0.85;
     }
@@ -750,7 +750,7 @@
     /* Attributions */
 
     .attr {
-        color: var(--text);
+        color: var(--spk-text);
     }
 
     .callout-gap {
@@ -769,6 +769,6 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
     }
 </style>

@@ -131,9 +131,9 @@
     <DataTable
         variant="ghost" palette="tone" size="sm"
         columns={[
-            { key: "prop", label: "Prop" },
+            { key: "prop", label: "Prop", width: "20%" },
             { key: "type", label: "Type", cell: codeCell },
-            { key: "default", label: "Default", cell: codeCell },
+            { key: "default", label: "Default", cell: codeCell, width: "10%" },
         ]}
         rows={[
             { prop: "value", type: "string", default: '"#6644ff"' },
@@ -152,10 +152,10 @@
 
 <style>
     .color-picker-preview {
-        border: 2px solid var(--tone-hover);
+        border: 2px solid var(--spk-tone-hover);
         padding: 1.5rem;
         margin-bottom: 0.75rem;
-        background: var(--tone-bg);
+        background: var(--spk-tone-bg);
         display: flex;
         flex-direction: column;
         gap: 1rem;
@@ -175,7 +175,7 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
     }
 
     .readout-value {
@@ -186,6 +186,6 @@
         width: 24px;
         height: 24px;
         border-radius: 4px;
-        border: 1px solid var(--tone-hover);
+        border: 1px solid var(--spk-tone-hover);
     }
 </style>

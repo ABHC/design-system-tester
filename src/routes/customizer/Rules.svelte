@@ -115,7 +115,7 @@
 
     .rules-status-pass {
         font-size: 0.82rem;
-        color: var(--success);
+        color: var(--spk-success);
         font-style: italic;
         margin-top: 0.75rem;
     }
@@ -128,7 +128,7 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.06em;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         margin: 0.75rem 0 0.4rem 0;
     }
 
@@ -150,12 +150,12 @@
         flex-direction: column;
         gap: 0.35rem;
         padding: 0.5rem;
-        background: var(--tone-hover);
-        border-left: 3px solid var(--success);
+        background: var(--spk-tone-hover);
+        border-left: 3px solid var(--spk-success);
     }
 
     .rules-item-fail {
-        border-left-color: var(--error);
+        border-left-color: var(--spk-error);
     }
 
     .rules-swatch-row {
@@ -183,7 +183,7 @@
     .rules-pair-label {
         font-size: 0.78rem;
         font-weight: 600;
-        color: var(--text);
+        color: var(--spk-text);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -191,7 +191,7 @@
 
     .rules-pair-surface {
         font-size: 0.68rem;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
     }
 
     .rules-ratio-row {
@@ -203,7 +203,7 @@
     .rules-ratio {
         font-size: 1rem;
         font-weight: 700;
-        color: var(--text);
+        color: var(--spk-text);
     }
 
     .rules-ratio-block {
@@ -215,7 +215,7 @@
 
     .rules-target {
         font-size: 0.72rem;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
     }
 
     @media (max-width: 600px) {

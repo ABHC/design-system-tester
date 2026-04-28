@@ -278,9 +278,9 @@
 <DataTable
     variant="ghost" palette="tone" size="sm"
     columns={[
-        { key: "prop", label: "Prop" },
+        { key: "prop", label: "Prop", width: "20%" },
         { key: "type", label: "Type", cell: codeCell },
-        { key: "default", label: "Default", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell, width: "10%" },
     ]}
     rows={[
         { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"' },
@@ -298,7 +298,7 @@
 
 <style>
     .list-preview {
-        border: 2px solid var(--tone-hover);
+        border: 2px solid var(--spk-tone-hover);
         padding: 1.5rem;
         margin-bottom: 0.75rem;
         display: flex;
@@ -321,7 +321,7 @@
         text-transform: uppercase;
         letter-spacing: 0.6px;
         font-weight: 700;
-        color: var(--text-muted);
+        color: var(--spk-text-muted);
         margin-bottom: 0.25rem;
     }
 </style>
