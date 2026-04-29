@@ -24,6 +24,11 @@
     // release sits at the top with the largest "completed" weight.
     const releases: Release[] = [
         {
+            version: "0.3.2",
+            date: "2026-04-29",
+            message: "TileGrid + Button: rename 'raised' → 'elevation_persist', 'mock-up' → 'mockup', drop 'show_hero_border' (hero border now intrinsic to flat and mockup), expose 'ImageMode', 'ImagePosition', 'TileGridElevation', 'TileGridEffect', 'TileGridMask', 'TileGridMaskDirection'. Breaking. Breaking changes for consumers of TileGrid and Button.",
+        },
+        {
             version: "0.3.1",
             date: "2026-04-28",
             message: "DataTable: column alignment through an optional 'width?: string' field on 'Column'",

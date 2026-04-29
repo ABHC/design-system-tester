@@ -163,7 +163,7 @@
         bind:value={demo_elevation} 
     />
     <Selector 
-        label="Elevation Raised" 
+        label="Elevation Persist" 
         options={bool_opts} 
         bind:value={demo_raised} 
     />
@@ -207,7 +207,7 @@
             palette="accent"
             size={demo_size}
             elevation={demo_elevation}
-            raised={demo_raised}
+            elevation_persist={demo_raised}
             rounded={demo_rounded}
             direction={demo_direction}
             uppercase={demo_uppercase}
@@ -226,7 +226,7 @@
             palette="tone"
             size={demo_size}
             elevation={demo_elevation}
-            raised={demo_raised}
+            elevation_persist={demo_raised}
             rounded={demo_rounded}
             direction={demo_direction}
             uppercase={demo_uppercase}
@@ -272,7 +272,7 @@
                 palette={item.pal}
                 size={demo_size}
                 elevation={demo_elevation}
-                raised={demo_raised}
+                elevation_persist={demo_raised}
                 rounded={demo_rounded}
                 direction={demo_direction}
                 uppercase={demo_uppercase}
@@ -468,7 +468,7 @@
         { prop: "palette", type: '"accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info"', default: '"accent"' },
         { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"' },
         { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
-        { prop: "raised", type: "boolean", default: "false" },
+        { prop: "elevation_persist", type: "boolean", default: "false" },
         { prop: "uppercase", type: "boolean", default: "false" },
         { prop: "animate", type: '"left" | "right" | "top" | "bottom"', default: "undefined" },
         { prop: "active", type: "boolean", default: "false" },
@@ -494,7 +494,7 @@
         { prop: "palette", type: '"accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info"', default: '"accent"' },
         { prop: "size", type: '"sm" | "md" | "lg"', default: '"sm"' },
         { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
-        { prop: "raised", type: "boolean", default: "false" },
+        { prop: "elevation_persist", type: "boolean", default: "false" },
         { prop: "uppercase", type: "boolean", default: "false" },
         { prop: "animate", type: '"left" | "right" | "top" | "bottom"', default: "undefined" },
         { prop: "rounded", type: "boolean", default: "false" },
@@ -518,7 +518,7 @@
         { prop: "palette", type: '"accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info"', default: '"accent"' },
         { prop: "size", type: '"sm" | "md" | "lg"', default: '"sm"' },
         { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
-        { prop: "raised", type: "boolean", default: "false" },
+        { prop: "elevation_persist", type: "boolean", default: "false" },
         { prop: "uppercase", type: "boolean", default: "false" },
         { prop: "animate", type: '"left" | "right" | "top" | "bottom"', default: "undefined" },
         { prop: "rounded", type: "boolean", default: "false" },

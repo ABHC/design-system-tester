@@ -2,7 +2,20 @@
     import type { PatternPreset } from "@abhc/spektral-ui";
     import type { Translation } from "$lib/types/translations";
     import type { PlaceholdersType } from "../placeholders";
-    import type { Tile, TileMedia, Columns, HeroSpan, Elevation } from '@abhc/spektral-ui';
+    
+    import type { 
+        Tile, 
+        TileMedia, 
+        Columns, 
+        HeroSpan, 
+        ImageMode, 
+        ImagePosition, 
+        TileGridElevation, 
+        TileGridEffect, 
+        TileGridMask, 
+        TileGridMaskDirection 
+    } from '@abhc/spektral-ui';
+    
     import { 
         Headline, 
         CodeBlock, 
@@ -24,28 +37,22 @@
     let { trans, placeholders }: Props = $props();
 
     // -- Demo state
-
-    type Mode = "image" | "flat" | "mock-up";
-    type Effect = "none" | "glow" | "blur" | "fade";
-    type Mask = "none" | "ellipse" | "fade";
-    type MaskDirection = "top" | "bottom" | "left" | "right";
-
-    let demo_mode: Mode = $state("image");
-    let demo_position: string = $state("center");
+    let demo_mode: ImageMode = $state("image");
+    let demo_position: ImagePosition = $state("center");
     let demo_columns: Columns = $state(3);
     let demo_hero_span: HeroSpan = $state("half");
     let demo_hero_badge: boolean = $state(true);
     let demo_rounded: boolean = $state(false);
-    let demo_elevation: Elevation = $state("none");
+    let demo_elevation: TileGridElevation = $state("none");
     let demo_raised: boolean = $state(false);
     let demo_pattern: PatternPreset = $state("none");
     let demo_pattern_color: string = $state("white");
     let demo_pattern_size: string = $state("auto");
     let demo_pattern_opacity: number = $state(0.4);
-    let demo_pattern_effect: Effect = $state("none");
+    let demo_pattern_effect: TileGridEffect = $state("none");
     let demo_pattern_effect_opacity: number = $state(1);
-    let demo_pattern_mask: Mask = $state("none");
-    let demo_pattern_mask_direction: MaskDirection = $state("bottom");
+    let demo_pattern_mask: TileGridMask = $state("none");
+    let demo_pattern_mask_direction: TileGridMaskDirection = $state("bottom");
     let demo_pattern_mask_size: number = $state(70);
 
     const bg_positions = ["center", "top", "bottom"] as const;
@@ -73,9 +80,9 @@
         "kumi_kikko"
     ];
 
-    function set_mode(m: Mode) {
+    function set_mode(m: ImageMode) {
         demo_mode = m;
-        demo_position = m === "mock-up" ? "top-right" : "center";
+        demo_position = m === "mockup" ? "top-right" : "center";
     }
 
     // Demo tiles — no id (non-clickable), built from placeholders.grid
@@ -286,14 +293,14 @@
         },
     ]}
     locale="en"
-    image_mode="mock-up"
+    image_mode="mockup"
     image_position="top-right"
     image_size="55%"
     columns={3}
     href_base="/projects"
 />`;
 
-    const code_pattern = `<!-- pattern on flat tiles — works with image_mode="flat" or "mock-up" -->
+    const code_pattern = `<!-- pattern on flat tiles — works with image_mode="flat" or "mockup" -->
 <TileGrid
     tiles={[
         {
@@ -391,7 +398,7 @@
 <ControlBar palette="tone">
     <Selector
         label={trans?.tile_grid_demo?.ctrl_mode}
-        options={["image", "flat", "mock-up"]}
+        options={["image", "flat", "mockup"]}
         bind:value={demo_mode}
         onchange={set_mode}
     />
@@ -402,7 +409,7 @@
             bind:value={demo_position}
         />
     {/if}
-    {#if demo_mode === "mock-up"}
+    {#if demo_mode === "mockup"}
         <Selector
             label={trans?.tile_grid_demo?.ctrl_position}
             options={deco_positions}
@@ -435,7 +442,7 @@
         bind:value={demo_elevation}
     />
     <Selector
-        label="Elevation Raised"
+        label="Elevation Persist"
         options={bool_opts}
         bind:value={demo_raised}
     />
@@ -519,17 +526,16 @@
 
 <div class="tg-preview">
     <TileGrid
-        tiles={demo_mode === "mock-up" ? tiles_mockup : tiles}
+        tiles={demo_mode === "mockup" ? tiles_mockup : tiles}
         locale="en"
         image_mode={demo_mode}
         image_position={demo_position}
         columns={demo_columns}
         hero_span={demo_hero_span}
         show_hero_badge={demo_hero_badge}
-        show_hero_border={true}
         rounded={demo_rounded}
         elevation={demo_elevation}
-        raised={demo_raised}
+        elevation_persist={demo_raised}
         excerpt_length={52}
         pattern={demo_pattern}
         pattern_color={demo_pattern_color}
@@ -672,7 +678,11 @@
         {/snippet}
         {#snippet children()}
             {trans?.doc.types_notice}<br />
-            <code>import type &lbrace; Tile, TileMedia, Columns, HeroSpan &rbrace; from '@abhc/spektral-ui';</code>
+            <code>
+                import type &lbrace; Tile, TileMedia, Columns, HeroSpan, ImageMode, ImagePosition, 
+                TileGridElevation, TileGridEffect, TileGridMask, TileGridMaskDirection, PatternPreset 
+                &rbrace; from '@abhc/spektral-ui';
+            </code>
         {/snippet}
     </Callout>
 </div>
@@ -687,7 +697,7 @@
     rows={[
         { prop: "tiles", type: "readonly Tile[]", default: "\u2014" },
         { prop: "locale", type: "string", default: '"en"' },
-        { prop: "image_mode", type: '"image" | "mock-up" | "flat"', default: '"image"' },
+        { prop: "image_mode", type: '"image" | "mockup" | "flat"', default: '"image"' },
         { prop: "image_position", type: '"center" | "top" | "bottom" | "top-right" | "top-left" | "top-center" | "right" | "left" | string', default: '"center"' },
         { prop: "image_size", type: "string", default: "undefined" },
         { prop: "columns", type: "2 | 3 | 4", default: "3" },
@@ -699,7 +709,7 @@
         { prop: "href_base", type: "string", default: '"/projects"' },
         { prop: "rounded", type: "boolean", default: "false" },
         { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
-        { prop: "raised", type: "boolean", default: "false" },
+        { prop: "elevation_persist", type: "boolean", default: "false" },
         { prop: "pattern", type: '"none" | "scallops" | "grid" | "sunburst" | "sunrise" | "atoms" | "lozenge" | "waves" | "diamonds" | "shippo" | "kumi_kikko" | string', default: '"none"' },
         { prop: "pattern_color", type: "string", default: '"white"' },
         { prop: "pattern_opacity", type: "number", default: "0.4" },
@@ -711,7 +721,6 @@
         { prop: "pattern_mask_size", type: "number", default: "70" },
     ]}
 />
-
 
 <style>
 
