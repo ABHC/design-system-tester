@@ -7,15 +7,16 @@
 
     let lang_placeholders = $derived(placeholders[$locale as PlaceholderLocale] || placeholders.en);
     let entry = $derived(docs_by_slug.get(page.params.slug ?? ""));
+    let DocComponent = $derived(entry?.component);
 </script>
 
 <svelte:head>
     <title>{entry?.label ?? "Docs"} - Spektral UI</title>
 </svelte:head>
 
-{#if entry}
+{#if entry && DocComponent}
     {#key entry.slug}
-        <svelte:component this={entry.component} trans={$trans} placeholders={lang_placeholders} />
+        <DocComponent trans={$trans} placeholders={lang_placeholders} />
     {/key}
 {:else}
     <div class="not-found">

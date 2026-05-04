@@ -24,19 +24,19 @@
     type Size      = "sm" | "md" | "lg";
     type Elevation = "none" | "subtle" | "hard";
 
-    let demo_palette:    Palette   = $state("accent");
-    let demo_size:       Size      = $state("md");
-    let demo_elevation:  Elevation = $state("none");
-    let demo_outlined:   boolean   = $state(false);
-    let demo_rounded:    boolean   = $state(false);
-    let demo_show_value: boolean   = $state(true);
+    let demo_palette: Palette = $state("accent");
+    let demo_size: Size = $state("md");
+    let demo_elevation: Elevation = $state("none");
+    let demo_outlined: boolean = $state(false);
+    let demo_rounded: boolean = $state(false);
+    let demo_show_value: boolean = $state(true);
 
     let demo_indeterminate: boolean = $state(false);
-    let demo_value_str:     string  = $state("60");
-    let demo_max_str:       string  = $state("100");
+    let demo_value_str: string = $state("60");
+    let demo_max_str: string = $state("100");
 
     const demo_value = $derived(demo_indeterminate ? null : Number(demo_value_str));
-    const demo_max   = $derived(Number(demo_max_str) || 100);
+    const demo_max = $derived(Number(demo_max_str) || 100);
 
     const bool_opts = [{ value: true, label: "true" }, { value: false, label: "false" }] as const;
 
