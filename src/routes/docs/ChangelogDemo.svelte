@@ -24,63 +24,68 @@
     // release sits at the top with the largest "completed" weight.
     const releases: Release[] = [
         {
+            version: "0.3.3",
+            date: "04/05/2026",
+            message: "Avatar: replace 'circular: boolean' with 'shape: \"rounded\" | \"circular\" | \"square\"', add '2xl' size and 'elevation' prop. Progress: expose 'show_value' prop. Breaking change for Avatar consumers.",
+        },
+        {
             version: "0.3.2",
-            date: "2026-04-29",
+            date: "29/04/2026",
             message: "TileGrid + Button: rename 'raised' → 'elevation_persist', 'mock-up' → 'mockup', drop 'show_hero_border' (hero border now intrinsic to flat and mockup), expose 'ImageMode', 'ImagePosition', 'TileGridElevation', 'TileGridEffect', 'TileGridMask', 'TileGridMaskDirection'. Breaking. Breaking changes for consumers of TileGrid and Button.",
         },
         {
             version: "0.3.1",
-            date: "2026-04-28",
+            date: "28/04/2026",
             message: "DataTable: column alignment through an optional 'width?: string' field on 'Column'",
         },
         {
             version: "0.3.0",
-            date: "2026-04-28",
+            date: "28/04/2026",
             message: "Token system rewrite: every CSS custom property now ships with a --spk- prefix to avoid collisions with consumer styles. Adds five new immutable groups (z-index ladder, motion, elevation, border width, opacity) and a prefers-reduced-motion media query.",
         },
         {
             version: "0.2.8",
-            date: "2026-04-26",
+            date: "26/04/2026",
             message: "hotfix : add 'Padding' prop in header and Footer to manage padding instead of 'style'",
         },
         {
             version: "0.2.7",
-            date: "2026-04-26",
+            date: "26/04/2026",
             message: "Header : remove outdated prop 'style', Footer: remove outdated prop 'style' and add 'visible' similar to the one in Header",
         },
         {
             version: "0.2.6",
-            date: "2026-04-26",
+            date: "26/04/2026",
             message: "Improve consistency of Card component",
         },
         {
             version: "0.2.5",
-            date: "2026-04-25",
+            date: "25/04/2026",
             message: "On Explorer(s) : Fix colors for accent palette, rename 'icon' prop to 'leading'. On SwatchRow : 'rounded' value descend to the internal CopyButton.",
         },
         {
             version: "0.2.4",
-            date: "2026-04-24",
+            date: "24/04/2026",
             message: "hotfix : remove a bug on Explorer group hr and add a better readme for tokens customization",
         },
         {
             version: "0.2.3",
-            date: "2026-04-21",
+            date: "21/04/2026",
             message: "hotfix : add missing types in index",
         },
         {
             version: "0.2.2",
-            date: "2026-04-21",
+            date: "21/04/2026",
             message: "hotfix : missing color.ts file",
         },
         {
             version: "0.2.1",
-            date: "2026-04-21",
+            date: "21/04/2026",
             message: "fix internal imports between components",
         },
         {
             version: "0.2.0",
-            date: "2026-04-21",
+            date: "21/04/2026",
             message: "Initial public release of Spektral UI.",
         },
     ];

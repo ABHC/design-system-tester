@@ -79,7 +79,7 @@
     const code_profile = `<Card variant="flat" elevation="subtle" width="100%">
     {#snippet leading()}
         <div class="profile-header">
-            <Avatar size="xl" circular label="JM" palette="accent" />
+            <Avatar size="xl" shape="circular" label="JM" palette="accent" />
             <div>
                 <h2>Jean Michel</h2>
                 <p>Designeur de jouet</p>
@@ -105,7 +105,7 @@
         <Card variant="outlined" width="0">
             {#snippet leading()}
                 <div class="testi-header">
-                    <Avatar size="md" circular label={t.initials} />
+                    <Avatar size="md" shape="circular" label={t.initials} />
                     <div>
                         <p>{t.name}</p>
                         <p>{t.role}</p>
@@ -262,7 +262,7 @@
             >
                 {#snippet leading()}
                     <div class="profile-header">
-                        <Avatar size="xl" circular label={profile.initials} palette="accent" />
+                        <Avatar size="xl" shape="circular" label={profile.initials} palette="accent" />
                         <div class="profile-identity">
                             <h2 class="profile-name">{profile.name}</h2>
                             <p class="profile-role">{profile.role}</p>
@@ -341,7 +341,7 @@
                 >
                     {#snippet leading()}
                         <div class="testi-header">
-                            <Avatar size="md" circular label={t.avatar_initial} />
+                            <Avatar size="md" shape="circular" label={t.avatar_initial} />
                             <div>
                                 <p class="testi-name">{t.name}</p>
                                 <p class="testi-role">{t.role}</p>

@@ -114,7 +114,7 @@
                     <Card variant="flat" elevation="hard" width="300px">
                         {#snippet children()}
                             <div class="cs-profile-body">
-                                <Avatar size="md" circular label="AL" palette="accent" />
+                                <Avatar size="md" shape="circular" label="AL" palette="accent" />
                                 <div class="cs-profile-info">
                                     <strong>Alice Laurent</strong>
                                     <span>Design Engineer</span>
@@ -160,7 +160,6 @@
                                     columns={2}
                                     gap="0.5rem"
                                     show_hero_badge={false}
-                                    show_hero_border={false}
                                     excerpt_length={36}
                                 />
                             </div>

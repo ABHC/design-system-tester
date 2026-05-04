@@ -79,7 +79,7 @@
     const code_profile = $derived(`<!-- Profile composition — Avatar + Badge -->
 <Modal open={open} onclose={() => open = false}>
     {#snippet leading()}
-        <Avatar size="md" circular label="${placeholders.modal.compose_name}" />
+        <Avatar size="md" shape="circular" label="${placeholders.modal.compose_name}" />
         <div>
             <strong>${placeholders.modal.compose_name}</strong>
             <small>${placeholders.modal.compose_role}</small>
@@ -240,7 +240,7 @@
         onclose={close}
     >
         {#snippet leading()}
-            <Avatar size="md" circular label={modal.compose_name} palette="accent" />
+            <Avatar size="md" shape="circular" label={modal.compose_name} palette="accent" />
             <div class="header-identity">
                 <span class="modal-title">{modal.compose_name}</span>
                 <span class="modal-subtitle">{modal.compose_role}</span>

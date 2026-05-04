@@ -24,11 +24,12 @@
     type Size      = "sm" | "md" | "lg";
     type Elevation = "none" | "subtle" | "hard";
 
-    let demo_palette:   Palette   = $state("accent");
-    let demo_size:      Size      = $state("md");
-    let demo_elevation: Elevation = $state("none");
-    let demo_outlined:  boolean   = $state(false);
-    let demo_rounded:   boolean   = $state(false);
+    let demo_palette:    Palette   = $state("accent");
+    let demo_size:       Size      = $state("md");
+    let demo_elevation:  Elevation = $state("none");
+    let demo_outlined:   boolean   = $state(false);
+    let demo_rounded:    boolean   = $state(false);
+    let demo_show_value: boolean   = $state(true);
 
     let demo_indeterminate: boolean = $state(false);
     let demo_value_str:     string  = $state("60");
@@ -72,7 +73,10 @@
 
 <!-- Elevation -->
 <Progress value={60} elevation="subtle" />
-<Progress value={60} elevation="hard" />`;
+<Progress value={60} elevation="hard" />
+
+<!-- show_value: hide the value label (default true) -->
+<Progress value={60} show_value={false} />`;
 </script>
 
 {#snippet codeCell(value: string)}<code>{value}</code>{/snippet}
@@ -109,6 +113,11 @@
         label="Rounded"
         options={bool_opts}
         bind:value={demo_rounded}
+    />
+    <Selector
+        label="Show value"
+        options={bool_opts}
+        bind:value={demo_show_value}
     />
 
     <Selector
@@ -149,6 +158,7 @@
         elevation={demo_elevation}
         outlined={demo_outlined}
         rounded={demo_rounded}
+        show_value={demo_show_value}
     />
 </div>
 
@@ -190,6 +200,7 @@
         { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
         { prop: "outlined", type: "boolean", default: "false" },
         { prop: "rounded", type: "boolean", default: "false" },
+        { prop: "show_value", type: "boolean", default: "true" },
         { prop: "aria_label", type: "string", default: "undefined" },
     ]}
 />

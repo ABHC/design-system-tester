@@ -571,7 +571,7 @@
 <!-- BackToTop ───────────────────────────────────────────────────────────────────────────────── -->
 
 <div class="special-btn-wrapper">
-    <BackToTop palette="tone" size="sm" elevation="subtle" raised rounded/>
+    <BackToTop palette="tone" size="sm" elevation="subtle" elevation_persist rounded/>
 </div>
 
 <!-- Copy Alert ──────────────────────────────────────────────────────────────────────────────── -->

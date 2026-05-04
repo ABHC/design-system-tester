@@ -19,18 +19,19 @@
 
     // ── Demo state ──────────────────────────────────────────────────────────
 
-    type Size    = "xs" | "sm" | "md" | "lg" | "xl";
+    type Size = "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
     type Palette = "accent" | "tone";
-    type Status  = "none" | "online" | "offline" | "absent" | "do-not-disturb";
+    type Shape = "rounded" | "circular" | "square";
+    type Elevation = "none" | "subtle" | "hard";
+    type Status = "none" | "online" | "offline" | "absent" | "do-not-disturb";
     type Content = "label" | "image";
 
-    let demo_size:     Size    = $state("lg");
-    let demo_palette:  Palette = $state("accent");
-    let demo_circular: boolean = $state(true);
-    let demo_status:   Status  = $state("none");
-    let demo_content:  Content = $state("label");
-
-    const bool_opts = [{ value: true, label: "yes" }, { value: false, label: "no" }] as const;
+    let demo_size: Size = $state("lg");
+    let demo_palette: Palette = $state("accent");
+    let demo_shape: Shape = $state("circular");
+    let demo_elevation: Elevation = $state("none");
+    let demo_status: Status = $state("none");
+    let demo_content: Content = $state("label");
 
     const status_prop = $derived(demo_status === "none" ? undefined : demo_status);
 
@@ -43,46 +44,53 @@
 
     // ── Code examples ───────────────────────────────────────────────────────
 
-    const code_sizes = `<Avatar size="xs" circular label="JD" />
-<Avatar size="sm"  circular label="JD" />
-<Avatar size="md"  circular label="JD" />
-<Avatar size="lg"  circular label="JD" />
-<Avatar size="xl" circular label="JD" />`;
+    const code_sizes = `<Avatar size="xs"  shape="circular" label="JD" />
+<Avatar size="sm"  shape="circular" label="JD" />
+<Avatar size="md"  shape="circular" label="JD" />
+<Avatar size="lg"  shape="circular" label="JD" />
+<Avatar size="xl"  shape="circular" label="JD" />
+<Avatar size="2xl" shape="circular" label="JD" />`;
 
     const code_palette = `<!-- accent palette (default) or tone -->
-<Avatar size="lg" circular palette="accent" label="AC" />
-<Avatar size="lg" circular palette="tone"   label="TN" />
+<Avatar size="lg" shape="circular" palette="accent" label="AC" />
+<Avatar size="lg" shape="circular" palette="tone"   label="TN" />
 
-<!-- square (default) or circular -->
-<Avatar size="lg" label="JD" />
-<Avatar size="lg" circular label="JD" />`;
+<!-- shape: "rounded" (default), "circular" or "square" -->
+<Avatar size="lg" shape="rounded"  label="JD" />
+<Avatar size="lg" shape="circular" label="JD" />
+<Avatar size="lg" shape="square"   label="JD" />`;
+
+    const code_elevation = `<!-- elevation: "none" (default), "subtle" or "hard" -->
+<Avatar size="lg" shape="circular" elevation="none"   label="JD" />
+<Avatar size="lg" shape="circular" elevation="subtle" label="JD" />
+<Avatar size="lg" shape="circular" elevation="hard"   label="JD" />`;
 
     const code_content = `<!-- label: auto-truncated to 3 characters -->
-<Avatar size="lg" circular label="Jean-Dupont" />
+<Avatar size="lg" shape="circular" label="Jean-Dupont" />
 <!-- → renders "JEA" -->
 
 <!-- src: takes priority over label -->
 <Avatar
     size="lg"
-    circular
+    shape="circular"
     src="/avatars/jean.jpg"
     alt="Jean Dupont"
 />`;
 
-    const code_status = `<Avatar size="lg" circular label="ON"  status="online" />
-<Avatar size="lg" circular label="OF"  status="offline" />
-<Avatar size="lg" circular label="AB"  status="absent" />
-<Avatar size="lg" circular label="DND" status="do-not-disturb" />
+    const code_status = `<Avatar size="lg" shape="circular" label="ON"  status="online" />
+<Avatar size="lg" shape="circular" label="OF"  status="offline" />
+<Avatar size="lg" shape="circular" label="AB"  status="absent" />
+<Avatar size="lg" shape="circular" label="DND" status="do-not-disturb" />
 
 <!-- --dot-bg: border colour of the state dot, defaults to var(--spk-tone-bg) -->
 <div style="--dot-bg: var(--spk-tone)">
-    <Avatar size="lg" circular label="ON" status="online" />
+    <Avatar size="lg" shape="circular" label="ON" status="online" />
 </div>`;
 
     const code_onclick = `<!-- onclick → root becomes <button> -->
 <Avatar
     size="lg"
-    circular
+    shape="circular"
     label="JD"
     status="online"
     onclick={() => openStatusMenu()}
@@ -100,11 +108,12 @@
 <!-- Controls -->
 
 <ControlBar palette="tone">
-    <Selector label="Size" options={["xs", "sm", "md", "lg", "xl"]}                          bind:value={demo_size} />
-    <Selector label="Palette" options={["accent", "tone"]}                                         bind:value={demo_palette} />
-    <Selector label="Circular" options={bool_opts}                                                  bind:value={demo_circular} />
-    <Selector label="Status" options={["none", "online", "offline", "absent", "do-not-disturb"]}  bind:value={demo_status} />
-    <Selector label="Content" options={["label", "image"]}                                         bind:value={demo_content} />
+    <Selector label="Size" options={["xs", "sm", "md", "lg", "xl", "2xl"]}                       bind:value={demo_size} />
+    <Selector label="Palette" options={["accent", "tone"]}                                       bind:value={demo_palette} />
+    <Selector label="Shape" options={["square", "rounded", "circular"]}                          bind:value={demo_shape} />
+    <Selector label="Elevation" options={["none", "subtle", "hard"]}                             bind:value={demo_elevation} />
+    <Selector label="Status" options={["none", "online", "offline", "absent", "do-not-disturb"]} bind:value={demo_status} />
+    <Selector label="Content" options={["label", "image"]}                                       bind:value={demo_content} />
 </ControlBar>
 
 <!-- Live preview -->
@@ -115,7 +124,8 @@
         <Avatar
             size={demo_size}
             palette={demo_palette}
-            circular={demo_circular}
+            shape={demo_shape}
+            elevation={demo_elevation}
             status={status_prop}
             label={demo_content === "label" ? "VGE" : undefined}
             src={demo_content === "image" ? vge_avatar : undefined}
@@ -124,7 +134,8 @@
         <Avatar
             size={demo_size}
             palette={demo_palette}
-            circular={demo_circular}
+            shape={demo_shape}
+            elevation={demo_elevation}
             status={status_prop}
             label={demo_content === "label" ? "JCH" : undefined}
             src={demo_content === "image" ? jc_avatar : undefined}
@@ -133,7 +144,8 @@
         <Avatar
             size={demo_size}
             palette={demo_palette}
-            circular={demo_circular}
+            shape={demo_shape}
+            elevation={demo_elevation}
             status={status_prop}
             label="PM"
         />
@@ -149,19 +161,19 @@
 <p class="demo-label">{@html trans?.avatar_demo.sect_status}</p>
 <div class="row align-center">
     <div class="status-item">
-        <Avatar size="lg" circular label="ON" status="online" />
+        <Avatar size="lg" shape="circular" label="ON" status="online" />
         <span class="status-label">{trans?.avatar_demo.status_online}</span>
     </div>
     <div class="status-item">
-        <Avatar size="lg" circular label="OF" status="offline" />
+        <Avatar size="lg" shape="circular" label="OF" status="offline" />
         <span class="status-label">{trans?.avatar_demo.status_offline}</span>
     </div>
     <div class="status-item">
-        <Avatar size="lg" circular label="AB" status="absent" />
+        <Avatar size="lg" shape="circular" label="AB" status="absent" />
         <span class="status-label">{trans?.avatar_demo.status_absent}</span>
     </div>
     <div class="status-item">
-        <Avatar size="lg" circular label="DND" status="do-not-disturb" />
+        <Avatar size="lg" shape="circular" label="DND" status="do-not-disturb" />
         <span class="status-label">{trans?.avatar_demo.status_dnd}</span>
     </div>
 </div>
@@ -174,16 +186,18 @@
 
 <p class="demo-label">{@html trans?.avatar_demo.sect_interactive}</p>
 <div class="row align-center">
-    <Avatar 
-        size="lg" 
-        circular label="JC" 
-        onclick={() => click_count++} 
+    <Avatar
+        size="lg"
+        shape="circular"
+        label="JC"
+        onclick={() => click_count++}
     />
-    <Avatar 
-        size="lg" 
-        circular label="JR" 
-        status="online" 
-        onclick={() => click_count++} 
+    <Avatar
+        size="lg"
+        shape="circular"
+        label="JR"
+        status="online"
+        onclick={() => click_count++}
     />
     
     {#if click_count > 0}
@@ -202,10 +216,11 @@
     variant="tabbed"
     copyable
     tabs={[
-        { label: "Sizes", code: code_sizes,   language: "Svelte" },
+        { label: "Sizes", code: code_sizes, language: "Svelte" },
         { label: "Palette & Shape", code: code_palette, language: "Svelte" },
+        { label: "Elevation", code: code_elevation, language: "Svelte" },
         { label: "label vs src", code: code_content, language: "Svelte" },
-        { label: "Status", code: code_status,  language: "Svelte" },
+        { label: "Status", code: code_status, language: "Svelte" },
         { label: "onclick", code: code_onclick, language: "Svelte" },
     ]}
 />
@@ -222,10 +237,11 @@
         { key: "default", label: "Default", cell: codeCell, width: "10%" },
     ]}
     rows={[
-        { prop: "size", type: '"xs" | "sm" | "md" | "lg" | "xl"', default: '"md"' },
+        { prop: "size", type: '"xs" | "sm" | "md" | "lg" | "xl" | "2xl"', default: '"md"' },
         { prop: "status", type: '"online" | "offline" | "absent" | "do-not-disturb"', default: "undefined" },
         { prop: "palette", type: '"accent" | "tone"', default: '"accent"' },
-        { prop: "circular", type: "boolean", default: "false" },
+        { prop: "shape", type: '"rounded" | "circular" | "square"', default: '"rounded"' },
+        { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
         { prop: "src", type: "string", default: "undefined" },
         { prop: "alt", type: "string", default: '""' },
         { prop: "label", type: "string", default: "undefined" },

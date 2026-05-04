@@ -117,7 +117,7 @@
 
 {#snippet drawer_footer()}
     <div style="display:flex; align-items:center; gap:.6rem; width:100%">
-        <Avatar size="sm" circular label="AB" status="online" \/>
+        <Avatar size="sm" shape="circular" label="AB" status="online" \/>
         <span style="font-weight:600; font-size:.8rem">Alice B.<\/span>
     <\/div>
 {/snippet}
@@ -241,7 +241,7 @@
             <div class="demo-drawer-foot">
                 <Avatar
                     palette={demo_palette === "accent" ? "tone" : "accent"}
-                    size="sm" circular label="AB" status="online"
+                    size="sm" shape="circular" label="AB" status="online"
                 />
                 <span class="demo-user-name">Alice B.</span>
             </div>
