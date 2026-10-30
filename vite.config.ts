@@ -1,9 +1,18 @@
+import adapter from '@sveltejs/adapter-node';
 import { defineConfig } from 'vitest/config';
-import { playwright } from '@vitest/browser-playwright';
 import { sveltekit } from '@sveltejs/kit/vite';
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+import { playwright } from '@vitest/browser-playwright';
 
 export default defineConfig({
-	plugins: [sveltekit()],
+	plugins: [
+		sveltekit({
+			preprocess: vitePreprocess(),
+			// kit 3 removed `$lib` in favor of `#lib`; keep the old alias to avoid rewriting every import
+			alias: { $lib: 'src/lib' },
+			adapter: adapter()
+		})
+	],
 	test: {
 		expect: { requireAssertions: true },
 		projects: [
@@ -14,10 +23,11 @@ export default defineConfig({
 					browser: {
 						enabled: true,
 						provider: playwright(),
-						instances: [{ browser: 'chromium', headless: true }]
+						instances: [{ browser: 'chromium' }]
 					},
 					include: ['src/**/*.svelte.{test,spec}.{js,ts}'],
-					exclude: ['src/lib/server/**']
+					exclude: ['src/lib/server/**'],
+					setupFiles: ['./vitest-setup-client.ts']
 				}
 			},
 			{
