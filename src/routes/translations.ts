@@ -189,6 +189,7 @@ export const translations = {
         },
         badge_demo: {
             title: "Badge",
+            leading: "Leading icon — icône décorative avant le texte — ",
             trailing: "Trailing icon — Utile pour créer des filtres — ",
             link: "Lien intégré au badge — ",
             multiple: "BadgeGroup — sélection multiple ou unique",
@@ -585,6 +586,7 @@ export const translations = {
         },
         badge_demo: {
             title: "Badge",
+            leading: "Leading icon — decorative icon before the text — ",
             trailing: "Trailing icon — Useful for create filters — ",
             link: "Integrated links to the badge — ",
             multiple: "BadgeGroup — multiple or single selection",

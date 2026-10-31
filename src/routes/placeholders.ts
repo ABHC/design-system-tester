@@ -1,6 +1,7 @@
 export const placeholders = {
     fr: {
         badges: {
+            text: "Texte",
             accent: "Accent",
             tone: "Ton",
             delete: "Supprimer",
@@ -20,6 +21,7 @@ export const placeholders = {
             filter_remove: "Retirer",
             all_removed: "Tous retirés",
             click: "click",
+            palette: "Palette",
         },
         buttons: {
             large: "grand",
@@ -646,6 +648,7 @@ export const placeholders = {
             filter_remove: "Remove",
             all_removed: "All removed",
             click: "click",
+            palette: "Palette",
         },
         buttons: {
             large: "large",

@@ -26,14 +26,15 @@
     // ── Demo state ──────────────────────────────────────────────────────────
 
     type Variant = "flat" | "outlined";
-    type Palette = "accent" | "tone" | "error" | "warning" | "success" | "info";
+    type BtnPalette = "accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info";
     type Size = "sm" | "md" | "lg";
     type Elevation = "none" | "subtle" | "hard";
     type Bg = "bg" | "card" | "accent";
 
     let demo_variant: Variant = $state("flat");
+    let demo_palette: BtnPalette = $state("accent");
     let demo_size: Size = $state("md");
-    let demo_pill: boolean = $state(true);
+    let demo_pill: boolean = $state(false);
     let demo_uppercase: boolean = $state(false);
     let demo_elevation: Elevation = $state("none");
     let demo_interactive: boolean = $state(false);
@@ -78,11 +79,24 @@
 <Badge variant="outlined" palette="tone">tone</Badge>
 <Badge variant="outlined" palette="error">error</Badge>`;
 
-    const code_shape = `<!-- pill (default) = border-radius: 20px -->
-<Badge>pill</Badge>
+    const code_shape = `<!-- pill (default) = border-radius: 4px -->
+<Badge>rect</Badge>
 
-<!-- pill={false} = border-radius: 4px -->
-<Badge pill={false}>rect</Badge>`;
+<!-- pill={true} = border-radius: 20px -->
+<Badge pill={true}>pill</Badge>`;
+
+    const code_leading = `<!-- Icon Snippet -->
+{#snippet icon_check()}
+    <span class="material-symbols-outlined">check</span>
+{/snippet}
+
+<!-- Decorative leading icon -->
+<Badge palette="success" leading={icon_check}>Validated</Badge>
+
+<!-- Combined with trailing -->
+<Badge palette="warning" leading={icon_schedule} trailing={icon_close}>
+    Pending
+</Badge>`;
 
     const code_trailing = `<!-- Icons Snippets -->
 {#snippet icon_close()}
@@ -164,20 +178,12 @@
     <span class="material-symbols-outlined">open_in_new</span>
 {/snippet}
 
-{#snippet icon_arrow_forward()}
-    <span class="material-symbols-outlined">arrow_forward</span>
-{/snippet}
-
 {#snippet icon_check()}
     <span class="material-symbols-outlined">check</span>
 {/snippet}
 
 {#snippet icon_schedule()}
     <span class="material-symbols-outlined">schedule</span>
-{/snippet}
-
-{#snippet icon_add()}
-    <span class="material-symbols-outlined">add</span>
 {/snippet}
 
 <!-- ── Markup ─────────────────────────────────────────────────────────────── -->
@@ -193,6 +199,11 @@
         label="Variant" 
         options={["flat", "outlined"]} 
         bind:value={demo_variant} 
+    />
+        <Selector
+        label={placeholders?.badges?.palette}
+        options={["accent", "tone", "neutral", "error", "warning", "success", "info"] as const}
+        bind:value={demo_palette}
     />
     <Selector 
         label="Size" 
@@ -228,175 +239,32 @@
 
 <!-- Live preview -->
 
-<div 
+<div
     class="badge-preview"
     style="background: var(--{demo_bg});"
 >
-    <!-- Flat / Outlined -->
-    {#if demo_interactive}
-        <div class="badge-group">
-            <Badge
-                variant={demo_variant}
-                palette="accent"
-                size={demo_size}
-                pill={demo_pill}
-                uppercase={demo_uppercase}
-                elevation={demo_elevation}
-                onclick={() => click_count++}
-            >
-                {demo.click_me}
-            </Badge>
-            <Badge
-                variant={demo_variant}
-                palette="tone"
-                size={demo_size}
-                pill={demo_pill}
-                uppercase={demo_uppercase}
-                elevation={demo_elevation}
-                trailing={icon_add}
-                onclick={() => click_count++}
-            >
-                {demo.add}
-            </Badge>
-            <Badge
-                variant={demo_variant}
-                palette="error"
-                size={demo_size}
-                pill={demo_pill}
-                uppercase={demo_uppercase}
-                elevation={demo_elevation}
-                trailing={icon_close}
-                onclick={() => click_count++}
-            >
-                {demo.filter_remove}
-            </Badge>
-            <Badge
-                variant={demo_variant}
-                palette="warning"
-                size={demo_size}
-                pill={demo_pill}
-                uppercase={demo_uppercase}
-                elevation={demo_elevation}
-                trailing={icon_schedule}
-                onclick={() => click_count++}
-            >
-                {demo.pending}
-            </Badge>
-            <Badge
-                variant={demo_variant}
-                palette="success"
-                size={demo_size}
-                pill={demo_pill}
-                uppercase={demo_uppercase}
-                elevation={demo_elevation}
-                trailing={icon_check}
-                onclick={() => click_count++}
-            >
-                {demo.confirm}
-            </Badge>
-            <Badge
-                variant={demo_variant}
-                palette="info"
-                size={demo_size}
-                pill={demo_pill}
-                uppercase={demo_uppercase}
-                elevation={demo_elevation}
-                trailing={icon_arrow_forward}
-                onclick={() => click_count++}
-            >
-                {demo.see_more}
-            </Badge>
-            <Badge
-                variant={demo_variant}
-                palette="neutral"
-                size={demo_size}
-                pill={demo_pill}
-                uppercase={demo_uppercase}
-                elevation={demo_elevation}
-                onclick={() => click_count++}
-            >
-                {demo.see_map}
-            </Badge>
-        </div>
-    {:else}
-        <div class="badge-group">
-            <Badge
-                variant={demo_variant}
-                palette="accent"
-                size={demo_size}
-                pill={demo_pill}
-                uppercase={demo_uppercase}
-                elevation={demo_elevation}
-            >
-                {demo.accent}
-            </Badge>
-            <Badge
-                variant={demo_variant}
-                palette="tone"
-                size={demo_size}
-                pill={demo_pill}
-                uppercase={demo_uppercase}
-                elevation={demo_elevation}
-            >
-                {demo.tone}
-            </Badge>
-            <Badge
-                variant={demo_variant}
-                palette="error"
-                size={demo_size}
-                pill={demo_pill}
-                uppercase={demo_uppercase}
-                elevation={demo_elevation}
-                trailing={icon_arrow_forward}
-            >
-                {demo.delete}
-            </Badge>
-            <Badge
-                variant={demo_variant}
-                palette="warning"
-                size={demo_size}
-                pill={demo_pill}
-                uppercase={demo_uppercase}
-                elevation={demo_elevation}
-            >
-                {demo.warning}
-            </Badge>
-            <Badge
-                variant={demo_variant}
-                palette="success"
-                size={demo_size}
-                pill={demo_pill}
-                uppercase={demo_uppercase}
-                elevation={demo_elevation}
-                trailing={icon_check}
-            >
-                {demo.validated}
-            </Badge>
-            <Badge
-                variant={demo_variant}
-                palette="info"
-                size={demo_size}
-                pill={demo_pill}
-                uppercase={demo_uppercase}
-                elevation={demo_elevation}
-            >
-                {demo.info}
-            </Badge>
-            <Badge
-                variant={demo_variant}
-                palette="neutral"
-                size={demo_size}
-                pill={demo_pill}
-                uppercase={demo_uppercase}
-                elevation={demo_elevation}
-            >
-                {demo.location}
-            </Badge>
-        </div>
-    {/if}
+    <Badge
+        variant={demo_variant}
+        palette={demo_palette}
+        size={demo_size}
+        pill={demo_pill}
+        uppercase={demo_uppercase}
+        elevation={demo_elevation}
+        onclick={demo_interactive ? () => click_count++ : undefined}
+    >
+        {demo.text}
+    </Badge>
     {#if click_count > 0}
         <span class="click-result">{click_count} {demo.click}{click_count > 1 ? 's' : ''}</span>
     {/if}
+</div>
+
+<!-- Leading icon -->
+
+<p class="demo-label">{trans?.badge_demo.leading} <code>leading</code></p>
+<div class="row">
+    <Badge palette="success" leading={icon_check}>{demo.validated}</Badge>
+    <Badge palette="warning" leading={icon_schedule}>{demo.pending}</Badge>
 </div>
 
 <!-- Trailing icon — dismissable filters -->
@@ -475,6 +343,7 @@
     tabs={[
         { label: "Variants", code: code_variants, language: "Svelte" },
         { label: "Shape", code: code_shape, language: "Svelte" },
+        { label: "Leading", code: code_leading, language: "Svelte" },
         { label: "Trailing", code: code_trailing, language: "Svelte" },
         { label: "Interactive", code: code_interactive, language: "Svelte" },
         { label: "BadgeGroup",  code: code_group, language: "Svelte" },
@@ -511,10 +380,11 @@
         { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"' },
         { prop: "uppercase", type: "boolean", default: "false" },
         { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
-        { prop: "pill", type: "boolean", default: "true" },
+        { prop: "pill", type: "boolean", default: "false" },
         { prop: "href", type: "string", default: "undefined" },
         { prop: "onclick", type: "() => void", default: "undefined" },
         { prop: "selected", type: "boolean", default: "false" },
+        { prop: "leading", type: "Snippet", default: "undefined" },
         { prop: "trailing", type: "Snippet", default: "undefined" },
         { prop: "on_trailing_click", type: "() => void", default: "undefined" },
         { prop: "trailing_label", type: "string", default: "undefined" },
@@ -538,7 +408,7 @@
         { prop: "palette", type: '"accent" | "tone" | "error" | "warning" | "success" | "info" | "neutral"', default: '"accent"' },
         { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"' },
         { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
-        { prop: "pill", type: "boolean", default: "true" },
+        { prop: "pill", type: "boolean", default: "false" },
         { prop: "gap", type: "string", default: '"0.5rem"' },
     ]}
 />
@@ -554,13 +424,6 @@
         display: flex;
         flex-wrap: wrap;
         gap: 1.5rem;
-        align-items: center;
-    }
-
-    .badge-group {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.75rem;
         align-items: center;
     }
 
