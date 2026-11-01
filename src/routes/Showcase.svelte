@@ -2,22 +2,22 @@
     import { onMount, onDestroy } from "svelte";
     import { fade } from "svelte/transition";
     import { responsive } from "./store";
-    import type { Tile } from '@abhc/spektral-ui';
-    import { 
-        Avatar, 
-        Accordion, 
-        AccordionHeader, 
-        Badge, 
-        Button, 
-        Callout, 
-        Card, 
-        ListItem, 
-        Progress, 
-        Slider, 
-        Switch, 
-        TileGrid, 
-        Timeline, 
-        TimelineItem 
+    import {
+        Avatar,
+        Accordion,
+        AccordionHeader,
+        Badge,
+        Button,
+        Callout,
+        Card,
+        ListItem,
+        Progress,
+        Slider,
+        Switch,
+        TileGrid,
+        Tile,
+        Timeline,
+        TimelineItem
     } from "@abhc/spektral-ui";
 
     //  imer ─────────────────────────────────────────────────────────────────
@@ -54,31 +54,11 @@
 
     // Slide 1 — TileGrid ────────────────────────────────────────────────────
 
-    const tiles: Tile[] = [
-        { 
-            name: "TGV",  
-            display: true, 
-            media: [{ src: "/assets/tgv.jpeg", type: "image" }], 
-            abstract: { en: "" } 
-        },
-        { 
-            name: "Ariane",   
-            display: true, 
-            media: [{ src: "/assets/ariane3.jpeg", type: "image" }], 
-            abstract: { en: "" } 
-        },
-        { 
-            name: "Concorde",   
-            display: true, 
-            media: [{ src: "/assets/concorde.jpeg", type: "image" }], 
-            abstract: { en: "" } 
-        },
-        { 
-            name: "Minitel", 
-            display: true, 
-            media: [{ src: "/assets/minitel.jpeg", type: "image" }], 
-            abstract: { en: "" } 
-        },
+    const tiles = [
+        { name: "TGV", src: "/assets/tgv.jpeg" },
+        { name: "Ariane", src: "/assets/ariane3.jpeg" },
+        { name: "Concorde", src: "/assets/concorde.jpeg" },
+        { name: "Minitel", src: "/assets/minitel.jpeg" },
     ];
 
     // Slide 3 — Settings switches ───────────────────────────────────────────
@@ -154,14 +134,11 @@
                     >
                         {#snippet children()}
                             <div class="cs-tilegrid">
-                                <TileGrid
-                                    {tiles}
-                                    image_mode="image"
-                                    columns={2}
-                                    gap="0.5rem"
-                                    show_hero_badge={false}
-                                    excerpt_length={36}
-                                />
+                                <TileGrid image="background" columns={2} gap="0.5rem">
+                                    {#each tiles as t}
+                                        <Tile name={t.name} src={t.src} />
+                                    {/each}
+                                </TileGrid>
                             </div>
                         {/snippet}
                     </Card>

@@ -108,9 +108,9 @@ export const docs: DocEntry[] = [
     },
     {
         slug: "tilegrid",
-        label: "TileGrid",
+        label: "TileGrid & Tile",
         category: "layout",
-        component: TileGridDemo, get_label: (t) => t?.tile_grid_demo.title ?? "TileGrid"
+        component: TileGridDemo, get_label: (t) => t?.tile_grid_demo.title ?? "TileGrid & Tile"
     },
     {
         slug: "explorer",

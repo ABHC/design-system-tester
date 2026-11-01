@@ -2,32 +2,39 @@
     import type { PatternPreset } from "@abhc/spektral-ui";
     import type { Translation } from "$lib/types/translations";
     import type { PlaceholdersType } from "../placeholders";
-    
-    import type { 
-        Tile, 
-        TileMedia, 
-        Columns, 
-        HeroSpan, 
-        ImageMode, 
-        ImagePosition, 
-        TileGridElevation, 
-        TileGridEffect, 
-        TileGridMask, 
-        TileGridMaskDirection 
+
+    import type {
+        Columns,
+        HeroSpan,
+        TileImageDisplay,
+        ImagePosition,
+        TileVariant,
+        TilePalette,
+        TileGridElevation,
+        TileGridEffect,
+        TileGridMask,
+        TileGridMaskDirection,
+        TileAspectRatio
     } from '@abhc/spektral-ui';
-    
-    import { 
-        Headline, 
-        CodeBlock, 
-        DataTable, 
-        TileGrid, 
-        Callout, 
-        Selector, 
-        ControlBar, 
-        Slider 
+
+    import {
+        Headline,
+        CodeBlock,
+        DataTable,
+        TileGrid,
+        Tile,
+        Badge,
+        Avatar,
+        Progress,
+        Callout,
+        Accordion,
+        AccordionHeader,
+        Selector,
+        ControlBar,
+        Slider
     } from "@abhc/spektral-ui";
 
-    // -- Props 
+    // -- Props
 
     interface Props {
         trans: Translation | null;
@@ -37,14 +44,18 @@
     let { trans, placeholders }: Props = $props();
 
     // -- Demo state
-    let demo_mode: ImageMode = $state("image");
+    // "none" is a demo-only value: tiles are rendered without `src`, so they always
+    // fall back to a plain flat/outlined card regardless of the `image` prop.
+    let demo_image: TileImageDisplay | "none" = $state("background");
+    let demo_variant: TileVariant = $state("flat");
+    let demo_palette: TilePalette = $state("tone");
     let demo_position: ImagePosition = $state("center");
     let demo_columns: Columns = $state(3);
     let demo_hero_span: HeroSpan = $state("half");
-    let demo_hero_badge: boolean = $state(true);
     let demo_rounded: boolean = $state(false);
     let demo_elevation: TileGridElevation = $state("none");
     let demo_raised: boolean = $state(false);
+    let demo_aspect_ratio: TileAspectRatio = $state("4/3");
     let demo_pattern: PatternPreset = $state("none");
     let demo_pattern_color: string = $state("white");
     let demo_pattern_size: string = $state("auto");
@@ -58,7 +69,6 @@
     const bg_positions = ["center", "top", "bottom"] as const;
     const deco_positions = ["top-right", "top-left", "top-center", "right", "left"] as const;
     const bool_opts = [{ value: true, label: "true" }, { value: false, label: "false" }] as const;
-    const pattern_colors = ["white", "black", "accent"];
     const color_opts = [
         { value: "white", label: "white" },
         { value: "black", label: "black" },
@@ -67,25 +77,35 @@
         { value: "#2c7a7b", label: "teal" },
     ] as const;
     const pattern_presets: PatternPreset[] = [
-        "none", 
+        "none",
         "grid",
         "sunburst",
         "scallops",
-        "waves",   
-        "sunrise", 
-        "atoms", 
-        "lozenge",  
-        "diamonds", 
-        "shippo", 
+        "waves",
+        "sunrise",
+        "atoms",
+        "lozenge",
+        "diamonds",
+        "shippo",
         "kumi_kikko"
     ];
 
-    function set_mode(m: ImageMode) {
-        demo_mode = m;
-        demo_position = m === "mockup" ? "top-right" : "center";
+    function set_image(m: TileImageDisplay | "none") {
+        demo_image = m;
+        demo_position = m === "preview" ? "top-right" : "center";
     }
 
-    // Demo tiles — no id (non-clickable), built from placeholders.grid
+    // Demo tiles — plain data, no href (non-clickable), built from placeholders.grid
+
+    interface DemoTile {
+        name: string;
+        origin: string;
+        years: string;
+        abstract: string;
+        label: string;
+        hero: boolean;
+        src: string;
+    }
 
     const tile_media = [
         "/assets/tgv.jpeg",
@@ -100,289 +120,173 @@
         "/assets/cogip2.png",
     ];
 
-    const tiles: Tile[] = $derived([
-        {
-            ...placeholders.grid.tgv,
-            display: true,
-            hero: true,
-            hero_text: { en: placeholders.grid.hero_text },
-            hero_icon: "star",
-            media: [{ src: tile_media[0], type: "image" }],
-            abstract: { en: placeholders.grid.tgv.abstract },
-        },
-        {
-            ...placeholders.grid.concord,
-            display: true,
-            hero: false,
-            media: [{ src: tile_media[1], type: "image" }],
-            abstract: { en: placeholders.grid.concord.abstract },
-        },
-        {
-            ...placeholders.grid.minitel,
-            display: true,
-            hero: false,
-            media: [{ src: tile_media[2], type: "image" }],
-            abstract: { en: placeholders.grid.minitel.abstract },
-        },
-        {
-            ...placeholders.grid.ariane,
-            display: true,
-            hero: false,
-            media: [{ src: tile_media[3], type: "image" }],
-            abstract: { en: placeholders.grid.ariane.abstract },
-        },
-        {
-            ...placeholders.grid.renault,
-            display: true,
-            hero: false,
-            media: [{ src: tile_media[4], type: "image" }],
-            abstract: { en: placeholders.grid.renault.abstract },
-        },
+    const tiles: DemoTile[] = $derived([
+        { ...placeholders.grid.tgv, hero: true, src: tile_media[0] },
+        { ...placeholders.grid.concord, hero: false, src: tile_media[1] },
+        { ...placeholders.grid.minitel, hero: false, src: tile_media[2] },
+        { ...placeholders.grid.ariane, hero: false, src: tile_media[3] },
+        { ...placeholders.grid.renault, hero: false, src: tile_media[4] },
     ]);
 
-    const tiles_mockup: Tile[] = $derived([
-        {
-            ...placeholders.grid.taaf,
-            display: true,
-            hero: true,
-            hero_text: { en: placeholders.grid.hero_text },
-            hero_icon: "star",
-            media: [{ src: tile_media[5], type: "image" }] as TileMedia[],
-            abstract: { en: placeholders.grid.taaf.abstract },
-        },
-        {
-            ...placeholders.grid.haymatch,
-            display: true,
-            hero: false,
-            media: [{ src: tile_media[6], type: "image" }] as TileMedia[],
-            abstract: { en: placeholders.grid.haymatch.abstract },
-        },
-        {
-            ...placeholders.grid.fonk,
-            display: true,
-            hero: false,
-            media: [{ src: tile_media[7], type: "image" }] as TileMedia[],
-            abstract: { en: placeholders.grid.fonk.abstract },
-        },
-        {
-            ...placeholders.grid.brutalist,
-            display: true,
-            hero: false,
-            media: [{ src: tile_media[8], type: "image" }] as TileMedia[],
-            abstract: { en: placeholders.grid.brutalist.abstract },
-        },
-        {
-            ...placeholders.grid.cogip,
-            display: true,
-            hero: false,
-            media: [{ src: tile_media[9], type: "image" }] as TileMedia[],
-            abstract: { en: placeholders.grid.cogip.abstract },
-        },
+    const tiles_mockup: DemoTile[] = $derived([
+        { ...placeholders.grid.taaf, hero: true, src: tile_media[5] },
+        { ...placeholders.grid.haymatch, hero: false, src: tile_media[6] },
+        { ...placeholders.grid.fonk, hero: false, src: tile_media[7] },
+        { ...placeholders.grid.brutalist, hero: false, src: tile_media[8] },
+        { ...placeholders.grid.cogip, hero: false, src: tile_media[9] },
     ]);
 
-    // Code examples — with id
+    // Code examples — with href
 
-    const code_background = `<TileGrid
-    tiles={[
-        {
-            id: "atlas",
-            name: "Atlas",
-            origin: "Personal",
-            years: "2023–24",
-            display: true,
-            hero: true,
-            hero_text: { fr: "En vedette", en: "Featured" },
-            hero_icon: "star",
-            media:     [{ src: "/images/atlas.jpg", type: "image" }],
-            abstract:  { en: "Hardware design system for embedded devices" },
-        },
-        {
-            id: "meridian",
-            name: "Meridian",
-            origin: "Client",
-            years: "2024",
-            display: true,
-            hero: false,
-            media: [{ src: "/images/meridian.jpg", type: "image" }],
-            abstract: { en: "Industrial supervision platform" },
-        },
-        {
-            id: "capsule",
-            name: "Capsule",
-            origin: "Open Source",
-            display: true,
-            hero: false,
-            media: [{ src: "/images/capsule.jpg", type: "image" }],
-            abstract: { en: "Modular enclosure for prototyping boards" },
-        },
-    ]}
-    locale="en"
-    image_mode="image"
-    image_position="center"
-    columns={3}
-    hero_span="half"
-    show_hero_badge={true}
-    href_base="/projects"
-/>`;
+    const code_background = `<TileGrid columns={3} hero_span="half">
+    <Tile
+        hero
+        name="Atlas"
+        href="/projects/atlas"
+        src="/images/atlas.jpg"
+        abstract="Hardware design system for embedded devices"
+    >
+        {#snippet corner()}
+            <Badge palette="accent" size="sm" elevation="subtle" uppercase>
+                <span class="material-symbols-outlined" aria-hidden="true">star</span>
+                Featured
+            </Badge>
+        {/snippet}
+        {#snippet meta()}
+            <Badge palette="accent" size="sm" elevation="hard" uppercase>Personal</Badge>
+            <Badge palette="neutral" size="sm" elevation="hard" uppercase>2023–24</Badge>
+        {/snippet}
+    </Tile>
+    <Tile
+        name="Meridian"
+        href="/projects/meridian"
+        src="/images/meridian.jpg"
+        abstract="Industrial supervision platform"
+    >
+        {#snippet meta()}
+            <Badge palette="accent" size="sm" elevation="hard" uppercase>Client</Badge>
+            <Badge palette="neutral" size="sm" elevation="hard" uppercase>2024</Badge>
+        {/snippet}
+    </Tile>
+    <Tile
+        name="Capsule"
+        href="/projects/capsule"
+        src="/images/capsule.jpg"
+        abstract="Modular enclosure for prototyping boards"
+    >
+        {#snippet meta()}
+            <Badge palette="accent" size="sm" elevation="hard" uppercase>Open Source</Badge>
+        {/snippet}
+    </Tile>
+</TileGrid>`;
 
-    const code_flat = `<TileGrid
-    tiles={[
-        {
-            id: "core-api",
-            name: "Core API",
-            origin: "Personal",
-            years: "2024",
-            display: true,
-            hero: true,
-            hero_text: { en: "Featured" },
-            media: [],
-            abstract: { en: "Modular REST API built on FastAPI and Docker" },
-        },
-        {
-            id: "dashboard",
-            name: "Dashboard",
-            origin: "Client",
-            display: true,
-            hero: false,
-            media: [],
-            abstract: { en: "Admin interface for an IoT sensor fleet" },
-        },
-        {
-            id: "cli-toolkit",
-            name: "CLI Toolkit",
-            origin: "Open Source",
-            display: true,
-            hero: false,
-            media: [],
-            abstract: { en: "CLI toolkit for Linux task automation" },
-        },
-    ]}
-    locale="en"
-    image_mode="flat"
-    columns={3}
-    hero_span="half"
-    show_hero_badge={true}
-    href_base="/projects"
-/>`;
+    const code_flat = `<TileGrid variant="flat" columns={3} hero_span="half">
+    <Tile
+        hero
+        name="Core API"
+        href="/projects/core-api"
+        abstract="Modular REST API built on FastAPI and Docker"
+    >
+        {#snippet corner()}
+            <Badge palette="accent" size="sm" elevation="subtle" uppercase>Featured</Badge>
+        {/snippet}
+        {#snippet meta()}
+            <Badge palette="accent" size="sm" elevation="hard" uppercase>Personal</Badge>
+            <Badge palette="neutral" size="sm" elevation="hard" uppercase>2024</Badge>
+        {/snippet}
+    </Tile>
+    <Tile
+        name="Dashboard"
+        href="/projects/dashboard"
+        abstract="Admin interface for an IoT sensor fleet"
+    >
+        {#snippet meta()}
+            <Badge palette="accent" size="sm" elevation="hard" uppercase>Client</Badge>
+        {/snippet}
+    </Tile>
+    <Tile
+        name="CLI Toolkit"
+        href="/projects/cli-toolkit"
+        abstract="CLI toolkit for Linux task automation"
+    >
+        {#snippet meta()}
+            <Badge palette="accent" size="sm" elevation="hard" uppercase>Open Source</Badge>
+        {/snippet}
+    </Tile>
+</TileGrid>`;
 
-    const code_decorative = `<TileGrid
-    tiles={[
-        {
-            id: "capsule",
-            name: "Capsule",
-            origin: "Open Source",
-            display: true,
-            media:   [{ src: "/images/capsule.png", type: "image" }],
-            abstract: { en: "Modular enclosure for prototyping boards" },
-        },
-        {
-            id: "stratum",
-            name: "Stratum",
-            origin:  "Personal",
-            display: true,
-            media: [{ src: "/images/stratum.png", type: "image" }],
-            abstract: { en: "Configuration interface for sensor networks" },
-        },
-        {
-            id: "lichen",
-            name: "Lichen",
-            origin: "Client",
-            display: true,
-            media:   [{ src: "/images/lichen.png", type: "image" }],
-            abstract: { en: "Low-power environmental monitoring system" },
-        },
-    ]}
-    locale="en"
-    image_mode="mockup"
-    image_position="top-right"
-    image_size="55%"
-    columns={3}
-    href_base="/projects"
-/>`;
+    const code_decorative = `<TileGrid image="preview" image_position="top-right" image_size="55%" columns={3}>
+    <Tile
+        name="Capsule"
+        href="/projects/capsule"
+        src="/images/capsule.png"
+        abstract="Modular enclosure for prototyping boards"
+    >
+        {#snippet meta()}
+            <Badge palette="accent" size="sm" elevation="hard" uppercase>Open Source</Badge>
+        {/snippet}
+    </Tile>
+    <Tile
+        name="Stratum"
+        href="/projects/stratum"
+        src="/images/stratum.png"
+        abstract="Configuration interface for sensor networks"
+    >
+        {#snippet meta()}
+            <Badge palette="accent" size="sm" elevation="hard" uppercase>Personal</Badge>
+        {/snippet}
+    </Tile>
+    <Tile
+        name="Lichen"
+        href="/projects/lichen"
+        src="/images/lichen.png"
+        abstract="Low-power environmental monitoring system"
+    >
+        {#snippet meta()}
+            <Badge palette="accent" size="sm" elevation="hard" uppercase>Client</Badge>
+        {/snippet}
+    </Tile>
+</TileGrid>`;
 
-    const code_pattern = `<!-- pattern on flat tiles — works with image_mode="flat" or "mockup" -->
+    const code_pattern = `<!-- pattern on flat/outlined tiles — hidden behind image="background" -->
 <TileGrid
-    tiles={[
-        {
-            id: "core-api",
-            name: "Core API",
-            origin: "Personal",
-            years: "2024",
-            display: true,
-            hero: true,
-            hero_text: { en: "Featured" },
-            media: [],
-            abstract: { en: "Modular REST API built on FastAPI and Docker" },
-        },
-        {
-            id: "dashboard",
-            name: "Dashboard",
-            origin: "Client",
-            display: true,
-            hero: false,
-            media: [],
-            abstract: { en: "Admin interface for an IoT sensor fleet" },
-        },
-        {
-            id: "cli-toolkit",
-            name: "CLI Toolkit",
-            origin: "Open Source",
-            display: true,
-            hero: false,
-            media: [],
-            abstract: { en: "CLI toolkit for Linux task automation" },
-        },
-    ]}
-    locale="en"
-    image_mode="flat"
+    variant="flat"
     columns={3}
     hero_span="half"
     pattern="scallops"
     pattern_color="white"
     pattern_opacity={0.4}
-    href_base="/projects"
-/>`;
+>
+    <Tile hero name="Core API" href="/projects/core-api" abstract="Modular REST API built on FastAPI and Docker">
+        {#snippet corner()}
+            <Badge palette="accent" size="sm" elevation="subtle" uppercase>Featured</Badge>
+        {/snippet}
+    </Tile>
+    <Tile name="Dashboard" href="/projects/dashboard" abstract="Admin interface for an IoT sensor fleet" />
+    <Tile name="CLI Toolkit" href="/projects/cli-toolkit" abstract="CLI toolkit for Linux task automation">
+        {#snippet meta()}
+            <!-- a single tile can override the grid's pattern -->
+            <Badge palette="accent" size="sm" elevation="hard" uppercase>Open Source</Badge>
+        {/snippet}
+    </Tile>
+</TileGrid>`;
 
     const code_hero_full = `<!-- hero_span="full" — the hero tile spans the full grid width -->
-<TileGrid
-    tiles={[
-        {
-            id: "atlas",
-            name: "Atlas",
-            origin: "Personal",
-            years: "2023–24",
-            display: true,
-            hero: true,
-            hero_text: { fr: "En vedette", en: "Featured" },
-            hero_icon: "star",
-            media:     [{ src: "/images/atlas.jpg", type: "image" }],
-            abstract:  { en: "Hardware design system for embedded devices" },
-        },
-        {
-            id: "meridian",
-            name: "Meridian",
-            display: true,
-            hero: false,
-            media: [{ src: "/images/meridian.jpg", type: "image" }],
-            abstract: { en: "Industrial supervision platform" },
-        },
-        {
-            id: "capsule",
-            name: "Capsule",
-            display: true,
-            hero: false,
-            media: [{ src: "/images/capsule.jpg", type: "image" }],
-            abstract: { en: "Modular enclosure for prototyping boards" },
-        },
-    ]}
-    locale="en"
-    image_mode="image"
-    image_position="center"
-    columns={3}
-    hero_span="full"
-    show_hero_badge={true}
-    href_base="/projects"
-/>`;
+<TileGrid columns={3} hero_span="full">
+    <Tile
+        hero
+        name="Atlas"
+        href="/projects/atlas"
+        src="/images/atlas.jpg"
+        abstract="Hardware design system for embedded devices"
+    >
+        {#snippet corner()}
+            <Badge palette="accent" size="sm" elevation="subtle" uppercase>Featured</Badge>
+        {/snippet}
+    </Tile>
+    <Tile name="Meridian" href="/projects/meridian" src="/images/meridian.jpg" abstract="Industrial supervision platform" />
+    <Tile name="Capsule" href="/projects/capsule" src="/images/capsule.jpg" abstract="Modular enclosure for prototyping boards" />
+</TileGrid>`;
 </script>
 
 {#snippet codeCell(value: string)}<code>{value}</code>{/snippet}
@@ -390,49 +294,26 @@
 <!-- Headline -->
 
 <div data-summary="demo" data-summary-label={trans?.doc.demo ?? "Demo"}>
-    <Headline size="md" uppercase>{trans?.tile_grid_demo?.title ?? "Tile Grid"}</Headline>
+    <Headline size="md" uppercase>{trans?.tile_grid_demo?.title ?? "TileGrid & Tile"}</Headline>
 </div>
+
+<p class="intro">{trans?.tile_grid_demo?.intro}</p>
 
 <!-- Controls -->
 
 <ControlBar palette="tone">
     <Selector
-        label={trans?.tile_grid_demo?.ctrl_mode}
-        options={["image", "flat", "mockup"]}
-        bind:value={demo_mode}
-        onchange={set_mode}
-    />
-    {#if demo_mode === "image"}
-        <Selector
-            label={trans?.tile_grid_demo?.ctrl_position}
-            options={bg_positions}
-            bind:value={demo_position}
-        />
-    {/if}
-    {#if demo_mode === "mockup"}
-        <Selector
-            label={trans?.tile_grid_demo?.ctrl_position}
-            options={deco_positions}
-            bind:value={demo_position}
-        />
-    {/if}
-    <Selector
-        label={trans?.tile_grid_demo?.ctrl_columns}
-        options={[2, 3, 4]}
-        bind:value={demo_columns}
+        label="Variant"
+        options={["flat", "outlined"]}
+        bind:value={demo_variant}
     />
     <Selector
-        label={trans?.tile_grid_demo?.ctrl_hero_span}
-        options={["half", "full"]}
-        bind:value={demo_hero_span}
+        label="Palette"
+        options={["accent", "tone", "neutral", "error", "warning", "success", "info"]}
+        bind:value={demo_palette}
     />
     <Selector
-        label={trans?.tile_grid_demo?.ctrl_hero_badge}
-        options={bool_opts}
-        bind:value={demo_hero_badge}
-    />
-    <Selector
-        label={trans?.tile_grid_demo?.ctrl_rounded}
+        label="Rounded"
         options={bool_opts}
         bind:value={demo_rounded}
     />
@@ -442,11 +323,46 @@
         bind:value={demo_elevation}
     />
     <Selector
-        label="Elevation Persist"
+        label="Elevation persist"
         options={bool_opts}
         bind:value={demo_raised}
     />
-    {#if demo_mode !== "image"}
+    <Selector
+        label="Columns"
+        options={[2, 3, 4]}
+        bind:value={demo_columns}
+    />
+    <Selector
+        label="Aspect ratio"
+        options={["4/3", "square", "portrait", "video", "wide", "auto"]}
+        bind:value={demo_aspect_ratio}
+    />
+    <Selector
+        label="Hero span"
+        options={["half", "full"]}
+        bind:value={demo_hero_span}
+    />
+    <Selector
+        label="Image"
+        options={["background", "preview", "none"]}
+        bind:value={demo_image}
+        onchange={set_image}
+    />
+    {#if demo_image === "background"}
+        <Selector
+            label="Image position"
+            options={bg_positions}
+            bind:value={demo_position}
+        />
+    {/if}
+    {#if demo_image === "preview"}
+        <Selector
+            label="Image position"
+            options={deco_positions}
+            bind:value={demo_position}
+        />
+    {/if}
+    {#if demo_image !== "background"}
         <Selector
             label="Pattern"
             options={pattern_presets}
@@ -477,17 +393,17 @@
                 />
             </div>
             <Selector
-                label="Mask"
+                label="Pattern mask"
                 options={["none", "ellipse", "fade"]}
                 bind:value={demo_pattern_mask}
             />
             <Selector
-                label="Mask dir"
+                label="Pattern mask direction"
                 options={["top", "bottom", "left", "right"]}
                 bind:value={demo_pattern_mask_direction}
             />
             <div class="slider-control">
-                <span class="slider-label">Mask size</span>
+                <span class="slider-label">Pattern mask size</span>
                 <Slider
                     palette="accent"
                     size="sm"
@@ -496,17 +412,17 @@
                     max={100}
                     step={5}
                     bind:value={demo_pattern_mask_size}
-                    aria_label="Mask size"
+                    aria_label="Pattern mask size"
                 />
             </div>
-            
+
             <Selector
-                label="Effect"
+                label="Pattern effect"
                 options={["none", "glow", "blur", "fade"]}
                 bind:value={demo_pattern_effect}
             />
             <div class="slider-control">
-                <span class="slider-label">Effect opacity</span>
+                <span class="slider-label">Pattern effect opacity</span>
                 <Slider
                     palette="accent"
                     size="sm"
@@ -515,7 +431,7 @@
                     max={1}
                     step={0.05}
                     bind:value={demo_pattern_effect_opacity}
-                    aria_label="Effect opacity"
+                    aria_label="Pattern effect opacity"
                 />
             </div>
         {/if}
@@ -526,17 +442,16 @@
 
 <div class="tg-preview">
     <TileGrid
-        tiles={demo_mode === "mockup" ? tiles_mockup : tiles}
-        locale="en"
-        image_mode={demo_mode}
+        image={demo_image === "none" ? "background" : demo_image}
         image_position={demo_position}
+        variant={demo_variant}
+        palette={demo_palette}
         columns={demo_columns}
         hero_span={demo_hero_span}
-        show_hero_badge={demo_hero_badge}
         rounded={demo_rounded}
         elevation={demo_elevation}
         elevation_persist={demo_raised}
-        excerpt_length={52}
+        aspect_ratio={demo_aspect_ratio}
         pattern={demo_pattern}
         pattern_color={demo_pattern_color}
         pattern_size={demo_pattern_size}
@@ -546,10 +461,92 @@
         pattern_mask={demo_pattern_mask}
         pattern_mask_direction={demo_pattern_mask_direction}
         pattern_mask_size={demo_pattern_mask_size}
-    />
+    >
+        {#each (demo_image === "preview" ? tiles_mockup : tiles) as t, i}
+            <Tile
+                name={t.name}
+                abstract={t.abstract}
+                hero={t.hero}
+                src={demo_image === "none" ? undefined : t.src}
+            >
+                {#snippet corner()}
+                    {#if t.hero}
+                        <Badge palette="accent" size="sm" elevation="subtle" uppercase>
+                            <span class="material-symbols-outlined" aria-hidden="true">star</span>
+                            {placeholders.grid.hero_text}
+                        </Badge>
+                    {:else if i === 1 && demo_image != "preview"}
+                        <Avatar 
+                            size="sm" 
+                            palette="tone" 
+                            label={t.origin} 
+                            shape="circular" 
+                        />
+                    {:else if i === 4 && demo_image === "preview"}
+                        <Avatar 
+                            size="sm" 
+                            palette="tone" 
+                            label={t.origin} 
+                            shape="circular" 
+                        />
+                    {/if}
+                {/snippet}
+                {#snippet meta()}
+                    {#if i === 1}
+                        {#if demo_image === "preview"}
+                            <div class="tile-demo-progress">
+                                <span class="tile-demo-progress-label">
+                                    {t.label}
+                                </span>
+                                <Progress 
+                                    palette="neutral" 
+                                    size="sm" 
+                                    value={95} 
+                                    aria_label={t.label}
+                                />
+                            </div>
+                        {:else}
+                            <Badge palette="neutral" size="sm" elevation="hard" uppercase>
+                                {t.years}
+                            </Badge>
+                        {/if}
+                    {:else if i === 2 && demo_image != "preview"}
+                        <div class="tile-demo-progress">
+                            <span class="tile-demo-progress-label">
+                                {t.label}
+                            </span>
+                            <Progress 
+                                palette="warning" 
+                                size="sm" 
+                                value={72} 
+                                aria_label={t.label}
+                            />
+                        </div>
+                    {:else}
+                        {#if i != 4}
+                            <Badge 
+                                palette="accent" 
+                                size="sm" 
+                                uppercase
+                            >
+                                {t.origin}
+                            </Badge>
+                            <Badge 
+                                palette="neutral" 
+                                size="sm" 
+                                uppercase
+                            >
+                                {t.years}
+                            </Badge>
+                        {/if}
+                    {/if}
+                {/snippet}
+            </Tile>
+        {/each}
+    </TileGrid>
 </div>
 
-<!-- ID info note -->
+<!-- Attribution note -->
 
 <Callout variant="info" align="center">
     {#snippet leading()}
@@ -562,8 +559,8 @@
             {placeholders?.grid.attribution.header}
         </strong>
         <p>
-            <a 
-                class="attr" 
+            <a
+                class="attr"
                 target="_blank"
                 href={placeholders?.grid.attribution.tgv_link}
             >
@@ -571,8 +568,8 @@
             </a>
         </p>
         <p>
-            <a 
-                class="attr" 
+            <a
+                class="attr"
                 target="_blank"
                 href={placeholders?.grid.attribution.concord_link}
             >
@@ -580,8 +577,8 @@
             </a>
         </p>
         <p>
-            <a 
-                class="attr" 
+            <a
+                class="attr"
                 href={placeholders?.grid.attribution.minitel_link}
                 target="_blank"
             >
@@ -589,8 +586,8 @@
             </a>
         </p>
         <p>
-            <a 
-                class="attr" 
+            <a
+                class="attr"
                 target="_blank"
                 href={placeholders?.grid.attribution.ariane_link}
             >
@@ -605,28 +602,27 @@
 
 <div class="callout-gap"></div>
 
-<!-- ID info note -->
+<!-- Details accordion -->
 
-<Callout variant="accent" align="start">
-    {#snippet leading()}
-        <span 
-            class="material-symbols-outlined" 
-            aria-hidden="true"
-        >
-            info
-        </span>
-    {/snippet}
-    {#snippet children()}
-        <div class="tg-id-note-content">
-            <strong class="tg-id-note-title">
-                {trans?.tile_grid_demo?.id_note_title ?? "Role of the identifier (id)"}
-            </strong>
-            <p class="tg-id-note-body">
-                {trans?.tile_grid_demo?.id_note}
-            </p>
-        </div>
-    {/snippet}
-</Callout>
+<div class="accordion-wrapper">
+    <Accordion variant="ghost" palette="accent" size="md">
+        <AccordionHeader label={trans?.tile_grid_demo?.id_note_title ?? "Role of the link (href)"}>
+            <p>{trans?.tile_grid_demo?.id_note}</p>
+        </AccordionHeader>
+        <AccordionHeader label={trans?.tile_grid_demo?.aspect_ratio_title ?? "Aspect ratio"}>
+            <p>{trans?.tile_grid_demo?.aspect_ratio_text}</p>
+        </AccordionHeader>
+        <AccordionHeader label={trans?.tile_grid_demo?.snippets_title ?? "Composition zones (snippets)"}>
+            <p>{trans?.tile_grid_demo?.snippets_text}</p>
+        </AccordionHeader>
+        <AccordionHeader label={trans?.tile_grid_demo?.pattern_title ?? "Decorative pattern"}>
+            <p>{trans?.tile_grid_demo?.pattern_text}</p>
+        </AccordionHeader>
+        <AccordionHeader label={trans?.tile_grid_demo?.hero_sizing_title ?? "Hero tile sizing"}>
+            <p>{trans?.tile_grid_demo?.hero_sizing_text}</p>
+        </AccordionHeader>
+    </Accordion>
+</div>
 
 <!-- Code examples — split layout -->
 
@@ -639,15 +635,15 @@
     copyable
     description={trans?.tile_grid_demo?.code_desc}
     tabs={[
-        { 
-            label: trans?.tile_grid_demo?.tab_image ?? "Image",   
-            code: code_background, 
-            language: "Svelte" 
+        {
+            label: trans?.tile_grid_demo?.tab_image ?? "Image",
+            code: code_background,
+            language: "Svelte"
         },
-        { 
+        {
             label: trans?.tile_grid_demo?.tab_flat ?? "Flat",
-            code: code_flat,       
-            language: "Svelte" 
+            code: code_flat,
+            language: "Svelte"
         },
         {
             label: trans?.tile_grid_demo?.tab_mockup ?? "Mock-up",
@@ -679,13 +675,15 @@
         {#snippet children()}
             {trans?.doc.types_notice}<br />
             <code>
-                import type &lbrace; Tile, TileMedia, Columns, HeroSpan, ImageMode, ImagePosition, 
-                TileGridElevation, TileGridEffect, TileGridMask, TileGridMaskDirection, PatternPreset 
-                &rbrace; from '@abhc/spektral-ui';
+                import type &lbrace; Columns, HeroSpan, TileImageDisplay, ImagePosition,
+                TileVariant, TilePalette, TileGridElevation, TileGridEffect, TileGridMask,
+                TileGridMaskDirection, TileAspectRatio, PatternPreset &rbrace; from '@abhc/spektral-ui';
             </code>
         {/snippet}
     </Callout>
 </div>
+
+<h4 class="api-subtitle">TileGrid</h4>
 
 <DataTable
     variant="ghost" palette="tone" size="sm"
@@ -695,30 +693,60 @@
         { key: "default", label: "Default", cell: codeCell, width: "10%" },
     ]}
     rows={[
-        { prop: "tiles", type: "readonly Tile[]", default: "\u2014" },
-        { prop: "locale", type: "string", default: '"en"' },
-        { prop: "image_mode", type: '"image" | "mockup" | "flat"', default: '"image"' },
-        { prop: "image_position", type: '"center" | "top" | "bottom" | "top-right" | "top-left" | "top-center" | "right" | "left" | string', default: '"center"' },
-        { prop: "image_size", type: "string", default: "undefined" },
         { prop: "columns", type: "2 | 3 | 4", default: "3" },
         { prop: "hero_span", type: '"half" | "full"', default: '"half"' },
         { prop: "gap", type: "string", default: '"1.5rem"' },
-        { prop: "show_hero_badge", type: "boolean", default: "true" },
-        { prop: "show_hero_border", type: "boolean", default: "true" },
-        { prop: "excerpt_length", type: "number", default: "52" },
-        { prop: "href_base", type: "string", default: '"/projects"' },
+        { prop: "image", type: '"background" | "preview"', default: '"background"' },
+        { prop: "image_position", type: '"center" | "top" | "bottom" | "top-right" | "top-left" | "top-center" | "right" | "left" | string', default: '"center"' },
+        { prop: "image_size", type: "string", default: "undefined" },
+        { prop: "variant", type: '"flat" | "outlined"', default: '"flat"' },
+        { prop: "palette", type: '"accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info"', default: '"tone"' },
         { prop: "rounded", type: "boolean", default: "false" },
         { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
         { prop: "elevation_persist", type: "boolean", default: "false" },
+        { prop: "aspect_ratio", type: '"square" | "portrait" | "video" | "wide" | "auto" | string', default: '"4/3"' },
         { prop: "pattern", type: '"none" | "scallops" | "grid" | "sunburst" | "sunrise" | "atoms" | "lozenge" | "waves" | "diamonds" | "shippo" | "kumi_kikko" | string', default: '"none"' },
         { prop: "pattern_color", type: "string", default: '"white"' },
-        { prop: "pattern_opacity", type: "number", default: "0.4" },
+        { prop: "pattern_opacity", type: "number", default: "0.1" },
         { prop: "pattern_size", type: "string", default: "undefined" },
         { prop: "pattern_effect", type: '"none" | "glow" | "blur" | "fade"', default: '"none"' },
         { prop: "pattern_effect_opacity", type: "number", default: "1" },
         { prop: "pattern_mask", type: '"none" | "ellipse" | "fade"', default: '"none"' },
         { prop: "pattern_mask_direction", type: '"top" | "bottom" | "left" | "right"', default: '"bottom"' },
         { prop: "pattern_mask_size", type: "number", default: "70" },
+        { prop: "children", type: "Snippet", default: "—" },
+    ]}
+/>
+
+<h4 class="api-subtitle">Tile</h4>
+
+<DataTable
+    variant="ghost" palette="tone" size="sm"
+    columns={[
+        { key: "prop", label: "Prop", width: "20%" },
+        { key: "type", label: "Type", cell: codeCell },
+        { key: "default", label: "Default", cell: codeCell, width: "10%" },
+    ]}
+    rows={[
+        { prop: "name", type: "string", default: "—" },
+        { prop: "abstract", type: "string", default: "undefined" },
+        { prop: "href", type: "string", default: "undefined" },
+        { prop: "blank", type: "boolean", default: "false" },
+        { prop: "hero", type: "boolean", default: "false" },
+        { prop: "src", type: "string", default: "undefined" },
+        { prop: "rounded", type: "boolean", default: "inherits from TileGrid" },
+        { prop: "elevation", type: '"none" | "subtle" | "hard"', default: "inherits from TileGrid" },
+        { prop: "elevation_persist", type: "boolean", default: "inherits from TileGrid" },
+        { prop: "image", type: '"background" | "preview"', default: "inherits from TileGrid" },
+        { prop: "image_position", type: "string", default: "inherits from TileGrid" },
+        { prop: "image_size", type: "string", default: "inherits from TileGrid" },
+        { prop: "variant", type: '"flat" | "outlined"', default: "inherits from TileGrid" },
+        { prop: "palette", type: '"accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info"', default: "inherits from TileGrid" },
+        { prop: "aspect_ratio", type: '"4/3" | "square" | "portrait" | "video" | "wide" | "auto" | string', default: "inherits from TileGrid" },
+        { prop: "pattern", type: "string", default: "inherits from TileGrid" },
+        { prop: "pattern_color", type: "string", default: '"white"' },
+        { prop: "corner", type: "Snippet", default: "—" },
+        { prop: "meta", type: "Snippet", default: "—" },
     ]}
 />
 
@@ -734,26 +762,21 @@
         overflow: hidden;
     }
 
-    /* ID note */
+    /* Intro */
 
-    .tg-id-note-content {
-        display: flex;
-        flex-direction: column;
-        gap: 0.3rem;
+    .intro {
+        margin: 0.5rem 0 1rem;
+        color: var(--spk-text-muted);
     }
 
-    .tg-id-note-title {
-        font-size: 0.82rem;
-        font-weight: 700;
-        color: var(--spk-accent);
+    /* Details accordion */
+
+    .accordion-wrapper {
+        margin-bottom: 1.5rem;
     }
 
-    .tg-id-note-body {
+    .accordion-wrapper p {
         margin: 0;
-        font-size: 0.85rem;
-        color: var(--spk-text);
-        line-height: 1.55;
-        opacity: 0.85;
     }
 
     /* Attributions */
@@ -779,5 +802,31 @@
         text-transform: uppercase;
         letter-spacing: 0.5px;
         color: var(--spk-text-muted);
+    }
+
+    /* Tile meta - Progress composition example */
+
+    .tile-demo-progress {
+        display: flex;
+        flex-direction: column;
+        gap: 0.15rem;
+        flex-basis: 100%;
+        min-width: 10rem;
+    }
+
+    .tile-demo-progress-label {
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        opacity: var(--spk-opacity-overlay);
+    }
+
+    .api-subtitle {
+        font-size: 0.9rem;
+        font-weight: 700;
+        margin: 1rem 0 0.5rem;
+        color: var(--spk-text-muted);
+        text-transform: uppercase;
     }
 </style>

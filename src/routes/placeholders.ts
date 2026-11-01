@@ -93,60 +93,70 @@ export const placeholders = {
                 origin: "France",
                 years: "1981",
                 abstract: "380 km/h les jours sans grève",
+                label: "Vitesse",
             },
             concord: {
                 name: "Concorde",
                 origin: "France & Royaume-Uni",
                 years: "1976",
                 abstract: "Supersonique, super-bruyant et super-chère",
+                label: "Vitesse",
             },
             minitel: {
                 name: "Minitel",
                 origin: "France",
                 years: "1980",
                 abstract: "3615 Internet",
+                label: "Fiabilité",
             },
             ariane: {
                 name: "Ariane 3",
                 origin: "Europe",
                 years: "1984",
                 abstract: "Comment lancer Astérix dans l'espace",
+                label: "Vitesse",
             },
             renault: {
                 name: "Renault Gabbiano Concept",
                 origin: "France",
                 years: "1983",
                 abstract: "Ne viens pas du futur mais peut-être De Lorraine",
+                label: "Futur",
             },
             taaf: {
                 name: "Aller aux TAAF",
                 origin: "Tourisme",
                 years: "1983",
                 abstract: "Découvrez les Kerguelen, Crozet et bien sûr la Terre Adélie !",
+                label: "Découverte",
             },
             haymatch: {
                 name: "Hay Match",
                 origin: "Élevage",
                 years: "2024",
                 abstract: "Trouvez votre bel étalon !",
+                label: "Reproduction",
             },
             fonk: {
                 name: "La Puissance de la Fonk",
                 origin: "Musique",
                 years: "2016",
                 abstract: "La mixtape préféré du DisKer de PAF",
+                label: "Puissance",
             },
             brutalist: {
                 name: "Brutalist Me",
                 origin: "Culture",
                 years: "2022",
                 abstract: "L'architecture qui fait mal",
+                label: "Souffrance",
             },
             cogip: {
                 name: "Catalogue Cogip",
                 origin: "Vintage",
                 years: "1978",
                 abstract: "Moquette orange et senteur tabac froid",
+                label: "Odeur",
             },
             attribution: {
                 header: "Photographies sous licence CC-BY-SA (3.0 et 4.0)",
@@ -720,60 +730,70 @@ export const placeholders = {
                 origin: "France",
                 years: "1981",
                 abstract: "380 km/h on non-strike days",
+                label: "Speed"
             },
             concord: {
                 name: "Concorde",
                 origin: "France & United Kingdom",
                 years: "1976",
                 abstract: "Supersonic, super-loud and super-expensive",
+                label: "Speed"
             },
             minitel: {
                 name: "Minitel",
                 origin: "France",
                 years: "1980",
                 abstract: "3615 Internet",
+                label: "Reliability"
             },
             ariane: {
                 name: "Ariane 3",
                 origin: "Europe",
                 years: "1984",
                 abstract: "How to launch Astérix into space",
+                label: "Speed"
             },
             renault: {
                 name: "Renault Gabbiano Concept",
                 origin: "France",
                 years: "1983",
                 abstract: "Not from the future, but possibly from Lorraine",
+                label: "Futur"
             },
             taaf: {
                 name: "France at the end of the world",
                 origin: "Tourism",
                 years: "1983",
                 abstract: "Discover the French Southern and Antarctic Lands (TAAF) !",
+                label: "Discovery"
             },
             haymatch: {
                 name: "Hay Match",
                 origin: "Breeding",
                 years: "2024",
                 abstract: "Find your handsome stallion!",
+                label: "Breeding"
             },
             fonk: {
                 name: "The Power of Fonk",
                 origin: "Music",
                 years: "2016",
                 abstract: "The favorite mixtape in French retirements homes",
+                label: "Power"
             },
             brutalist: {
                 name: "Brutalist Me",
                 origin: "Culture",
                 years: "2022",
                 abstract: "Architecture that hurts",
+                label: "Suffering"
             },
             cogip: {
                 name: "Cogip Catalog",
                 origin: "Vintage",
                 years: "1978",
                 abstract: "Orange carpet and cold tobacco scent",
+                label: "Smell"
             },
             attribution: {
                 header: "Pictures under CC-BY-SA (3.0 and 4.0) license",
