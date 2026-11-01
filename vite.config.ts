@@ -13,6 +13,12 @@ export default defineConfig({
 			adapter: adapter()
 		})
 	],
+	resolve: {
+		// @abhc/spektral-ui ships its own node_modules/svelte when linked via spektral_link.py
+		// (npm link), so without dedupe Vite loads two separate Svelte runtime instances -
+		// breaking setContext/getContext across the package boundary (Timeline, TileGrid).
+		dedupe: ['svelte']
+	},
 	test: {
 		expect: { requireAssertions: true },
 		projects: [
