@@ -171,6 +171,7 @@ export const translations = {
         },
         hero_demo: {
             title: "Hero",
+            collapsed_reverse_note: "<code>collapsed_reverse</code> inverse l'ordre visuel des cellules sous 640px via <code>flex-direction: column-reverse</code>, sans toucher au DOM ni au layout desktop.",
         },
         selector_demo: {
             title: "Selector",
@@ -571,6 +572,7 @@ export const translations = {
         },
         hero_demo: {
             title: "Hero",
+            collapsed_reverse_note: "<code>collapsed_reverse</code> flips the visual order of cells below 640px via <code>flex-direction: column-reverse</code>, without touching the DOM or the desktop layout.",
         },
         selector_demo: {
             title: "Selector",

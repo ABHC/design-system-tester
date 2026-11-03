@@ -2,14 +2,15 @@
     import type { Translation } from "$lib/types/translations";
     import type { PlaceholdersType } from "../placeholders";
     import type { PatternPreset } from "@abhc/spektral-ui";
-    import { 
-        Hero, 
-        Headline, 
-        CodeBlock, 
-        DataTable, 
-        Selector, 
-        ControlBar, 
-        Slider 
+    import {
+        Hero,
+        Headline,
+        Callout,
+        CodeBlock,
+        DataTable,
+        Selector,
+        ControlBar,
+        Slider
     } from "@abhc/spektral-ui";
 
     interface Props {
@@ -38,6 +39,9 @@
     let demo_pattern_mask: Mask = $state("none");
     let demo_pattern_mask_direction: MaskDirection = $state("top");
     let demo_pattern_mask_size: number = $state(70);
+    let demo_collapsed_reverse: boolean = $state(false);
+
+    const bool_opts = [{ value: true, label: "true" }, { value: false, label: "false" }] as const;
 
     const color_opts = [
         { value: "white", label: "white" },
@@ -208,6 +212,11 @@
             bind:value={demo_pattern_mask_size}
         />
     </div>
+    <Selector
+        label="Collapsed reverse"
+        options={bool_opts}
+        bind:value={demo_collapsed_reverse}
+    />
 </ControlBar>
 
 <!-- Live preview -->
@@ -227,6 +236,7 @@
         pattern_mask_size={demo_pattern_mask_size}
         height="60dvh"
         gap="0.5rem"
+        collapsed_reverse={demo_collapsed_reverse}
     >
         {#snippet cell_1()}{@render cell_labelled("cell_1")}{/snippet}
         {#snippet cell_2()}{@render cell_labelled("cell_2")}{/snippet}
@@ -234,6 +244,15 @@
         {#snippet cell_4()}{@render cell_labelled("cell_4")}{/snippet}
     </Hero>
 </div>
+
+<Callout palette="accent" align="start">
+    {#snippet leading()}
+        <span class="material-symbols-outlined">swap_vert</span>
+    {/snippet}
+    {#snippet children()}
+        <p>{@html trans?.hero_demo.collapsed_reverse_note}</p>
+    {/snippet}
+</Callout>
 
 <!-- Code examples -->
 
@@ -275,6 +294,7 @@
             { prop: "pattern_mask_size", type: "number", default: "70" },
             { prop: "height", type: "string", default: '"85dvh"' },
             { prop: "gap", type: "string", default: '"0"' },
+            { prop: "collapsed_reverse", type: "boolean", default: "false" },
             { prop: "cell_1", type: "Snippet", default: "\u2014" },
             { prop: "cell_2", type: "Snippet", default: "\u2014" },
             { prop: "cell_3", type: "Snippet", default: "\u2014" },
