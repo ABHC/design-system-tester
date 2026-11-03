@@ -208,7 +208,7 @@
                                         {/snippet}
                                     </Switch>
                                 </div>
-                                <Callout variant="info" rounded bordered align="start">
+                                <Callout palette="info" rounded bordered align="start">
                                     {#snippet leading()}
                                         <span class="material-symbols-outlined">info</span>
                                     {/snippet}

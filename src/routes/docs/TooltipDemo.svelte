@@ -62,8 +62,8 @@
 
     const usage_delays = `<!-- Custom show/hide delays, in ms -->
 <Tooltip
-    showDelay={200}
-    hideDelay={0}
+    show_delay={200}
+    hide_delay={0}
     palette="accent"
     elevation="subtle"
     rounded
@@ -164,7 +164,7 @@
             align={demo_align}
             palette={demo_palette}
             size={demo_size}
-            maxWidth={demo_max_width}
+            max_width={demo_max_width}
             elevation={demo_elevation}
             rounded={demo_rounded}
             bordered={demo_bordered}
@@ -281,7 +281,7 @@
 </div>
 
 <div style="margin-bottom: 1rem;">
-    <Callout variant="info">
+    <Callout palette="info">
         {#snippet leading()}
             <span class="material-symbols-outlined">package_2</span>
         {/snippet}
@@ -304,9 +304,9 @@
         { prop: "direction", type: '"top" | "bottom" | "left" | "right"', default: '"bottom"' },
         { prop: "align", type: '"start" | "center" | "end"', default: '"center"' },
         { prop: "gap", type: "string", default: '"8px"' },
-        { prop: "maxWidth", type: "string", default: '"320px"' },
-        { prop: "showDelay", type: "number", default: "120" },
-        { prop: "hideDelay", type: "number", default: "80" },
+        { prop: "max_width", type: "string", default: '"320px"' },
+        { prop: "show_delay", type: "number", default: "120" },
+        { prop: "hide_delay", type: "number", default: "80" },
         { prop: "palette", type: '"tone" | "accent" | "accentbg"', default: '"tone"' },
         { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"' },
         { prop: "rounded", type: "boolean", default: "false" },

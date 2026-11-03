@@ -451,7 +451,7 @@
     <Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
 
     <div style="margin-bottom: 1rem;">
-        <Callout variant="info">
+        <Callout palette="info">
             {#snippet leading()}
                 <span class="material-symbols-outlined">package_2</span>
             {/snippet}

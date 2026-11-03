@@ -340,7 +340,7 @@ let footer_visible = $state(false);
 </div>
 
 <!-- Preset descriptions -->
-<Callout variant="accent" align="start">
+<Callout palette="accent" align="start">
     {#snippet leading()}
         <span class="material-symbols-outlined">flex_no_wrap</span>
     {/snippet}

@@ -188,7 +188,7 @@
 />
 
 <div style="margin-bottom: 1rem;">
-    <Callout variant="info">
+    <Callout palette="info">
         {#snippet leading()}
             <span class="material-symbols-outlined">lightbulb</span>
         {/snippet}

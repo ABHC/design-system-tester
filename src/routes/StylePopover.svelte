@@ -47,7 +47,7 @@
     onclose={() => { style_open = false; }}
     palette="tone"
     rounded={false}
-    maxHeight="800px"
+    max_height="800px"
     gap="18px"
     direction="bottom"
     align="end"

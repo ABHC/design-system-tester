@@ -33,7 +33,7 @@
     // ── Code examples ───────────────────────────────────────────────────────
 
     const code_essentials = `<!-- {#snippet children()} is implicit — content between the tags is rendered as children -->
-<Callout variant="info" rounded>
+<Callout palette="info" rounded>
     <p>Les légions romaines parcouraient 30 km par jour sur leurs routes pavées.</p>
 </Callout>
 
@@ -42,7 +42,7 @@
     <span class="material-symbols-outlined">check_circle</span>
 {/snippet}
 
-<Callout variant="success" leading={icon}>
+<Callout palette="success" leading={icon}>
     <strong>Succès</strong>
     <p>La lex a été promulguée avec succès.</p>
 </Callout>
@@ -56,7 +56,7 @@
     <Button variant="ghost" palette="tone" size="sm">Ignorer</Button>
 {/snippet}
 
-<Callout variant="warning" leading={warn_icon} trailing={dismiss}>
+<Callout palette="warning" leading={warn_icon} trailing={dismiss}>
     <p>Les ides de mars approchent. Vérifiez vos accès avant de continuer.</p>
 </Callout>
 
@@ -71,7 +71,7 @@
     <Button variant="ghost" palette="tone" size="sm">En savoir plus</Button>
 {/snippet}
 
-<Callout variant="accent" align="start" rounded leading={tip_icon} trailing={action}>
+<Callout palette="accent" align="start" rounded leading={tip_icon} trailing={action}>
     <strong>Tip</strong>
     <p>
         Préférez <code>align="start"</code> pour du contenu multi-lignes —
@@ -85,7 +85,7 @@
     <span class="material-symbols-outlined">error</span>
 {/snippet}
 
-<Callout variant="error" align="start" leading={err_icon}>
+<Callout palette="error" align="start" leading={err_icon}>
     <strong>Validation</strong>
     <p>
         Champs requis : <code>name</code>, <code>email</code>, <code>message</code>.
@@ -103,7 +103,7 @@
 
 <!-- Controls -->
 
-<ControlBar palette="tone" rounded>
+<ControlBar palette="tone">
     <Selector
         label="Variant"
         options={["accent", "neutral", "info", "success", "warning", "error"]}
@@ -129,9 +129,9 @@
 <!-- Live preview -->
 
 <div class="callout-preview">
-    <Callout 
-        variant={demo_variant} 
-        align={demo_align} 
+    <Callout
+        palette={demo_variant}
+        align={demo_align}
         rounded={demo_rounded} 
         bordered={demo_bordered}
     >
@@ -188,7 +188,7 @@
         { key: "default", label: "Default", cell: codeCell, width: "10%" },
     ]}
     rows={[
-        { prop: "variant", type: '"accent" | "neutral" | "error" | "warning" | "success" | "info"', default: '"info"' },
+        { prop: "palette", type: '"accent" | "neutral" | "error" | "warning" | "success" | "info"', default: '"info"' },
         { prop: "align", type: '"center" | "start"', default: '"center"' },
         { prop: "rounded", type: "boolean", default: "false" },
         { prop: "bordered", type: "boolean", default: "false" },

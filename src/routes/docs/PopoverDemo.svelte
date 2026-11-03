@@ -104,11 +104,11 @@
     {/snippet}
 </Popover>`;
 
-    const usage_match = `<!-- matchWidth: panel stretches to anchor width (used by Select) -->
+    const usage_match = `<!-- match_width: panel stretches to anchor width (used by Select) -->
 <Popover
     bind:open
     onclose={() => { open = false; }}
-    matchWidth
+    match_width
 >
     {#snippet trigger()}
         <div class="custom-trigger">Choose an option</div>
@@ -208,11 +208,11 @@
 <!-- Presets -->
 <div class="preset-row">
     <div class="preset">
-        <span class="preset-label">matchWidth</span>
+        <span class="preset-label">match_width</span>
         <Popover
             bind:open={open_match}
             onclose={() => { open_match = false; }}
-            matchWidth
+            match_width
             palette="tone"
             rounded
         >
@@ -293,7 +293,7 @@
         { label: "basic", code: usage_basic, language: "Svelte" },
         { label: "direction + align", code: usage_direction, language: "Svelte" },
         { label: "custom width", code: usage_width, language: "Svelte" },
-        { label: "matchWidth", code: usage_match, language: "Svelte" },
+        { label: "match_width", code: usage_match, language: "Svelte" },
     ]}
 />
 
@@ -304,7 +304,7 @@
 </div>
 
 <div style="margin-bottom: 1rem;">
-    <Callout variant="info">
+    <Callout palette="info">
         {#snippet leading()}
             <span class="material-symbols-outlined">package_2</span>
         {/snippet}
@@ -328,9 +328,9 @@
         { prop: "direction", type: '"top" | "bottom" | "left" | "right"', default: '"bottom"' },
         { prop: "align", type: '"start" | "center" | "end"', default: '"start"' },
         { prop: "gap", type: "string", default: '"6px"' },
-        { prop: "maxHeight", type: "string", default: '"320px"' },
+        { prop: "max_height", type: "string", default: '"320px"' },
         { prop: "width", type: "string", default: "\u2014" },
-        { prop: "matchWidth", type: "boolean", default: "false" },
+        { prop: "match_width", type: "boolean", default: "false" },
         { prop: "palette", type: '"tone" | "accent" | "accentbg"', default: '"tone"' },
         { prop: "rounded", type: "boolean", default: "false" },
         { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },

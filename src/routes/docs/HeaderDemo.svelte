@@ -307,7 +307,7 @@ let header_visible = $state(true);
 </div>
 
 <!-- Preset descriptions -->
-<Callout variant="accent" align="start">
+<Callout palette="accent" align="start">
     {#snippet leading()}
         <span class="material-symbols-outlined">flex_no_wrap</span>
     {/snippet}
@@ -335,7 +335,7 @@ let header_visible = $state(true);
     <div class="sim-callout-gap"></div>
     <div class="sim-callout-gap"></div>
     
-    <Callout variant="neutral" align="start">
+    <Callout palette="neutral" align="start">
         {#snippet children()}
             <p>{@html trans?.header_demo.bind_visible}</p>
         {/snippet}

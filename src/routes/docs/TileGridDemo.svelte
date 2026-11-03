@@ -548,7 +548,7 @@
 
 <!-- Attribution note -->
 
-<Callout variant="info" align="center">
+<Callout palette="info" align="center">
     {#snippet leading()}
         <span class="material-symbols-outlined">
             photo_library
@@ -668,7 +668,7 @@
 </div>
 
 <div style="margin-bottom: 1rem;">
-    <Callout variant="info">
+    <Callout palette="info">
         {#snippet leading()}
             <span class="material-symbols-outlined">package_2</span>
         {/snippet}

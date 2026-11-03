@@ -294,7 +294,7 @@ export const translations = {
         },
         tooltip_demo: {
             title: "Tooltip",
-            anchor_note: "Le tooltip s'ouvre au survol ou au focus du trigger, et se ferme quand le pointeur le quitte. Les délais <code>showDelay</code> et <code>hideDelay</code> absorbent la traversée du <code>gap</code>. La queue est un pseudo-élément ; elle suit <code>direction</code> et <code>align</code>, et reprend la bordure si <code>bordered</code> est actif.",
+            anchor_note: "Le tooltip s'ouvre au survol ou au focus du trigger, et se ferme quand le pointeur le quitte. Les délais <code>show_delay</code> et <code>hide_delay</code> absorbent la traversée du <code>gap</code>. La queue est un pseudo-élément ; elle suit <code>direction</code> et <code>align</code>, et reprend la bordure si <code>bordered</code> est actif.",
             preset_sm: "Petit, sans queue ni bordure",
             preset_lg: "Grand, arrondi, avec élévation",
             preset_leading: "Icône en leading",
@@ -694,7 +694,7 @@ export const translations = {
         },
         tooltip_demo: {
             title: "Tooltip",
-            anchor_note: "The tooltip opens on hover or focus of the trigger and closes when the pointer leaves. <code>showDelay</code> and <code>hideDelay</code> absorb the traversal of the <code>gap</code>. The arrow is a pseudo-element; it follows <code>direction</code> and <code>align</code>, and mirrors the panel border when <code>bordered</code> is on.",
+            anchor_note: "The tooltip opens on hover or focus of the trigger and closes when the pointer leaves. <code>show_delay</code> and <code>hide_delay</code> absorb the traversal of the <code>gap</code>. The arrow is a pseudo-element; it follows <code>direction</code> and <code>align</code>, and mirrors the panel border when <code>bordered</code> is on.",
             preset_sm: "Small, no arrow, no border",
             preset_lg: "Large, rounded, with elevation",
             preset_leading: "Icon in leading",

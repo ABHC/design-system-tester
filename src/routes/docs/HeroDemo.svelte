@@ -22,7 +22,7 @@
     // ── Demo state ──────────────────────────────────────────────────────────
 
     type Layout = "single" | "two-cols" | "two-rows" | "main-left" | "main-right" | "grid-2x2";
-    type Palette = "transparent" | "tone" | "accent" | "accent-bg";
+    type Palette = "transparent" | "tone" | "accent" | "accentbg";
     type Effect = "none" | "glow" | "blur" | "fade";
     type Mask = "none" | "ellipse" | "fade";
     type MaskDirection = "top" | "bottom" | "left" | "right";
@@ -86,7 +86,7 @@
     {/snippet}
 </Hero>`;
 
-    const code_grid = `<Hero layout="grid-2x2" palette="accent-bg" gap="0.5rem">
+    const code_grid = `<Hero layout="grid-2x2" palette="accentbg" gap="0.5rem">
     {#snippet cell_1()}<div>One</div>{/snippet}
     {#snippet cell_2()}<div>Two</div>{/snippet}
     {#snippet cell_3()}<div>Three</div>{/snippet}
@@ -127,7 +127,7 @@
     />
     <Selector
         label="Palette"
-        options={["transparent", "tone", "accent", "accent-bg"]}
+        options={["transparent", "tone", "accent", "accentbg"]}
         bind:value={demo_palette}
     />
     <Selector
@@ -263,7 +263,7 @@
         ]}
         rows={[
             { prop: "layout", type: '"single" | "two-cols" | "two-rows" | "main-left" | "main-right" | "grid-2x2"', default: '"single"' },
-            { prop: "palette", type: '"transparent" | "tone" | "accent" | "accent-bg"', default: '"transparent"' },
+            { prop: "palette", type: '"transparent" | "tone" | "accent" | "accentbg"', default: '"transparent"' },
             { prop: "pattern", type: '"none" | "grid" | "scallops" | "lozenge" | "sunburst" | "sunrise" | "atoms" | "waves" | "diamonds" | "shippo" | "kumi_kikko"', default: '"none"' },
             { prop: "pattern_color", type: "string", default: '"white"' },
             { prop: "pattern_opacity", type: "number", default: "0.6" },

@@ -280,8 +280,8 @@
         {#if $responsive.isAbove(1024)}
             <Tooltip
                 bind:open={style_tooltip}
-                showDelay={800}
-                hideDelay={0}
+                show_delay={800}
+                hide_delay={0}
                 palette="tone"
                 direction="bottom"
                 align="end"
@@ -389,8 +389,8 @@
         {#if !page.url.pathname.startsWith('/docs')}
             <Tooltip
                 bind:open={docs_tooltip}
-                showDelay={800}
-                hideDelay={0}
+                show_delay={800}
+                hide_delay={0}
                 palette="tone"
                 direction="bottom"
                 align="center"
@@ -418,12 +418,12 @@
         {:else}
             <Tooltip
                 bind:open={docs_tooltip}
-                showDelay={800}
-                hideDelay={0}
+                show_delay={800}
+                hide_delay={0}
                 palette="tone"
                 direction="bottom"
                 align="center"
-                maxWidth="120px"
+                max_width="120px"
                 bordered
                 arrow
             >
@@ -448,8 +448,8 @@
 
         <Tooltip
                 bind:open={customizer_tooltip}
-                showDelay={800}
-                hideDelay={0}
+                show_delay={800}
+                hide_delay={0}
                 palette="tone"
                 direction="bottom"
                 align="center"
@@ -479,8 +479,8 @@
 
         <Tooltip
             bind:open={style_tooltip}
-            showDelay={800}
-            hideDelay={0}
+            show_delay={800}
+            hide_delay={0}
             palette="tone"
             direction="bottom"
             align="center"
@@ -578,7 +578,7 @@
 
 {#if copied}
     <Alert
-        variant="success"
+        palette="success"
         position="top-center"
         animate="bottom"
         duration={4}

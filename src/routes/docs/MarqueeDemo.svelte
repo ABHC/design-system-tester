@@ -93,7 +93,7 @@
 <Marquee fade="end">...</Marquee>
 
 <!-- Pause on hover (default true) -->
-<Marquee pauseOnHover={false}>...</Marquee>
+<Marquee pause_on_hover={false}>...</Marquee>
 
 <!-- Gap between items -->
 <Marquee gap="2rem">...</Marquee>
@@ -183,7 +183,10 @@
     </div>
 </ControlBar>
 
-<div class="marquee-preview" class:marquee-preview-vertical={demo_orientation === "vertical"}>
+<div 
+    class="marquee-preview" 
+    class:marquee-preview-vertical={demo_orientation === "vertical"}
+>
     <Marquee
         variant={demo_variant}
         palette={demo_palette}
@@ -191,7 +194,7 @@
         orientation={demo_orientation}
         direction={demo_direction}
         fade={demo_fade}
-        pauseOnHover={demo_pause}
+        pause_on_hover={demo_pause}
         rounded={demo_rounded}
         duration={demo_duration}
         repeat={demo_repeat}
@@ -238,7 +241,7 @@
             { prop: "direction", type: '"normal" | "reverse"', default: '"normal"' },
             { prop: "duration", type: "number", default: "25" },
             { prop: "repeat", type: "number", default: "1" },
-            { prop: "pauseOnHover", type: "boolean", default: "true" },
+            { prop: "pause_on_hover", type: "boolean", default: "true" },
             { prop: "fade", type: '"none" | "start" | "end" | "both"', default: '"both"' },
             { prop: "gap", type: "string", default: '"1rem"' },
             { prop: "rounded", type: "boolean", default: "false" },

@@ -278,7 +278,7 @@
 <p class="intro">{trans?.tokens_demo.intro}</p>
 
 <div class="callout-wrapper">
-    <Callout variant="info">
+    <Callout palette="info">
         {#snippet leading()}
             <span class="material-symbols-outlined">lightbulb</span>
         {/snippet}

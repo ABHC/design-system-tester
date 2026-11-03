@@ -72,7 +72,7 @@
 
     const code_info = `<!-- Info — top-center, slides in from bottom, auto-dismiss 5s, rounded -->
 <!-- {#snippet children()} is implicit — content between the tags is rendered as children -->
-<Alert variant="info" position="top-center" animate="bottom" duration={5} rounded>
+<Alert palette="info" position="top-center" animate="bottom" duration={5} rounded>
     {#snippet leading()}
         <span class="material-symbols-outlined">info</span>
     {/snippet}
@@ -82,7 +82,7 @@
 
     const code_success = `<!-- Success — bottom-right, slides from left, auto-dismiss 4s, rounded -->
 <!-- dismiss_label generates a btn-text dismiss button — no snippet needed -->
-<Alert variant="success" position="bottom-right" animate="left" duration={4} rounded
+<Alert palette="success" position="bottom-right" animate="left" duration={4} rounded
     dismiss_label="Dismiss"
 >
     {#snippet leading()}
@@ -96,7 +96,7 @@
 
     const code_warning = `<!-- Warning — top-right, slides from left, 6s, inline link in children -->
 <!-- <a> inside .alert-content inherits --al-color — no extra styling needed -->
-<Alert variant="warning" position="top-right" animate="left" duration={6} dismissable>
+<Alert palette="warning" position="top-right" animate="left" duration={6} dismissable>
     {#snippet children()}
         <p>
             Your session expires soon.
@@ -106,7 +106,7 @@
 </Alert>`;
 
     const code_error = `<!-- Error — bottom-left, slides from right, 5s, dismissable, leading icon -->
-<Alert variant="error" position="bottom-left" animate="right" duration={5} dismissable>
+<Alert palette="error" position="bottom-left" animate="right" duration={5} dismissable>
     {#snippet leading()}
         <span class="material-symbols-outlined">error</span>
     {/snippet}
@@ -124,9 +124,9 @@
 
 {#if t_error > 0}
     {#key t_error}
-        <Alert 
-            variant="error" 
-            position="bottom-left" 
+        <Alert
+            palette="error"
+            position="bottom-left"
             animate="right" 
             duration={5} 
             dismissable
@@ -144,9 +144,9 @@
 
 {#if t_warning > 0}
     {#key t_warning}
-        <Alert 
-            variant="warning" 
-            position="top-right" 
+        <Alert
+            palette="warning"
+            position="top-right"
             animate="left" 
             duration={6} 
             dismissable
@@ -163,9 +163,9 @@
 
 {#if t_success > 0}
     {#key t_success}
-        <Alert 
-            variant="success" 
-            position="bottom-right" 
+        <Alert
+            palette="success"
+            position="bottom-right"
             animate="left" 
             duration={4} 
             rounded
@@ -184,9 +184,9 @@
 
 {#if t_info > 0}
     {#key t_info}
-        <Alert 
-            variant="info" 
-            position="top-center" 
+        <Alert
+            palette="info"
+            position="top-center"
             animate="bottom" 
             duration={5} 
             rounded
@@ -204,9 +204,9 @@
 
 {#if t_neutral > 0}
     {#key t_neutral}
-        <Alert 
-            variant="neutral" 
-            position="bottom-center" 
+        <Alert
+            palette="neutral"
+            position="bottom-center"
             animate="top" 
             rounded 
             dismissable
@@ -225,7 +225,7 @@
 {#if t_interactive > 0}
     {#key t_interactive}
         <Alert
-            variant={demo_variant}
+            palette={demo_variant}
             position={demo_position}
             animate={animate_prop}
             rounded={demo_rounded}
@@ -308,7 +308,7 @@
 
 <!-- Instruction callout ───────────────────────────────────────────────── -->
 
-<Callout variant="accent" align="center">
+<Callout palette="accent" align="center">
     {#snippet leading()}
         <span class="material-symbols-outlined">lightbulb</span>
     {/snippet}
@@ -381,7 +381,7 @@
         { key: "default", label: "Default", cell: codeCell, width: "10%" },
     ]}
     rows={[
-        { prop: "variant", type: '"neutral" | "info" | "success" | "warning" | "error"', default: '"info"' },
+        { prop: "palette", type: '"neutral" | "info" | "success" | "warning" | "error"', default: '"info"' },
         { prop: "position", type: '"top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right"', default: '"bottom-right"' },
         { prop: "rounded", type: "boolean", default: "false" },
         { prop: "animate", type: '"top" | "bottom" | "left" | "right" | false', default: "false" },

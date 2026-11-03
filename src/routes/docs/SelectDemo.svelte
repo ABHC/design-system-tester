@@ -73,7 +73,7 @@
     label="Language"
     placeholder="Pick a language"
     searchable
-    searchPlaceholder="Filter languages…"
+    search_placeholder="Filter languages…"
 />`;
 
     const code_slots = `<!-- Custom leading and trailing via snippets -->
@@ -192,7 +192,7 @@
                 label={ph.lbl_language}
                 placeholder={ph.ph_language}
                 searchable
-                searchPlaceholder={ph.search_language}
+                search_placeholder={ph.search_language}
             />
 
             <div class="demo-value">
@@ -393,7 +393,7 @@
 <Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
 
 <div style="margin-bottom: 1rem;">
-    <Callout variant="info">
+    <Callout palette="info">
         {#snippet leading()}
             <span class="material-symbols-outlined">package_2</span>
         {/snippet}
@@ -423,7 +423,7 @@
         { prop: "disabled", type: "boolean", default: "false" },
         { prop: "required", type: "boolean", default: "false" },
         { prop: "searchable", type: "boolean", default: "false" },
-        { prop: "searchPlaceholder", type: "string", default: '"Search..."' },
+        { prop: "search_placeholder", type: "string", default: '"Search..."' },
         { prop: "name", type: "string", default: "\u2014" },
         { prop: "id", type: "string", default: "\u2014" },
         { prop: "onchange", type: "(value: T) => void", default: "\u2014" },

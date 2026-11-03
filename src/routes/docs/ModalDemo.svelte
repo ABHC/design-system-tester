@@ -30,7 +30,7 @@
     type Preset  = "confirm" | "announce" | "profile" | "terms";
 
     let demo_palette: Palette = $state("tone");
-    let demo_elevation: Elevation = $state("subtle");
+    let demo_elevation: Elevation = $state("none");
     let demo_rounded: boolean = $state(false);
     let demo_width: string = $state("480px");
     let demo_preset: Preset = $state("confirm");
@@ -316,7 +316,7 @@
 </div>
 
 <div style="margin-bottom: 1rem;">
-    <Callout variant="info">
+    <Callout palette="info">
         {#snippet leading()}
             <span class="material-symbols-outlined">package_2</span>
         {/snippet}
@@ -338,7 +338,7 @@
         { prop: "open", type: "boolean", default: "false" },
         { prop: "onclose", type: "() => void", default: "undefined" },
         { prop: "palette", type: '"tone" | "accent" | "accentbg"', default: '"tone"' },
-        { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"subtle"' },
+        { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
         { prop: "rounded", type: "boolean", default: "false" },
         { prop: "width", type: "string", default: '"480px"' },
         { prop: "label", type: "string", default: "\u2014" },

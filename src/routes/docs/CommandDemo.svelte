@@ -333,7 +333,7 @@
 <Headline size="sm" uppercase muted>{trans?.doc.api ?? "API"}</Headline>
 
 <div style="margin-bottom: 1rem;">
-    <Callout variant="info">
+    <Callout palette="info">
         {#snippet leading()}
             <span class="material-symbols-outlined">package_2</span>
         {/snippet}
@@ -363,7 +363,7 @@
         { prop: "empty", type: "Snippet", default: "\u2014" },
         { prop: "palette", type: '"tone" | "accent" | "accentbg"', default: '"tone"' },
         { prop: "rounded", type: "boolean", default: "false" },
-        { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"subtle"' },
+        { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
         { prop: "width", type: "string", default: '"560px"' },
     ]}
 />
