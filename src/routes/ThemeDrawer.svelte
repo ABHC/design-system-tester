@@ -177,7 +177,7 @@
                 leading={swatches([p.bg, p.card])}
                 active={i === $tone_index}
                 onclick={() => { setToneIndex(i); }}
-                palette="ghost"
+                variant="ambient"
                 rounded
             >
                 {p.bg} {p.card}
@@ -191,7 +191,7 @@
                 leading={swatches([p.accent])}
                 active={i === $accent_index}
                 onclick={() => { $accent_index = i; }}
-                palette="ghost"
+                variant="ambient"
                 rounded
             >
                 {p.accent}
@@ -205,7 +205,7 @@
                 leading={swatches([c.error, c.warning, c.success, c.info, c.neutral])}
                 active={i === $ctx_index}
                 onclick={() => { $ctx_index = i; }}
-                palette="ghost"
+                variant="ambient"
                 rounded
             >
                 {c.error} {c.warning} {c.success} {c.info} {c.neutral}
@@ -219,7 +219,7 @@
                 leading={swatches([t.light, t.dark])}
                 active={i === $text_index}
                 onclick={() => { $text_index = i; }}
-                palette="ghost"
+                variant="ambient"
                 rounded
             >
                 {t.light} / {t.dark}
@@ -264,7 +264,7 @@
                     if (font_role === 'body') $body_font_index = i;
                     else $title_font_index = i;
                 }}
-                palette="ghost"
+                variant="ambient"
                 rounded
             >
                 {@render font_sample(f.family)()}

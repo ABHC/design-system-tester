@@ -337,7 +337,7 @@
                             <div class="cs-list-body">
                                 <ListItem 
                                     label="Button" 
-                                    palette="ghost" 
+                                    variant="ambient" 
                                     rounded
                                 >
                                     {#snippet leading()}
@@ -358,7 +358,7 @@
 
                                 <ListItem 
                                     label="TileGrid"  
-                                    palette="ghost" 
+                                    variant="ambient" 
                                     rounded 
                                     active
                                 >
@@ -380,7 +380,7 @@
 
                                 <ListItem 
                                     label="Accordion" 
-                                    palette="ghost" 
+                                    variant="ambient" 
                                     rounded
                                 >
                                     {#snippet leading()}
@@ -400,7 +400,7 @@
 
                                 <ListItem 
                                     label="Slider" 
-                                    palette="ghost" 
+                                    variant="ambient" 
                                     rounded
                                 >
                                     {#snippet leading()}

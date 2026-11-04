@@ -220,6 +220,7 @@ export const translations = {
         },
         list_item_demo: {
             title: "ListItem",
+            ambient_note: "<code>ambient</code> adopte la couleur du contexte via <code>currentColor</code> et ignore <code>palette</code> — utile pour se fondre dans un conteneur déjà thématisé (Drawer, Popover). <code>ghost</code>, lui, reste piloté par <code>palette</code> comme partout ailleurs dans la lib.",
         },
         alert_demo: {
             title: "Alert",
@@ -621,6 +622,7 @@ export const translations = {
         },
         list_item_demo: {
             title: "List Items",
+            ambient_note: "<code>ambient</code> takes on the surrounding color via <code>currentColor</code> and ignores <code>palette</code> — useful to blend into an already-themed container (Drawer, Popover). <code>ghost</code> stays driven by <code>palette</code>, like everywhere else in the library.",
         },
         alert_demo: {
             title: "Alert",

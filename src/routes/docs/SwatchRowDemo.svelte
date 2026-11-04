@@ -92,8 +92,8 @@
     // ── Code examples ───────────────────────────────────────────────────────
 
     const code_basic = `<script>
-    import type { Swatch } from "./SwatchRow/swatchRow.config";
-    import SwatchRow from "./SwatchRow/SwatchRow.svelte";
+    import type { Swatch } from '@abhc/spektral-ui';
+    import { SwatchRow } from '@abhc/spektral-ui';
 
     const swatches: Swatch[] = [
         { label: "Background", value: "var(--bg)", bg: "var(--bg)", color: "var(--spk-text)" },

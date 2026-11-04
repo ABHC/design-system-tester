@@ -67,13 +67,13 @@
     const code_listitems = `<!-- File browser with ListItems -->
 <Drawer direction="left" palette="tone" rounded open={open}
     onclose={() => { open = false; }}>
-    <ListItem label="Button.svelte" active palette="ghost" rounded>
+    <ListItem label="Button.svelte" active variant="ambient" rounded>
         src/components
     </ListItem>
-    <ListItem label="tokens.css" palette="ghost" rounded>
+    <ListItem label="tokens.css" variant="ambient" rounded>
         design-system
     </ListItem>
-    <ListItem label="App.svelte" palette="ghost" rounded>
+    <ListItem label="App.svelte" variant="ambient" rounded>
         src/routes
     </ListItem>
 <\/Drawer>`;
@@ -91,7 +91,7 @@
             label={f.name}
             active={active === f.name}
             onclick={() => { active = f.name; }}
-            palette="ghost" rounded
+            variant="ambient" rounded
         >
             {f.path}
         </ListItem>
@@ -271,25 +271,25 @@
             label="Button.svelte"
             active={active === "Button.svelte"}
             onclick={() => { active = "Button.svelte"; }}
-            palette="ghost" rounded
+            variant="ambient" rounded
         >src/components</ListItem>
         <ListItem
             label="tokens.css"
             active={active === "tokens.css"}
             onclick={() => { active = "tokens.css"; }}
-            palette="ghost" rounded
+            variant="ambient" rounded
         >design-system</ListItem>
         <ListItem
             label="App.svelte"
             active={active === "App.svelte"}
             onclick={() => { active = "App.svelte"; }}
-            palette="ghost" rounded
+            variant="ambient" rounded
         >src/routes</ListItem>
         <ListItem
             label="+layout.svelte"
             active={active === "+layout.svelte"}
             onclick={() => { active = "+layout.svelte"; }}
-            palette="ghost" rounded
+            variant="ambient" rounded
         >src/routes</ListItem>
     </Drawer>
 {/if}
@@ -326,7 +326,7 @@
                 label={f.name}
                 active={active === f.name}
                 onclick={() => { active = f.name; }}
-                palette="ghost" rounded
+                variant="ambient" rounded
             >{f.path}</ListItem>
         {/each}
     </Drawer>

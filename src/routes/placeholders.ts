@@ -274,9 +274,9 @@ export const placeholders = {
         },
         list_items: {
             nav: [
-                { label: "TGV (tone)", extra: "Paris — Lyon" },
-                { label: "Concorde (highlight)", extra: "Paris — New York" },
-                { label: "Ariane (accent)", extra: "Kourou — Station spatial Mir" },
+                { label: "TGV", extra: "Paris — Lyon" },
+                { label: "Concorde", extra: "Paris — New York" },
+                { label: "Ariane", extra: "Kourou — Station spatial Mir" },
             ],
             delete_label: "Annuler la mission (error)",
             delete_extra: "Action irréversible",

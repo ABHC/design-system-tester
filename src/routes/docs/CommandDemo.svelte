@@ -95,8 +95,8 @@
     // ── Code examples ────────────────────────────────────────────────────
 
     const code_basic = `<script lang="ts">
-    import Command from "./Command.svelte";
-    import type { CommandItem, CommandGroup } from "./command.config";
+    import { Command } from '@abhc/spektral-ui';
+    import type { CommandItem, CommandGroup } from '@abhc/spektral-ui';
 
     let open = $state(false);
 

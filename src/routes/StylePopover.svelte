@@ -158,7 +158,7 @@
                         label={p.name}
                         active={i === $tone_index}
                         onclick={() => { setToneIndex(i); }}
-                        palette="ghost"
+                        variant="ambient"
                         size="sm"
                     >
                         {@render swatches_sm([p.bg, p.card])()}
@@ -173,7 +173,7 @@
                         label={p.name}
                         active={i === $accent_index}
                         onclick={() => { $accent_index = i; }}
-                        palette="ghost"
+                        variant="ambient"
                         size="sm"
                     >
                         {@render swatches_sm([p.accent])()}
@@ -188,7 +188,7 @@
                         label={c.name}
                         active={i === $ctx_index}
                         onclick={() => { $ctx_index = i; }}
-                        palette="ghost"
+                        variant="ambient"
                         size="sm"
                     >
                         {@render swatches_sm(
@@ -205,7 +205,7 @@
                         label={t.name}
                         active={i === $text_index}
                         onclick={() => { $text_index = i; }}
-                        palette="ghost"
+                        variant="ambient"
                         size="sm"
                     >
                         {@render swatches_sm([t.light, t.dark])()}
@@ -249,7 +249,7 @@
                         label={opt.id === 'none' ? ($trans?.control.icon_none ?? opt.label) : opt.label}
                         active={$icon_set === opt.id}
                         onclick={() => { $icon_set = opt.id as IconSet; }}
-                        palette="ghost"
+                        variant="ambient"
                         size="sm"
                         leading={opt.preview ? iconLeading : undefined}
                     />

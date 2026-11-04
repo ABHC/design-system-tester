@@ -183,19 +183,19 @@
                 <div class="preview-content">
                     <ListItem
                         label="Option A"
-                        palette="ghost"
+                        variant="ambient"
                         size="sm"
                         onclick={() => { open_basic = false; }}
                     />
                     <ListItem
                         label="Option B"
-                        palette="ghost"
+                        variant="ambient"
                         size="sm"
                         onclick={() => { open_basic = false; }}
                     />
                     <ListItem
                         label="Option C"
-                        palette="ghost"
+                        variant="ambient"
                         size="sm"
                         onclick={() => { open_basic = false; }}
                     />
@@ -229,7 +229,7 @@
             {#snippet children()}
                 <ListItem
                     label={placeholders?.popover.match}
-                    palette="ghost"
+                    variant="ambient"
                     size="sm"
                     onclick={() => { open_match = false; }}
                 />
@@ -264,13 +264,13 @@
                 <div class="preview-content">
                     <ListItem
                         label={placeholders?.popover.settings}
-                        palette="ghost"
+                        variant="ambient"
                         size="sm"
                         onclick={() => { open_menu = false; }}
                     />
                     <ListItem
                         label={placeholders?.popover.profile}
-                        palette="ghost"
+                        variant="ambient"
                         size="sm"
                         onclick={() => { open_menu = false; }}
                     />
