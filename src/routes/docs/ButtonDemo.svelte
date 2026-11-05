@@ -27,7 +27,7 @@
     type Size = "sm" | "md" | "lg";
     type Elevation = "none" | "subtle" | "hard";
     type Animate = "none" | "left" | "right" | "top" | "bottom";
-    type Bg = "bg" | "card" | "accent";
+    type Bg = "tone-bg" | "tone" | "accent" | "accent-bg";
     type Direction = "row" | "column";
 
     let demo_variant: Variant = $state("flat");
@@ -37,7 +37,7 @@
     let demo_rounded: boolean = $state(false);
     let demo_uppercase: boolean = $state(false);
     let demo_animate: Animate = $state("none");
-    let demo_bg: Bg = $state("bg");
+    let demo_bg: Bg = $state("tone-bg");
     let demo_direction: Direction = $state("row");
 
     const bool_opts = [
@@ -189,7 +189,7 @@
     />
     <Selector 
         label="Background" 
-        options={["bg", "tone", "accent", "accent-bg"]} 
+        options={["tone-bg", "tone", "accent", "accent-bg"]} 
         bind:value={demo_bg} 
     />
 </ControlBar>
@@ -198,7 +198,7 @@
 
 <div
     class="btn-preview"
-    style="background: var(--{demo_bg});"
+    style="background: var(--spk-{demo_bg});"
 >
     <!-- Accent palette buttons -->
     <div class="btn-group">
