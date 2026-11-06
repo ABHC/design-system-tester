@@ -28,8 +28,6 @@
     let demo_rounded: boolean = $state(false);
     let demo_bordered: boolean = $state(false);
 
-    const bool_opts = [{ value: true, label: "yes" }, { value: false, label: "no" }] as const;
-
     // ── Code examples ───────────────────────────────────────────────────────
 
     const code_essentials = `<!-- {#snippet children()} is implicit — content between the tags is rendered as children -->
@@ -116,12 +114,12 @@
     />
     <Selector
         label="Rounded"
-        options={bool_opts}
+        options={[true, false]}
         bind:value={demo_rounded}
     />
     <Selector
         label="Bordered"
-        options={bool_opts}
+        options={[true, false]}
         bind:value={demo_bordered}
     />
 </ControlBar>

@@ -20,24 +20,23 @@
     let { trans, placeholders }: Props = $props();
 
     // Interactive demo state
-    type Variant  = "neutral" | "info" | "success" | "warning" | "error";
+    type Variant  = "accent" | "neutral" | "info" | "success" | "warning" | "error";
     type Position = "top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right";
     type Animate  = "none" | "top" | "bottom" | "left" | "right";
 
-    let demo_variant: Variant = $state("info");
+    let demo_variant: Variant = $state("accent");
     let demo_position: Position = $state("bottom-right");
     let demo_animate: Animate = $state("none");
     let demo_rounded: boolean = $state(false);
     let demo_dismissable: boolean = $state(false);
     let t_interactive = $state(0);
 
-    const bool_opts = [{ value: true, label: "true" }, { value: false, label: "false" }] as const;
-
     const animate_prop = $derived(
         demo_animate === "none" ? false : demo_animate as "top" | "bottom" | "left" | "right"
     );
 
     const variant_icons: Record<Variant, string> = {
+        accent: "campaign",
         neutral: "sticky_note_2",
         info: "info",
         success: "check_circle",
@@ -46,6 +45,7 @@
     };
 
     const demo_title = $derived(({
+        accent: placeholders.alerts.accent_title,
         neutral: placeholders.alerts.neutral_title,
         info: placeholders.alerts.info_title,
         success: placeholders.alerts.success_title,
@@ -54,6 +54,7 @@
     } as Record<Variant, string>)[demo_variant]);
 
     const demo_body = $derived(({
+        accent: placeholders.alerts.accent,
         neutral: placeholders.alerts.neutral,
         info: placeholders.alerts.info,
         success: placeholders.alerts.success,
@@ -62,6 +63,7 @@
     } as Record<Variant, string>)[demo_variant]);
 
     // Trigger counters — incrementing forces remount via {#key}
+    let t_accent = $state(0);
     let t_info = $state(0);
     let t_success = $state(0);
     let t_warning = $state(0);
@@ -121,6 +123,26 @@
 {#snippet codeCell(value: string)}<code>{value}</code>{/snippet}
 
 <!-- Live alerts (fixed in viewport) ───────────────────────────────────── -->
+
+{#if t_accent > 0}
+    {#key t_accent}
+        <Alert
+            palette="accent"
+            position="top-left"
+            animate="top"
+            duration={4}
+            rounded
+        >
+            {#snippet leading()}
+                <span class="material-symbols-outlined alert-demo-icon">campaign</span>
+            {/snippet}
+            {#snippet children()}
+                <strong class="alert-demo-title">{placeholders.alerts.accent_title}</strong>
+                <p class="alert-demo-body">{placeholders.alerts.accent}</p>
+            {/snippet}
+        </Alert>
+    {/key}
+{/if}
 
 {#if t_error > 0}
     {#key t_error}
@@ -253,7 +275,7 @@
 <ControlBar palette="tone">
     <Selector
         label="Variant"
-        options={["neutral", "info", "success", "warning", "error"]}
+        options={["accent", "neutral", "info", "success", "warning", "error"]}
         bind:value={demo_variant}
     />
     <Selector
@@ -268,12 +290,12 @@
     />
     <Selector
         label="Rounded"
-        options={bool_opts}
+        options={[true, false]}
         bind:value={demo_rounded}
     />
     <Selector
         label="Dismissable"
-        options={bool_opts}
+        options={[true, false]}
         bind:value={demo_dismissable}
     />
 </ControlBar>
@@ -320,6 +342,12 @@
 <!-- Trigger grid ───────────────────────────────────────────────────────── -->
 
 <div class="alert-trigger-grid">
+    <button class="trigger-btn trigger-accent" onclick={() => t_accent++}>
+        <span class="material-symbols-outlined">campaign</span>
+        <span class="trigger-label">Accent</span>
+        <span class="trigger-meta">top-left · top · 4s</span>
+    </button>
+
     <button class="trigger-btn trigger-error" onclick={() => t_error++}>
         <span class="material-symbols-outlined">error</span>
         <span class="trigger-label">Error</span>
@@ -381,7 +409,7 @@
         { key: "default", label: "Default", cell: codeCell, width: "10%" },
     ]}
     rows={[
-        { prop: "palette", type: '"neutral" | "info" | "success" | "warning" | "error"', default: '"info"' },
+        { prop: "palette", type: '"accent" | "neutral" | "info" | "success" | "warning" | "error"', default: '"accent"' },
         { prop: "position", type: '"top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right"', default: '"bottom-right"' },
         { prop: "rounded", type: "boolean", default: "false" },
         { prop: "animate", type: '"top" | "bottom" | "left" | "right" | false', default: "false" },
@@ -435,6 +463,12 @@
 
     .trigger-btn:hover { 
         transform: translateY(-2px); 
+    }
+
+    .trigger-accent {
+        background: var(--spk-accent-bg);
+        color: var(--spk-accent-muted);
+        border-left: 3px solid var(--spk-accent-muted);
     }
 
     .trigger-info {
@@ -500,6 +534,7 @@
 
     .alert-mock-rounded { border-radius: var(--spk-radius-soft); }
 
+    .alert-mock-accent { --al-color: var(--spk-accent-muted); --al-bg: var(--spk-accent-bg); }
     .alert-mock-neutral { --al-color: var(--spk-neutral); --al-bg: var(--spk-neutral-bg); }
     .alert-mock-info { --al-color: var(--spk-info); --al-bg: var(--spk-info-bg); }
     .alert-mock-success { --al-color: var(--spk-success); --al-bg: var(--spk-success-bg); }

@@ -52,12 +52,14 @@ export const placeholders = {
             label5: "Contact"
         },
         alerts: {
+            accent: "Le Concorde a relié Paris à New York en 3h30, à plus de deux fois la vitesse du son.",
             success: "La catalogue de la COGIP est bien arrivé dans votre boîte aux lettres",
             info: "Mettre un turboréacteur sur un train n'est pas économique",
             warning_pre: "Votre session expire bientôt.",
             warning_link: "Renouvelez votre abonnement Minitel maintenant",
             error: "Échec du lancement de la fusée Ariane",
             neutral: "Ce message n'implique aucune action obligatoire de votre part.",
+            accent_title: "Nouveauté",
             warning_title: "Avertissement",
             neutral_title: "Note",
             info_title: "Info",
@@ -689,12 +691,14 @@ export const placeholders = {
             label5: "Contact"
         },
         alerts: {
+            accent: "The Concorde flew Paris to New York in 3h30, at over twice the speed of sound.",
             success: "The COGIP catalogue has been delivered to your mailbox",
             info: "Putting a turbojet engine on a train is not economical",
             warning_pre: "Your session will expire soon.",
             warning_link: "Renew your Minitel subscription now",
             error: "Failure to launch the Ariane rocket",
             neutral: "This message does not require any action on your part.",
+            accent_title: "New",
             warning_title: "Warning",
             neutral_title: "Note",
             info_title: "Info",

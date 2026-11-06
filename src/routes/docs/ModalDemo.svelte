@@ -135,7 +135,7 @@
     />
     <Selector 
         label="Palette"
-        options={["tone", "accent"]}
+        options={["tone", "accent", "accentbg"]}
         bind:value={demo_palette}
         />
     <Selector 
