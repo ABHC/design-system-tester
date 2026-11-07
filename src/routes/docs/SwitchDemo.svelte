@@ -19,7 +19,7 @@
 
     // ── Demo controls ───────────────────────────────────────────────────────
 
-    type Palette = "accent" | "tone" | "error" | "warning" | "success" | "info";
+    type Palette = "accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info";
     type Size = "sm" | "md" | "lg";
     type Bg = "tone-bg" | "tone" | "accent" | "accent-bg";
 
@@ -99,8 +99,8 @@
 />`;
 
     const code_palettes = `<script lang="ts">
-    type Palette = "accent" | "tone" | "error" | "warning" | "success" | "info";
-    const palettes: Palette[] = ["accent", "tone", "error", "warning", "success", "info"];
+    type Palette = "accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info";
+    const palettes: Palette[] = ["accent", "tone", "neutral", "error", "warning", "success", "info"];
 <\/script>
 
 <!-- palette reference — ON / OFF disabled -->
@@ -302,11 +302,11 @@
             {#each ([
                 "accent",
                 "tone",
+                "neutral",
                 "error",
                 "warning",
                 "success",
-                "info",
-                "neutral"
+                "info"
             ] as const) as pal}
                 <div class="palette-row-item">
                     <Switch

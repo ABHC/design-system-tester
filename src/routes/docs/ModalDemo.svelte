@@ -26,7 +26,7 @@
 
     // ── Demo state ──────────────────────────────────────────────────────────
 
-    type Palette = "tone" | "accent";
+    type Palette = "accent" | "tone" | "accentbg";
     type Preset  = "confirm" | "announce" | "profile" | "terms";
 
     let demo_palette: Palette = $state("tone");
@@ -135,7 +135,7 @@
     />
     <Selector 
         label="Palette"
-        options={["tone", "accent", "accentbg"]}
+        options={["accent", "tone", "accentbg"]}
         bind:value={demo_palette}
         />
     <Selector 
@@ -337,7 +337,7 @@
     rows={[
         { prop: "open", type: "boolean", default: "false" },
         { prop: "onclose", type: "() => void", default: "undefined" },
-        { prop: "palette", type: '"tone" | "accent" | "accentbg"', default: '"tone"' },
+        { prop: "palette", type: '"accent" | "tone" | "accentbg"', default: '"tone"' },
         { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
         { prop: "rounded", type: "boolean", default: "false" },
         { prop: "width", type: "string", default: '"480px"' },

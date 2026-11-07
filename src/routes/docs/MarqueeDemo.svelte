@@ -118,7 +118,7 @@
     />
     <Selector
         label="Palette"
-        options={["tone", "accent", "neutral", "error", "warning", "success", "info"]}
+        options={["accent", "tone", "neutral", "error", "warning", "success", "info"]}
         bind:value={demo_palette}
     />
     <Selector

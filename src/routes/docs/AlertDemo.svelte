@@ -20,7 +20,7 @@
     let { trans, placeholders }: Props = $props();
 
     // Interactive demo state
-    type Variant  = "accent" | "neutral" | "info" | "success" | "warning" | "error";
+    type Variant  = "accent" | "neutral" | "error" | "warning" | "success" | "info";
     type Position = "top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right";
     type Animate  = "none" | "top" | "bottom" | "left" | "right";
 
@@ -275,7 +275,7 @@
 <ControlBar palette="tone">
     <Selector
         label="Variant"
-        options={["accent", "neutral", "info", "success", "warning", "error"]}
+        options={["accent", "neutral", "error", "warning", "success", "info"]}
         bind:value={demo_variant}
     />
     <Selector
@@ -409,7 +409,7 @@
         { key: "default", label: "Default", cell: codeCell, width: "10%" },
     ]}
     rows={[
-        { prop: "palette", type: '"accent" | "neutral" | "info" | "success" | "warning" | "error"', default: '"accent"' },
+        { prop: "palette", type: '"accent" | "neutral" | "error" | "warning" | "success" | "info"', default: '"accent"' },
         { prop: "position", type: '"top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right"', default: '"bottom-right"' },
         { prop: "rounded", type: "boolean", default: "false" },
         { prop: "animate", type: '"top" | "bottom" | "left" | "right" | false', default: "false" },

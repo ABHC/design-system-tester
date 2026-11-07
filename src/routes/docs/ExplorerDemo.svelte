@@ -99,7 +99,7 @@
 <ControlBar palette="tone">
     <Selector
         label="Palette"
-        options={["tone", "accent"]}
+        options={["accent", "tone"]}
         bind:value={demo_palette}
     />
     <Selector

@@ -23,7 +23,7 @@
 
     // ── Demo controls ────────────────────────────────────────────────────
 
-    type Palette = "tone" | "accent" | "accentbg";
+    type Palette = "accent" | "tone" | "accentbg";
     type Elevation = "none" | "subtle" | "hard";
 
     let demo_palette: Palette = $state("tone");
@@ -161,7 +161,7 @@
 <ControlBar palette="tone">
     <Selector
         label="Palette"
-        options={["tone", "accent", "accentbg"]}
+        options={["accent", "tone", "accentbg"]}
         bind:value={demo_palette}
     />
     <Selector
@@ -361,7 +361,7 @@
         { prop: "onclose", type: "() => void", default: "\u2014" },
         { prop: "item", type: "Snippet<[CommandItem]>", default: "\u2014" },
         { prop: "empty", type: "Snippet", default: "\u2014" },
-        { prop: "palette", type: '"tone" | "accent" | "accentbg"', default: '"tone"' },
+        { prop: "palette", type: '"accent" | "tone" | "accentbg"', default: '"tone"' },
         { prop: "rounded", type: "boolean", default: "false" },
         { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
         { prop: "width", type: "string", default: '"560px"' },

@@ -23,7 +23,7 @@
 
     type Direction = "top" | "bottom" | "left" | "right";
     type Align = "start" | "center" | "end";
-    type Palette = "tone" | "accent" | "accentbg";
+    type Palette = "accent" | "tone" | "accentbg";
     type Elevation = "none" | "subtle" | "hard";
     type Size = "sm" | "md" | "lg";
 
@@ -121,7 +121,7 @@
     />
     <Selector
         label="Palette"
-        options={["tone", "accent", "accentbg"]}
+        options={["accent", "tone", "accentbg"]}
         bind:value={demo_palette}
     />
     <Selector
@@ -307,7 +307,7 @@
         { prop: "max_width", type: "string", default: '"320px"' },
         { prop: "show_delay", type: "number", default: "120" },
         { prop: "hide_delay", type: "number", default: "80" },
-        { prop: "palette", type: '"tone" | "accent" | "accentbg"', default: '"tone"' },
+        { prop: "palette", type: '"accent" | "tone" | "accentbg"', default: '"tone"' },
         { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"' },
         { prop: "rounded", type: "boolean", default: "false" },
         { prop: "bordered", type: "boolean", default: "false" },

@@ -23,7 +23,7 @@
     // ── Demo controls ────────────────────────────────────────────────────
 
     type Size = "sm" | "md" | "lg";
-    type Palette = "tone" | "accent" | "accentbg";
+    type Palette = "accent" | "tone" | "accentbg";
 
     let demo_size: Size = $state("md");
     let demo_palette: Palette = $state("tone");
@@ -78,7 +78,7 @@
     />
     <Selector
         label="Palette"
-        options={["tone", "accent", "accentbg"]}
+        options={["accent", "tone", "accentbg"]}
         bind:value={demo_palette}
     />
     <Selector
@@ -174,7 +174,7 @@
         { prop: "naked", type: "boolean", default: "false" },
         { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"' },
         { prop: "rounded", type: "boolean", default: "false" },
-        { prop: "palette", type: '"tone" | "accent" | "accentbg"', default: '"tone"' },
+        { prop: "palette", type: '"accent" | "tone" | "accentbg"', default: '"tone"' },
     ]}
 />
 

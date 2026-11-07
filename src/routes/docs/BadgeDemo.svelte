@@ -400,7 +400,7 @@
         { prop: "selected", type: "string[]", default: "[]" },
         { prop: "multiple", type: "boolean", default: "true" },
         { prop: "variant", type: '"flat" | "outlined"', default: '"flat"' },
-        { prop: "palette", type: '"accent" | "tone" | "error" | "warning" | "success" | "info" | "neutral"', default: '"accent"' },
+        { prop: "palette", type: '"accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info"', default: '"accent"' },
         { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"' },
         { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
         { prop: "pill", type: "boolean", default: "false" },

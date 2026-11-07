@@ -23,7 +23,7 @@
     // ── Demo controls ────────────────────────────────────────────────────
 
     type Size = "sm" | "md" | "lg";
-    type Palette = "tone" | "accent" | "accentbg";
+    type Palette = "accent" | "tone" | "accentbg";
     type Elevation = "none" | "subtle" | "hard";
 
     let demo_size: Size = $state("md");
@@ -125,7 +125,7 @@
     />
     <Selector
         label="Palette"
-        options={["tone", "accent", "accentbg"]}
+        options={["accent", "tone", "accentbg"]}
         bind:value={demo_palette}
     />
     <Selector
@@ -429,7 +429,7 @@
         { prop: "onchange", type: "(value: T) => void", default: "\u2014" },
         { prop: "leading", type: "Snippet", default: "\u2014" },
         { prop: "trailing", type: "Snippet", default: "\u2014" },
-        { prop: "palette", type: '"tone" | "accent" | "accentbg"', default: '"tone"' },
+        { prop: "palette", type: '"accent" | "tone" | "accentbg"', default: '"tone"' },
         { prop: "rounded", type: "boolean", default: "false" },
         { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
         { prop: "direction", type: '"bottom" | "top" | "left" | "right"', default: '"bottom"' },

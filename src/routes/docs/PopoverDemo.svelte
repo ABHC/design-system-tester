@@ -25,7 +25,7 @@
 
     type Direction = "top" | "bottom" | "left" | "right";
     type Align = "start" | "center" | "end";
-    type Palette = "tone" | "accent" | "accentbg";
+    type Palette = "accent" | "tone" | "accentbg";
     type Elevation = "none" | "subtle" | "hard";
 
     let demo_direction: Direction = $state("bottom");
@@ -142,7 +142,7 @@
     />
     <Selector
         label="Palette"
-        options={["tone", "accent", "accentbg"]}
+        options={["accent", "tone", "accentbg"]}
         bind:value={demo_palette}
     />
     <Selector
@@ -331,7 +331,7 @@
         { prop: "max_height", type: "string", default: '"320px"' },
         { prop: "width", type: "string", default: "\u2014" },
         { prop: "match_width", type: "boolean", default: "false" },
-        { prop: "palette", type: '"tone" | "accent" | "accentbg"', default: '"tone"' },
+        { prop: "palette", type: '"accent" | "tone" | "accentbg"', default: '"tone"' },
         { prop: "rounded", type: "boolean", default: "false" },
         { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
         { prop: "trigger", type: "Snippet", default: "\u2014" },

@@ -23,7 +23,7 @@
     // ── Demo state ──────────────────────────────────────────────────────────
 
     type Layout = "single" | "two-cols" | "two-rows" | "main-left" | "main-right" | "grid-2x2";
-    type Palette = "transparent" | "tone" | "accent" | "accentbg";
+    type Palette = "transparent" | "accent" | "tone" | "accentbg";
     type Effect = "none" | "glow" | "blur" | "fade";
     type Mask = "none" | "ellipse" | "fade";
     type MaskDirection = "top" | "bottom" | "left" | "right";
@@ -131,7 +131,7 @@
     />
     <Selector
         label="Palette"
-        options={["transparent", "tone", "accent", "accentbg"]}
+        options={["transparent", "accent", "tone", "accentbg"]}
         bind:value={demo_palette}
     />
     <Selector
@@ -282,7 +282,7 @@
         ]}
         rows={[
             { prop: "layout", type: '"single" | "two-cols" | "two-rows" | "main-left" | "main-right" | "grid-2x2"', default: '"single"' },
-            { prop: "palette", type: '"transparent" | "tone" | "accent" | "accentbg"', default: '"transparent"' },
+            { prop: "palette", type: '"transparent" | "accent" | "tone" | "accentbg"', default: '"transparent"' },
             { prop: "pattern", type: '"none" | "grid" | "scallops" | "lozenge" | "sunburst" | "sunrise" | "atoms" | "waves" | "diamonds" | "shippo" | "kumi_kikko"', default: '"none"' },
             { prop: "pattern_color", type: "string", default: '"white"' },
             { prop: "pattern_opacity", type: "number", default: "0.6" },

@@ -282,7 +282,7 @@ let header_visible = $state(true);
 <!-- Controls ─────────────────────────────────────────────────────────── -->
 
 <ControlBar palette="tone">
-    <Selector label="Palette" options={["tone", "accent"]} bind:value={demo_palette} />
+    <Selector label="Palette" options={["accent", "tone"]} bind:value={demo_palette} />
     <Selector label="Rounded" options={[{value: true, label: "yes"}, {value: false, label: "no"}]} bind:value={demo_rounded} />
     <Selector label="Preset"  options={["editorial", "app", "mixed"]} bind:value={demo_preset} />
 </ControlBar>

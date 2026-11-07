@@ -104,7 +104,7 @@
 <ControlBar palette="tone">
     <Selector
         label="Variant"
-        options={["accent", "neutral", "info", "success", "warning", "error"]}
+        options={["accent", "neutral", "error", "warning", "success", "info"]}
         bind:value={demo_variant}
     />
     <Selector

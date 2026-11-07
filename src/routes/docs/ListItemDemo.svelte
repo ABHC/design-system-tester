@@ -23,7 +23,7 @@
     // ── Demo state ─────────────────────────────────────────────────────────
 
     type Variant = "flat" | "outlined" | "ghost" | "ambient";
-    type Palette = "tone" | "accent" | "neutral" | "error" | "warning" | "success" | "info";
+    type Palette = "accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info";
     type Size = "sm" | "md" | "lg";
     type Elevation = "none" | "subtle" | "hard";
     type Bg = "tone-bg" | "tone" | "accent";
@@ -163,7 +163,7 @@
     />
     <Selector
         label="Palette"
-        options={["tone", "accent", "neutral", "error", "warning", "success", "info"]}
+        options={["accent", "tone", "neutral", "error", "warning", "success", "info"]}
         bind:value={demo_palette}
     />
     <Selector
@@ -263,7 +263,7 @@
     rows={[
         { prop: "variant", type: '"flat" | "outlined" | "ghost" | "ambient"', default: '"flat"' },
         { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"' },
-        { prop: "palette", type: '"tone" | "accent" | "neutral" | "error" | "warning" | "success" | "info"', default: '"tone"' },
+        { prop: "palette", type: '"accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info"', default: '"tone"' },
         { prop: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
         { prop: "rounded", type: "boolean", default: "false" },
         { prop: "active", type: "boolean", default: "false" },
