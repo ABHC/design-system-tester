@@ -1,4 +1,4 @@
-import type { FontConfig } from '$lib/types/fonts';
+import type { FontConfig } from '#lib/types/fonts.js';
 
 /**
  * Generate Google Fonts URL from font configurations

@@ -1,8 +1,8 @@
 <script lang="ts">
-    import type { ToneTheme } from "$lib/types/palettes";
+    import type { ToneTheme } from "#lib/types/palettes.js";
     import { SwatchRow } from '@abhc/spektral-ui';
     import type { Swatch } from '@abhc/spektral-ui';
-    import { blendColor } from '$lib/utils/contrast';
+    import { blendColor } from '#lib/utils/contrast.js';
 
     const SEMANTIC_NAMES = ['accent', 'error', 'warning', 'success', 'info', 'neutral'] as const;
     const TONE_SUBTLE_ALPHA = 0.08;

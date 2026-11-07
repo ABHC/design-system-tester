@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { Translation } from "$lib/types/translations";
+    import type { Translation } from "#lib/types/translations.js";
     import type { PlaceholdersType } from "../placeholders";
     import type { Swatch } from '@abhc/spektral-ui';
     import {

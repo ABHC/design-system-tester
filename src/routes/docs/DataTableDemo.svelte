@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { Translation } from "$lib/types/translations";
+    import type { Translation } from "#lib/types/translations.js";
     import type { PlaceholdersType } from "../placeholders";
     import { 
         DataTable, 
@@ -91,7 +91,7 @@
 />`;
 
     const code_cols = `
-        import { DataTable } from "@spektral/ui";
+        import { DataTable } from "@abhc/spektral-ui";
 
         const columns = [
                 { key: "id",     label: "ID",     width: "80px" },

@@ -1,10 +1,10 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import '$lib/theme/tokens.css';
-    import fontsData from '$lib/data/fonts.json';
-    import { preconnectGoogleFonts } from '$lib/utils/fontLoader';
-    import favicon from '$lib/assets/spektral_logo.svg';
-    import BrandABHC from '$lib/brand/BrandABHC.svelte';
+    import '#lib/theme/tokens.css';
+    import fontsData from '#lib/data/fonts.json';
+    import { preconnectGoogleFonts } from '#lib/utils/fontLoader.js';
+    import favicon from '#lib/assets/spektral_logo.svg';
+    import BrandABHC from '#lib/brand/BrandABHC.svelte';
     import StylePopover from './StylePopover.svelte';
     import LangPopover from './LangPopover.svelte';
     import ThemeDrawer from './ThemeDrawer.svelte';
@@ -40,10 +40,10 @@
         drawer_docs_open,
     } from './store';
 
-    import { tokenValues } from '$lib/theme/tokenSchema';
+    import { tokenValues } from '#lib/theme/tokenSchema.js';
 
     import { translations } from './translations';
-    import type { Locale } from "$lib/types/translations";
+    import type { Locale } from "#lib/types/translations.js";
     import type { Snippet } from 'svelte';
     import { page } from '$app/state';
 

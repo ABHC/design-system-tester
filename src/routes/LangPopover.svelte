@@ -1,7 +1,7 @@
 <script lang="ts">
     import { locale, trans } from './store';
     import { translations } from './translations';
-    import type { Locale } from "$lib/types/translations";
+    import type { Locale } from "#lib/types/translations.js";
     import { 
         Popover, 
         Button 

@@ -1,12 +1,12 @@
 import { get } from 'svelte/store';
-import palettes from '$lib/data/palettes.json';
+import palettes from '#lib/data/palettes.json';
 import type {
     ToneTheme,
     AccentTheme,
     ContextualColors,
     TextTheme,
-} from '$lib/types/palettes';
-import type { FontConfig } from '$lib/types/fonts';
+} from '#lib/types/palettes.js';
+import type { FontConfig } from '#lib/types/fonts.js';
 import {
     tone_index_dark,
     tone_index_light,

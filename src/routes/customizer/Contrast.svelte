@@ -1,19 +1,19 @@
 <script lang="ts">
-    import type { Translation } from "$lib/types/translations";
+    import type { Translation } from "#lib/types/translations.js";
     import type {
         AccentTheme,
         ToneTheme,
         ContextualColors,
         TextTheme
-    } from "$lib/types/palettes";
+    } from "#lib/types/palettes.js";
     import {
         getContrastRatio,
         getWcagLevel,
         getLuminance,
         hexToOklch,
         oklchToHex,
-    } from "$lib/utils/contrast";
-    import { tokenValues, deriveSemanticTokens } from '$lib/theme/tokenSchema';
+    } from "#lib/utils/contrast.js";
+    import { tokenValues, deriveSemanticTokens } from '#lib/theme/tokenSchema.js';
     import Rules from './Rules.svelte';
     import type { ContrastRule, RuleGroup } from './Rules.svelte';
     const SEMANTIC_NAMES = ['accent', 'error', 'warning', 'success', 'info', 'neutral'] as const;

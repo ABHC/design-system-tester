@@ -2,11 +2,11 @@
 import { derived, writable, type Writable, get } from 'svelte/store';
 import { browser } from '$app/env';
 import { translations, available_locales } from './translations';
-import type { Locale, Translation } from "$lib/types/translations";
-import palettes   from '$lib/data/palettes.json';
-import fonts_data from '$lib/data/fonts.json';
-import type { AccentTheme, ToneTheme, ContextualColors, TextTheme, CustomTone, CustomAccent, CustomCtx, CustomText, CustomSlots } from '$lib/types/palettes';
-import type { FontConfig } from '$lib/types/fonts';
+import type { Locale, Translation } from "#lib/types/translations.js";
+import palettes   from '#lib/data/palettes.json';
+import fonts_data from '#lib/data/fonts.json';
+import type { AccentTheme, ToneTheme, ContextualColors, TextTheme, CustomTone, CustomAccent, CustomCtx, CustomText, CustomSlots } from '#lib/types/palettes.js';
+import type { FontConfig } from '#lib/types/fonts.js';
 
 /* -----------------------------------------
  * Translations Stores

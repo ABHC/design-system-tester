@@ -8,8 +8,6 @@ export default defineConfig({
 	plugins: [
 		sveltekit({
 			preprocess: vitePreprocess(),
-			// kit 3 removed `$lib` in favor of `#lib`; keep the old alias to avoid rewriting every import
-			alias: { $lib: 'src/lib' },
 			adapter: adapter()
 		})
 	],

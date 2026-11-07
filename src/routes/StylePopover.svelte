@@ -28,7 +28,7 @@
         icon_set,
         type IconSet,
     } from './store';
-    import { iconSetOptions, downloadThemeCSS } from '$lib/theme/exportTheme';
+    import { iconSetOptions, downloadThemeCSS } from '#lib/theme/exportTheme.js';
 
     let style_open: boolean = $state(false);
 

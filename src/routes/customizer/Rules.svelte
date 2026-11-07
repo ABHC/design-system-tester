@@ -1,6 +1,6 @@
 <script lang="ts">
-    import type { Translation } from "$lib/types/translations";
-    import { getContrastRatio, getWcagLevel } from "$lib/utils/contrast";
+    import type { Translation } from "#lib/types/translations.js";
+    import { getContrastRatio, getWcagLevel } from "#lib/utils/contrast.js";
     import { Badge } from "@abhc/spektral-ui";
 
     export interface ContrastRule {

@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { PatternPreset } from "@abhc/spektral-ui";
-    import type { Translation } from "$lib/types/translations";
+    import type { Translation } from "#lib/types/translations.js";
     import type { PlaceholdersType } from "../placeholders";
 
     import type {

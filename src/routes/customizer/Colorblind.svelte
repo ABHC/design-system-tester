@@ -1,11 +1,11 @@
 <script lang="ts">
-    import type { AccentTheme, ToneTheme, ContextualColors, TextTheme } from "$lib/types/palettes";
-    import type { Translation } from "$lib/types/translations";
-    import { simulateColorblind, type ColorblindType } from "$lib/utils/colorblind";
-    import { getContrastRatio, getWcagLevel, getLuminance } from "$lib/utils/contrast";
+    import type { AccentTheme, ToneTheme, ContextualColors, TextTheme } from "#lib/types/palettes.js";
+    import type { Translation } from "#lib/types/translations.js";
+    import { simulateColorblind, type ColorblindType } from "#lib/utils/colorblind.js";
+    import { getContrastRatio, getWcagLevel, getLuminance } from "#lib/utils/contrast.js";
 
-    import { deriveSemanticTokens, computeMuted, HOVER_DELTA } from '$lib/theme/tokenSchema';
-    import { hexToOklch, oklchToHex } from '$lib/utils/contrast';
+    import { deriveSemanticTokens, computeMuted, HOVER_DELTA } from '#lib/theme/tokenSchema.js';
+    import { hexToOklch, oklchToHex } from '#lib/utils/contrast.js';
 
     interface PairInfo {
         accent_name: string;

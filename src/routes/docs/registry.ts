@@ -1,5 +1,5 @@
 import type { Component } from "svelte";
-import type { Translation } from "$lib/types/translations";
+import type { Translation } from "#lib/types/translations.js";
 
 import TokensDemo from "./TokensDemo.svelte";
 import ChangelogDemo from "./ChangelogDemo.svelte";

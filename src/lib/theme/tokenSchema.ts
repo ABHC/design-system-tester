@@ -4,7 +4,7 @@ import {
     hexToOklch,
     oklchToHex,
     getContrastRatio,
-} from '$lib/utils/contrast';
+} from '#lib/utils/contrast.js';
 
 function hexToRgbParts(hex: string): [number, number, number] | null {
     const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);

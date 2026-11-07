@@ -1,8 +1,8 @@
 <script lang="ts">
-    import type { Translation } from "$lib/types/translations";
+    import type { Translation } from "#lib/types/translations.js";
     import type { PlaceholdersType } from "../placeholders";
-    import type { ToneTheme, CustomTone } from "$lib/types/palettes";
-    import palettes from "$lib/data/palettes.json";
+    import type { ToneTheme, CustomTone } from "#lib/types/palettes.js";
+    import palettes from "#lib/data/palettes.json";
     import {
         Headline,
         Callout,
@@ -20,7 +20,7 @@
         custom_tone_light,
         shadow_opacity,
     } from "../store";
-    import { tokenValues } from "$lib/theme/tokenSchema";
+    import { tokenValues } from "#lib/theme/tokenSchema.js";
 
     interface Props {
         trans: Translation | null;

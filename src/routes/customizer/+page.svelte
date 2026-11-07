@@ -1,15 +1,15 @@
 <script lang="ts">
-    import type { ToneTheme } from "$lib/types/palettes";
-    import type { CustomSlots, CustomTone, CustomAccent, CustomCtx, CustomText } from "$lib/types/palettes";
-    import palettes from "$lib/data/palettes.json";
-    import { getLuminance } from "$lib/utils/contrast";
+    import type { ToneTheme } from "#lib/types/palettes.js";
+    import type { CustomSlots, CustomTone, CustomAccent, CustomCtx, CustomText } from "#lib/types/palettes.js";
+    import palettes from "#lib/data/palettes.json";
+    import { getLuminance } from "#lib/utils/contrast.js";
     import { get } from 'svelte/store';
 
     import Contrast from "./Contrast.svelte";
     import Colorblind from './Colorblind.svelte';
     import ThemeSwatches from './ThemeSwatches.svelte';
     import { Headline, Button, Switch, ColorPicker, SwatchRow } from "@abhc/spektral-ui";
-    import { tokenValues, deriveSemanticTokens, computeMuted } from '$lib/theme/tokenSchema';
+    import { tokenValues, deriveSemanticTokens, computeMuted } from '#lib/theme/tokenSchema.js';
     import type { Swatch } from '@abhc/spektral-ui';
 
     import {

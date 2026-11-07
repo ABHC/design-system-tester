@@ -1,4 +1,4 @@
-import type { AccentTheme, ToneTheme } from "$lib/types/palettes";
+import type { AccentTheme, ToneTheme } from "#lib/types/palettes.js";
 
 export type ColorblindType = 'protan' | 'deutan' | 'tritan';
 

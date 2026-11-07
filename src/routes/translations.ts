@@ -1,4 +1,4 @@
-import type { Locale } from "$lib/types/translations";
+import type { Locale } from "#lib/types/translations.js";
 
 export const translations = {
     fr: {
