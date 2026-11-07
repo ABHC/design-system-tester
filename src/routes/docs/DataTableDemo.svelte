@@ -21,7 +21,7 @@
     // -- Demo state -----------------------------------------------------------
 
     type Variant = "flat" | "outlined" | "ghost";
-    type Palette = "accent" | "tone" | "neutral";
+    type Palette = "accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info";
     type Size = "sm" | "md" | "lg";
     type Elevation = "none" | "subtle" | "hard";
 
@@ -43,7 +43,7 @@
 
     const sample_rows = [
         { name: "variant", type: '"flat" | "outlined" | "ghost"', default: '"flat"' },
-        { name: "palette", type: '"accent" | "tone" | "neutral"', default: '"tone"' },
+        { name: "palette", type: '"accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info"', default: '"tone"' },
         { name: "size", type: '"sm" | "md" | "lg"', default: '"md"' },
         { name: "elevation", type: '"none" | "subtle" | "hard"', default: '"none"' },
         { name: "rounded", type: "boolean", default: "false" },
@@ -133,7 +133,7 @@
     />
     <Selector
         label="Palette"
-        options={["tone", "accent", "neutral"]}
+        options={["accent", "tone", "neutral", "error", "warning", "success", "info"]}
         bind:value={demo_palette}
     />
     <Selector
@@ -220,7 +220,7 @@
         { key: "type", label: "Type", cell: codeCell },
         { key: "default", label: "Default", cell: codeCell, width:"10%" },
     ]}
-    rows={sample_rows}
+    rows={[sample_rows]}
 />
 
 <h4 class="api-subtitle">Column</h4>

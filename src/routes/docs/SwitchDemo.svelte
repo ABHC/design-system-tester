@@ -21,16 +21,11 @@
 
     type Palette = "accent" | "tone" | "error" | "warning" | "success" | "info";
     type Size = "sm" | "md" | "lg";
-    type Bg = "bg" | "card" | "accent";
+    type Bg = "tone-bg" | "tone" | "accent" | "accent-bg";
 
     let demo_size: Size = $state("md");
     let demo_circle: boolean  = $state(true);
-    let demo_bg: Bg = $state("bg");
-
-    const bool_opts = [
-        { value: true, label: "true"  },
-        { value: false, label: "false" },
-    ] as const;
+    let demo_bg: Bg = $state("tone-bg");
 
     // ── Switch states ───────────────────────────────────────────────────────
 
@@ -41,8 +36,6 @@
     let status_bluetooth: boolean = $state(true);
     let status_dnd: boolean = $state(true);
     let status_eco: boolean = $state(true);
-
-    const all_palettes: Palette[] = ["accent", "tone", "error", "warning", "success", "info"];
 
     // ── Code examples ───────────────────────────────────────────────────────
 
@@ -189,12 +182,12 @@
     />
     <Selector
         label={trans?.switch_demo?.lbl_circle ?? "Circle"}
-        options={bool_opts}
+        options={[true, false]}
         bind:value={demo_circle}
     />
     <Selector
         label="Background"
-        options={["bg", "card", "accent"]}
+        options={["tone-bg", "tone", "accent", "accent-bg"]}
         bind:value={demo_bg}
     />
 </ControlBar>
@@ -202,8 +195,7 @@
 <!-- Live preview -->
 
 <div
-    class="switch-preview"
-    style="background: var(--{demo_bg});"
+    class="switch-preview preview-bg-{demo_bg}"
 >
     <div class="switch-columns">
 
@@ -449,5 +441,25 @@
         font-weight: 600;
         color: var(--spk-text-muted);
         margin-left: 0.25rem;
+    }
+
+    .preview-bg-tone-bg {
+        background: var(--spk-tone-bg);
+        color: var(--spk-text);
+    }
+
+    .preview-bg-tone {
+        background: var(--spk-tone);
+        color: var(--spk-text);
+    }
+
+    .preview-bg-accent {
+        background: var(--spk-accent);
+        color: var(--spk-text-accent);
+    }
+
+    .preview-bg-accent-bg {
+        background: var(--spk-accent-bg);
+        color: var(--spk-text);
     }
 </style>

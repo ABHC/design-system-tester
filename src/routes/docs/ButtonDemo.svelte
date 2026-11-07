@@ -24,6 +24,7 @@
     // Demo state ──────────────────────────────────────────────────────────
 
     type Variant = "flat" | "outlined" | "ghost" | "naked";
+    type Palette = "accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info";
     type Size = "sm" | "md" | "lg";
     type Elevation = "none" | "subtle" | "hard";
     type Animate = "none" | "left" | "right" | "top" | "bottom";
@@ -31,6 +32,7 @@
     type Direction = "row" | "column";
 
     let demo_variant: Variant = $state("flat");
+    let demo_palette: Palette = $state("accent");
     let demo_size: Size = $state("md");
     let demo_elevation: Elevation = $state("none");
     let demo_raised: boolean = $state(false);
@@ -49,6 +51,21 @@
 
     // Animate prop — undefined when "none"
     const animate_prop = $derived(demo_animate === "none" ? undefined : demo_animate);
+
+    // Palette → label/icon lookup, driven by the demo_palette selector
+    type PaletteItem = { pal: Palette; label: string; icon?: string };
+
+    const palette_items: PaletteItem[] = $derived([
+        { pal: "accent", label: placeholders.buttons.accent },
+        { pal: "tone", label: placeholders.buttons.tone },
+        { pal: "neutral", label: placeholders.buttons.neutral, icon: "sticky_note_2" },
+        { pal: "error", label: placeholders.buttons.delete, icon: "delete" },
+        { pal: "warning", label: placeholders.buttons.warning, icon: "warning" },
+        { pal: "success", label: placeholders.buttons.confirm, icon: "check_circle" },
+        { pal: "info", label: placeholders.buttons.info, icon: "info" },
+    ]);
+
+    const selected_item = $derived(palette_items.find((item) => item.pal === demo_palette)!);
 
     // Code examples ───────────────────────────────────────────────────────
 
@@ -152,6 +169,11 @@
         options={["flat", "outlined", "ghost", "naked"]}
         bind:value={demo_variant} 
     />
+    <Selector
+        label="Palette"
+        options={["accent", "tone", "neutral", "error", "warning", "success", "info"]}
+        bind:value={demo_palette}
+    />
     <Selector 
         label="Size"
         options={["sm", "md", "lg"]}
@@ -200,11 +222,10 @@
     class="btn-preview"
     style="background: var(--spk-{demo_bg});"
 >
-    <!-- Accent palette buttons -->
     <div class="btn-group">
         <Button
             variant={demo_variant}
-            palette="accent"
+            palette={selected_item.pal}
             size={demo_size}
             elevation={demo_elevation}
             elevation_persist={demo_raised}
@@ -212,80 +233,19 @@
             direction={demo_direction}
             uppercase={demo_uppercase}
             animate={animate_prop}
-            active={active_id === "accent"}
-            onclick={() => active_id = "accent"}
+            active={active_id === selected_item.pal}
+            onclick={() => 
+                active_id = active_id === selected_item.pal ? 
+                undefined : selected_item.pal
+            }
         >
-            {placeholders.buttons.accent}
-        </Button>
-    </div>
-
-    <!-- Tone palette buttons -->
-    <div class="btn-group">
-        <Button
-            variant={demo_variant}
-            palette="tone"
-            size={demo_size}
-            elevation={demo_elevation}
-            elevation_persist={demo_raised}
-            rounded={demo_rounded}
-            direction={demo_direction}
-            uppercase={demo_uppercase}
-            animate={animate_prop}
-            active={active_id === "tone"}
-            onclick={() => active_id = "tone"}
-        >
-            {placeholders.buttons.tone}
-        </Button>
-    </div>
-
-    <!-- Connaked palette buttons -->
-    <div class="btn-group">
-        {#each ([
-            { 
-                pal: "error",   
-                label: placeholders.buttons.delete,  
-                icon: "delete" 
-            },
-            { 
-                pal: "warning", 
-                label: placeholders.buttons.warning, 
-                icon: "warning" 
-            },
-            { 
-                pal: "success", 
-                label: placeholders.buttons.confirm, 
-                icon: "check_circle" 
-            },
-            { 
-                pal: "info",    
-                label: placeholders.buttons.info, 
-                icon: "info" 
-            },
-            { 
-                pal: "neutral",    
-                label: placeholders.buttons.neutral, 
-                icon: "sticky_note_2" 
-            },
-        ] as const) as item}
-            <Button
-                variant={demo_variant}
-                palette={item.pal}
-                size={demo_size}
-                elevation={demo_elevation}
-                elevation_persist={demo_raised}
-                rounded={demo_rounded}
-                direction={demo_direction}
-                uppercase={demo_uppercase}
-                animate={animate_prop}
-                active={active_id === item.pal}
-                onclick={() => active_id = item.pal}
-            >
+            {#if selected_item.icon}
                 <span class="material-symbols-outlined item-demo">
-                    {item.icon}
+                    {selected_item.icon}
                 </span>
-                {item.label}
-            </Button>
-        {/each}
+            {/if}
+            {selected_item.label}
+        </Button>
     </div>
 </div>
 

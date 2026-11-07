@@ -26,21 +26,19 @@
     // ── Demo state ──────────────────────────────────────────────────────────
 
     type Variant = "flat" | "outlined";
-    type BtnPalette = "accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info";
+    type Palette = "accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info";
     type Size = "sm" | "md" | "lg";
     type Elevation = "none" | "subtle" | "hard";
-    type Bg = "bg" | "card" | "accent";
+    type Bg = "tone-bg" | "tone" | "accent" | "accent-bg";
 
     let demo_variant: Variant = $state("flat");
-    let demo_palette: BtnPalette = $state("accent");
+    let demo_palette: Palette = $state("accent");
     let demo_size: Size = $state("md");
     let demo_pill: boolean = $state(false);
     let demo_uppercase: boolean = $state(false);
     let demo_elevation: Elevation = $state("none");
     let demo_interactive: boolean = $state(false);
-    let demo_bg: Bg = $state("bg");
-
-    const bool_opts = [{ value: true, label: "true" }, { value: false, label: "false" }] as const;
+    let demo_bg: Bg = $state("tone-bg");
 
     // ── Interactive state ────────────────────────────────────────────────────
 
@@ -200,7 +198,7 @@
         options={["flat", "outlined"]} 
         bind:value={demo_variant} 
     />
-        <Selector
+    <Selector
         label={placeholders?.badges?.palette}
         options={["accent", "tone", "neutral", "error", "warning", "success", "info"] as const}
         bind:value={demo_palette}
@@ -212,12 +210,12 @@
     />
     <Selector 
         label="Pill" 
-        options={bool_opts} 
+        options={[true, false]}
         bind:value={demo_pill}
     />
     <Selector 
         label="Uppercase" 
-        options={bool_opts} 
+        options={[true, false]}
         bind:value={demo_uppercase} 
     />
     <Selector 
@@ -227,22 +225,19 @@
     />
     <Selector 
         label="href or onclick ?" 
-        options={bool_opts} 
+        options={[true, false]}
         bind:value={demo_interactive} 
     />
     <Selector 
         label="Background" 
-        options={["bg", "card", "accent"]} 
+        options={["tone-bg", "tone", "accent", "accent-bg"]} 
         bind:value={demo_bg} 
     />
 </ControlBar>
 
 <!-- Live preview -->
 
-<div
-    class="badge-preview"
-    style="background: var(--{demo_bg});"
->
+<div class="badge-preview preview-bg-{demo_bg}">
     <Badge
         variant={demo_variant}
         palette={demo_palette}
@@ -467,5 +462,25 @@
         font-weight: 700;
         margin: 1rem 0 0.5rem;
         color: var(--spk-text-muted);
+    }
+
+    .preview-bg-tone-bg {
+        background: var(--spk-tone-bg);
+        color: var(--spk-text);
+    }
+
+    .preview-bg-tone {
+        background: var(--spk-tone);
+        color: var(--spk-text);
+    }
+
+    .preview-bg-accent {
+        background: var(--spk-accent);
+        color: var(--spk-text-accent);
+    }
+
+    .preview-bg-accent-bg {
+        background: var(--spk-accent-bg);
+        color: var(--spk-text);
     }
 </style>
