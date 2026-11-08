@@ -30,6 +30,8 @@
 
     let demo_direction: Direction = $state("bottom");
     let demo_align: Align = $state("start");
+    let demo_direction_collapsed: Direction | "none" = $state("none");
+    let demo_align_collapsed: Align | "none" = $state("none");
     let demo_palette: Palette = $state("tone");
     let demo_elevation: Elevation = $state("none");
     let demo_rounded: boolean = $state(false);
@@ -87,6 +89,24 @@
     {/snippet}
 </Popover>`;
 
+    const usage_collapsed = `<!-- Opens bottom/end on desktop, flips to top/start below 1024px -->
+<Popover
+    bind:open
+    onclose={() => { open = false; }}
+    direction="bottom"
+    align="end"
+    direction_collapsed="top"
+    align_collapsed="start"
+>
+    {#snippet trigger()}
+        <Button onclick={() => { open = !open; }}>Menu</Button>
+    {/snippet}
+
+    {#snippet children()}
+        <!-- menu content -->
+    {/snippet}
+</Popover>`;
+
     const usage_width = `<!-- Fixed width popover -->
 <Popover
     bind:open
@@ -141,6 +161,16 @@
         bind:value={demo_align}
     />
     <Selector
+        label="Direction collapsed"
+        options={["none", "top", "bottom", "left", "right"]}
+        bind:value={demo_direction_collapsed}
+    />
+    <Selector
+        label="Align collapsed"
+        options={["none", "start", "center", "end"]}
+        bind:value={demo_align_collapsed}
+    />
+    <Selector
         label="Palette"
         options={["accent", "tone", "accentbg"]}
         bind:value={demo_palette}
@@ -165,6 +195,8 @@
             onclose={() => { open_basic = false; }}
             direction={demo_direction}
             align={demo_align}
+            direction_collapsed={demo_direction_collapsed === "none" ? undefined : demo_direction_collapsed}
+            align_collapsed={demo_align_collapsed === "none" ? undefined : demo_align_collapsed}
             palette={demo_palette}
             elevation={demo_elevation}
             rounded={demo_rounded}
@@ -282,6 +314,17 @@
 
 <!-- Code examples -->
 
+<div style="margin-bottom: 1.5rem;">
+    <Callout palette="info">
+        {#snippet leading()}
+            <span class="material-symbols-outlined">responsive_layout</span>
+        {/snippet}
+        {#snippet children()}
+            {trans?.popover_demo?.collapsed_note ?? "direction_collapsed / align_collapsed take over from direction / align below 1024px - resize the window (or DevTools device toolbar) under that width to see the switch."}
+        {/snippet}
+    </Callout>
+</div>
+
 <div data-summary="usage" data-summary-label={trans?.doc.usage ?? "Usage"}>
     <Headline size="sm" uppercase muted>{trans?.doc.usage}</Headline>
 </div>
@@ -292,6 +335,7 @@
     tabs={[
         { label: "basic", code: usage_basic, language: "Svelte" },
         { label: "direction + align", code: usage_direction, language: "Svelte" },
+        { label: "responsive", code: usage_collapsed, language: "Svelte" },
         { label: "custom width", code: usage_width, language: "Svelte" },
         { label: "match_width", code: usage_match, language: "Svelte" },
     ]}
@@ -327,6 +371,8 @@
         { prop: "onclose", type: "() => void", default: "\u2014" },
         { prop: "direction", type: '"top" | "bottom" | "left" | "right"', default: '"bottom"' },
         { prop: "align", type: '"start" | "center" | "end"', default: '"start"' },
+        { prop: "direction_collapsed", type: '"top" | "bottom" | "left" | "right"', default: "—" },
+        { prop: "align_collapsed", type: '"start" | "center" | "end"', default: "—" },
         { prop: "gap", type: "string", default: '"6px"' },
         { prop: "max_height", type: "string", default: '"320px"' },
         { prop: "width", type: "string", default: "\u2014" },

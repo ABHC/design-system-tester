@@ -293,6 +293,7 @@ export const translations = {
         popover_demo: {
             title: "Popover",
             anchor_note: "L'élément d'ancrage (bouton, input…) doit être placé dans le snippet <code>trigger</code>. Le panneau s'ouvre alors relativement à cet élément. <code>direction</code> définit le côté d'ouverture (top, bottom, left, right) et <code>align</code> l'alignement sur l'axe transversal (start, center, end). Le positionnement est en CSS absolu - il ne se recalcule pas au scroll.",
+            collapsed_note: "direction_collapsed / align_collapsed prennent le relais sur direction / align en dessous de 1024px - redimensionnez la fenêtre (ou le mode appareil des DevTools) sous cette largeur pour voir le changement.",
         },
         tooltip_demo: {
             title: "Tooltip",
@@ -695,6 +696,7 @@ export const translations = {
         popover_demo: {
             title: "Popover",
             anchor_note: "The anchor element (button, input…) must be placed inside the <code>trigger</code> snippet. The panel then opens relative to that element. <code>direction</code> sets which side it opens on (top, bottom, left, right) and <code>align</code> controls cross-axis alignment (start, center, end). Positioning is CSS absolute - it does not reposition on scroll.",
+            collapsed_note: "direction_collapsed / align_collapsed take over from direction / align below 1024px - resize the window (or DevTools device toolbar) under that width to see the switch.",
         },
         tooltip_demo: {
             title: "Tooltip",
