@@ -329,7 +329,7 @@
     />
     <Selector
         label="Columns"
-        options={[2, 3, 4]}
+        options={[1, 2, 3, 4, 5, 6]}
         bind:value={demo_columns}
     />
     <Selector
@@ -337,11 +337,13 @@
         options={["4/3", "square", "portrait", "video", "wide", "auto"]}
         bind:value={demo_aspect_ratio}
     />
-    <Selector
-        label="Hero span"
-        options={["half", "full"]}
-        bind:value={demo_hero_span}
-    />
+    {#if demo_columns > 2}
+        <Selector
+            label="Hero span"
+            options={["half", "full"]}
+            bind:value={demo_hero_span}
+        />
+    {/if}
     <Selector
         label="Image"
         options={["background", "preview", "none"]}
@@ -693,7 +695,7 @@
         { key: "default", label: "Default", cell: codeCell, width: "10%" },
     ]}
     rows={[
-        { prop: "columns", type: "2 | 3 | 4", default: "3" },
+        { prop: "columns", type: "1 | 2 | 3 | 4 | 5 | 6", default: "3" },
         { prop: "hero_span", type: '"half" | "full"', default: '"half"' },
         { prop: "gap", type: "string", default: '"1.5rem"' },
         { prop: "image", type: '"background" | "preview"', default: '"background"' },
