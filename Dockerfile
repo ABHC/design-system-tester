@@ -1,5 +1,5 @@
 # Build stage
-FROM node:20-bookworm-slim AS builder
+FROM node:22-bookworm-slim AS builder
 WORKDIR /app
 
 # Required for native Node modules
@@ -24,7 +24,7 @@ RUN npm run build
 
 # -------------------------------------------------
 # Production stage
-FROM node:20-bookworm-slim
+FROM node:22-bookworm-slim
 WORKDIR /app
 
 # dumb-init for signal handling
