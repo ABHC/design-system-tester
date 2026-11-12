@@ -24,6 +24,12 @@
     // release sits at the top with the largest "completed" weight.
     const releases: Release[] = [
         {
+            version: "0.4.0",
+            date: "11/10/2026",
+            message:
+                "TileGrid rewritten as composable TileGrid + Tile (aspect_ratio control, hero sizing); Alert/Callout 'variant' renamed to 'palette', new accent palette as default; ListItem gains a 'variant' prop (flat/outlined/ghost/ambient) decoupled from palette; DataTable gains new palettes; Hero gets a config file, a min-height fix below 640px and a new 'collapsed_reverse' prop; Popover gains 'direction_collapsed' & 'align_collapsed' props (responsive override < 1024px); Avatar/Pill clamp fluid sizing (xl/2xl), 'pill' now defaults to false, 'selected' renamed 'active'; bump Svelte to 5.57.3. BREAKING CHANGES: TileGrid's tiles/image_mode/show_hero_badge/excerpt_length/href_base API replaced by composing <Tile> children directly; Alert/Callout 'variant' prop renamed to 'palette'; Pill/Badge 'pill' now defaults to false (was true); 'selected' prop renamed 'active'.",
+        },
+        {
             version: "0.3.3",
             date: "04/05/2026",
             message: "Avatar: replace 'circular: boolean' with 'shape: \"rounded\" | \"circular\" | \"square\"', add '2xl' size and 'elevation' prop. Progress: expose 'show_value' prop. Breaking change for Avatar consumers.",
